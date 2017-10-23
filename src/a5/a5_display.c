@@ -19,6 +19,8 @@
 #include "allegro/internal/aintern.h"
 #include "allegro/platform/ala5.h"
 
+static ALLEGRO_BITMAP * _a5_screen = NULL;
+
 static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
 {
     BITMAP * bp;
@@ -32,8 +34,11 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
         printf("display 3\n");
         if(_a5_display)
         {
-            printf("display 4\n");
-            return bp;
+            _a5_screen = al_create_bitmap(w, h);
+            if(_a5_screen)
+            {
+                return bp;
+            }
         }
         printf("display 5\n");
         al_destroy_display(_a5_display);
@@ -99,37 +104,50 @@ static ALLEGRO_COLOR a5_get_color(PALETTE palette, int depth, int color)
     return al_map_rgba(r, g, b, a);
 }
 
-ALLEGRO_BITMAP * allegro_get_a5_bitmap(BITMAP * bp)
+void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
 {
-    ALLEGRO_BITMAP * bitmap;
     ALLEGRO_STATE old_state;
     PALETTE palette;
     int depth;
     int i, j;
 
+    depth = bitmap_color_depth(bp);
+    if(depth == 8)
+    {
+        get_palette(palette);
+    }
+    al_store_state(&old_state, ALLEGRO_STATE_TARGET_BITMAP);
+    al_set_target_bitmap(a5bp);
+    al_lock_bitmap(a5bp, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
+    for(i = 0; i < bp->h; i++)
+    {
+        for(j = 0; j < bp->w; j++)
+        {
+            al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, bp->line[i][j]));
+        }
+    }
+    al_unlock_bitmap(a5bp);
+    al_restore_state(&old_state);
+}
+
+ALLEGRO_BITMAP * allegro_get_a5_bitmap(BITMAP * bp)
+{
+    ALLEGRO_BITMAP * bitmap;
+
     bitmap = al_create_bitmap(bp->w, bp->h);
     if(bitmap)
     {
-        depth = bitmap_color_depth(bp);
-        if(depth == 8)
-        {
-            get_palette(palette);
-        }
-        al_store_state(&old_state, ALLEGRO_STATE_TARGET_BITMAP);
-        al_set_target_bitmap(bitmap);
-        al_lock_bitmap(bitmap, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
-        for(i = 0; i < bp->h; i++)
-        {
-            for(j = 0; j < bp->w; j++)
-            {
-                al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, bp->line[i][j]));
-            }
-        }
-        al_unlock_bitmap(bitmap);
-        al_restore_state(&old_state);
+        allegro_render_a5_bitmap(bp, bitmap);
         return bitmap;
     }
     return NULL;
+}
+
+void allegro_render_screen(void)
+{
+    allegro_render_a5_bitmap(screen, _a5_screen);
+    al_draw_bitmap(_a5_screen, 0, 0, 0);
+    al_flip_display();
 }
 
 GFX_DRIVER display_allegro_5 = {
