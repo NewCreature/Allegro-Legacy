@@ -43,10 +43,14 @@ static void a5_sys_get_executable_name(char *output, int size)
 {
     ALLEGRO_PATH * path;
     const char * path_str;
+    bool already_initialized = al_is_system_installed();
     int i;
 
     printf("sys exe 1\n");
-    al_init();
+    if(!already_initialized)
+    {
+        al_init();
+    }
     path = al_get_standard_path(ALLEGRO_EXENAME_PATH);
     if(path)
     {
@@ -54,15 +58,11 @@ static void a5_sys_get_executable_name(char *output, int size)
         strcpy(output, al_path_cstr(path, '/'));
         printf("sys exe 3\n");
         al_destroy_path(path);
-        al_uninstall_system();
-        printf("sys exe 4\n");
-        return;
-        memset(output, 0, size);
-        path_str = al_path_cstr(path, '/');
-        for(i = 0; i < strlen(path_str) && i < size - 1; i++)
+        if(!already_initialized)
         {
-            output[i] = path_str[i];
+            al_uninstall_system();
         }
+        printf("sys exe 4\n");
     }
 }
 
