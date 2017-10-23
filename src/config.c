@@ -775,7 +775,7 @@ AL_CONST char *get_config_string(AL_CONST char *section, AL_CONST char *name, AL
    CONFIG_ENTRY *p;
 
    printf("get config 1\n");
-   init_config(1);
+   init_config(TRUE);
    printf("get config 2\n");
 
    prettify_section_name(section, section_name, sizeof(section_name));
