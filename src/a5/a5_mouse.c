@@ -28,6 +28,7 @@ static void * a5_mouse_thread_proc(ALLEGRO_THREAD * thread, void * data)
 {
     ALLEGRO_EVENT_QUEUE * queue;
     ALLEGRO_EVENT event;
+    ALLEGRO_TIMEOUT timeout;
 
     queue = al_create_event_queue();
     if(!queue)
@@ -38,28 +39,31 @@ static void * a5_mouse_thread_proc(ALLEGRO_THREAD * thread, void * data)
     al_register_event_source(queue, al_get_mouse_event_source());
     while(!al_get_thread_should_stop(thread))
     {
-        al_wait_for_event(queue, &event);
-        switch(event.type)
+        al_init_timeout(&timeout, 1.0);
+        if(al_wait_for_event_until(queue, &event, &timeout))
         {
-            case ALLEGRO_EVENT_MOUSE_AXES:
+            switch(event.type)
             {
-                _mouse_x = event.mouse.x;
-                _mouse_y = event.mouse.y;
-                _mouse_z = event.mouse.z;
-                break;
+                case ALLEGRO_EVENT_MOUSE_AXES:
+                {
+                    _mouse_x = event.mouse.x;
+                    _mouse_y = event.mouse.y;
+                    _mouse_z = event.mouse.z;
+                    break;
+                }
+                case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                {
+                    _mouse_b |= 1 << (event.mouse.button - 1);
+                    break;
+                }
+                case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                {
+                    _mouse_b &= ~(1 << (event.mouse.button - 1));
+                    break;
+                }
             }
-            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-            {
-                _mouse_b |= 1 << (event.mouse.button - 1);
-                break;
-            }
-            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-            {
-                _mouse_b &= ~(1 << (event.mouse.button - 1));
-                break;
-            }
+            _handle_mouse_input();
         }
-        _handle_mouse_input();
     }
     return NULL;
 }
