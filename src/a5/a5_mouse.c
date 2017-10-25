@@ -79,6 +79,7 @@ static int a5_mouse_init(void)
 static void a5_mouse_exit(void)
 {
     al_destroy_thread(a5_mouse_thread);
+    a5_mouse_thread = NULL;
     al_uninstall_mouse();
 }
 
