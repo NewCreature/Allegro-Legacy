@@ -49,6 +49,7 @@
    extern "C" {
 #endif
 
+#define ALLEGRO_LEGACY
 #define ALLEGRO_LEGACY_VERSION          4
 #define ALLEGRO_LEGACY_SUB_VERSION      4
 #define ALLEGRO_LEGACY_WIP_VERSION      2
