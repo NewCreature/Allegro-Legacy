@@ -110,7 +110,7 @@ static int a5_sound_init(int input, int voices)
     _sound_freq = _A5_SOUND_FREQUENCY;
     _sound_bits = 16;
 
-    if(_mixer_init(_A5_SOUND_BUFFER_SIZE * (_sound_bits / 2), _sound_freq, _sound_stereo, ((_sound_bits == 16) ? 1 : 0), &digi_allegro_5.voices) != 0)
+    if(_mixer_init(_A5_SOUND_BUFFER_SIZE * (_sound_bits / 8), _sound_freq, _sound_stereo, ((_sound_bits == 16) ? 1 : 0), &digi_allegro_5.voices) != 0)
     {
         return -1;
     }
