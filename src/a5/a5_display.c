@@ -98,7 +98,8 @@ static ALLEGRO_COLOR a5_get_color(PALETTE palette, int depth, int color)
                 r = getr32(color);
                 g = getg32(color);
                 b = getb32(color);
-                a = geta32(color);;
+                a = geta32(color);
+                a = 0xFF;
                 break;
             }
         }
@@ -126,7 +127,26 @@ void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
     {
         for(j = 0; j < bp->w; j++)
         {
-            al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, bp->line[i][j]));
+            switch(depth)
+            {
+                case 8:
+                {
+                    al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, bp->line[i][j]));
+                    break;
+                }
+                case 15:
+                case 16:
+                {
+                    al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, ((short *)bp->line[i])[j]));
+                    break;
+                }
+                case 24:
+                case 32:
+                {
+                    al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, ((long *)bp->line[i])[j]));
+                    break;
+                }
+            }
         }
     }
     al_unlock_bitmap(a5bp);
