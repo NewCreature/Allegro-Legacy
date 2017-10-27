@@ -17,6 +17,7 @@
 
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
+#include "allegro/platform/ainta5.h"
 #include "allegro/platform/ala5.h"
 
 static ALLEGRO_BITMAP * _a5_screen = NULL;
@@ -37,6 +38,8 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
             _a5_screen = al_create_bitmap(w, h);
             if(_a5_screen)
             {
+                display_allegro_5.w = w;
+                display_allegro_5.h = h;
                 return bp;
             }
         }
