@@ -28,7 +28,7 @@
 
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
-
+#include "a5alleg.h"
 
 
 /* if set, the input focus follows the mouse pointer */
@@ -1036,6 +1036,10 @@ static void check_for_redraw(DIALOG_PLAYER *player)
 	 MESSAGE(c, MSG_DRAW, 0);
       }
    }
+   if(!gui_screen || gui_screen == screen)
+   {
+       allegro_render_screen();
+   }
 }
 
 
@@ -2022,6 +2026,10 @@ int update_menu(MENU_PLAYER *player)
       release_bitmap(gui_bmp);
       if (scare)
 	 unscare_mouse();
+     if(!gui_screen || gui_screen == screen)
+     {
+         allegro_render_screen();
+     }
    }
 
    if (player->auto_open && (gui_menu_opening_delay >= 0)) {  /* menu auto-opening on? */
