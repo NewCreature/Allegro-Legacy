@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_GUI_H
-#define ALLEGRO_GUI_H
+#ifndef ALLEGRO_LEGACY_GUI_H
+#define ALLEGRO_LEGACY_GUI_H
 
 #include "base.h"
 
@@ -226,6 +226,6 @@ AL_FUNC(int, gfx_mode_select_filter, (int *card, int *w, int *h, int *color_dept
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_GUI_H */
+#endif          /* ifndef ALLEGRO_LEGACY_GUI_H */
 
 

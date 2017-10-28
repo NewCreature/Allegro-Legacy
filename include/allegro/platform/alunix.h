@@ -16,7 +16,7 @@
  */
 
 
-#ifndef ALLEGRO_UNIX
+#ifndef ALLEGRO_LEGACY_UNIX
    #error bad include
 #endif
 
@@ -25,10 +25,10 @@
 extern int    __crt0_argc;
 extern char **__crt0_argv;
 
-#ifdef ALLEGRO_WITH_MAGIC_MAIN
+#ifdef ALLEGRO_LEGACY_WITH_MAGIC_MAIN
 
-   #ifndef ALLEGRO_NO_MAGIC_MAIN
-      #define ALLEGRO_MAGIC_MAIN
+   #ifndef ALLEGRO_LEGACY_NO_MAGIC_MAIN
+      #define ALLEGRO_LEGACY_MAGIC_MAIN
       #define main _mangled_main
       #undef END_OF_MAIN
       #define END_OF_MAIN() void *_mangled_main_address = (void*) _mangled_main;
@@ -49,7 +49,7 @@ extern char **__crt0_argv;
 #define TIMERDRV_UNIX_SIGALRM    AL_ID('A','L','R','M')
 
 
-#ifdef ALLEGRO_HAVE_LIBPTHREAD
+#ifdef ALLEGRO_LEGACY_HAVE_LIBPTHREAD
 AL_VAR(TIMER_DRIVER, timerdrv_unix_pthreads);
 #else
 AL_VAR(TIMER_DRIVER, timerdrv_unix_sigalrm);
@@ -71,57 +71,57 @@ AL_VAR(TIMER_DRIVER, timerdrv_unix_sigalrm);
 #define DIGI_JACK             AL_ID('J','A','C','K')
 
 
-#ifdef ALLEGRO_WITH_OSSDIGI
+#ifdef ALLEGRO_LEGACY_WITH_OSSDIGI
 AL_VAR(DIGI_DRIVER, digi_oss);
 #define DIGI_DRIVER_OSS                                          \
       {  DIGI_OSS,        &digi_oss,            TRUE  },
-#endif /* ALLEGRO_WITH_OSSDIGI */
+#endif /* ALLEGRO_LEGACY_WITH_OSSDIGI */
 
-#ifdef ALLEGRO_WITH_OSSMIDI
+#ifdef ALLEGRO_LEGACY_WITH_OSSMIDI
 AL_VAR(MIDI_DRIVER, midi_oss);
 #define MIDI_DRIVER_OSS                                          \
       {  MIDI_OSS,        &midi_oss,            TRUE  },
-#endif /* ALLEGRO_WITH_OSSMIDI */
+#endif /* ALLEGRO_LEGACY_WITH_OSSMIDI */
 
-#ifndef ALLEGRO_WITH_MODULES
+#ifndef ALLEGRO_LEGACY_WITH_MODULES
 
-#ifdef ALLEGRO_WITH_ESDDIGI
+#ifdef ALLEGRO_LEGACY_WITH_ESDDIGI
 AL_VAR(DIGI_DRIVER, digi_esd);
 #define DIGI_DRIVER_ESD                                          \
       {  DIGI_ESD,        &digi_esd,            TRUE  },
-#endif /* ALLEGRO_WITH_ESDDIGI */
+#endif /* ALLEGRO_LEGACY_WITH_ESDDIGI */
 
-#ifdef ALLEGRO_WITH_ARTSDIGI
+#ifdef ALLEGRO_LEGACY_WITH_ARTSDIGI
 AL_VAR(DIGI_DRIVER, digi_arts);
 #define DIGI_DRIVER_ARTS                                         \
       {  DIGI_ARTS,       &digi_arts,            TRUE  },
-#endif /* ALLEGRO_WITH_ARTSDIGI */
+#endif /* ALLEGRO_LEGACY_WITH_ARTSDIGI */
 
-#ifdef ALLEGRO_WITH_SGIALDIGI
+#ifdef ALLEGRO_LEGACY_WITH_SGIALDIGI
 AL_VAR(DIGI_DRIVER, digi_sgial);
 #define DIGI_DRIVER_SGIAL                                        \
       {  DIGI_SGIAL,      &digi_sgial,          TRUE  },
-#endif /* ALLEGRO_WITH_SGIALDIGI */
+#endif /* ALLEGRO_LEGACY_WITH_SGIALDIGI */
 
-#ifdef ALLEGRO_WITH_ALSADIGI
+#ifdef ALLEGRO_LEGACY_WITH_ALSADIGI
 AL_VAR(DIGI_DRIVER, digi_alsa);
 #define DIGI_DRIVER_ALSA                                         \
       {  DIGI_ALSA,       &digi_alsa,           TRUE  },
-#endif /* ALLEGRO_WITH_ALSADIGI */
+#endif /* ALLEGRO_LEGACY_WITH_ALSADIGI */
 
 
-#ifdef ALLEGRO_WITH_ALSAMIDI
+#ifdef ALLEGRO_LEGACY_WITH_ALSAMIDI
 AL_VAR(MIDI_DRIVER, midi_alsa);
 #define MIDI_DRIVER_ALSA                                          \
       {  MIDI_ALSA,        &midi_alsa,            TRUE  },
-#endif /* ALLEGRO_WITH_ALSAMIDI */
+#endif /* ALLEGRO_LEGACY_WITH_ALSAMIDI */
 
 	  
-#ifdef ALLEGRO_WITH_JACKDIGI
+#ifdef ALLEGRO_LEGACY_WITH_JACKDIGI
 AL_VAR(DIGI_DRIVER, digi_jack);
 #define DIGI_DRIVER_JACK                                         \
       {  DIGI_JACK,       &digi_jack,           TRUE  },
-#endif /* ALLEGRO_WITH_JACKDIGI */
+#endif /* ALLEGRO_LEGACY_WITH_JACKDIGI */
 
 #endif
 
@@ -144,17 +144,17 @@ AL_VAR(DIGI_DRIVER, digi_jack);
 #define GFX_XDGA2_SOFT           AL_ID('D','G','A','S')
 
 
-#ifdef ALLEGRO_WITH_XWINDOWS
+#ifdef ALLEGRO_LEGACY_WITH_XWINDOWS
 AL_VAR(SYSTEM_DRIVER, system_xwin);
 
-#ifdef ALLEGRO_XWINDOWS_WITH_XF86DGA2
-#ifndef ALLEGRO_WITH_MODULES
+#ifdef ALLEGRO_LEGACY_XWINDOWS_WITH_XF86DGA2
+#ifndef ALLEGRO_LEGACY_WITH_MODULES
 AL_VAR(GFX_DRIVER, gfx_xdga2);
 AL_VAR(GFX_DRIVER, gfx_xdga2_soft);
 #endif
 #endif
 
-#endif /* ALLEGRO_WITH_XWINDOWS */
+#endif /* ALLEGRO_LEGACY_WITH_XWINDOWS */
 
 
 
@@ -182,30 +182,30 @@ AL_VAR(GFX_DRIVER, gfx_xdga2_soft);
 #define JOY_TYPE_LINUX_ANALOGUE  AL_ID('L','N','X','A')
 
 
-#ifdef ALLEGRO_LINUX
+#ifdef ALLEGRO_LEGACY_LINUX
 
 AL_VAR(SYSTEM_DRIVER, system_linux);
 
-#ifdef ALLEGRO_LINUX_VGA
+#ifdef ALLEGRO_LEGACY_LINUX_VGA
    AL_VAR(GFX_DRIVER, gfx_vga);
    AL_VAR(GFX_DRIVER, gfx_modex);
-   #define ALLEGRO_GFX_HAS_VGA
+   #define ALLEGRO_LEGACY_GFX_HAS_VGA
 #endif
 
-#ifndef ALLEGRO_WITH_MODULES
+#ifndef ALLEGRO_LEGACY_WITH_MODULES
 
-#ifdef ALLEGRO_LINUX_FBCON
+#ifdef ALLEGRO_LEGACY_LINUX_FBCON
    AL_VAR(GFX_DRIVER, gfx_fbcon);
 #endif
-#ifdef ALLEGRO_LINUX_SVGALIB
+#ifdef ALLEGRO_LEGACY_LINUX_SVGALIB
    AL_VAR(GFX_DRIVER, gfx_svgalib);
 #endif
 
 #endif
 
-#ifdef ALLEGRO_LINUX_VBEAF
+#ifdef ALLEGRO_LEGACY_LINUX_VBEAF
    AL_VAR(GFX_DRIVER, gfx_vbeaf);
-   #define ALLEGRO_GFX_HAS_VBEAF
+   #define ALLEGRO_LEGACY_GFX_HAS_VBEAF
 #endif
 
 AL_VAR(MOUSE_DRIVER, mousedrv_linux_ps2);
@@ -220,7 +220,7 @@ AL_FUNC_DEPRECATED(void, split_modex_screen, (int lyne));
 
 /* Port I/O functions -- maybe these should be internal */
 
-#ifdef ALLEGRO_LINUX_VGA
+#ifdef ALLEGRO_LEGACY_LINUX_VGA
 
 #ifdef __cplusplus
 extern "C" {
@@ -266,7 +266,7 @@ static INLINE unsigned long inportl(unsigned short port)
 }
 #endif
 
-#endif /* ALLEGRO_LINUX_VGA */
+#endif /* ALLEGRO_LEGACY_LINUX_VGA */
 
 
-#endif /* ALLEGRO_LINUX */
+#endif /* ALLEGRO_LEGACY_LINUX */

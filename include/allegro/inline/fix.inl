@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_FIX_INL
-#define ALLEGRO_FIX_INL
+#ifndef ALLEGRO_LEGACY_FIX_INL
+#define ALLEGRO_LEGACY_FIX_INL
 
 #ifdef __cplusplus
 
@@ -249,6 +249,6 @@ inline void persp_project(fix x, fix y, fix z, fix *xout, fix *yout)
 
 #endif          /* ifdef __cplusplus */
 
-#endif          /* ifndef ALLEGRO_FIX_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_FIX_INL */
 
 

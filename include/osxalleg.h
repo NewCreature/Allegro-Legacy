@@ -17,10 +17,10 @@
  */
 
 
-#ifndef OSX_ALLEGRO_H
-#define OSX_ALLEGRO_H
+#ifndef OSX_ALLEGRO_LEGACY_H
+#define OSX_ALLEGRO_LEGACY_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
 #error Please include allegro.h before osxalleg.h!
 #endif
 

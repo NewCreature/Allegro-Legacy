@@ -19,11 +19,11 @@
 #ifndef AINTWIN_H
 #define AINTWIN_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
    #error must include allegro.h first
 #endif
 
-#ifndef ALLEGRO_WINDOWS
+#ifndef ALLEGRO_LEGACY_WINDOWS
    #error bad include
 #endif
 
@@ -32,7 +32,7 @@
 
 #ifndef SCAN_DEPEND
    /* workaround for buggy MinGW32 headers */
-   #ifdef ALLEGRO_MINGW32
+   #ifdef ALLEGRO_LEGACY_MINGW32
       #ifndef HMONITOR_DECLARED
          #define HMONITOR_DECLARED
       #endif

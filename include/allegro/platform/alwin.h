@@ -16,7 +16,7 @@
  */
 
 
-#ifndef ALLEGRO_WINDOWS
+#ifndef ALLEGRO_LEGACY_WINDOWS
    #error bad include
 #endif
 
@@ -36,9 +36,9 @@ AL_FUNC(int, _WinMain, (void *_main, void *hInst, void *hPrev, char *Cmd, int nS
 #endif
 
 
-#if (!defined ALLEGRO_NO_MAGIC_MAIN) && (!defined ALLEGRO_SRC)
+#if (!defined ALLEGRO_LEGACY_NO_MAGIC_MAIN) && (!defined ALLEGRO_LEGACY_SRC)
 
-   #define ALLEGRO_MAGIC_MAIN
+   #define ALLEGRO_LEGACY_MAGIC_MAIN
    #define main _mangled_main
    #undef END_OF_MAIN
 

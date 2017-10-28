@@ -326,7 +326,7 @@ int find_dialog_focus(DIALOG *dialog)
  */
 int object_message(DIALOG *dialog, int msg, int c)
 {
-#ifdef ALLEGRO_WINDOWS
+#ifdef ALLEGRO_LEGACY_WINDOWS
    /* exported address of d_clear_proc */
    extern int (*_d_clear_proc)(int, DIALOG *, int);
 #endif
@@ -338,7 +338,7 @@ int object_message(DIALOG *dialog, int msg, int c)
       if (dialog->flags & D_HIDDEN)
 	 return D_O_K;
 
-#ifdef ALLEGRO_WINDOWS
+#ifdef ALLEGRO_LEGACY_WINDOWS
       if (dialog->proc == _d_clear_proc)
 #else
       if (dialog->proc == d_clear_proc)

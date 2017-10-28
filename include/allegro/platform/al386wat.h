@@ -16,12 +16,12 @@
  */
 
 
-#if (!defined ALLEGRO_WATCOM) || (!defined ALLEGRO_I386)
+#if (!defined ALLEGRO_LEGACY_WATCOM) || (!defined ALLEGRO_LEGACY_I386)
    #error bad include
 #endif
 
 
-#ifdef ALLEGRO_IMPORT_GFX_ASM
+#ifdef ALLEGRO_LEGACY_IMPORT_GFX_ASM
 
 /* _default_ds:
  *  Return a copy of the current %ds selector.
@@ -77,10 +77,10 @@ void _bmp_unbank_switcher(BITMAP *bmp, void *bank_unswitcher);
 
 #define bmp_unwrite_line(bmp)       _bmp_unbank_switcher(bmp, (void *)bmp->vtable->unwrite_bank)
 
-#endif /* ALLEGRO_IMPORT_GFX_ASM */
+#endif /* ALLEGRO_LEGACY_IMPORT_GFX_ASM */
 
 
-#ifdef ALLEGRO_IMPORT_MATH_ASM
+#ifdef ALLEGRO_LEGACY_IMPORT_MATH_ASM
 
 /* _set_errno_erange:
  *  Watcom's asm syntax doesn't provide any nice way to do this inline...
@@ -237,5 +237,5 @@ int fixceil(fixed x);
    parm [eax]			 \
    value [eax];
 
-#endif /* ALLEGRO_IMPORT_MATH_ASM */
+#endif /* ALLEGRO_LEGACY_IMPORT_MATH_ASM */
 

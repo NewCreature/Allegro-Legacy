@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_DATAFILE_H
-#define ALLEGRO_DATAFILE_H
+#ifndef ALLEGRO_LEGACY_DATAFILE_H
+#define ALLEGRO_LEGACY_DATAFILE_H
 
 #include "base.h"
 
@@ -111,4 +111,4 @@ AL_FUNC(void, register_bitmap_file_type, (AL_CONST char *ext, AL_METHOD(struct B
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_DATAFILE_H */
+#endif          /* ifndef ALLEGRO_LEGACY_DATAFILE_H */

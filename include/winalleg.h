@@ -20,14 +20,14 @@
  */
 
 
-#ifndef WIN_ALLEGRO_H
-#define WIN_ALLEGRO_H
+#ifndef WIN_ALLEGRO_LEGACY_H
+#define WIN_ALLEGRO_LEGACY_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
    #error Please include allegro.h before winalleg.h!
 #endif
 
-#ifdef ALLEGRO_SRC
+#ifdef ALLEGRO_LEGACY_SRC
    #define WIN32_LEAN_AND_MEAN   /* to save compilation time */
 #endif
 
@@ -37,7 +37,7 @@
 #define BITMAP WINDOWS_BITMAP
 
 #if (!defined SCAN_EXPORT) && (!defined SCAN_DEPEND)
-   #ifdef ALLEGRO_AND_MFC
+   #ifdef ALLEGRO_LEGACY_AND_MFC
       #ifdef DEBUGMODE
          #define AL_ASSERT(condition)     { if (!(condition)) al_assert(__FILE__, __LINE__); }
          #define AL_TRACE                 al_trace
@@ -114,4 +114,4 @@ AL_FUNC(void, stretch_blit_from_hdc, (HDC hdc, BITMAP *bitmap, int src_x, int sr
    }
 #endif
 
-#endif          /* ifndef WIN_ALLEGRO_H */
+#endif          /* ifndef WIN_ALLEGRO_LEGACY_H */

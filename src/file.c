@@ -31,15 +31,15 @@
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
 
-#ifndef ALLEGRO_MPW
+#ifndef ALLEGRO_LEGACY_MPW
    #include <sys/stat.h>
 #endif
 
-#ifdef ALLEGRO_UNIX
+#ifdef ALLEGRO_LEGACY_UNIX
    #include <pwd.h>                 /* for tilde expansion */
 #endif
 
-#ifdef ALLEGRO_WINDOWS
+#ifdef ALLEGRO_LEGACY_WINDOWS
    #include "winalleg.h" /* for GetTempPath */
 #endif
 
@@ -48,7 +48,7 @@
 #endif
 
 /* permissions to use when opening files */
-#ifndef ALLEGRO_MPW
+#ifndef ALLEGRO_LEGACY_MPW
 
 /* some OSes have no concept of "group" and "other" */
 #ifndef S_IRGRP
@@ -62,7 +62,7 @@
 
 #define OPEN_PERMS   (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)
 
-#endif /* !ALLEGRO_MPW */
+#endif /* !ALLEGRO_LEGACY_MPW */
 
 
 
@@ -109,7 +109,7 @@ char *fix_filename_case(char *filename)
 {
    ASSERT(filename);
 
-   if (!ALLEGRO_LFN)
+   if (!ALLEGRO_LEGACY_LFN)
       ustrupr(filename);
 
    return filename;
@@ -174,7 +174,7 @@ char *canonicalize_filename(char *dest, AL_CONST char *filename, int size)
 
    #endif
 
-   #ifdef ALLEGRO_UNIX
+   #ifdef ALLEGRO_LEGACY_UNIX
 
       /* if the filename starts with ~ then it's relative to a home directory */
       if ((ugetc(filename) == '~')) {
@@ -256,7 +256,7 @@ char *canonicalize_filename(char *dest, AL_CONST char *filename, int size)
       pos = ustrsize(buf);
    }
 
- #ifdef ALLEGRO_UNIX
+ #ifdef ALLEGRO_LEGACY_UNIX
    no_relativisation:
  #endif
 
@@ -481,7 +481,7 @@ int is_relative_filename(AL_CONST char *filename)
    /* Filenames that contain a device separator (DOS/Windows)
     * or start with a '/' (Unix) are considered absolute.
     */
-#if (defined ALLEGRO_DOS) || (defined ALLEGRO_WINDOWS)
+#if (defined ALLEGRO_LEGACY_DOS) || (defined ALLEGRO_LEGACY_WINDOWS)
    if (ustrchr(filename, DEVICE_SEPARATOR))
       return FALSE;
 #endif
@@ -1843,7 +1843,7 @@ PACKFILE *pack_fopen(AL_CONST char *filename, AL_CONST char *mode)
    if (!_al_file_isok(filename))
       return NULL;
 
-#ifndef ALLEGRO_MPW
+#ifndef ALLEGRO_LEGACY_MPW
    if (strpbrk(mode, "wW"))  /* write mode? */
       fd = _al_open(uconvert_tofilename(filename, tmp), O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, OPEN_PERMS);
    else
@@ -1970,11 +1970,11 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
       int tmp_fd = -1;
       char *tmp_dir = NULL;
       char *tmp_name = NULL;
-      #ifndef ALLEGRO_HAVE_MKSTEMP
+      #ifndef ALLEGRO_LEGACY_HAVE_MKSTEMP
       char* tmpnam_string;
       #endif
 
-      #ifdef ALLEGRO_WINDOWS
+      #ifdef ALLEGRO_LEGACY_WINDOWS
          int size;
          int new_size = 64;
 
@@ -2014,7 +2014,7 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
       /* the file is open in read/write mode, even if the pack file
        * seems to be in write only mode
        */
-      #ifdef ALLEGRO_HAVE_MKSTEMP
+      #ifdef ALLEGRO_LEGACY_HAVE_MKSTEMP
 
          tmp_name = _AL_MALLOC_ATOMIC(strlen(tmp_dir) + 16);
          sprintf(tmp_name, "%s/XXXXXX", tmp_dir);
@@ -2030,7 +2030,7 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
          sprintf(tmp_name, "%s/%s", tmp_dir, tmpnam_string);
 
          if (tmp_name) {
-#ifndef ALLEGRO_MPW
+#ifndef ALLEGRO_LEGACY_MPW
             tmp_fd = open(tmp_name, O_RDWR | O_BINARY | O_CREAT | O_EXCL, OPEN_PERMS);
 #else
             tmp_fd = _al_open(tmp_name, O_RDWR | O_BINARY | O_CREAT | O_EXCL);
@@ -2588,7 +2588,7 @@ int pack_fputs(AL_CONST char *p, PACKFILE *f)
    s = uconvert(p, U_CURRENT, buf, U_UTF8, bufsize);
 
    while (*s) {
-      #if (defined ALLEGRO_DOS) || (defined ALLEGRO_WINDOWS)
+      #if (defined ALLEGRO_LEGACY_DOS) || (defined ALLEGRO_LEGACY_WINDOWS)
 	 if (*s == '\n')
 	    pack_putc('\r', f);
       #endif

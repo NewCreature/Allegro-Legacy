@@ -26,9 +26,9 @@ extern int *_colorconv_rgb_scale_5x35;     /* for conversion from 15/16-bit */
 extern unsigned char *_colorconv_rgb_map;  /* for conversion from 8/12-bit to 8-bit */
 
 
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 
 void _colorconv_blit_8_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect)
@@ -104,7 +104,7 @@ void _colorconv_blit_8_to_16(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    src = src_rect->data;
    dest = dest_rect->data;
 
-#ifdef ALLEGRO_ARM
+#ifdef ALLEGRO_LEGACY_ARM
 
    /* ARM requires strict alignment for memory access. So this ARM branch of code 
     * takes it into account. Combining data into 32-bit values when writing to
@@ -116,7 +116,7 @@ void _colorconv_blit_8_to_16(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
     * is reasonably similar or better to the non-aligned code path then we can
     * remove this #ifdef.
     */
-   #ifdef ALLEGRO_LITTLE_ENDIAN
+   #ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
       #define FILL_DEST_DATA() \
 	 dest_data = _colorconv_indexed_palette[src[0]]; \
 	 dest_data |= _colorconv_indexed_palette[256 + src[1]]; \
@@ -161,12 +161,12 @@ void _colorconv_blit_8_to_16(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
       }
    }
 
-#else /* !ALLEGRO_ARM */
+#else /* !ALLEGRO_LEGACY_ARM */
 
    for (y = src_rect->height; y; y--) {
       for (x = width >> 2; x; x--) {
          src_data = *(unsigned int *)src;
-	 #ifdef ALLEGRO_LITTLE_ENDIAN
+	 #ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	    dest_data = _colorconv_indexed_palette[src_data & 0xff];
 	    dest_data |= _colorconv_indexed_palette[256 + ((src_data >> 8) & 0xff)];
 	    *(unsigned int *)dest = dest_data;
@@ -186,7 +186,7 @@ void _colorconv_blit_8_to_16(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
       }
       if (width & 0x2) {
          src_data = *(unsigned short *)src;
-	 #ifdef ALLEGRO_LITTLE_ENDIAN
+	 #ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	    dest_data = _colorconv_indexed_palette[src_data & 0xff];
 	    dest_data |= _colorconv_indexed_palette[256 + (src_data >> 8)];
 	    *(unsigned int *)dest = dest_data;
@@ -209,7 +209,7 @@ void _colorconv_blit_8_to_16(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
       dest += dest_feed;
    }
 
-#endif	 /* !ALLEGRO_ARM */
+#endif	 /* !ALLEGRO_LEGACY_ARM */
 }
 
 
@@ -233,7 +233,7 @@ void _colorconv_blit_8_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    for (y = src_rect->height; y; y--) {
       for (x = width >> 2; x; x--) {
          src_data = *(unsigned int *)src;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	 temp1 = _colorconv_indexed_palette[src_data & 0xff];
 	 temp2 = _colorconv_indexed_palette[256 + ((src_data >> 8) & 0xff)];
 	 temp3 = _colorconv_indexed_palette[512 + ((src_data >> 16) & 0xff)];
@@ -252,7 +252,7 @@ void _colorconv_blit_8_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
       }
       if (width & 0x2) {
          src_data = *(unsigned short *)src;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	 temp1 = _colorconv_indexed_palette[src_data & 0xff];
 	 temp2 = _colorconv_indexed_palette[src_data >> 8];
 #else
@@ -299,7 +299,7 @@ void _colorconv_blit_8_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    for (y = src_rect->height; y; y--) {
       for (x = width >> 2; x; x--) {
          src_data = *(unsigned int *)src;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	 dest_data = _colorconv_indexed_palette[src_data & 0xff];
 	 *(unsigned int *)(dest) = dest_data;
 	 dest_data = _colorconv_indexed_palette[(src_data >> 8) & 0xff];
@@ -323,7 +323,7 @@ void _colorconv_blit_8_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
       }
       if (width & 0x2) {
          src_data = *(unsigned short *)src;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	 dest_data = _colorconv_indexed_palette[src_data & 0xff];
 	 *(unsigned int *)(dest) = dest_data;
 	 dest_data = _colorconv_indexed_palette[src_data >> 8];
@@ -351,7 +351,7 @@ void _colorconv_blit_8_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
 
 #endif
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 
 
 void _colorconv_blit_15_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect)
@@ -374,7 +374,7 @@ void _colorconv_blit_15_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    for (y = src_rect->height; y; y--) {
       for (x = width >> 1; x; x--) {
          src_data = *(unsigned int *)src;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	 temp = ((src_data & 0x001e) >> 1) | ((src_data & 0x03c0) >> 2) | ((src_data & 0x7800) >> 3);
 	 dest_data = _colorconv_rgb_map[temp];
 	 src_data >>= 16;
@@ -461,7 +461,7 @@ void _colorconv_blit_15_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    dest = dest_rect->data;
    for (y = src_rect->height; y; y--) {
       for (x = width >> 2; x; x--) {
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
          src_data = *(unsigned int *)src;
 	 temp1 = _colorconv_rgb_scale_5x35[256 + (src_data & 0xff)] + _colorconv_rgb_scale_5x35[(src_data >> 8) & 0xff];
          temp2 = _colorconv_rgb_scale_5x35[768 + ((src_data >> 16) & 0xff)] + _colorconv_rgb_scale_5x35[512 + (src_data >> 24)];
@@ -484,7 +484,7 @@ void _colorconv_blit_15_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
       }
       if (width & 0x2) {
          src_data = *(unsigned int *)src;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	 temp1 = _colorconv_rgb_scale_5x35[256 + (src_data & 0xff)] + _colorconv_rgb_scale_5x35[(src_data >> 8) & 0xff];
 	 temp2 = _colorconv_rgb_scale_5x35[256 + ((src_data >> 16) & 0xff)] + _colorconv_rgb_scale_5x35[src_data >> 24];
 #else
@@ -533,7 +533,7 @@ void _colorconv_blit_15_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
          src_data = *(unsigned int *)src;
 	 temp1 = _colorconv_rgb_scale_5x35[256 + (src_data & 0xff)] + _colorconv_rgb_scale_5x35[(src_data >> 8) & 0xff];
          temp2 = _colorconv_rgb_scale_5x35[256 + ((src_data >> 16) & 0xff)] + _colorconv_rgb_scale_5x35[src_data >> 24];
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	 *(unsigned int *)dest = temp1;
 	 *(unsigned int *)(dest + 4) = temp2;
 #else
@@ -576,7 +576,7 @@ void _colorconv_blit_16_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    dest = dest_rect->data;
    for (y = src_rect->height; y; y--) {
       for (x = width >> 1; x; x--) {
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
          src_data = *(unsigned int *)src;
 	 temp = ((src_data & 0x001e) >> 1) | ((src_data & 0x0780) >> 3) | ((src_data & 0xf000) >> 4);
 	 dest_data = _colorconv_rgb_map[temp];
@@ -663,7 +663,7 @@ void _colorconv_blit_16_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
 
 #endif
 
-#if (defined ALLEGRO_COLOR24 || defined ALLEGRO_COLOR32)
+#if (defined ALLEGRO_LEGACY_COLOR24 || defined ALLEGRO_LEGACY_COLOR32)
 
 
 static void colorconv_blit_true_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect, int bpp)
@@ -711,7 +711,7 @@ static void colorconv_blit_true_to_15(struct GRAPHICS_RECT *src_rect, struct GRA
    dest = dest_rect->data;
    for (y = src_rect->height; y; y--) {
       for (x = width >> 1; x; x--) {
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
          temp = ((*(unsigned char *)(src + bpp)) >> 3) |
 	    (((*(unsigned char *)(src + bpp + 1)) << 2) & 0x03e0) |
 	    (((*(unsigned char *)(src + bpp + 2)) << 7) & 0x7c00);
@@ -733,7 +733,7 @@ static void colorconv_blit_true_to_15(struct GRAPHICS_RECT *src_rect, struct GRA
 	 dest += 4;
       }
       if (width & 0x1) {
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
          temp = ((*(unsigned char *)(src)) >> 3) |
 	    (((*(unsigned char *)(src + 1)) << 2) & 0x03e0) |
 	    (((*(unsigned char *)(src + 2)) << 7) & 0x7c00);
@@ -770,7 +770,7 @@ static void colorconv_blit_true_to_16(struct GRAPHICS_RECT *src_rect, struct GRA
    dest = dest_rect->data;
    for (y = src_rect->height; y; y--) {
       for (x = width >> 1; x; x--) {
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
          temp = ((*(unsigned char *)(src + bpp)) >> 3) |
 	    (((*(unsigned char *)(src + bpp + 1)) << 3) & 0x07e0) |
 	    (((*(unsigned char *)(src + bpp + 2)) << 8) & 0xf800);
@@ -792,7 +792,7 @@ static void colorconv_blit_true_to_16(struct GRAPHICS_RECT *src_rect, struct GRA
 	 dest += 4;
       }
       if (width & 0x1) {
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
          temp = ((*(unsigned char *)(src)) >> 3) |
 	    (((*(unsigned char *)(src + 1)) << 3) & 0x07e0) |
 	    (((*(unsigned char *)(src + 2)) << 8) & 0xf800);
@@ -813,7 +813,7 @@ static void colorconv_blit_true_to_16(struct GRAPHICS_RECT *src_rect, struct GRA
 
 #endif
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
 
 
 void _colorconv_blit_24_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect)
@@ -854,7 +854,7 @@ void _colorconv_blit_24_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    dest = dest_rect->data;
    for (y = src_rect->height; y; y--) {
       for (x = width; x; x--) {
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
          temp = (*(unsigned char *)src) | ((*(unsigned char *)(src + 1)) << 8) | ((*(unsigned char *)(src + 2)) << 16);
 #else
          temp = (*(unsigned char *)(src + 2)) | ((*(unsigned char *)(src + 1)) << 8) | ((*(unsigned char *)(src)) << 16);
@@ -871,7 +871,7 @@ void _colorconv_blit_24_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
 
 #endif
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 
 void _colorconv_blit_32_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect)
@@ -913,7 +913,7 @@ void _colorconv_blit_32_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    for (y = src_rect->height; y; y--) {
       for (x = width; x; x--) {
          temp = *(unsigned int *)src;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 	 *(unsigned char *)dest = (unsigned char)(temp & 0xff);
 	 *(unsigned char *)(dest + 1) = (unsigned char)(temp >> 8) & 0xff;
 	 *(unsigned char *)(dest + 2) = (unsigned char)(temp >> 16) & 0xff;
@@ -933,7 +933,7 @@ void _colorconv_blit_32_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
 
 #endif
 
-#ifndef ALLEGRO_NO_COLORCOPY
+#ifndef ALLEGRO_LEGACY_NO_COLORCOPY
 
 
 static void colorcopy(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect, int bpp)

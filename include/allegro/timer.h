@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_TIMER_H
-#define ALLEGRO_TIMER_H
+#ifndef ALLEGRO_LEGACY_TIMER_H
+#define ALLEGRO_LEGACY_TIMER_H
 
 #include "base.h"
 
@@ -72,5 +72,5 @@ AL_FUNC(void, rest_callback, (unsigned int tyme, AL_METHOD(void, callback, (void
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_TIMER_H */
+#endif          /* ifndef ALLEGRO_LEGACY_TIMER_H */
 

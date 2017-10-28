@@ -28,9 +28,9 @@
 #endif
 
 /* describe this platform */
-#define ALLEGRO_PLATFORM_STR  "mpw"
-#define ALLEGRO_BIG_ENDIAN
-#undef ALLEGRO_CONSOLE_OK
+#define ALLEGRO_LEGACY_PLATFORM_STR  "mpw"
+#define ALLEGRO_LEGACY_BIG_ENDIAN
+#undef ALLEGRO_LEGACY_CONSOLE_OK
 
 #define INLINE
 #define ZERO_SIZE_ARRAY(type, name)             type name[64]
@@ -53,13 +53,13 @@
 #define LOCK_FUNCTION(x)			LOCK_CODE((void *)x, (intptr_t)x##_end - (intptr_t)x)
 
 /* long filename status */
-#define ALLEGRO_LFN  0
+#define ALLEGRO_LEGACY_LFN  0
 
-#define ALLEGRO_NO_STRICMP 1
+#define ALLEGRO_LEGACY_NO_STRICMP 1
 
-#define ALLEGRO_NO_STRUPR 1
+#define ALLEGRO_LEGACY_NO_STRUPR 1
 
-//#define ALLEGRO_NO_STRDUP 1
+//#define ALLEGRO_LEGACY_NO_STRDUP 1
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -74,5 +74,5 @@ char *strdup(const char *);
 #define gmtime localtime
 
 
-#define ALLEGRO_EXTRA_HEADER     "allegro/platform/almac.h"
-#define ALLEGRO_INTERNAL_HEADER  "allegro/platform/aintmac.h"
+#define ALLEGRO_LEGACY_EXTRA_HEADER     "allegro/platform/almac.h"
+#define ALLEGRO_LEGACY_INTERNAL_HEADER  "allegro/platform/aintmac.h"

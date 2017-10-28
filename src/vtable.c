@@ -20,13 +20,13 @@
 #include "allegro.h"
 
 
-#ifndef ALLEGRO_COLOR8
+#ifndef ALLEGRO_LEGACY_COLOR8
 #undef COLOR_DEPTH_8
 #define COLOR_DEPTH_8
 #endif
 
 
-#ifndef ALLEGRO_COLOR16
+#ifndef ALLEGRO_LEGACY_COLOR16
 #undef COLOR_DEPTH_15
 #undef COLOR_DEPTH_16
 #define COLOR_DEPTH_15
@@ -34,13 +34,13 @@
 #endif
 
 
-#ifndef ALLEGRO_COLOR24
+#ifndef ALLEGRO_LEGACY_COLOR24
 #undef COLOR_DEPTH_24
 #define COLOR_DEPTH_24
 #endif
 
 
-#ifndef ALLEGRO_COLOR32
+#ifndef ALLEGRO_LEGACY_COLOR32
 #undef COLOR_DEPTH_32
 #define COLOR_DEPTH_32
 #endif

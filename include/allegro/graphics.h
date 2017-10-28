@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_GRAPHICS_H
-#define ALLEGRO_GRAPHICS_H
+#ifndef ALLEGRO_LEGACY_GRAPHICS_H
+#define ALLEGRO_LEGACY_GRAPHICS_H
 
 #include "base.h"
 #include "gfx.h"
@@ -29,5 +29,5 @@
 #include "rle.h"
 #include "compiled.h"
 
-#endif          /* ifndef ALLEGRO_GRAPHICS_H */
+#endif          /* ifndef ALLEGRO_LEGACY_GRAPHICS_H */
 

@@ -103,7 +103,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
 
    switch (depth) {
 
-      #ifdef ALLEGRO_COLOR8
+      #ifdef ALLEGRO_LEGACY_COLOR8
 
 	 case 8:
 	    {
@@ -114,7 +114,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
 
       #endif
 
-      #ifdef ALLEGRO_COLOR16
+      #ifdef ALLEGRO_LEGACY_COLOR16
 
 	 case 15:
 	 case 16:
@@ -127,7 +127,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
 
       #endif
 
-      #if (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
+      #if (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
 
 	 case 24:
 	 case 32:

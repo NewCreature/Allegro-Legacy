@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_STREAM_H
-#define ALLEGRO_STREAM_H
+#ifndef ALLEGRO_LEGACY_STREAM_H
+#define ALLEGRO_LEGACY_STREAM_H
 
 #include "base.h"
 
@@ -47,6 +47,6 @@ AL_FUNC(void, free_audio_stream_buffer, (AUDIOSTREAM *stream));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_STREAM_H */
+#endif          /* ifndef ALLEGRO_LEGACY_STREAM_H */
 
 

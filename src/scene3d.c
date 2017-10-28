@@ -670,7 +670,7 @@ static int scene_trans_seg(POLYGON_EDGE *e1, POLYGON_EDGE *e2,
 void render_scene(void)
 {
    int p;
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       int old87 = 0;
    #endif
    POLYGON_EDGE *edge, *start_edge = NULL;
@@ -684,7 +684,7 @@ void render_scene(void)
    scene_alpha = _blender_alpha;
    solid_mode();
    /* set fpu to single-precision, truncate mode */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       old87 = _control87(PC_24 | RC_CHOP, MCW_PC | MCW_RC);
    #endif
 
@@ -813,7 +813,7 @@ void render_scene(void)
    release_bitmap(scene_bmp);
 
    /* reset fpu mode */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       _control87(old87, MCW_PC | MCW_RC);
    #endif
    color_map = scene_cmap;

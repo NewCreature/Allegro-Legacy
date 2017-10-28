@@ -23,7 +23,7 @@
 #define ALLEGRO_LEGACY_COLOR32
 
 
-#ifdef ALLEGRO_A5
+#ifdef ALLEGRO_LEGACY_A5
 #error "A5"
 #endif
 
@@ -40,31 +40,31 @@
       #include "allegro/platform/alplatf.h"
    #endif
 
-   #if defined ALLEGRO_DJGPP
+   #if defined ALLEGRO_LEGACY_DJGPP
       #include "allegro/platform/aldjgpp.h"
-   #elif defined ALLEGRO_WATCOM
+   #elif defined ALLEGRO_LEGACY_WATCOM
       #include "allegro/platform/alwatcom.h"
-   #elif defined ALLEGRO_MINGW32
+   #elif defined ALLEGRO_LEGACY_MINGW32
       #include "allegro/platform/almngw32.h"
-   #elif defined ALLEGRO_DMC
+   #elif defined ALLEGRO_LEGACY_DMC
       #include "allegro/platform/aldmc.h"
-   #elif defined ALLEGRO_BCC32
+   #elif defined ALLEGRO_LEGACY_BCC32
       #include "allegro/platform/albcc32.h"
-   #elif defined ALLEGRO_MSVC
+   #elif defined ALLEGRO_LEGACY_MSVC
       #include "allegro/platform/almsvc.h"
-   #elif defined ALLEGRO_HAIKU
+   #elif defined ALLEGRO_LEGACY_HAIKU
       #include "allegro/platform/albecfg.h"
-   #elif defined ALLEGRO_BEOS
+   #elif defined ALLEGRO_LEGACY_BEOS
       #include "allegro/platform/albecfg.h"
-   #elif defined ALLEGRO_MPW
+   #elif defined ALLEGRO_LEGACY_MPW
       #include "allegro/platform/almaccfg.h"
-   #elif defined ALLEGRO_MACOSX
+   #elif defined ALLEGRO_LEGACY_MACOSX
       #include "allegro/platform/alosxcfg.h"
-   #elif defined ALLEGRO_QNX
+   #elif defined ALLEGRO_LEGACY_QNX
       #include "allegro/platform/alqnxcfg.h"
-   #elif defined ALLEGRO_UNIX
+   #elif defined ALLEGRO_LEGACY_UNIX
       #include "allegro/platform/alucfg.h"
-   #elif defined ALLEGRO_PSP
+   #elif defined ALLEGRO_LEGACY_PSP
       #include "allegro/platform/alpspcfg.h"
    #else
       #error platform not supported
@@ -78,7 +78,7 @@
 
 /* special definitions for the GCC compiler */
 #ifdef __GNUC__
-   #define ALLEGRO_GCC
+   #define ALLEGRO_LEGACY_GCC
 
    #ifndef AL_INLINE
       #ifdef __cplusplus
@@ -127,28 +127,28 @@
 
    #ifndef LONG_LONG
       #define LONG_LONG       long long
-      #ifdef ALLEGRO_GUESS_INTTYPES_OK
+      #ifdef ALLEGRO_LEGACY_GUESS_INTTYPES_OK
          #define int64_t      signed long long
          #define uint64_t     unsigned long long
       #endif
    #endif
 
    #ifdef __i386__
-      #define ALLEGRO_I386
-      #ifndef ALLEGRO_NO_ASM
+      #define ALLEGRO_LEGACY_I386
+      #ifndef ALLEGRO_LEGACY_NO_ASM
          #define _AL_SINCOS(x, s, c)  __asm__ ("fsincos" : "=t" (c), "=u" (s) : "0" (x))
       #endif
    #endif
 
    #ifdef __amd64__
-      #define ALLEGRO_AMD64
-      #ifndef ALLEGRO_NO_ASM
+      #define ALLEGRO_LEGACY_AMD64
+      #ifndef ALLEGRO_LEGACY_NO_ASM
          #define _AL_SINCOS(x, s, c)  __asm__ ("fsincos" : "=t" (c), "=u" (s) : "0" (x))
       #endif
    #endif
 
    #ifdef __arm__
-      #define ALLEGRO_ARM
+      #define ALLEGRO_LEGACY_ARM
    #endif
 
    #ifndef AL_CONST
@@ -182,7 +182,7 @@
 
 
 /* use constructor functions, if supported */
-#ifdef ALLEGRO_USE_CONSTRUCTOR
+#ifdef ALLEGRO_LEGACY_USE_CONSTRUCTOR
    #define CONSTRUCTOR_FUNCTION(func)              func __attribute__ ((constructor))
    #define DESTRUCTOR_FUNCTION(func)               func __attribute__ ((destructor))
 #endif
@@ -285,11 +285,11 @@
 
 
 /* fill in default filename behaviour */
-#ifndef ALLEGRO_LFN
-   #define ALLEGRO_LFN  1
+#ifndef ALLEGRO_LEGACY_LFN
+   #define ALLEGRO_LEGACY_LFN  1
 #endif
 
-#if (defined ALLEGRO_DOS) || (defined ALLEGRO_WINDOWS)
+#if (defined ALLEGRO_LEGACY_DOS) || (defined ALLEGRO_LEGACY_WINDOWS)
    #define OTHER_PATH_SEPARATOR  '\\'
    #define DEVICE_SEPARATOR      ':'
 #else
@@ -344,7 +344,7 @@
 
 
 /* not many places actually use these, but still worth emulating */
-#ifndef ALLEGRO_DJGPP
+#ifndef ALLEGRO_LEGACY_DJGPP
    #define _farsetsel(seg)
    #define _farnspokeb(addr, val)   (*((uint8_t  *)(addr)) = (val))
    #define _farnspokew(addr, val)   (*((uint16_t *)(addr)) = (val))
@@ -433,7 +433,7 @@
 
 
 /* parameters for the color conversion code */
-#if (defined ALLEGRO_WINDOWS) || (defined ALLEGRO_QNX)
-   #define ALLEGRO_COLORCONV_ALIGNED_WIDTH
-   #define ALLEGRO_NO_COLORCOPY
+#if (defined ALLEGRO_LEGACY_WINDOWS) || (defined ALLEGRO_LEGACY_QNX)
+   #define ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
+   #define ALLEGRO_LEGACY_NO_COLORCOPY
 #endif

@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-#ifdef ALLEGRO_HAVE_LIBPTHREAD
+#ifdef ALLEGRO_LEGACY_HAVE_LIBPTHREAD
    /* Synchronization routines using POSIX threads */
    AL_FUNC(void *, _unix_create_mutex, (void));
    AL_FUNC(void, _unix_destroy_mutex, (void *handle));
@@ -78,7 +78,7 @@ extern "C" {
    AL_FUNC(size_t, _unix_get_page_size, (void));
 
 
-#ifdef ALLEGRO_WITH_XWINDOWS
+#ifdef ALLEGRO_LEGACY_WITH_XWINDOWS
    AL_FUNCPTR(void, _xwin_keyboard_interrupt, (int pressed, int code));
    AL_FUNCPTR(void, _xwin_keyboard_focused, (int focused, int state));
    AL_FUNCPTR(void, _xwin_mouse_interrupt, (int x, int y, int z, int w, int buttons));
@@ -92,7 +92,7 @@ extern "C" {
    AL_FUNC(void, _xwin_handle_input, (void));
    AL_FUNC(void, _xwin_private_handle_input, (void));
 
-#ifndef ALLEGRO_MULTITHREADED
+#ifndef ALLEGRO_LEGACY_MULTITHREADED
 
    AL_VAR(int, _xwin_missed_input);
 
@@ -136,7 +136,7 @@ extern "C" {
 #endif
 
 
-#ifdef ALLEGRO_WITH_OSSDIGI
+#ifdef ALLEGRO_LEGACY_WITH_OSSDIGI
    /* So the setup program can read what we detected */
    AL_VAR(int, _oss_fragsize);
    AL_VAR(int, _oss_numfrags);
@@ -148,7 +148,7 @@ extern "C" {
 #endif
 
 
-#ifdef ALLEGRO_LINUX
+#ifdef ALLEGRO_LEGACY_LINUX
    #include "aintlnx.h"
 #endif
 

@@ -243,13 +243,13 @@ void __al_linux_mouse_handler (int x, int y, int z, int b);
 
 /* VGA register access helpers */
 /* This is conditional because configure may have disabled VGA support */
-#ifdef ALLEGRO_LINUX_VGA
+#ifdef ALLEGRO_LEGACY_LINUX_VGA
    #include "allegro/internal/aintern.h"
    #include "allegro/internal/aintvga.h"
 #endif
 
 /* Functions for querying the framebuffer, for the fbcon driver */
-#if (defined ALLEGRO_LINUX_FBCON) && (!defined ALLEGRO_WITH_MODULES)
+#if (defined ALLEGRO_LEGACY_LINUX_FBCON) && (!defined ALLEGRO_LEGACY_WITH_MODULES)
    extern int __al_linux_get_fb_color_depth(void);
    extern int __al_linux_get_fb_resolution(int *width, int *height);
 #endif

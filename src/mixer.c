@@ -86,7 +86,7 @@ static int voice_volume_scale = 1;
 
 static void mixer_lock_mem(void);
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
 /* global mixer mutex */
 static void *mixer_mutex = NULL;
 #endif
@@ -229,7 +229,7 @@ void set_volume_per_voice(int scale)
    }
 
    /* Update the mixer voices' volumes */
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    if(mixer_mutex)
       system_driver->lock_mutex(mixer_mutex);
 #endif
@@ -237,7 +237,7 @@ void set_volume_per_voice(int scale)
 
    for(i = 0;i < mix_voices;++i)
       update_mixer_volume(mixer_voice+i, _phys_voice+i);
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    if(mixer_mutex)
       system_driver->unlock_mutex(mixer_mutex);
 #endif
@@ -296,7 +296,7 @@ int _mixer_init(int bufsize, int freq, int stereo, int is16bit, int *voices)
 
    mixer_lock_mem();
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    /* Woops. Forgot to clean up incase this fails. :) */
    mixer_mutex = system_driver->create_mutex();
    if (!mixer_mutex) {
@@ -320,7 +320,7 @@ int _mixer_init(int bufsize, int freq, int stereo, int is16bit, int *voices)
  */
 void _mixer_exit(void)
 {
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->destroy_mutex(mixer_mutex);
    mixer_mutex = NULL;
 #endif
@@ -1078,7 +1078,7 @@ void _mix_some_samples(uintptr_t buf, unsigned short seg, int issigned)
    /* clear mixing buffer */
    memset(p, 0, mix_size*mix_channels * sizeof(*p));
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->lock_mutex(mixer_mutex);
 #endif
 
@@ -1159,7 +1159,7 @@ void _mix_some_samples(uintptr_t buf, unsigned short seg, int issigned)
       }
    }
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->unlock_mutex(mixer_mutex);
 #endif
 
@@ -1232,14 +1232,14 @@ END_OF_FUNCTION(_mixer_init_voice);
  */
 void _mixer_release_voice(int voice)
 {
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->lock_mutex(mixer_mutex);
 #endif
 
    mixer_voice[voice].playing = FALSE;
    mixer_voice[voice].data.buffer = NULL;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->unlock_mutex(mixer_mutex);
 #endif
 }

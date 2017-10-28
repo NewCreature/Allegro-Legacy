@@ -27,7 +27,7 @@
 .text
 
 
-#if (!defined ALLEGRO_LINUX) || ((defined ALLEGRO_LINUX_VGA) && ((!defined ALLEGRO_WITH_MODULES) || (defined ALLEGRO_MODULE)))
+#if (!defined ALLEGRO_LEGACY_LINUX) || ((defined ALLEGRO_LEGACY_LINUX_VGA) && ((!defined ALLEGRO_LEGACY_WITH_MODULES) || (defined ALLEGRO_LEGACY_MODULE)))
 
 
 /* _x_bank_switch:
@@ -1687,4 +1687,4 @@ FUNC(_x_draw_sprite_end)
    ret
 
 .section .note.GNU-stack,"",@progbits
-#endif        /* (!defined ALLEGRO_LINUX) || ((defined ALLEGRO_LINUX_VGA) && ... */
+#endif        /* (!defined ALLEGRO_LEGACY_LINUX) || ((defined ALLEGRO_LEGACY_LINUX_VGA) && ... */

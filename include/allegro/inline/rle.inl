@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_RLE_INL
-#define ALLEGRO_RLE_INL
+#ifndef ALLEGRO_LEGACY_RLE_INL
+#define ALLEGRO_LEGACY_RLE_INL
 
 #include "allegro/debug.h"
 
@@ -65,6 +65,6 @@ AL_INLINE(void, draw_lit_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SP
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_RLE_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_RLE_INL */
 
 

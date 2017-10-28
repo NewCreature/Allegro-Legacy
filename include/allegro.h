@@ -19,8 +19,8 @@
  */
 
 
-#ifndef ALLEGRO_H
-#define ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
+#define ALLEGRO_LEGACY_H
 
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_audio.h>
@@ -65,11 +65,11 @@
 #include "allegro/3dmaths.h"
 
 
-#ifndef ALLEGRO_NO_COMPATIBILITY
+#ifndef ALLEGRO_LEGACY_NO_COMPATIBILITY
    #include "allegro/alcompat.h"
 #endif
 
-#ifndef ALLEGRO_NO_FIX_CLASS
+#ifndef ALLEGRO_LEGACY_NO_FIX_CLASS
    #ifdef __cplusplus
       #include "allegro/fix.h"
    #endif
@@ -80,4 +80,4 @@
    #include ALLEGRO_LEGACY_EXTRA_HEADER
 #endif
 
-#endif          /* ifndef ALLEGRO_H */
+#endif          /* ifndef ALLEGRO_LEGACY_H */

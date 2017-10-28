@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_QUAT_H
-#define ALLEGRO_QUAT_H
+#ifndef ALLEGRO_LEGACY_QUAT_H
+#define ALLEGRO_LEGACY_QUAT_H
 
 #include "base.h"
 
@@ -55,6 +55,6 @@ AL_FUNC(void, quat_slerp, (AL_CONST QUAT *from, AL_CONST QUAT *to, float t, QUAT
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_QUAT_H */
+#endif          /* ifndef ALLEGRO_LEGACY_QUAT_H */
 
 

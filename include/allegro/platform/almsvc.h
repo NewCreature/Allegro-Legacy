@@ -28,32 +28,32 @@
 
 
 /* describe this platform */
-#ifdef ALLEGRO_STATICLINK
-   #define ALLEGRO_PLATFORM_STR  "MSVC.s"
+#ifdef ALLEGRO_LEGACY_STATICLINK
+   #define ALLEGRO_LEGACY_PLATFORM_STR  "MSVC.s"
 #else
-   #define ALLEGRO_PLATFORM_STR  "MSVC"
+   #define ALLEGRO_LEGACY_PLATFORM_STR  "MSVC"
 #endif
 
-#define ALLEGRO_WINDOWS
-#define ALLEGRO_I386
-#define ALLEGRO_LITTLE_ENDIAN
-#define ALLEGRO_GUESS_INTTYPES_OK
-#define ALLEGRO_MULTITHREADED
+#define ALLEGRO_LEGACY_WINDOWS
+#define ALLEGRO_LEGACY_I386
+#define ALLEGRO_LEGACY_LITTLE_ENDIAN
+#define ALLEGRO_LEGACY_GUESS_INTTYPES_OK
+#define ALLEGRO_LEGACY_MULTITHREADED
 
-#ifdef ALLEGRO_USE_CONSOLE
-   #define ALLEGRO_CONSOLE_OK
-   #define ALLEGRO_NO_MAGIC_MAIN
+#ifdef ALLEGRO_LEGACY_USE_CONSOLE
+   #define ALLEGRO_LEGACY_CONSOLE_OK
+   #define ALLEGRO_LEGACY_NO_MAGIC_MAIN
 #endif
 
-#ifdef ALLEGRO_AND_MFC
-   #define ALLEGRO_NO_MAGIC_MAIN
+#ifdef ALLEGRO_LEGACY_AND_MFC
+   #define ALLEGRO_LEGACY_NO_MAGIC_MAIN
 #endif
 
 
 /* describe how function prototypes look to MSVC */
-#if defined ALLEGRO_STATICLINK
+#if defined ALLEGRO_LEGACY_STATICLINK
    #define _AL_DLL
-#elif defined ALLEGRO_SRC
+#elif defined ALLEGRO_LEGACY_SRC
    #define _AL_DLL   __declspec(dllexport)
 #else
    #define _AL_DLL   __declspec(dllimport)
@@ -85,7 +85,7 @@
 
 
 /* describe the asm syntax for this platform */
-#define ALLEGRO_ASM_PREFIX    "_"
+#define ALLEGRO_LEGACY_ASM_PREFIX    "_"
 
 
 /* life would be so easy if compilers would all use the same names! */
@@ -96,6 +96,6 @@
 
 
 /* arrange for other headers to be included later on */
-#define ALLEGRO_EXTRA_HEADER     "allegro/platform/alwin.h"
-#define ALLEGRO_INTERNAL_HEADER  "allegro/platform/aintwin.h"
-#define ALLEGRO_ASMCAPA_HEADER   "obj/msvc/asmcapa.h"
+#define ALLEGRO_LEGACY_EXTRA_HEADER     "allegro/platform/alwin.h"
+#define ALLEGRO_LEGACY_INTERNAL_HEADER  "allegro/platform/aintwin.h"
+#define ALLEGRO_LEGACY_ASMCAPA_HEADER   "obj/msvc/asmcapa.h"

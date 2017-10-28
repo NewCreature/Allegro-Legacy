@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_SYSTEM_INL
-#define ALLEGRO_SYSTEM_INL
+#ifndef ALLEGRO_LEGACY_SYSTEM_INL
+#define ALLEGRO_LEGACY_SYSTEM_INL
 
 #include "allegro/debug.h"
 
@@ -62,6 +62,6 @@ AL_INLINE(int, get_desktop_resolution, (int *width, int *height),
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_SYSTEM_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_SYSTEM_INL */
 
 

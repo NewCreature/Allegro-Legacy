@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_SYSTEM_H
-#define ALLEGRO_SYSTEM_H
+#ifndef ALLEGRO_LEGACY_SYSTEM_H
+#define ALLEGRO_LEGACY_SYSTEM_H
 
 #include "base.h"
 #include "unicode.h"
@@ -32,7 +32,7 @@ struct BITMAP;
 struct GFX_VTABLE;
 struct GFX_MODE;
 
-#define ALLEGRO_ERROR_SIZE 256
+#define ALLEGRO_LEGACY_ERROR_SIZE 256
 
 AL_ARRAY(char, allegro_id);
 AL_ARRAY(char, allegro_error);
@@ -250,4 +250,4 @@ AL_ARRAY(_DRIVER_INFO, _system_driver_list);
 
 #include "inline/system.inl"
 
-#endif          /* ifndef ALLEGRO_SYSTEM_H */
+#endif          /* ifndef ALLEGRO_LEGACY_SYSTEM_H */

@@ -43,7 +43,7 @@ set(CMAKE_CONFIGURATION_TYPES "${CMAKE_BUILD_TYPE}" CACHE INTERNAL "internal")
 #
 
 # Set the project name.
-project(ALLEGRO C CXX)
+project(ALLEGRO_LEGACY C CXX)
 
 if(WIN32)
     if(MINGW)
@@ -65,14 +65,14 @@ if(WIN32)
     endif()
 endif(WIN32)
 
-set(ALLEGRO_VERSION 4.4.2)
-string(REGEX MATCH "^[0-9]+[.][0-9]+" ALLEGRO_SOVERSION ${ALLEGRO_VERSION})
+set(ALLEGRO_LEGACY_VERSION 4.4.2)
+string(REGEX MATCH "^[0-9]+[.][0-9]+" ALLEGRO_LEGACY_SOVERSION ${ALLEGRO_LEGACY_VERSION})
 
 # Mac OS X -compatibility_version.
 # XXX doesn't seem to work
 set(COMPAT_VERSION 4.4.0)
 
-set(ALLEGRO_DLL_SHORTVER 44)
+set(ALLEGRO_LEGACY_DLL_SHORTVER 44)
 
 # Search in the `cmake' directory for additional CMake modules.
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
@@ -125,39 +125,39 @@ include(FindPkgConfig)
 include(TestBigEndian)
 
 if(UNIX)
-    test_big_endian(ALLEGRO_BIG_ENDIAN)
-    if(NOT ALLEGRO_BIG_ENDIAN)
-        set(ALLEGRO_LITTLE_ENDIAN 1)
-    endif(NOT ALLEGRO_BIG_ENDIAN)
+    test_big_endian(ALLEGRO_LEGACY_BIG_ENDIAN)
+    if(NOT ALLEGRO_LEGACY_BIG_ENDIAN)
+        set(ALLEGRO_LEGACY_LITTLE_ENDIAN 1)
+    endif(NOT ALLEGRO_LEGACY_BIG_ENDIAN)
 
-    check_include_files(dirent.h ALLEGRO_HAVE_DIRENT_H)
-    check_include_files(inttypes.h ALLEGRO_HAVE_INTTYPES_H)
+    check_include_files(dirent.h ALLEGRO_LEGACY_HAVE_DIRENT_H)
+    check_include_files(inttypes.h ALLEGRO_LEGACY_HAVE_INTTYPES_H)
 
-    check_include_files(linux/awe_voice.h ALLEGRO_HAVE_LINUX_AWE_VOICE_H)
-    check_include_files(linux/input.h ALLEGRO_HAVE_LINUX_INPUT_H)
+    check_include_files(linux/awe_voice.h ALLEGRO_LEGACY_HAVE_LINUX_AWE_VOICE_H)
+    check_include_files(linux/input.h ALLEGRO_LEGACY_HAVE_LINUX_INPUT_H)
     # On some systems including linux/joystick.h without sys/types.h results
     # in conflicting definitions of fd_set.
-    check_include_files("sys/types.h;linux/joystick.h" ALLEGRO_HAVE_LINUX_JOYSTICK_H)
-    check_include_files(linux/soundcard.h ALLEGRO_HAVE_LINUX_SOUNDCARD_H)
-    check_include_files(machine/soundcard.h ALLEGRO_HAVE_MACHINE_SOUNDCARD_H)
-    check_include_files(soundcard.h ALLEGRO_HAVE_SOUNDCARD_H)
-    check_include_files(stdint.h ALLEGRO_HAVE_STDINT_H)
-    check_include_files(sys/io.h ALLEGRO_HAVE_SYS_IO_H)
-    check_include_files(sys/stat.h ALLEGRO_HAVE_SYS_STAT_H)
-    check_include_files(sys/time.h ALLEGRO_HAVE_SYS_TIME_H)
-    check_include_files(sys/soundcard.h ALLEGRO_HAVE_SYS_SOUNDCARD_H)
-    check_include_files(sys/utsname.h ALLEGRO_HAVE_SYS_UTSNAME_H)
+    check_include_files("sys/types.h;linux/joystick.h" ALLEGRO_LEGACY_HAVE_LINUX_JOYSTICK_H)
+    check_include_files(linux/soundcard.h ALLEGRO_LEGACY_HAVE_LINUX_SOUNDCARD_H)
+    check_include_files(machine/soundcard.h ALLEGRO_LEGACY_HAVE_MACHINE_SOUNDCARD_H)
+    check_include_files(soundcard.h ALLEGRO_LEGACY_HAVE_SOUNDCARD_H)
+    check_include_files(stdint.h ALLEGRO_LEGACY_HAVE_STDINT_H)
+    check_include_files(sys/io.h ALLEGRO_LEGACY_HAVE_SYS_IO_H)
+    check_include_files(sys/stat.h ALLEGRO_LEGACY_HAVE_SYS_STAT_H)
+    check_include_files(sys/time.h ALLEGRO_LEGACY_HAVE_SYS_TIME_H)
+    check_include_files(sys/soundcard.h ALLEGRO_LEGACY_HAVE_SYS_SOUNDCARD_H)
+    check_include_files(sys/utsname.h ALLEGRO_LEGACY_HAVE_SYS_UTSNAME_H)
 
-    check_function_exists(getexecname ALLEGRO_HAVE_GETEXECNAME)
-    check_function_exists(memcmp ALLEGRO_HAVE_MEMCMP)
-    check_function_exists(mkstemp ALLEGRO_HAVE_MKSTEMP)
-    check_function_exists(mmap ALLEGRO_HAVE_MMAP)
-    check_function_exists(mprotect ALLEGRO_HAVE_MPROTECT)
-    check_function_exists(sched_yield ALLEGRO_HAVE_SCHED_YIELD)
-    check_function_exists(stricmp ALLEGRO_HAVE_STRICMP)
-    check_function_exists(strlwr ALLEGRO_HAVE_STRLWR)
-    check_function_exists(strupr ALLEGRO_HAVE_STRUPR)
-    check_function_exists(sysconf ALLEGRO_HAVE_SYSCONF)
+    check_function_exists(getexecname ALLEGRO_LEGACY_HAVE_GETEXECNAME)
+    check_function_exists(memcmp ALLEGRO_LEGACY_HAVE_MEMCMP)
+    check_function_exists(mkstemp ALLEGRO_LEGACY_HAVE_MKSTEMP)
+    check_function_exists(mmap ALLEGRO_LEGACY_HAVE_MMAP)
+    check_function_exists(mprotect ALLEGRO_LEGACY_HAVE_MPROTECT)
+    check_function_exists(sched_yield ALLEGRO_LEGACY_HAVE_SCHED_YIELD)
+    check_function_exists(stricmp ALLEGRO_LEGACY_HAVE_STRICMP)
+    check_function_exists(strlwr ALLEGRO_LEGACY_HAVE_STRLWR)
+    check_function_exists(strupr ALLEGRO_LEGACY_HAVE_STRUPR)
+    check_function_exists(sysconf ALLEGRO_LEGACY_HAVE_SYSCONF)
 
     check_c_source_compiles("
         #include <sys/procfs.h>
@@ -167,7 +167,7 @@ if(UNIX)
             ioctl(0, PIOCPSINFO, &psinfo);
             return 0;
         }"
-        ALLEGRO_HAVE_SV_PROCFS_H
+        ALLEGRO_LEGACY_HAVE_SV_PROCFS_H
         )
     check_c_source_compiles("
         #include <sys/procfs.h>
@@ -176,7 +176,7 @@ if(UNIX)
             psinfo.pr_argc = 0;
             return 0;
         }"
-        ALLEGRO_HAVE_PROCFS_ARGCV
+        ALLEGRO_LEGACY_HAVE_PROCFS_ARGCV
         )
 
     check_c_source_compiles("
@@ -196,7 +196,7 @@ if(UNIX)
         void test_ctor (void) { notsupported = 0; }
         int main(void) { return (notsupported); }
         "
-        ALLEGRO_USE_CONSTRUCTOR)
+        ALLEGRO_LEGACY_USE_CONSTRUCTOR)
 
     find_library(RT_LIBRARY rt)
     check_c_source_compiles("
@@ -206,11 +206,11 @@ if(UNIX)
             clock_gettime(CLOCK_MONOTONIC, &new_time_ns);
             return 0;
         }"
-        ALLEGRO_HAVE_POSIX_MONOTONIC_CLOCK
+        ALLEGRO_LEGACY_HAVE_POSIX_MONOTONIC_CLOCK
         )
 
     if(MAGIC_MAIN)
-        set(ALLEGRO_WITH_MAGIC_MAIN 1)
+        set(ALLEGRO_LEGACY_WITH_MAGIC_MAIN 1)
     endif(MAGIC_MAIN)
 
     # XXX const
@@ -229,7 +229,7 @@ set(INSTALL_PREFIX "")
 
 if(CMAKE_COMPILER_IS_GNUCC)
     set(COMPILER_GCC 1)
-    set(ALLEGRO_GCC 1)
+    set(ALLEGRO_LEGACY_GCC 1)
     set(WFLAGS "-W -Wall -Wno-unused-parameter")
     set(WFLAGS_C_ONLY "-Wdeclaration-after-statement")
     if(STRICT_WARN)
@@ -240,7 +240,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
 endif(CMAKE_COMPILER_IS_GNUCC)
 
 if(MINGW)
-    set(ALLEGRO_MINGW32 1)
+    set(ALLEGRO_LEGACY_MINGW32 1)
 
     # Guess MINGDIR from the value of CMAKE_C_COMPILER if it's not set.
     if("$ENV{MINGDIR}" STREQUAL "")
@@ -266,17 +266,17 @@ endif(MINGW)
 
 if(MSVC)
     set(COMPILER_MSVC 1)
-    set(ALLEGRO_MSVC 1)
+    set(ALLEGRO_LEGACY_MSVC 1)
     set(WFLAGS "/W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE")
 endif(MSVC)
 
 if(WIN32)
-    set(ALLEGRO_WINDOWS 1)
+    set(ALLEGRO_LEGACY_WINDOWS 1)
 endif()
 
 if(APPLE)
-    set(ALLEGRO_MACOSX 1)
-    set(ALLEGRO_DARWIN 1)
+    set(ALLEGRO_LEGACY_MACOSX 1)
+    set(ALLEGRO_LEGACY_DARWIN 1)
 
     # Hack to deal with Mac OS X 10.6.  NSQuickDrawView is not defined by
     # NSQuickDrawView.h when compiling in 64-bit mode, and 64-bit mode is the
@@ -294,9 +294,9 @@ endif(APPLE)
 
 if(BEOS)
     if(CMAKE_SYSTEM_NAME STREQUAL Haiku)
-        set(ALLEGRO_HAIKU 1)
+        set(ALLEGRO_LEGACY_HAIKU 1)
     else(CMAKE_SYSTEM_NAME STREQUAL Haiku)
-        set(ALLEGRO_BEOS 1)
+        set(ALLEGRO_LEGACY_BEOS 1)
     endif(CMAKE_SYSTEM_NAME STREQUAL Haiku)
     set(WFLAGS "-W -Wall -Wno-unused -Wno-multichar")
     set(WFLAGS_C_ONLY "")
@@ -304,11 +304,11 @@ if(BEOS)
 endif(BEOS)
 
 if(UNIX AND NOT APPLE AND NOT BEOS)
-    set(ALLEGRO_UNIX 1)
+    set(ALLEGRO_LEGACY_UNIX 1)
 endif()
 
 if(PSP)
-    set(ALLEGRO_PSP 1)
+    set(ALLEGRO_LEGACY_PSP 1)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -G0")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -G0 -fno-exceptions -fno-rtti")
     set(CMAKE_INSTALL_PREFIX ${PSP_PREFIX})
@@ -318,8 +318,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WFLAGS} ${WFLAGS_C_ONLY}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WFLAGS} ${WFLAGS_CXX_ONLY}")
 
 if(NOT BUILD_SHARED_LIBS)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DALLEGRO_STATICLINK")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DALLEGRO_STATICLINK")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DALLEGRO_LEGACY_STATICLINK")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DALLEGRO_LEGACY_STATICLINK")
 endif()
 
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUGMODE=1")
@@ -353,14 +353,14 @@ endif(COMPILER_MSVC)
 #-----------------------------------------------------------------------------#
 
 # Not sure if we want to support disabling these any more.
-set(ALLEGRO_COLOR8 1)
-set(ALLEGRO_COLOR16 1)
-set(ALLEGRO_COLOR24 1)
-set(ALLEGRO_COLOR32 1)
+set(ALLEGRO_LEGACY_COLOR8 1)
+set(ALLEGRO_LEGACY_COLOR16 1)
+set(ALLEGRO_LEGACY_COLOR24 1)
+set(ALLEGRO_LEGACY_COLOR32 1)
 
-set(ALLEGRO_NO_ASM 1)
-# ALLEGRO_MMX left undefined
-# ALLEGRO_SSE left undefined
+set(ALLEGRO_LEGACY_NO_ASM 1)
+# ALLEGRO_LEGACY_MMX left undefined
+# ALLEGRO_LEGACY_SSE left undefined
 
 #-----------------------------------------------------------------------------#
 #
@@ -369,28 +369,28 @@ set(ALLEGRO_NO_ASM 1)
 
 option(WANT_MODULES "Use modules for drivers (Unix)" on)
 
-if(WANT_MODULES AND ALLEGRO_UNIX)
-    set(ALLEGRO_WITH_MODULES 1)
-    set(ALLEGRO_MODULES_PATH
-        ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/allegro/${ALLEGRO_VERSION})
+if(WANT_MODULES AND ALLEGRO_LEGACY_UNIX)
+    set(ALLEGRO_LEGACY_WITH_MODULES 1)
+    set(ALLEGRO_LEGACY_MODULES_PATH
+        ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/allegro/${ALLEGRO_LEGACY_VERSION})
     install(FILES ${CMAKE_SOURCE_DIR}/modules.lst
-            DESTINATION "${ALLEGRO_MODULES_PATH}"
+            DESTINATION "${ALLEGRO_LEGACY_MODULES_PATH}"
             )
-endif(WANT_MODULES AND ALLEGRO_UNIX)
+endif(WANT_MODULES AND ALLEGRO_LEGACY_UNIX)
 
 function(add_our_module nm files)
-    if(ALLEGRO_WITH_MODULES)
+    if(ALLEGRO_LEGACY_WITH_MODULES)
         add_library(${nm} MODULE ${files})
         set_target_properties(${nm}
             PROPERTIES
             PREFIX ""
-            COMPILE_FLAGS -DALLEGRO_MODULE
+            COMPILE_FLAGS -DALLEGRO_LEGACY_MODULE
             )
         target_link_libraries(${nm} ${ARGN})
         install(TARGETS ${nm}
-                DESTINATION "${ALLEGRO_MODULES_PATH}"
+                DESTINATION "${ALLEGRO_LEGACY_MODULES_PATH}"
                 )
-    endif(ALLEGRO_WITH_MODULES)
+    endif(ALLEGRO_LEGACY_WITH_MODULES)
 endfunction(add_our_module)
 
 #-----------------------------------------------------------------------------#
@@ -410,17 +410,17 @@ option(WANT_ALSA "Build ALSA support" on)
 option(WANT_JACK "Build JACK support" on)
 option(WANT_SGIAUDIO "Build SGI audio support" on)
 
-list(APPEND PLATFORM_SOURCES ${ALLEGRO_SRC_A5_FILES})
+list(APPEND PLATFORM_SOURCES ${ALLEGRO_LEGACY_SRC_A5_FILES})
 
 #-----------------------------------------------------------------------------#
 #
 # Generate and install headers
 #
 
-set(ALLEGRO_PUBLIC_HEADERS)
+set(ALLEGRO_LEGACY_PUBLIC_HEADERS)
 
 macro(add_headers location)
-    list(APPEND ALLEGRO_PUBLIC_HEADERS ${ARGN})
+    list(APPEND ALLEGRO_LEGACY_PUBLIC_HEADERS ${ARGN})
     # We reuse MACOSX_PACKAGE_LOCATION on non-Mac platforms as well.
     set_source_files_properties(${ARGN}
 	PROPERTIES
@@ -448,24 +448,24 @@ if(UNIX)
 endif(UNIX)
 
 add_headers(""               include/allegro.h)
-add_headers(allegro          ${ALLEGRO_INCLUDE_ALLEGRO_FILES})
-add_headers(allegro/inline   ${ALLEGRO_INCLUDE_ALLEGRO_INLINE_FILES})
-add_headers(allegro/internal ${ALLEGRO_INCLUDE_ALLEGRO_INTERNAL_FILES})
-add_headers(allegro/platform ${ALLEGRO_INCLUDE_ALLEGRO_PLATFORM_FILES})
+add_headers(allegro          ${ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_FILES})
+add_headers(allegro/inline   ${ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_INLINE_FILES})
+add_headers(allegro/internal ${ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_INTERNAL_FILES})
+add_headers(allegro/platform ${ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_PLATFORM_FILES})
 
 # Platform-specific top-level headers.
-if(ALLEGRO_LINUX)
+if(ALLEGRO_LEGACY_LINUX)
     add_headers("" include/linalleg.h)
-endif(ALLEGRO_LINUX)
+endif(ALLEGRO_LEGACY_LINUX)
 if(APPLE)
     add_headers("" include/osxalleg.h)
 endif(APPLE)
 if(WIN32)
     add_headers("" include/winalleg.h)
 endif(WIN32)
-if(ALLEGRO_WITH_XWINDOWS)
+if(ALLEGRO_LEGACY_WITH_XWINDOWS)
     add_headers("" include/xalleg.h)
-endif(ALLEGRO_WITH_XWINDOWS)
+endif(ALLEGRO_LEGACY_WITH_XWINDOWS)
 if(BEOS)
     add_headers("" include/bealleg.h)
 endif(BEOS)
@@ -485,40 +485,40 @@ else()
     set(BUILD_TYPE_SUFFIX "")
 endif()
 
-if(ALLEGRO_MODULES_PATH)
-    set(ALLEGRO_MODULES_PATH_FLAG
-        "-DALLEGRO_MODULES_PATH='\"${ALLEGRO_MODULES_PATH}\"'")
-endif(ALLEGRO_MODULES_PATH)
+if(ALLEGRO_LEGACY_MODULES_PATH)
+    set(ALLEGRO_LEGACY_MODULES_PATH_FLAG
+        "-DALLEGRO_LEGACY_MODULES_PATH='\"${ALLEGRO_LEGACY_MODULES_PATH}\"'")
+endif(ALLEGRO_LEGACY_MODULES_PATH)
 
 if(APPLE)
     # CMake 2.6.2 onwards passes these flags automatically.
     if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} STREQUAL 2.6 AND
 	    ${CMAKE_PATCH_VERSION} LESS 2)
-	set(ALLEGRO_LINK_FLAGS
-	    "-compatibility_version ${COMPAT_VERSION} -current_version ${ALLEGRO_VERSION}")
+	set(ALLEGRO_LEGACY_LINK_FLAGS
+	    "-compatibility_version ${COMPAT_VERSION} -current_version ${ALLEGRO_LEGACY_VERSION}")
     endif()
 endif(APPLE)
 
 add_our_library(allegro
-    ${ALLEGRO_SRC_FILES}
-    ${ALLEGRO_SRC_C_FILES}
+    ${ALLEGRO_LEGACY_SRC_FILES}
+    ${ALLEGRO_LEGACY_SRC_C_FILES}
     ${PLATFORM_SOURCES}
-    ${ALLEGRO_PUBLIC_HEADERS}
+    ${ALLEGRO_LEGACY_PUBLIC_HEADERS}
     )
 
 if(WIN32 AND SHARED)
-    set(allegro_OUTPUT_NAME alleg${ALLEGRO_DLL_SHORTVER})
+    set(allegro_OUTPUT_NAME alleg${ALLEGRO_LEGACY_DLL_SHORTVER})
 else()
     set(allegro_OUTPUT_NAME alleg)
 endif()
 
 set_target_properties(allegro
     PROPERTIES
-    COMPILE_FLAGS "-DALLEGRO_SRC ${ALLEGRO_MODULES_PATH_FLAG}"
-    LINK_FLAGS "${ALLEGRO_LINK_FLAGS}"
+    COMPILE_FLAGS "-DALLEGRO_LEGACY_SRC ${ALLEGRO_LEGACY_MODULES_PATH_FLAG}"
+    LINK_FLAGS "${ALLEGRO_LEGACY_LINK_FLAGS}"
     OUTPUT_NAME ${allegro_OUTPUT_NAME}
-    VERSION ${ALLEGRO_VERSION}
-    SOVERSION ${ALLEGRO_SOVERSION}
+    VERSION ${ALLEGRO_LEGACY_VERSION}
+    SOVERSION ${ALLEGRO_LEGACY_SOVERSION}
     )
 
 if(WIN32)
@@ -543,7 +543,7 @@ endif(WIN32)
 set_our_framework_properties(allegro Allegro)
 
 set(link_with ${PLATFORM_LIBS})
-if(ALLEGRO_WITH_MODULES)
+if(ALLEGRO_LEGACY_WITH_MODULES)
     list(APPEND link_with ${PLATFORM_LIBS_MODULES})
 else()
     list(APPEND link_with ${PLATFORM_LIBS_NON_MODULES})
@@ -558,7 +558,7 @@ set_target_properties(allegro
 
 install_our_library(allegro)
 if(NOT WANT_FRAMEWORKS)
-    install_our_headers(${ALLEGRO_PUBLIC_HEADERS})
+    install_our_headers(${ALLEGRO_LEGACY_PUBLIC_HEADERS})
 endif(NOT WANT_FRAMEWORKS)
 
 if(APPLE AND SHARED OR WANT_FRAMEWORKS)
@@ -568,7 +568,7 @@ if(APPLE AND SHARED OR WANT_FRAMEWORKS)
     set_target_properties(alleg-main
 	PROPERTIES
 	OUTPUT_NAME alleg-main${BUILD_TYPE_SUFFIX}
-	COMPILE_FLAGS -DALLEGRO_SRC
+	COMPILE_FLAGS -DALLEGRO_LEGACY_SRC
 	)
     target_link_libraries(allegro alleg-main)
     install_our_library(alleg-main)
@@ -581,7 +581,7 @@ if(PSP)
     set_target_properties(alleg-main
 	PROPERTIES
 	OUTPUT_NAME alleg-main${BUILD_TYPE_SUFFIX}
-	COMPILE_FLAGS -DALLEGRO_SRC
+	COMPILE_FLAGS -DALLEGRO_LEGACY_SRC
 	)
     target_link_libraries(alleg-main pspuser pspkernel)
     target_link_libraries(allegro alleg-main)

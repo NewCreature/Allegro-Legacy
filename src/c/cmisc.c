@@ -21,7 +21,7 @@
 
 
 
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
 /* Empty bank switch routines.  Should be used with C calling convention. */
 
 uintptr_t _stub_bank_switch(BITMAP *bmp, int y)

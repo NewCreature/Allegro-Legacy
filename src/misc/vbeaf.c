@@ -65,15 +65,15 @@
 
 #include "allegro.h"
 
-#if (defined ALLEGRO_DOS) || (defined ALLEGRO_LINUX_VBEAF)
+#if (defined ALLEGRO_LEGACY_DOS) || (defined ALLEGRO_LEGACY_LINUX_VBEAF)
 
 #include "allegro/internal/aintern.h"
 
-#ifdef ALLEGRO_INTERNAL_HEADER
-   #include ALLEGRO_INTERNAL_HEADER
+#ifdef ALLEGRO_LEGACY_INTERNAL_HEADER
+   #include ALLEGRO_LEGACY_INTERNAL_HEADER
 #endif
 
-#if (defined ALLEGRO_DJGPP) && (!defined SCAN_DEPEND)
+#if (defined ALLEGRO_LEGACY_DJGPP) && (!defined SCAN_DEPEND)
    #include <crt0.h>
    #include <sys/nearptr.h>
    #include <sys/exceptn.h>
@@ -116,7 +116,7 @@ static void vbeaf_masked_blit(BITMAP *source, BITMAP *dest, int source_x, int so
 static void vbeaf_clear_to_color(BITMAP *bitmap, int color);
 
 
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
    static void vbeaf_move_mouse_end(void);
    static void vbeaf_draw_sprite_end(void);
    static void vbeaf_blit_from_memory_end(void);
@@ -205,13 +205,13 @@ typedef struct AF_PALETTE        /* color value (not in Allegro order) */
 
 
 
-#ifdef ALLEGRO_GCC
+#ifdef ALLEGRO_LEGACY_GCC
    #define __PACKED__   __attribute__ ((packed))
 #else
    #define __PACKED__
 #endif
 
-#ifdef ALLEGRO_WATCOM
+#ifdef ALLEGRO_LEGACY_WATCOM
    #pragma pack (1)
 #endif
 
@@ -455,7 +455,7 @@ typedef struct FAF_HWPTR_DATA
 
 
 
-#ifdef ALLEGRO_LINUX
+#ifdef ALLEGRO_LEGACY_LINUX
 
    #include <sys/stat.h>
    #include <sys/mman.h>
@@ -531,11 +531,11 @@ static MMAP af_memmap[4] = { NOMM, NOMM, NOMM, NOMM };
 static MMAP af_banked_mem = NOMM;
 static MMAP af_linear_mem = NOMM;
 
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
    static int vbeaf_nearptr = FALSE;   /* did we enable nearptrs ourselves? */
 #endif
 
-#ifdef ALLEGRO_LINUX
+#ifdef ALLEGRO_LEGACY_LINUX
    int _vbeaf_selector = 0;            /* Linux version of __djgpp_ds_alias */
 #endif
 
@@ -548,7 +548,7 @@ extern void _af_int86(void), _af_call_rm(void), _af_wrapper(void), _af_wrapper_e
 
 
 
-#ifdef ALLEGRO_DJGPP
+#ifdef ALLEGRO_LEGACY_DJGPP
 
    /* djgpp wrapper to disable exceptions during critical operations */
    #define SAFE_CALL(FUNC)                \
@@ -585,7 +585,7 @@ extern void _af_int86(void), _af_call_rm(void), _af_wrapper(void), _af_wrapper_e
 
    #define SAFISH_CALL(FUNC)  FUNC
 
-#elif defined ALLEGRO_LINUX
+#elif defined ALLEGRO_LEGACY_LINUX
 
    /* Linux wrapper to disable console switches during critical operations */
    #define SAFE_CALL(FUNC)                \
@@ -632,7 +632,7 @@ static int call_vbeaf_asm(void *proc)
 
    proc = (void *)((long)af_driver + (long)proc);
 
-   #ifdef ALLEGRO_GCC
+   #ifdef ALLEGRO_LEGACY_GCC
 
       /* use gcc-style inline asm */
       asm (
@@ -649,7 +649,7 @@ static int call_vbeaf_asm(void *proc)
       : "memory"                          /* assume everything is clobbered */
       );
 
-   #elif defined ALLEGRO_WATCOM
+   #elif defined ALLEGRO_LEGACY_WATCOM
 
       /* use Watcom-style inline asm */
       {
@@ -697,7 +697,7 @@ static int load_vbeaf_driver(AL_CONST char *filename)
    long size;
    PACKFILE *f;
 
-   #ifdef ALLEGRO_LINUX
+   #ifdef ALLEGRO_LEGACY_LINUX
 
       /* on Linux. be paranoid and insist that vbeaf.drv belongs to root */
       char tmp[128];
@@ -707,7 +707,7 @@ static int load_vbeaf_driver(AL_CONST char *filename)
 	 return 0;
 
       if ((s.st_uid != 0) || (s.st_mode & (S_IWGRP | S_IWOTH))) {
-	 uszprintf(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("%s must only be writeable by root"), filename);
+	 uszprintf(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("%s must only be writeable by root"), filename);
 	 return -1;
       }
 
@@ -755,7 +755,7 @@ static void initialise_freebeaf_extensions(void)
    unsigned long magic;
    int v1, v2;
 
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       void *ptr;
    #endif
 
@@ -782,7 +782,7 @@ static void initialise_freebeaf_extensions(void)
    faf_ext = (v1-'0')*10 + (v2-'0');
 
    /* export libc and pmode functions if the driver wants them */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
 
       ptr = af_driver->OemExt(af_driver, FAFEXT_LIBC);
       if (ptr)
@@ -805,7 +805,7 @@ static int initialise_vbeaf_driver(void)
 {
    int c;
 
-   #ifdef ALLEGRO_DJGPP
+   #ifdef ALLEGRO_LEGACY_DJGPP
 
       /* query driver for the FreeBE/AF farptr extension */
       if (faf_ext > 0)
@@ -820,7 +820,7 @@ static int initialise_vbeaf_driver(void)
 
    #endif
 
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
 
       if (faf_farptr) {
 	 /* use farptr access */
@@ -947,7 +947,7 @@ static int find_vbeaf_mode(int w, int h, int v_w, int v_h, int color_depth, AF_M
 	    /* make sure the mode supports scrolling */
 	    if ((v_w > w) || (v_h > h)) {
 	       if (!(mode_info->Attributes & 2)) {
-		  ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Hardware scrolling not supported"));
+		  ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Hardware scrolling not supported"));
 		  return 0;
 	       }
 	    }
@@ -957,7 +957,7 @@ static int find_vbeaf_mode(int w, int h, int v_w, int v_h, int color_depth, AF_M
 	     * call and use VBE 3.0 instead.
 	     */
 	    if ((!(mode_info->Attributes & 16)) && (!faf_id)) {
-	       ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Hardware acceleration not available"));
+	       ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Hardware acceleration not available"));
 	       return 0;
 	    }
 
@@ -966,7 +966,7 @@ static int find_vbeaf_mode(int w, int h, int v_w, int v_h, int color_depth, AF_M
       }
    }
 
-   ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Resolution not supported"));
+   ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Resolution not supported"));
    return 0;
 }
 
@@ -1018,7 +1018,7 @@ static int vbeaf_locate_driver(void)
 {
    static char *possible_filenames[] =
    {
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       "c:\\vbeaf.drv",
    #else
       "/usr/local/lib/vbeaf.drv",
@@ -1078,7 +1078,7 @@ static int vbeaf_locate_driver(void)
    }
 
    /* oops, no driver */
-   ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Can't find VBEAF.DRV"));
+   ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Can't find VBEAF.DRV"));
    ret = FALSE;
 
    /* got it! */ 
@@ -1099,23 +1099,23 @@ static int vbeaf_lowlevel_init(void)
    /* check the driver ID string */
    if (strcmp(af_driver->Signature, "VBEAF.DRV") != 0) {
       vbeaf_exit(NULL);
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Bad VBE/AF driver ID string"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Bad VBE/AF driver ID string"));
       return FALSE;
    }
 
    /* check the VBE/AF version number */
    if (af_driver->Version < 0x200) {
       vbeaf_exit(NULL);
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Obsolete VBE/AF version (need 2.0 or greater)"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Obsolete VBE/AF version (need 2.0 or greater)"));
       return FALSE;
    }
 
    /* to run on Linux, we need to be God */
-   #ifdef ALLEGRO_LINUX
+   #ifdef ALLEGRO_LEGACY_LINUX
 
       if (!__al_linux_have_ioperms) {
 	 vbeaf_exit(NULL);
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("This driver needs root privileges"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("This driver needs root privileges"));
 	 return FALSE;
       }
 
@@ -1136,7 +1136,7 @@ static int vbeaf_lowlevel_init(void)
    /* special setup for Plug and Play hardware */
    if (call_vbeaf_asm(af_driver->PlugAndPlayInit) != 0) {
       vbeaf_exit(NULL);
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("VBE/AF Plug and Play initialisation failed"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("VBE/AF Plug and Play initialisation failed"));
       return FALSE;
    }
 
@@ -1145,16 +1145,16 @@ static int vbeaf_lowlevel_init(void)
    if (ret != 0) {
       vbeaf_exit(NULL);
       if (ret == -2)
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("VBE/AF nearptrs not supported on this platform"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("VBE/AF nearptrs not supported on this platform"));
       else
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Can't map memory for VBE/AF"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Can't map memory for VBE/AF"));
       return FALSE;
    }
 
    /* low level driver initialisation */
    if (call_vbeaf_asm(af_driver->InitDriver) != 0) {
       vbeaf_exit(NULL);
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("VBE/AF device not present"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("VBE/AF device not present"));
       return FALSE;
    }
 
@@ -1183,7 +1183,7 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
     * The bank switchers assume asm-mode calling conventions, but the
     * library would try to call them with C calling conventions.
     */
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
    return NULL;
 #endif
 
@@ -1214,7 +1214,7 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
    /* bodge to work around bugs in the present (6.51) version of UniVBE */
    if ((v_w > w) && (!faf_id)) {
       vbeaf_exit(NULL);
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("SciTech VBE/AF drivers do not support wide virtual screens"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("SciTech VBE/AF drivers do not support wide virtual screens"));
       return NULL;
    }
 
@@ -1268,14 +1268,14 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
    _sort_out_virtual_width(&width, &gfx_vbeaf);
 
    if (width * height > gfx_vbeaf.vid_mem) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Insufficient video memory"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Insufficient video memory"));
       vbeaf_exit(NULL);
       return NULL;
    }
 
    /* set the mode */
    if (set_vbeaf_mode(mode, w, h, width/bpp, height, &width, &scrollable) != 0) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Failed to set VBE/AF mode"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Failed to set VBE/AF mode"));
       vbeaf_exit(NULL);
       return NULL;
    }
@@ -1287,7 +1287,7 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
       height = MAX(height, (int)af_driver->OffscreenEndY+1);
 
    if ((width/bpp < v_w) || (width/bpp < w) || (height < v_h) || (height < h)) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Virtual screen size too large"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Virtual screen size too large"));
       vbeaf_exit(NULL);
       return NULL;
    }
@@ -1337,7 +1337,7 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
    gfx_vbeaf.h = b->cb = h;
 
    /* set up the truecolor pixel format */
-   #if (defined ALLEGRO_COLOR16) || (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
+   #if (defined ALLEGRO_LEGACY_COLOR16) || (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
 
       if (gfx_vbeaf.linear) {
 	 rs = mode_info.LinRedFieldPosition; 
@@ -1352,7 +1352,7 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
 
       switch (color_depth) {
 
-	 #ifdef ALLEGRO_COLOR16
+	 #ifdef ALLEGRO_LEGACY_COLOR16
 
 	    case 15:
 	       _rgb_r_shift_15 = rs; 
@@ -1368,7 +1368,7 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR24
+	 #ifdef ALLEGRO_LEGACY_COLOR24
 
 	    case 24:
 	       _rgb_r_shift_24 = rs; 
@@ -1378,7 +1378,7 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR32
+	 #ifdef ALLEGRO_LEGACY_COLOR32
 
 	    case 32:
 	       _rgb_r_shift_32 = rs; 
@@ -1519,7 +1519,7 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
 
    gfx_vbeaf.desc = vbeaf_desc;
 
-   #ifdef ALLEGRO_LINUX
+   #ifdef ALLEGRO_LEGACY_LINUX
 
       __al_linux_console_graphics();
 
@@ -1571,7 +1571,7 @@ static void vbeaf_exit(BITMAP *b)
       af_driver = _accel_driver = NULL;
    }
 
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
 
       if (vbeaf_nearptr) {
 	 __djgpp_nearptr_disable();
@@ -1580,7 +1580,7 @@ static void vbeaf_exit(BITMAP *b)
 
    #endif
 
-   #ifdef ALLEGRO_LINUX
+   #ifdef ALLEGRO_LEGACY_LINUX
 
       __al_linux_console_text();
 
@@ -2096,7 +2096,7 @@ static void prepare_color_pattern(BITMAP *bmp)
 
       switch (bitmap_color_depth(bmp)) {
 
-	 #ifdef ALLEGRO_COLOR8
+	 #ifdef ALLEGRO_LEGACY_COLOR8
 
 	    case 8:
 	       for (y=0; y<8; y++) {
@@ -2110,7 +2110,7 @@ static void prepare_color_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR16
+	 #ifdef ALLEGRO_LEGACY_COLOR16
 
 	    case 15:
 	    case 16:
@@ -2125,7 +2125,7 @@ static void prepare_color_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR24
+	 #ifdef ALLEGRO_LEGACY_COLOR24
 
 	    case 24:
 	       for (y=0; y<8; y++) {
@@ -2139,7 +2139,7 @@ static void prepare_color_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR32
+	 #ifdef ALLEGRO_LEGACY_COLOR32
 
 	    case 32:
 	       for (y=0; y<8; y++) {
@@ -2177,7 +2177,7 @@ static void prepare_mono_pattern(BITMAP *bmp)
 
       switch (bitmap_color_depth(bmp)) {
 
-	 #ifdef ALLEGRO_COLOR16
+	 #ifdef ALLEGRO_LEGACY_COLOR16
 
 	    case 8:
 	       for (y=0; y<8; y++) {
@@ -2193,7 +2193,7 @@ static void prepare_mono_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR16
+	 #ifdef ALLEGRO_LEGACY_COLOR16
 
 	    case 15:
 	    case 16:
@@ -2210,7 +2210,7 @@ static void prepare_mono_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR24
+	 #ifdef ALLEGRO_LEGACY_COLOR24
 
 	    case 24:
 	       for (y=0; y<8; y++) {
@@ -2226,7 +2226,7 @@ static void prepare_mono_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR32
+	 #ifdef ALLEGRO_LEGACY_COLOR32
 
 	    case 32:
 	       for (y=0; y<8; y++) {

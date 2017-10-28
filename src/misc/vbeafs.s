@@ -18,13 +18,13 @@
 
 #include "../i386/asmdefs.inc"
 
-#if (defined ALLEGRO_DOS) || (defined ALLEGRO_LINUX_VBEAF)
+#if (defined ALLEGRO_LEGACY_DOS) || (defined ALLEGRO_LEGACY_LINUX_VBEAF)
 
 .text
 
 
 
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
    #define VBEAF_SELECTOR     GLOBL(__djgpp_ds_alias)
 #else
    #define VBEAF_SELECTOR     GLOBL(_vbeaf_selector)
@@ -41,7 +41,7 @@ FUNC(_af_wrapper)
 /* callback for VBE/AF to access real mode interrupts (DPMI 0x300) */
 FUNC(_af_int86)
 
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
    pushal
    pushw %es
    pushw %ds
@@ -64,7 +64,7 @@ FUNC(_af_int86)
 /* callback for VBE/AF to access real mode functions (DPMI 0x301) */
 FUNC(_af_call_rm)
 
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
    pushal
    pushw %es
    pushw %ds

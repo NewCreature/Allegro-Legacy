@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_PALETTE_H
-#define ALLEGRO_PALETTE_H
+#ifndef ALLEGRO_LEGACY_PALETTE_H
+#define ALLEGRO_LEGACY_PALETTE_H
 
 #ifdef __cplusplus
    extern "C" {
@@ -37,6 +37,6 @@ typedef RGB PALETTE[PAL_SIZE];
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_PALETTE_H */
+#endif          /* ifndef ALLEGRO_LEGACY_PALETTE_H */
 
 

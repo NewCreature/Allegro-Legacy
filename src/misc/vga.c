@@ -24,16 +24,16 @@
 
 #include "allegro.h"
 
-#ifdef ALLEGRO_GFX_HAS_VGA
+#ifdef ALLEGRO_LEGACY_GFX_HAS_VGA
 
 #include "allegro/internal/aintern.h"
 #include "allegro/internal/aintvga.h"
 
-#ifdef ALLEGRO_INTERNAL_HEADER
-   #include ALLEGRO_INTERNAL_HEADER
+#ifdef ALLEGRO_LEGACY_INTERNAL_HEADER
+   #include ALLEGRO_LEGACY_INTERNAL_HEADER
 #endif
 
-#if (!defined ALLEGRO_LINUX) || ((defined ALLEGRO_LINUX_VGA) && ((!defined ALLEGRO_WITH_MODULES) || (defined ALLEGRO_MODULE)))
+#if (!defined ALLEGRO_LEGACY_LINUX) || ((defined ALLEGRO_LEGACY_LINUX_VGA) && ((!defined ALLEGRO_LEGACY_WITH_MODULES) || (defined ALLEGRO_LEGACY_MODULE)))
 
 
 
@@ -95,7 +95,7 @@ static BITMAP *vga_init(int w, int h, int v_w, int v_h, int color_depth)
 
    /* check it is a valid resolution */
    if (color_depth != 8) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("VGA only supports 8 bit color"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("VGA only supports 8 bit color"));
       return NULL;
    }
 
@@ -287,11 +287,11 @@ static BITMAP *vga_init(int w, int h, int v_w, int v_h, int color_depth)
       gfx_vga.h = 80;
    }
    else {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Not a valid VGA resolution"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Not a valid VGA resolution"));
       return NULL;
    }
 
-   #ifdef ALLEGRO_LINUX
+   #ifdef ALLEGRO_LEGACY_LINUX
 
       b->vtable->acquire = __al_linux_acquire_bitmap;
       b->vtable->release = __al_linux_release_bitmap;
@@ -363,7 +363,7 @@ static GFX_MODE_LIST *vga_fetch_mode_list(void)
 
 
 
-#ifdef ALLEGRO_MODULE
+#ifdef ALLEGRO_LEGACY_MODULE
 
 extern void _module_init_modex(int);  /* from modex.c */
 
@@ -378,9 +378,9 @@ void _module_init(int system_driver)
       _unix_register_gfx_driver(GFX_VGA, &gfx_vga, TRUE, TRUE);
 }
 
-#endif      /* ifdef ALLEGRO_MODULE */
+#endif      /* ifdef ALLEGRO_LEGACY_MODULE */
 
 
 
-#endif      /* (!defined ALLEGRO_LINUX) || ((defined ALLEGRO_LINUX_VGA) && ...) */
-#endif      /* ifdef ALLEGRO_GFX_HAS_VGA */
+#endif      /* (!defined ALLEGRO_LEGACY_LINUX) || ((defined ALLEGRO_LEGACY_LINUX_VGA) && ...) */
+#endif      /* ifdef ALLEGRO_LEGACY_GFX_HAS_VGA */

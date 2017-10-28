@@ -40,7 +40,7 @@ int _timer_use_retrace = FALSE;           /* are we synced to the retrace? */
 
 volatile int _retrace_hpp_value = -1;     /* to set during next retrace */
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
 static void *timer_mutex = NULL;          /* global timer mutex */
    /* Why we need timer_mutex:
     *
@@ -77,7 +77,7 @@ long _handle_timer_tick(int interval)
 
    timer_delay += interval;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->lock_mutex(timer_mutex);
 #else
    /* reentrant interrupt? */
@@ -126,13 +126,13 @@ long _handle_timer_tick(int interval)
 
    timer_delay -= d;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->unlock_mutex(timer_mutex);
 #else
    timer_semaphore = FALSE;
 #endif
 
-#ifdef ALLEGRO_WINDOWS
+#ifdef ALLEGRO_LEGACY_WINDOWS
    /* fudge factor to prevent interrupts from coming too close to each other */
    if (new_delay < MSEC_TO_TIMER(1))
       new_delay = MSEC_TO_TIMER(1);
@@ -339,7 +339,7 @@ static int install_timer_int(void *proc, void *param, long speed, int param_used
    if (x < 0)
       return -1;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->lock_mutex(timer_mutex);
 #endif
 
@@ -359,7 +359,7 @@ static int install_timer_int(void *proc, void *param, long speed, int param_used
 
    _timer_queue[x].speed = speed;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->unlock_mutex(timer_mutex);
 #endif
 
@@ -449,7 +449,7 @@ static void remove_timer_int(void *proc, void *param, int param_used)
    if (x < 0)
       return;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->lock_mutex(timer_mutex);
 #endif
 
@@ -459,7 +459,7 @@ static void remove_timer_int(void *proc, void *param, int param_used)
    _timer_queue[x].speed = 0;
    _timer_queue[x].counter = 0;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->unlock_mutex(timer_mutex);
 #endif
 }
@@ -560,7 +560,7 @@ int install_timer(void)
    else
       driver_list = _timer_driver_list;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    timer_mutex = system_driver->create_mutex();
    if (!timer_mutex)
       return -1;
@@ -574,7 +574,7 @@ int install_timer(void)
    }
 
    if (!driver_list[i].driver) {
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
       system_driver->destroy_mutex(timer_mutex);
       timer_mutex = NULL;
 #endif
@@ -604,7 +604,7 @@ void remove_timer(void)
    timer_driver->exit();
    timer_driver = NULL;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    system_driver->destroy_mutex(timer_mutex);
    timer_mutex = NULL;
 #endif

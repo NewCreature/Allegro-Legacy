@@ -240,7 +240,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
 {
    switch (from_depth) {
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
       case 8:
          switch (to_depth) {
 
@@ -267,7 +267,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
          break;
 #endif
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
       case 15:
          switch (to_depth) {
 
@@ -276,7 +276,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
                return &_colorconv_blit_15_to_8;
 
             case 15:
-#ifndef ALLEGRO_NO_COLORCOPY
+#ifndef ALLEGRO_LEGACY_NO_COLORCOPY
                return &_colorcopy_blit_15_to_15;
 #else
                return NULL;
@@ -306,7 +306,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
                return &_colorconv_blit_16_to_15;
 
             case 16:
-#ifndef ALLEGRO_NO_COLORCOPY
+#ifndef ALLEGRO_LEGACY_NO_COLORCOPY
                return &_colorcopy_blit_16_to_16;
 #else
                return NULL;
@@ -323,7 +323,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
          break;
 #endif
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
       case 24:
          switch (to_depth) {
 
@@ -338,7 +338,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
                return &_colorconv_blit_24_to_16;
 
             case 24:
-#ifndef ALLEGRO_NO_COLORCOPY
+#ifndef ALLEGRO_LEGACY_NO_COLORCOPY
                return &_colorcopy_blit_24_to_24;
 #else
                return NULL;
@@ -350,7 +350,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
          break;
 #endif
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
       case 32:
          switch (to_depth) {
 
@@ -368,7 +368,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
                return &_colorconv_blit_32_to_24;
 
             case 32:
-#ifndef ALLEGRO_NO_COLORCOPY
+#ifndef ALLEGRO_LEGACY_NO_COLORCOPY
                return &_colorcopy_blit_32_to_32;
 #else
                return NULL;

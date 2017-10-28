@@ -18,7 +18,7 @@
 
 #include "allegro.h"
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 #include "allegro/internal/aintern.h"
 #include "cdefs8.h"

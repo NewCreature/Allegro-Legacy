@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_GFX_H
-#define ALLEGRO_GFX_H
+#ifndef ALLEGRO_LEGACY_GFX_H
+#define ALLEGRO_LEGACY_GFX_H
 
 #include "3d.h"
 #include "base.h"
@@ -461,6 +461,6 @@ AL_FUNC(void, lock_bitmap, (struct BITMAP *bmp));
 
 #include "inline/gfx.inl"
 
-#endif          /* ifndef ALLEGRO_GFX_H */
+#endif          /* ifndef ALLEGRO_LEGACY_GFX_H */
 
 

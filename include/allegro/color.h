@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_COLOR_H
-#define ALLEGRO_COLOR_H
+#ifndef ALLEGRO_LEGACY_COLOR_H
+#define ALLEGRO_LEGACY_COLOR_H
 
 #include "base.h"
 #include "palette.h"
@@ -150,6 +150,6 @@ AL_FUNC(int, geta_depth, (int color_depth, int c));
 
 #include "inline/color.inl"
 
-#endif          /* ifndef ALLEGRO_COLOR_H */
+#endif          /* ifndef ALLEGRO_LEGACY_COLOR_H */
 
 

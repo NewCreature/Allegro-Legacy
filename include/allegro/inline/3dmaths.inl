@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_3DMATHS_INL
-#define ALLEGRO_3DMATHS_INL
+#ifndef ALLEGRO_LEGACY_3DMATHS_INL
+#define ALLEGRO_LEGACY_3DMATHS_INL
 
 #ifdef __cplusplus
    extern "C" {
@@ -55,6 +55,6 @@ AL_INLINE(void, persp_project_f, (float x, float y, float z, float *xout, float 
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_3DMATHS_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_3DMATHS_INL */
 
 

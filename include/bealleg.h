@@ -18,8 +18,8 @@
  *      See readme.txt for copyright information.
  */
 
-#ifndef BE_ALLEGRO_H
-#define BE_ALLEGRO_H
+#ifndef BE_ALLEGRO_LEGACY_H
+#define BE_ALLEGRO_LEGACY_H
 
 /* There is namespace cross-talk between the Be API and
    Allegro, lets use my favorite namespace detergent.
@@ -51,8 +51,8 @@
    #include <Be.h>
 #endif
 
-#define BE_ALLEGRO_VIEW_DIRECT    1
-#define BE_ALLEGRO_VIEW_OVERLAY   2
+#define BE_ALLEGRO_LEGACY_VIEW_DIRECT    1
+#define BE_ALLEGRO_LEGACY_VIEW_OVERLAY   2
 
 #define LINE8_HOOK_NUM    3
 #define LINE16_HOOK_NUM  12
@@ -285,4 +285,4 @@ bool _be_handle_window_close(const char *title);
 
 
 
-#endif /* ifndef BE_ALLEGRO_H */
+#endif /* ifndef BE_ALLEGRO_LEGACY_H */

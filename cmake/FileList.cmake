@@ -1,4 +1,4 @@
-set(ALLEGRO_SRC_FILES
+set(ALLEGRO_LEGACY_SRC_FILES
         src/allegro.c
         src/blit.c
         src/bmp.c
@@ -68,7 +68,7 @@ set(ALLEGRO_SRC_FILES
         src/vtable8.c
         )
 
-set(ALLEGRO_SRC_C_FILES
+set(ALLEGRO_LEGACY_SRC_C_FILES
         src/c/cblit16.c
         src/c/cblit24.c
         src/c/cblit32.c
@@ -101,7 +101,7 @@ set(ALLEGRO_SRC_C_FILES
         src/misc/colconv.c
         )
 
-set(ALLEGRO_SRC_A5_FILES
+set(ALLEGRO_LEGACY_SRC_A5_FILES
         src/a5/a5_file.c
         src/a5/a5_sound.c
         src/a5/a5_sound_driver.c
@@ -120,7 +120,7 @@ set(ALLEGRO_SRC_A5_FILES
         src/a5/a5_system_driver.c
         )
 
-set(ALLEGRO_INCLUDE_ALLEGRO_FILES
+set(ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_FILES
         include/allegro/3d.h
         include/allegro/3dmaths.h
         include/allegro/alcompat.h
@@ -159,7 +159,7 @@ set(ALLEGRO_INCLUDE_ALLEGRO_FILES
         include/allegro/unicode.h
         )
 
-set(ALLEGRO_INCLUDE_ALLEGRO_INLINE_FILES
+set(ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_INLINE_FILES
         include/allegro/inline/3dmaths.inl
         include/allegro/inline/asm.inl
         include/allegro/inline/color.inl
@@ -172,13 +172,13 @@ set(ALLEGRO_INCLUDE_ALLEGRO_INLINE_FILES
         include/allegro/inline/system.inl
         )
 
-set(ALLEGRO_INCLUDE_ALLEGRO_INTERNAL_FILES
+set(ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_INTERNAL_FILES
         include/allegro/internal/aintern.h
         include/allegro/internal/aintvga.h
         include/allegro/internal/alconfig.h
         )
 
-set(ALLEGRO_INCLUDE_ALLEGRO_PLATFORM_FILES
+set(ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_PLATFORM_FILES
         include/allegro/platform/aintbeos.h
         include/allegro/platform/aintdos.h
         include/allegro/platform/aintlnx.h

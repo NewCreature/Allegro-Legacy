@@ -19,7 +19,7 @@
 #ifndef ALOSX_H
 #define ALOSX_H
 
-#ifndef ALLEGRO_MACOSX
+#ifndef ALLEGRO_LEGACY_MACOSX
    #error bad include
 #endif
 
@@ -31,7 +31,7 @@
    #include <unistd.h>
    #include <signal.h>
    #include <pthread.h>
-   #if defined __OBJC__ && defined ALLEGRO_SRC
+   #if defined __OBJC__ && defined ALLEGRO_LEGACY_SRC
       #undef TRUE
       #undef FALSE
       #import <mach/mach.h>
@@ -62,8 +62,8 @@
 extern int    __crt0_argc;
 extern char **__crt0_argv;
 
-/*#ifndef ALLEGRO_NO_MAGIC_MAIN
-   #define ALLEGRO_MAGIC_MAIN
+/*#ifndef ALLEGRO_LEGACY_NO_MAGIC_MAIN
+   #define ALLEGRO_LEGACY_MAGIC_MAIN
    #define main _mangled_main
    #undef END_OF_MAIN
    #define END_OF_MAIN() void *_mangled_main_address = (void*) _mangled_main;

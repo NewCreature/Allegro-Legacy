@@ -145,7 +145,7 @@ int install_joystick(int type)
 	 _joy_type = type;
 	 if (joystick_driver->init() != 0) {
 	    if (!ugetc(allegro_error))
-	       uszprintf(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("%s not found"), joystick_driver->name);
+	       uszprintf(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("%s not found"), joystick_driver->name);
 	    joystick_driver = NULL; 
 	    _joy_type = JOY_TYPE_NONE;
 	    return -1;
@@ -173,7 +173,7 @@ int install_joystick(int type)
    }
 
    if (!driver_list[c].driver) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text ("No joysticks found"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text ("No joysticks found"));
       return -1;
    }
 

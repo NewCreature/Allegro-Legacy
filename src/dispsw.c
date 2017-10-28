@@ -25,7 +25,7 @@
 #include "allegro/internal/aintern.h"
 
 
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
    static int switch_mode = SWITCH_NONE;
 #else
    static int switch_mode = SWITCH_PAUSE;

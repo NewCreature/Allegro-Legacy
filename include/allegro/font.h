@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_FONT_H
-#define ALLEGRO_FONT_H
+#ifndef ALLEGRO_LEGACY_FONT_H
+#define ALLEGRO_LEGACY_FONT_H
 
 #include "base.h"
 
@@ -71,6 +71,6 @@ AL_FUNC(int, transpose_font, (FONT *f, int drange));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_FONT_H */
+#endif          /* ifndef ALLEGRO_LEGACY_FONT_H */
 
 

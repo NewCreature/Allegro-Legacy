@@ -20,19 +20,19 @@
 #endif
 
 
-#ifndef ALLEGRO_NO_ASM
+#ifndef ALLEGRO_LEGACY_NO_ASM
 
-#if (defined ALLEGRO_GCC) && (defined ALLEGRO_I386)
+#if (defined ALLEGRO_LEGACY_GCC) && (defined ALLEGRO_LEGACY_I386)
 
    /* use i386 asm, GCC syntax */
    #include "allegro/platform/al386gcc.h"
 
-#elif (defined ALLEGRO_MSVC) && (defined ALLEGRO_I386)
+#elif (defined ALLEGRO_LEGACY_MSVC) && (defined ALLEGRO_LEGACY_I386)
 
    /* use i386 asm, MSVC syntax */
    #include "allegro/platform/al386vc.h"
 
-#elif (defined ALLEGRO_WATCOM) && (defined ALLEGRO_I386)
+#elif (defined ALLEGRO_LEGACY_WATCOM) && (defined ALLEGRO_LEGACY_I386)
 
    /* use i386 asm, Watcom syntax */
    #include "allegro/platform/al386wat.h"
@@ -40,17 +40,17 @@
 #else
 
    /* asm not supported */
-   #define ALLEGRO_NO_ASM
+   #define ALLEGRO_LEGACY_NO_ASM
 
 #endif
 
 #endif
 
-/* Define ALLEGRO_USE_C for backwards compatibility. It should not be used
+/* Define ALLEGRO_LEGACY_USE_C for backwards compatibility. It should not be used
  * anywhere else in the sources for now.
  */
-#ifdef ALLEGRO_NO_ASM
-#define ALLEGRO_USE_C
+#ifdef ALLEGRO_LEGACY_NO_ASM
+#define ALLEGRO_LEGACY_USE_C
 #endif
 
 #ifdef __cplusplus

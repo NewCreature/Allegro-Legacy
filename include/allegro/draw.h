@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_DRAW_H
-#define ALLEGRO_DRAW_H
+#ifndef ALLEGRO_LEGACY_DRAW_H
+#define ALLEGRO_LEGACY_DRAW_H
 
 #include "base.h"
 #include "fixed.h"
@@ -86,6 +86,6 @@ AL_FUNC(void, pivot_scaled_sprite_v_flip_lit, (BITMAP *bmp, BITMAP *sprite, int 
 
 #include "inline/draw.inl"
 
-#endif          /* ifndef ALLEGRO_DRAW_H */
+#endif          /* ifndef ALLEGRO_LEGACY_DRAW_H */
 
 

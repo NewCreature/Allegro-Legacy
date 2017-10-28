@@ -28,7 +28,7 @@
 #include "allegro/internal/aintern.h"
 
 
-#ifdef ALLEGRO_WINDOWS
+#ifdef ALLEGRO_LEGACY_WINDOWS
 /* exported address of d_clear_proc */
 int (*_d_clear_proc)(int, DIALOG *, int) = NULL;
 #endif
@@ -153,7 +153,7 @@ int d_clear_proc(int msg, DIALOG *d, int c)
 {
    ASSERT(d);
 
-#ifdef ALLEGRO_WINDOWS
+#ifdef ALLEGRO_LEGACY_WINDOWS
    /* kludge to get the exported address of d_clear_proc */
    if (!_d_clear_proc)
       _d_clear_proc = d->proc;

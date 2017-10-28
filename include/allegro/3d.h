@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_3D_H
-#define ALLEGRO_3D_H
+#ifndef ALLEGRO_LEGACY_3D_H
+#define ALLEGRO_LEGACY_3D_H
 
 #include "base.h"
 #include "fixed.h"
@@ -99,6 +99,6 @@ AL_FUNC(void, render_scene, (void));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_3D_H */
+#endif          /* ifndef ALLEGRO_LEGACY_3D_H */
 
 

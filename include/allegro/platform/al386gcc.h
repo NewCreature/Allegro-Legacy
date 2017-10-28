@@ -16,11 +16,11 @@
  */
 
 
-#if (!defined ALLEGRO_GCC) || (!defined ALLEGRO_I386)
+#if (!defined ALLEGRO_LEGACY_GCC) || (!defined ALLEGRO_LEGACY_I386)
    #error bad include
 #endif
 
-#ifdef ALLEGRO_IMPORT_GFX_ASM
+#ifdef ALLEGRO_LEGACY_IMPORT_GFX_ASM
 
 /* _default_ds:
  *  Return a copy of the current %ds selector.
@@ -97,10 +97,10 @@ AL_INLINE(void, bmp_unwrite_line, (BITMAP *bmp),
    );
 })
 
-#endif /* ALLEGRO_IMPORT_GFX_ASM */
+#endif /* ALLEGRO_LEGACY_IMPORT_GFX_ASM */
 
 
-#ifdef ALLEGRO_IMPORT_MATH_ASM
+#ifdef ALLEGRO_LEGACY_IMPORT_MATH_ASM
 
 /* Helper macro that makes the compiler reduce fixadd(), fixsub(), fixmul() and
    fixdiv() calls to a single constant if both operands are constant. Since
@@ -398,5 +398,5 @@ AL_INLINE(int, fixceil, (fixed x),
 
 #undef __PRECALCULATE_CONSTANTS
 
-#endif /* ALLEGRO_IMPORT_MATH_ASM */
+#endif /* ALLEGRO_LEGACY_IMPORT_MATH_ASM */
 

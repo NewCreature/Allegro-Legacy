@@ -39,11 +39,11 @@ unsigned long _blender_black(unsigned long x, unsigned long y, unsigned long n)
 
 
 
-#if (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
+#if (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
 
 
 
-#if (defined ALLEGRO_NO_ASM) || (!defined ALLEGRO_I386) 
+#if (defined ALLEGRO_LEGACY_NO_ASM) || (!defined ALLEGRO_LEGACY_I386) 
 				    /* i386 asm version is in imisc.s */
 
 
@@ -341,7 +341,7 @@ unsigned long _blender_screen24(unsigned long x, unsigned long y, unsigned long 
 #endif      /* end of 24/32 bit routines */
 
 
-#if (defined ALLEGRO_COLOR15) || (defined ALLEGRO_COLOR16)
+#if (defined ALLEGRO_LEGACY_COLOR15) || (defined ALLEGRO_LEGACY_COLOR16)
 
 
 
@@ -909,14 +909,14 @@ unsigned long _blender_screen15(unsigned long x, unsigned long y, unsigned long 
 
 
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
    #define BF16(name)   name
 #else
    #define BF16(name)   _blender_black
 #endif
 
 
-#if (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
+#if (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
    #define BF24(name)   name
 #else
    #define BF24(name)   _blender_black
@@ -973,7 +973,7 @@ void set_alpha_blender(void)
    else
       r = b = 0;
 
-   #ifdef ALLEGRO_COLOR16
+   #ifdef ALLEGRO_LEGACY_COLOR16
 
       /* decide which 15 bit blender to use */
       if ((_rgb_r_shift_15 == r*10) && (_rgb_g_shift_15 == 5) && (_rgb_b_shift_15 == b*10))
@@ -999,7 +999,7 @@ void set_alpha_blender(void)
 
    #endif
 
-   #ifdef ALLEGRO_COLOR24
+   #ifdef ALLEGRO_LEGACY_COLOR24
 
       /* decide which 24 bit blender to use */
       if ((_rgb_r_shift_24 == r*16) && (_rgb_g_shift_24 == 8) && (_rgb_b_shift_24 == b*16))
@@ -1016,7 +1016,7 @@ void set_alpha_blender(void)
 
    #endif
 
-   #ifdef ALLEGRO_COLOR32
+   #ifdef ALLEGRO_LEGACY_COLOR32
       f32 = _blender_alpha32;
    #else
       f32 = _blender_black;
@@ -1028,7 +1028,7 @@ void set_alpha_blender(void)
 
 
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 /* _blender_write_alpha:
  *  Overlays an alpha channel onto an existing 32 bit RGBA bitmap.
@@ -1049,7 +1049,7 @@ void set_write_alpha_blender(void)
 {
    BLENDER_FUNC f32;
 
-   #ifdef ALLEGRO_COLOR32
+   #ifdef ALLEGRO_LEGACY_COLOR32
       f32 = _blender_write_alpha;
    #else
       f32 = _blender_black;

@@ -70,7 +70,7 @@ void _soft_draw_gouraud_sprite(BITMAP *bmp, BITMAP *sprite, int x, int y, int c1
       if ((bmp->clip) && (x < bmp->cl))
 	 hc += mh * (bmp->cl - x);
 
-   #ifdef ALLEGRO_GFX_HAS_VGA
+   #ifdef ALLEGRO_LEGACY_GFX_HAS_VGA
 
       /* modex version */
       if (is_planar_bitmap(bmp)) {
@@ -96,7 +96,7 @@ void _soft_draw_gouraud_sprite(BITMAP *bmp, BITMAP *sprite, int x, int y, int c1
 	 /* draw routines for all linear modes */
 	 switch (bitmap_color_depth(bmp)) {
 
-	 #ifdef ALLEGRO_COLOR8
+	 #ifdef ALLEGRO_LEGACY_COLOR8
 
 	    case 8:
 	       addr = bmp_write_line(bmp, j) + x1;
@@ -112,7 +112,7 @@ void _soft_draw_gouraud_sprite(BITMAP *bmp, BITMAP *sprite, int x, int y, int c1
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR16
+	 #ifdef ALLEGRO_LEGACY_COLOR16
 
 	    case 15:
 	    case 16:
@@ -133,7 +133,7 @@ void _soft_draw_gouraud_sprite(BITMAP *bmp, BITMAP *sprite, int x, int y, int c1
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR24
+	 #ifdef ALLEGRO_LEGACY_COLOR24
 
 	    case 24:
 	       addr = bmp_write_line(bmp, j) + x1*3;
@@ -152,7 +152,7 @@ void _soft_draw_gouraud_sprite(BITMAP *bmp, BITMAP *sprite, int x, int y, int c1
 
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR32
+	 #ifdef ALLEGRO_LEGACY_COLOR32
 
 	    case 32:
 	       addr = bmp_write_line(bmp, j) + x1*sizeof(int32_t);

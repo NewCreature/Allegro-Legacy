@@ -28,15 +28,15 @@
 
 
 /* describe this platform */
-#define ALLEGRO_PLATFORM_STR  "djgpp"
-#define ALLEGRO_DOS
-#define ALLEGRO_I386
-#define ALLEGRO_LITTLE_ENDIAN
-#define ALLEGRO_GUESS_INTTYPES_OK
+#define ALLEGRO_LEGACY_PLATFORM_STR  "djgpp"
+#define ALLEGRO_LEGACY_DOS
+#define ALLEGRO_LEGACY_I386
+#define ALLEGRO_LEGACY_LITTLE_ENDIAN
+#define ALLEGRO_LEGACY_GUESS_INTTYPES_OK
    /* inttypes.h and stdint.h not available in djgpp 2.02 */
-#define ALLEGRO_CONSOLE_OK
-#define ALLEGRO_VRAM_SINGLE_SURFACE
-#define ALLEGRO_USE_CONSTRUCTOR
+#define ALLEGRO_LEGACY_CONSOLE_OK
+#define ALLEGRO_LEGACY_VRAM_SINGLE_SURFACE
+#define ALLEGRO_LEGACY_USE_CONSTRUCTOR
 
 
 #ifdef __cplusplus
@@ -57,9 +57,9 @@ void _unlock_dpmi_data(void *addr, int size);
 
 /* long filename status */
 #ifdef _USE_LFN
-   #define ALLEGRO_LFN  _USE_LFN
+   #define ALLEGRO_LEGACY_LFN  _USE_LFN
 #else
-   #define ALLEGRO_LFN  0
+   #define ALLEGRO_LEGACY_LFN  0
 #endif
 
 
@@ -89,11 +89,11 @@ void _unlock_dpmi_data(void *addr, int size);
 
 
 /* describe the asm syntax for this platform */
-#define ALLEGRO_ASM_PREFIX    "_"
-#define ALLEGRO_ASM_USE_FS
+#define ALLEGRO_LEGACY_ASM_PREFIX    "_"
+#define ALLEGRO_LEGACY_ASM_USE_FS
 
 
 /* arrange for other headers to be included later on */
-#define ALLEGRO_EXTRA_HEADER     "allegro/platform/aldos.h"
-#define ALLEGRO_INTERNAL_HEADER  "allegro/platform/aintdos.h"
-#define ALLEGRO_ASMCAPA_HEADER   "obj/djgpp/asmcapa.h"
+#define ALLEGRO_LEGACY_EXTRA_HEADER     "allegro/platform/aldos.h"
+#define ALLEGRO_LEGACY_INTERNAL_HEADER  "allegro/platform/aintdos.h"
+#define ALLEGRO_LEGACY_ASMCAPA_HEADER   "obj/djgpp/asmcapa.h"

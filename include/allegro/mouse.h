@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_MOUSE_H
-#define ALLEGRO_MOUSE_H
+#ifndef ALLEGRO_LEGACY_MOUSE_H
+#define ALLEGRO_LEGACY_MOUSE_H
 
 #include "base.h"
 
@@ -117,6 +117,6 @@ AL_FUNC(int, mouse_on_screen, (void));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_MOUSE_H */
+#endif          /* ifndef ALLEGRO_LEGACY_MOUSE_H */
 
 

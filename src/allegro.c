@@ -29,7 +29,7 @@
 #define PREFIX_W                "al-main WARNING: "
 #define PREFIX_E                "al-main ERROR: "
 
-#ifdef ALLEGRO_AMIGA
+#ifdef ALLEGRO_LEGACY_AMIGA
    #define LOGFILE "RAM:allegro.log"
 #else
    #define LOGFILE "allegro.log"
@@ -41,7 +41,7 @@ char allegro_id[] = "Allegro " ALLEGRO_LEGACY_VERSION_STR ", " ALLEGRO_LEGACY_PL
 
 
 /* error message for sound and gfx init routines */
-char allegro_error[ALLEGRO_ERROR_SIZE] = EMPTY_STRING;
+char allegro_error[ALLEGRO_LEGACY_ERROR_SIZE] = EMPTY_STRING;
 
 
 /* current system driver */
@@ -306,7 +306,7 @@ static int _install_allegro(int system_id, int *errno_ptr, int (*atexit_ptr)(voi
    int i;
 
    printf("install 1\n");
-   #ifndef ALLEGRO_USE_CONSTRUCTOR
+   #ifndef ALLEGRO_LEGACY_USE_CONSTRUCTOR
       /* call constructor functions manually */
       extern void _initialize_datafile_types();
       extern void _midi_constructor();
@@ -405,7 +405,7 @@ static int _install_allegro(int system_id, int *errno_ptr, int (*atexit_ptr)(voi
    check_cpu();
 
    printf("install 18\n");
-#if defined(ALLEGRO_UNIX) || defined(ALLEGRO_WINDOWS)
+#if defined(ALLEGRO_LEGACY_UNIX) || defined(ALLEGRO_LEGACY_WINDOWS)
    /* detect filename encoding used by libc */
    /* XXX This should be done for all platforms but I'm not set up to check
     * that all platforms have been covered before making the 4.2.3 release.
@@ -475,7 +475,7 @@ int _install_allegro_version_check(int system_id, int *errno_ptr,
 
 printf("init 7\n");
    if (!version_ok) {
-      uszprintf(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text(
+      uszprintf(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text(
          "The detected dynamic Allegro library (%d.%d.%d) is "
          "not compatible with this program (%d.%d.%d)."),
          ALLEGRO_LEGACY_VERSION, ALLEGRO_LEGACY_SUB_VERSION, ALLEGRO_LEGACY_WIP_VERSION,
@@ -519,18 +519,18 @@ void allegro_exit(void)
  */
 void allegro_message(AL_CONST char *msg, ...)
 {
-   char *buf = _AL_MALLOC_ATOMIC(ALLEGRO_MESSAGE_SIZE);
-   char *tmp = _AL_MALLOC_ATOMIC(ALLEGRO_MESSAGE_SIZE);
+   char *buf = _AL_MALLOC_ATOMIC(ALLEGRO_LEGACY_MESSAGE_SIZE);
+   char *tmp = _AL_MALLOC_ATOMIC(ALLEGRO_LEGACY_MESSAGE_SIZE);
    va_list ap;
    ASSERT(msg);
    va_start(ap, msg);
-   uvszprintf(buf, ALLEGRO_MESSAGE_SIZE, msg, ap);
+   uvszprintf(buf, ALLEGRO_LEGACY_MESSAGE_SIZE, msg, ap);
    va_end(ap);
 
    if ((system_driver) && (system_driver->message))
       system_driver->message(buf);
    else
-      fputs(uconvert(buf, U_CURRENT, tmp, U_ASCII_CP, ALLEGRO_MESSAGE_SIZE), stdout);
+      fputs(uconvert(buf, U_CURRENT, tmp, U_ASCII_CP, ALLEGRO_LEGACY_MESSAGE_SIZE), stdout);
 
    _AL_FREE(buf);
    _AL_FREE(tmp);
@@ -622,7 +622,7 @@ void al_assert(AL_CONST char *file, int line)
    }
 
    if (debug_assert_virgin) {
-      s = getenv("ALLEGRO_ASSERT");
+      s = getenv("ALLEGRO_LEGACY_ASSERT");
 
       if (s)
 	 assert_file = fopen(s, "w");
@@ -678,7 +678,7 @@ void al_trace(AL_CONST char *msg, ...)
    }
 
    if (debug_trace_virgin) {
-      s = getenv("ALLEGRO_TRACE");
+      s = getenv("ALLEGRO_LEGACY_TRACE");
 
       if (s)
 	 trace_file = fopen(s, "w");

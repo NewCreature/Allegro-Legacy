@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_DIGI_H
-#define ALLEGRO_DIGI_H
+#ifndef ALLEGRO_LEGACY_DIGI_H
+#define ALLEGRO_LEGACY_DIGI_H
 
 #include "base.h"
 
@@ -214,6 +214,6 @@ AL_FUNC(void, register_sample_file_type, (AL_CONST char *ext, AL_METHOD(struct S
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_DIGI_H */
+#endif          /* ifndef ALLEGRO_LEGACY_DIGI_H */
 
 

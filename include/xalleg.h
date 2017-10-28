@@ -15,10 +15,10 @@
  */
 
 
-#ifndef X_ALLEGRO_H
-#define X_ALLEGRO_H
+#ifndef X_ALLEGRO_LEGACY_H
+#define X_ALLEGRO_LEGACY_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
 #error Please include allegro.h before xalleg.h!
 #endif
 
@@ -32,17 +32,17 @@
 #include <X11/cursorfont.h>
 #include <X11/keysym.h>
 
-#ifdef ALLEGRO_XWINDOWS_WITH_SHM
+#ifdef ALLEGRO_LEGACY_XWINDOWS_WITH_SHM
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <X11/extensions/XShm.h>
 #endif
 
-#ifdef ALLEGRO_XWINDOWS_WITH_XF86VIDMODE
+#ifdef ALLEGRO_LEGACY_XWINDOWS_WITH_XF86VIDMODE
 #include <X11/extensions/xf86vmode.h>
 #endif
 
-#ifdef ALLEGRO_XWINDOWS_WITH_XCURSOR
+#ifdef ALLEGRO_LEGACY_XWINDOWS_WITH_XCURSOR
 #include <X11/Xcursor/Xcursor.h>
 #endif
 
@@ -63,7 +63,7 @@ extern struct _xwin_type
    Visual *visual;
    Colormap colormap;
    XImage *ximage;
-#ifdef ALLEGRO_XWINDOWS_WITH_XCURSOR
+#ifdef ALLEGRO_LEGACY_XWINDOWS_WITH_XCURSOR
    XcursorImage *xcursor_image;
    XcursorBool support_argb_cursor;
 #endif
@@ -111,7 +111,7 @@ extern struct _xwin_type
    unsigned long gmap[0x100];
    unsigned long bmap[0x100];
 
-#ifdef ALLEGRO_XWINDOWS_WITH_SHM
+#ifdef ALLEGRO_LEGACY_XWINDOWS_WITH_SHM
    XShmSegmentInfo shminfo;
 #endif
    int use_shm;
@@ -121,7 +121,7 @@ extern struct _xwin_type
    int keyboard_grabbed;
    int mouse_grabbed;
 
-#ifdef ALLEGRO_XWINDOWS_WITH_XF86VIDMODE
+#ifdef ALLEGRO_LEGACY_XWINDOWS_WITH_XF86VIDMODE
    XF86VidModeModeInfo **modesinfo;
    int num_modes;
    int mode_switched;       /* only kept around and set for ABI compat */
@@ -134,7 +134,7 @@ extern struct _xwin_type
 
    int drawing_mode_ok;
 
-#ifdef ALLEGRO_MULTITHREADED
+#ifdef ALLEGRO_LEGACY_MULTITHREADED
    void *mutex;
 #endif
 
@@ -145,7 +145,7 @@ extern struct _xwin_type
     * Notice that IMHO apps really should not be using _xwin, but we export it,
     * so its fair game.
     */
-#ifdef ALLEGRO_XWINDOWS_WITH_XF86VIDMODE
+#ifdef ALLEGRO_LEGACY_XWINDOWS_WITH_XF86VIDMODE
    XF86VidModeModeInfo *orig_modeinfo;
 #endif
    /* Separate fullscreen and managed window id's, see

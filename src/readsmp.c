@@ -134,7 +134,7 @@ static void register_sample_file_type_exit(void)
     * down to valid modules. So we clean up as usual, but then reinstall
     * the internal modules.
     */
-   #ifdef ALLEGRO_USE_CONSTRUCTOR
+   #ifdef ALLEGRO_LEGACY_USE_CONSTRUCTOR
       _register_sample_file_type_init();
    #endif
 
@@ -159,7 +159,7 @@ void _register_sample_file_type_init(void)
 
 
 
-#ifdef ALLEGRO_USE_CONSTRUCTOR
+#ifdef ALLEGRO_LEGACY_USE_CONSTRUCTOR
    CONSTRUCTOR_FUNCTION(static void sample_filetype_constructor(void));
    DESTRUCTOR_FUNCTION(static void sample_filetype_destructor(void));
 

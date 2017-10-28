@@ -187,7 +187,7 @@ static void register_bitmap_file_type_exit(void)
     * down to valid modules. So we clean up as usual, but then reinstall
     * the internal modules.
     */
-   #ifdef ALLEGRO_USE_CONSTRUCTOR
+   #ifdef ALLEGRO_LEGACY_USE_CONSTRUCTOR
       _register_bitmap_file_type_init();
    #endif
 
@@ -214,7 +214,7 @@ void _register_bitmap_file_type_init(void)
 
 
 
-#ifdef ALLEGRO_USE_CONSTRUCTOR
+#ifdef ALLEGRO_LEGACY_USE_CONSTRUCTOR
    CONSTRUCTOR_FUNCTION(static void bitmap_filetype_constructor(void));
    DESTRUCTOR_FUNCTION(static void bitmap_filetype_destructor(void));
 

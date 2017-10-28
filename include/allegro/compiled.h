@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_COMPILED_H
-#define ALLEGRO_COMPILED_H
+#ifndef ALLEGRO_LEGACY_COMPILED_H
+#define ALLEGRO_LEGACY_COMPILED_H
 
 #include "base.h"
 
@@ -27,7 +27,7 @@
 
 struct BITMAP;
 
-#if (defined ALLEGRO_I386) && (!defined ALLEGRO_NO_ASM)
+#if (defined ALLEGRO_LEGACY_I386) && (!defined ALLEGRO_LEGACY_NO_ASM)
 
 /* compiled sprite structure */
 typedef struct COMPILED_SPRITE
@@ -57,6 +57,6 @@ AL_FUNC(void, draw_compiled_sprite, (struct BITMAP *bmp, AL_CONST COMPILED_SPRIT
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_COMPILED_H */
+#endif          /* ifndef ALLEGRO_LEGACY_COMPILED_H */
 
 

@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_DEBUG_H
-#define ALLEGRO_DEBUG_H
+#ifndef ALLEGRO_LEGACY_DEBUG_H
+#define ALLEGRO_LEGACY_DEBUG_H
 
 #include "base.h"
 
@@ -44,6 +44,6 @@ AL_FUNC(void, register_trace_handler, (AL_METHOD(int, handler, (AL_CONST char *m
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_DEBUG_H */
+#endif          /* ifndef ALLEGRO_LEGACY_DEBUG_H */
 
 

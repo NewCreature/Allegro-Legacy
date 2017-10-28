@@ -19,11 +19,11 @@
 #ifndef AINTMAC_H
 #define AINTMAC_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
    #error must include allegro.h first
 #endif
 
-#ifndef ALLEGRO_MPW
+#ifndef ALLEGRO_LEGACY_MPW
    #error bad include
 #endif
 

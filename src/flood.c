@@ -84,26 +84,26 @@ static int flooder(BITMAP *bmp, int x, int y, int src_color, int dest_color)
 
       switch (bitmap_color_depth(bmp)) {
 
-	 #ifdef ALLEGRO_COLOR8
+	 #ifdef ALLEGRO_LEGACY_COLOR8
 	    case 8:
 	       FLOODER(8, 1);
 	       break;
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR16
+	 #ifdef ALLEGRO_LEGACY_COLOR16
 	    case 15:
 	    case 16:
 	       FLOODER(16, sizeof(short));
 	       break;
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR24
+	 #ifdef ALLEGRO_LEGACY_COLOR24
 	    case 24:
 	       FLOODER(24, 3);
 	       break;
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR32
+	 #ifdef ALLEGRO_LEGACY_COLOR32
 	    case 32:
 	       FLOODER(32, sizeof(int32_t));
 	       break;

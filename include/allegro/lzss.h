@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_LZSS_H
-#define ALLEGRO_LZSS_H
+#ifndef ALLEGRO_LEGACY_LZSS_H
+#define ALLEGRO_LEGACY_LZSS_H
 
 #include "base.h"
 
@@ -42,6 +42,6 @@ AL_FUNC(int, lzss_read, (PACKFILE *file, LZSS_UNPACK_DATA *dat, int s, unsigned 
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_LZSS_H */
+#endif          /* ifndef ALLEGRO_LEGACY_LZSS_H */
 
 

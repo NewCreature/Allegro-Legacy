@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_FILE_H
-#define ALLEGRO_FILE_H
+#ifndef ALLEGRO_LEGACY_FILE_H
+#define ALLEGRO_LEGACY_FILE_H
 
 #include "base.h"
 
@@ -175,6 +175,6 @@ AL_FUNC(void *, pack_get_userdata, (PACKFILE *f));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_FILE_H */
+#endif          /* ifndef ALLEGRO_LEGACY_FILE_H */
 
 

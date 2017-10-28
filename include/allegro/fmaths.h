@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_FMATH_H
-#define ALLEGRO_FMATH_H
+#ifndef ALLEGRO_LEGACY_FMATH_H
+#define ALLEGRO_LEGACY_FMATH_H
 
 #include "base.h"
 #include "fixed.h"
@@ -41,6 +41,6 @@ AL_ARRAY(fixed, _acos_tbl);
 
 #include "inline/fmaths.inl"
 
-#endif          /* ifndef ALLEGRO_FMATH_H */
+#endif          /* ifndef ALLEGRO_LEGACY_FMATH_H */
 
 

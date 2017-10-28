@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_FIX_H
-#define ALLEGRO_FIX_H
+#ifndef ALLEGRO_LEGACY_FIX_H
+#define ALLEGRO_LEGACY_FIX_H
 
 #include "fixed.h"
 #include "fmaths.h"
@@ -205,6 +205,6 @@ public:
 
 #include "inline/fix.inl"
 
-#endif          /* ifndef ALLEGRO_FIX_H */
+#endif          /* ifndef ALLEGRO_LEGACY_FIX_H */
 
 

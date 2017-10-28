@@ -19,7 +19,7 @@
 #ifndef AINTERN_H
 #define AINTERN_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
    #error must include allegro.h first
 #endif
 
@@ -108,7 +108,7 @@ AL_FUNC(UTYPE_INFO *, _find_utype, (int type));
 
 
 /* message stuff */
-#define ALLEGRO_MESSAGE_SIZE  4096
+#define ALLEGRO_LEGACY_MESSAGE_SIZE  4096
 
 
 /* wrappers for implementing disk I/O on different platforms */
@@ -190,8 +190,8 @@ AL_ARRAY(volatile char, _key);
 AL_VAR(volatile int, _key_shifts);
 
 
-#if (defined ALLEGRO_DOS) || (defined ALLEGRO_DJGPP) || (defined ALLEGRO_WATCOM) || \
-    (defined ALLEGRO_QNX) || (defined ALLEGRO_BEOS)  || (defined ALLEGRO_HAIKU)
+#if (defined ALLEGRO_LEGACY_DOS) || (defined ALLEGRO_LEGACY_DJGPP) || (defined ALLEGRO_LEGACY_WATCOM) || \
+    (defined ALLEGRO_LEGACY_QNX) || (defined ALLEGRO_LEGACY_BEOS)  || (defined ALLEGRO_LEGACY_HAIKU)
 
 AL_ARRAY(char *, _pckeys_names);
 
@@ -230,7 +230,7 @@ AL_VAR(char *, _keyboard_layout);
 
 #endif
 
-#if (defined ALLEGRO_WINDOWS)
+#if (defined ALLEGRO_LEGACY_WINDOWS)
 
    AL_FUNC(int, _al_win_open, (const char *filename, int mode, int perm));
    AL_FUNC(int, _al_win_unlink, (const char *filename));
@@ -323,7 +323,7 @@ AL_FUNC(uintptr_t, _stub_bank_switch, (BITMAP *bmp, int lyne));
 AL_FUNC(void, _stub_unbank_switch, (BITMAP *bmp));
 AL_FUNC(void, _stub_bank_switch_end, (void));
 
-#ifdef ALLEGRO_GFX_HAS_VGA
+#ifdef ALLEGRO_LEGACY_GFX_HAS_VGA
 
 AL_FUNC(uintptr_t, _x_bank_switch, (BITMAP *bmp, int lyne));
 AL_FUNC(void, _x_unbank_switch, (BITMAP *bmp));
@@ -331,7 +331,7 @@ AL_FUNC(void, _x_bank_switch_end, (void));
 
 #endif
 
-#ifdef ALLEGRO_GFX_HAS_VBEAF
+#ifdef ALLEGRO_LEGACY_GFX_HAS_VBEAF
 
 AL_FUNC(void, _accel_bank_stub, (void));
 AL_FUNC(void, _accel_bank_stub_end, (void));
@@ -372,10 +372,10 @@ AL_VAR(int, _screen_split_position);
 
 AL_VAR(int, _safe_gfx_mode_change);
 
-#ifdef ALLEGRO_I386
+#ifdef ALLEGRO_LEGACY_I386
    #define BYTES_PER_PIXEL(bpp)     (((int)(bpp) + 7) / 8)
 #else
-   #ifdef ALLEGRO_MPW 
+   #ifdef ALLEGRO_LEGACY_MPW 
       /* in Mac 24 bit is a unsigned long */
       #define BYTES_PER_PIXEL(bpp)  (((bpp) <= 8) ? 1					\
 				     : (((bpp) <= 16) ? 2		\
@@ -464,7 +464,7 @@ AL_VAR(int, _blender_alpha);
 
 AL_FUNC(unsigned long, _blender_black, (unsigned long x, unsigned long y, unsigned long n));
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 
 AL_FUNC(unsigned long, _blender_trans15, (unsigned long x, unsigned long y, unsigned long n));
 AL_FUNC(unsigned long, _blender_add15, (unsigned long x, unsigned long y, unsigned long n));
@@ -496,7 +496,7 @@ AL_FUNC(unsigned long, _blender_screen16, (unsigned long x, unsigned long y, uns
 
 #endif
 
-#if (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
+#if (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
 
 AL_FUNC(unsigned long, _blender_trans24, (unsigned long x, unsigned long y, unsigned long n));
 AL_FUNC(unsigned long, _blender_add24, (unsigned long x, unsigned long y, unsigned long n));
@@ -527,7 +527,7 @@ AL_FUNC(void, _normal_line, (BITMAP *bmp, int x1, int y_1, int x2, int y2, int c
 AL_FUNC(void, _fast_line, (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color));
 AL_FUNC(void, _normal_rectfill, (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color));
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 AL_FUNC(int,  _linear_getpixel8, (BITMAP *bmp, int x, int y));
 AL_FUNC(void, _linear_putpixel8, (BITMAP *bmp, int x, int y, int color));
@@ -552,7 +552,7 @@ AL_FUNC(void, _linear_clear_to_color8, (BITMAP *bitmap, int color));
 
 #endif
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 
 AL_FUNC(void, _linear_putpixel15, (BITMAP *bmp, int x, int y, int color));
 AL_FUNC(void, _linear_vline15, (BITMAP *bmp, int x, int y_1, int y2, int color));
@@ -591,7 +591,7 @@ AL_FUNC(void, _linear_clear_to_color16, (BITMAP *bitmap, int color));
 
 #endif
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
 
 AL_FUNC(int,  _linear_getpixel24, (BITMAP *bmp, int x, int y));
 AL_FUNC(void, _linear_putpixel24, (BITMAP *bmp, int x, int y, int color));
@@ -619,7 +619,7 @@ AL_FUNC(void, _linear_clear_to_color24, (BITMAP *bitmap, int color));
 
 #endif
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 AL_FUNC(int,  _linear_getpixel32, (BITMAP *bmp, int x, int y));
 AL_FUNC(void, _linear_putpixel32, (BITMAP *bmp, int x, int y, int color));
@@ -645,7 +645,7 @@ AL_FUNC(void, _linear_clear_to_color32, (BITMAP *bitmap, int color));
 
 #endif
 
-#ifdef ALLEGRO_GFX_HAS_VGA
+#ifdef ALLEGRO_LEGACY_GFX_HAS_VGA
 
 AL_FUNC(int,  _x_getpixel, (BITMAP *bmp, int x, int y));
 AL_FUNC(void, _x_putpixel, (BITMAP *bmp, int x, int y, int color));
@@ -688,7 +688,7 @@ AL_FUNC(void, _release_colorconv_blitter, (COLORCONV_BLITTER_FUNC *blitter));
 AL_FUNC(void, _set_colorconv_palette, (AL_CONST struct RGB *p, int from, int to));
 AL_FUNC(unsigned char *, _get_colorconv_map, (void));
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 AL_FUNC(void, _colorconv_blit_8_to_8, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_FUNC(void, _colorconv_blit_8_to_15, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
@@ -698,7 +698,7 @@ AL_FUNC(void, _colorconv_blit_8_to_32, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *
 
 #endif
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 
 AL_FUNC(void, _colorconv_blit_15_to_8, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_FUNC(void, _colorconv_blit_15_to_16, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
@@ -712,7 +712,7 @@ AL_FUNC(void, _colorconv_blit_16_to_32, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT 
 
 #endif
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
 
 AL_FUNC(void, _colorconv_blit_24_to_8, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_FUNC(void, _colorconv_blit_24_to_15, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
@@ -721,7 +721,7 @@ AL_FUNC(void, _colorconv_blit_24_to_32, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT 
 
 #endif
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 AL_FUNC(void, _colorconv_blit_32_to_8, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_FUNC(void, _colorconv_blit_32_to_15, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
@@ -732,18 +732,18 @@ AL_FUNC(void, _colorconv_blit_32_to_24, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT 
 
 
 /* color copy routines */
-#ifndef ALLEGRO_NO_COLORCOPY
+#ifndef ALLEGRO_LEGACY_NO_COLORCOPY
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 AL_FUNC(void, _colorcopy_blit_15_to_15, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_FUNC(void, _colorcopy_blit_16_to_16, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 #endif
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
 AL_FUNC(void, _colorcopy_blit_24_to_24, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 #endif
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 AL_FUNC(void, _colorcopy_blit_32_to_32, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 #endif
 
@@ -860,7 +860,7 @@ AL_FUNC(void, _clip_polygon_segment_f, (POLYGON_SEGMENT *info, int gap, int flag
 /* polygon scanline filler functions */
 AL_FUNC(void, _poly_scanline_dummy, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 AL_FUNC(void, _poly_scanline_gcol8, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 AL_FUNC(void, _poly_scanline_grgb8, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
@@ -899,7 +899,7 @@ AL_FUNC(void, _poly_zbuf_ptex_mask_trans8, (uintptr_t addr, int w, POLYGON_SEGME
 
 #endif
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 
 AL_FUNC(void, _poly_scanline_grgb15, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 AL_FUNC(void, _poly_scanline_atex_mask15, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
@@ -978,7 +978,7 @@ AL_FUNC(void, _poly_zbuf_ptex_mask_trans16, (uintptr_t addr, int w, POLYGON_SEGM
 
 #endif
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
 
 AL_FUNC(void, _poly_scanline_grgb24, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 AL_FUNC(void, _poly_scanline_atex24, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
@@ -1022,7 +1022,7 @@ AL_FUNC(void, _poly_zbuf_ptex_mask_trans24, (uintptr_t addr, int w, POLYGON_SEGM
 
 #endif
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 AL_FUNC(void, _poly_scanline_grgb32, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 AL_FUNC(void, _poly_scanline_atex32, (uintptr_t addr, int w, POLYGON_SEGMENT *info));

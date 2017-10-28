@@ -17,15 +17,15 @@
  */
 
 
-#ifndef ALLEGRO_BASE_H
-#define ALLEGRO_BASE_H
+#ifndef ALLEGRO_LEGACY_BASE_H
+#define ALLEGRO_LEGACY_BASE_H
 
-#define ALLEGRO_COLOR8
-#define ALLEGRO_COLOR16
-#define ALLEGRO_COLOR24
-#define ALLEGRO_COLOR32
+#define ALLEGRO_LEGACY_COLOR8
+#define ALLEGRO_LEGACY_COLOR16
+#define ALLEGRO_LEGACY_COLOR24
+#define ALLEGRO_LEGACY_COLOR32
 
-#ifndef ALLEGRO_NO_STD_HEADERS
+#ifndef ALLEGRO_LEGACY_NO_STD_HEADERS
    #include <errno.h>
    #include <limits.h>
    #include <stdarg.h>
@@ -63,8 +63,8 @@
 
 
 /* Asm build disabled as of 4.3.10+. */
-#ifndef ALLEGRO_NO_ASM
-   #define ALLEGRO_NO_ASM
+#ifndef ALLEGRO_LEGACY_NO_ASM
+   #define ALLEGRO_LEGACY_NO_ASM
 #endif
 
 #ifndef TRUE
@@ -110,4 +110,4 @@ typedef struct _DRIVER_INFO         /* info about a hardware driver */
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_BASE_H */
+#endif          /* ifndef ALLEGRO_LEGACY_BASE_H */

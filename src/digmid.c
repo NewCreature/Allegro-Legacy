@@ -140,7 +140,7 @@ static void destroy_patch(PATCH *pat)
  *  use the i386 FPU stack in an interrupt context). Multithreaded systems
  *  are not bound by this restriction however, so we use the FPU there.
  */
-#if !(defined ALLEGRO_MULTITHREADED)
+#if !(defined ALLEGRO_LEGACY_MULTITHREADED)
 static INLINE unsigned long scale64(unsigned long a, unsigned long b, unsigned long c)
 {
    unsigned long al = a & 0xFFFF;
@@ -976,7 +976,7 @@ static int digmid_detect(int input)
       return FALSE;
 
    if (!_digmid_find_patches(NULL, 0, NULL, 0)) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("DIGMID patch set not found"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("DIGMID patch set not found"));
       return FALSE;
    }
 

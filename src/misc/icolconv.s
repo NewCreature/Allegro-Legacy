@@ -38,7 +38,7 @@
 .text
 
 
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 
 /* it seems pand is broken in GAS 2.8.1 */
 #define PAND(src, dst)   \
@@ -115,7 +115,7 @@
 
 
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 /* void _colorconv_blit_8_to_15 (struct GRAPHICS_RECT *src_rect,
  *                               struct GRAPHICS_RECT dest_rect)
@@ -176,7 +176,7 @@ FUNC (_colorconv_blit_8_to_16)
    next_line_8_to_16:
       shrl $2, %ecx             /* work with packs of 4 pixels */
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       jz do_one_pixel_8_to_16  /* less than 4 pixels? Can't work with the main loop */
 #endif
 
@@ -204,7 +204,7 @@ FUNC (_colorconv_blit_8_to_16)
          decl %ecx
          jnz next_block_8_to_16
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_8_to_16:
          movl %ebx, %ecx           /* restore width */
          andl $3, %ecx
@@ -313,7 +313,7 @@ FUNC (_colorconv_blit_8_to_32)
    next_line_8_to_32:
       shrl $2, %ecx             /* work with packs of 4 pixels */
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       jz do_one_pixel_8_to_32  /* less than 4 pixels? Can't work with the main loop */
 #endif
 
@@ -341,7 +341,7 @@ FUNC (_colorconv_blit_8_to_32)
          decl %ecx
          jnz next_block_8_to_32
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_8_to_32:
          movl %ebx, %ecx           /* restore width */
          andl $3, %ecx
@@ -393,11 +393,11 @@ FUNC (_colorconv_blit_8_to_32)
 
    ret
 
-#endif  /* ALLEGRO_COLOR8 */
+#endif  /* ALLEGRO_LEGACY_COLOR8 */
 
 
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 
 /* void _colorconv_blit_15_to_16 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
@@ -488,7 +488,7 @@ FUNC (_colorconv_blit_15_to_16)
          andl $7, %ecx
          jz end_of_line_15_to_16
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
          shrl $1, %ecx            /* do one pixel */
          jnc do_two_pixels_15_to_16
 
@@ -588,7 +588,7 @@ FUNC (_colorconv_blit_15_to_32)
    next_line_15_to_32:
       shrl $1, %ecx             /* work with packs of 2 pixels */
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       jz do_one_pixel_15_to_32  /* 1 pixel? Can't use dual-pixel code */
 #endif
 
@@ -613,7 +613,7 @@ FUNC (_colorconv_blit_15_to_32)
          decl %ecx
          jnz next_block_15_to_32
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_15_to_32:
          movl %ebp, %ecx    /* restore width */
          shrl $1, %ecx
@@ -739,7 +739,7 @@ FUNC (_colorconv_blit_16_to_15)
          andl $7, %ecx
          jz end_of_line_16_to_15
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
          shrl $1, %ecx            /* do one pixel */
          jnc do_two_pixels_16_to_15
 
@@ -836,7 +836,7 @@ FUNC (_colorconv_blit_16_to_32)
    next_line_16_to_32:
       shrl $1, %ecx             /* work with packs of 2 pixels */
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       jz do_one_pixel_16_to_32  /* 1 pixel? Can't use dual-pixel code */
 #endif
 
@@ -861,7 +861,7 @@ FUNC (_colorconv_blit_16_to_32)
          decl %ecx
          jnz next_block_16_to_32
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_16_to_32:
          movl %ebp, %ecx    /* restore width */
          shrl $1, %ecx
@@ -901,11 +901,11 @@ FUNC (_colorconv_blit_16_to_32)
 
    ret
 
-#endif  /* ALLEGRO_COLOR16 */
+#endif  /* ALLEGRO_LEGACY_COLOR16 */
 
 
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
 
 /* void _colorconv_blit_24_to_32 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
@@ -953,7 +953,7 @@ FUNC (_colorconv_blit_24_to_32)
    next_line_24_to_32:
       shrl $2, %ecx             /* work with packs of 4 pixels */
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       jz do_one_pixel_24_to_32  /* less than 4 pixels? Can't work with the main loop */
 #endif
 
@@ -985,7 +985,7 @@ FUNC (_colorconv_blit_24_to_32)
          decl %ecx
          jnz next_block_24_to_32
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    do_one_pixel_24_to_32:
       movd %mm7, %ecx           /* restore width */
       andl $3, %ecx
@@ -1041,11 +1041,11 @@ FUNC (_colorconv_blit_24_to_32)
 
    ret
 
-#endif  /* ALLEGRO_COLOR24 */
+#endif  /* ALLEGRO_LEGACY_COLOR24 */
 
 
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 /* void _colorconv_blit_32_to_15 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
@@ -1078,7 +1078,7 @@ FUNC (_colorconv_blit_32_to_15)
    next_line_32_to_15:
       shrl $1, %ecx             /* work with packs of 2 pixels */
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       jz do_one_pixel_32_to_15  /* 1 pixel? Can't use dual-pixel code */
 #endif
 
@@ -1105,7 +1105,7 @@ FUNC (_colorconv_blit_32_to_15)
          decl %ecx
          jnz next_block_32_to_15
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_32_to_15:
          movl %ebp, %ecx    /* restore width */
          shrl $1, %ecx
@@ -1178,7 +1178,7 @@ FUNC (_colorconv_blit_32_to_16)
    next_line_32_to_16:
       shrl $1, %ecx             /* work with packs of 2 pixels */
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       jz do_one_pixel_32_to_16  /* 1 pixel? Can't use dual-pixel code */
 #endif
 
@@ -1208,7 +1208,7 @@ FUNC (_colorconv_blit_32_to_16)
          decl %ecx
          jnz next_block_32_to_16
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_32_to_16:
          movl %ebp, %ecx      /* restore width */
          shrl $1, %ecx
@@ -1303,7 +1303,7 @@ FUNC (_colorconv_blit_32_to_24)
    next_line_32_to_24:
       shrl $2, %ecx             /* work with packs of 4 pixels */
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       jz do_one_pixel_32_to_24  /* less than 4 pixels? Can't work with the main loop */
 #endif
 
@@ -1342,7 +1342,7 @@ FUNC (_colorconv_blit_32_to_24)
 
          jnz next_block_32_to_24
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_32_to_24:
          movd %mm7, %ecx           /* restore width */
          andl $3, %ecx
@@ -1403,9 +1403,9 @@ FUNC (_colorconv_blit_32_to_24)
 
    ret
 
-#endif  /* ALLEGRO_COLOR32 */
+#endif  /* ALLEGRO_LEGACY_COLOR32 */
 
-#endif  /* ALLEGRO_MMX */
+#endif  /* ALLEGRO_LEGACY_MMX */
 
 
 
@@ -1530,7 +1530,7 @@ FUNC (_colorconv_blit_32_to_24)
       jnz next_line_##name
 
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
 
 #define CONV_TRUE_TO_15_NO_MMX(name, bytes_ppixel)                                 \
    _align_                                                                       ; \
@@ -1725,11 +1725,11 @@ FUNC (_colorconv_blit_32_to_24)
       decl MYLOCAL4                                                              ; \
       jnz next_line_##name
 
-#endif  /* ALLEGRO_COLORCONV_ALIGNED_WIDTH */
+#endif  /* ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH */
 
 
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 /* void _colorconv_blit_8_to_8 (struct GRAPHICS_RECT *src_rect,
  *                              struct GRAPHICS_RECT *dest_rect)
@@ -1737,7 +1737,7 @@ FUNC (_colorconv_blit_32_to_24)
 FUNC (_colorconv_blit_8_to_8)
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_1, SIZE_1, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_1, SIZE_1, LOOP_RATIO_1)
@@ -1749,7 +1749,7 @@ FUNC (_colorconv_blit_8_to_8)
    next_line_8_to_8_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx                /* work in packs of 4 pixels */
       jz do_one_pixel_8_to_8_no_mmx
 #endif
@@ -1777,7 +1777,7 @@ FUNC (_colorconv_blit_8_to_8)
          decl %ecx
          jnz next_block_8_to_8_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_8_to_8_no_mmx:
          movl MYLOCAL1, %ecx
          andl $3, %ecx
@@ -1828,7 +1828,7 @@ FUNC (_colorconv_blit_8_to_8)
 /* void _colorconv_blit_8_to_16 (struct GRAPHICS_RECT *src_rect,
  *                               struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_8_to_16_no_mmx:
 #else
@@ -1837,7 +1837,7 @@ FUNC (_colorconv_blit_8_to_16)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_1, SIZE_2, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_1, SIZE_2, LOOP_RATIO_1)
@@ -1850,7 +1850,7 @@ FUNC (_colorconv_blit_8_to_16)
    next_line_8_to_16_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx
       jz do_one_pixel_8_to_16_no_mmx
 #endif
@@ -1880,7 +1880,7 @@ FUNC (_colorconv_blit_8_to_16)
          movl %edx, -4(%edi)          /* write pixel3, pixel4   */
          jnz next_block_8_to_16_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_8_to_16_no_mmx:
          movl MYLOCAL1, %ecx
          andl $3, %ecx
@@ -1932,7 +1932,7 @@ FUNC (_colorconv_blit_8_to_16)
 FUNC (_colorconv_blit_8_to_24)
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_1, SIZE_3, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_1, SIZE_3, LOOP_RATIO_1)
@@ -1945,7 +1945,7 @@ FUNC (_colorconv_blit_8_to_24)
    next_line_8_to_24_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx
       jz do_one_pixel_8_to_24_no_mmx
 #endif
@@ -1979,7 +1979,7 @@ FUNC (_colorconv_blit_8_to_24)
          decl %ecx
          jnz next_block_8_to_24_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_8_to_24_no_mmx:
          movl MYLOCAL1, %ecx
          andl $3, %ecx
@@ -2032,7 +2032,7 @@ FUNC (_colorconv_blit_8_to_24)
 /* void _colorconv_blit_8_to_32 (struct GRAPHICS_RECT *src_rect,
  *                               struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_8_to_32_no_mmx:
 #else
@@ -2040,7 +2040,7 @@ FUNC (_colorconv_blit_8_to_32)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_1, SIZE_4, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_1, SIZE_4, LOOP_RATIO_1)
@@ -2053,7 +2053,7 @@ FUNC (_colorconv_blit_8_to_32)
    next_line_8_to_32_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx
       jz do_one_pixel_8_to_32_no_mmx
 #endif
@@ -2083,7 +2083,7 @@ FUNC (_colorconv_blit_8_to_32)
          decl %ecx
          jnz next_block_8_to_32_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_8_to_32_no_mmx:
          movl MYLOCAL1, %ecx
          andl $3, %ecx
@@ -2126,11 +2126,11 @@ FUNC (_colorconv_blit_8_to_32)
    DESTROY_STACK_FRAME
    ret
 
-#endif  /* ALLEGRO_COLOR8 */
+#endif  /* ALLEGRO_LEGACY_COLOR8 */
 
 
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 
 /* void _colorconv_blit_15_to_8 (struct GRAPHICS_RECT *src_rect,
  *                               struct GRAPHICS_RECT *dest_rect)
@@ -2138,7 +2138,7 @@ FUNC (_colorconv_blit_8_to_32)
 FUNC (_colorconv_blit_15_to_8)
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_1, LOOP_RATIO_2)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_1, LOOP_RATIO_1)
@@ -2150,7 +2150,7 @@ FUNC (_colorconv_blit_15_to_8)
    next_line_15_to_8_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $1, %ecx                /* work in packs of 2 pixels */
       jz do_one_pixel_15_to_8_no_mmx
 #endif
@@ -2182,7 +2182,7 @@ FUNC (_colorconv_blit_15_to_8)
          decl %ecx
          jnz next_block_15_to_8_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_15_to_8_no_mmx:
          movl MYLOCAL1, %ecx
          shrl $1, %ecx
@@ -2219,7 +2219,7 @@ FUNC (_colorconv_blit_15_to_8)
 /* void _colorconv_blit_15_to_16 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_15_to_16_no_mmx:
 #else
@@ -2227,7 +2227,7 @@ FUNC (_colorconv_blit_15_to_16)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_2, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_2, LOOP_RATIO_1)
@@ -2237,7 +2237,7 @@ FUNC (_colorconv_blit_15_to_16)
    next_line_15_to_16_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx
       jz do_one_pixel_15_to_16_no_mmx
 #endif
@@ -2267,7 +2267,7 @@ FUNC (_colorconv_blit_15_to_16)
          decl %ecx
          jnz next_block_15_to_16_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_15_to_16_no_mmx:
          movl MYLOCAL1, %ecx
          andl $3, %ecx
@@ -2327,7 +2327,7 @@ FUNC (_colorconv_blit_15_to_24)
 FUNC (_colorconv_blit_16_to_24)
    CREATE_BIG_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_3, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_3, LOOP_RATIO_1)
@@ -2338,7 +2338,7 @@ FUNC (_colorconv_blit_16_to_24)
    next_line_16_to_24_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx
       jz do_one_pixel_16_to_24_no_mmx
 #endif
@@ -2392,7 +2392,7 @@ FUNC (_colorconv_blit_16_to_24)
          movl %eax, -12(%edi)           /* write pixel1..b8 pixel2          */
          jnz next_block_16_to_24_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_16_to_24_no_mmx:
          movl MYLOCAL1, %ecx
          andl $3, %ecx
@@ -2459,7 +2459,7 @@ FUNC (_colorconv_blit_16_to_24)
 /* void _colorconv_blit_16_to_32 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_15_to_32_no_mmx:
 _colorconv_blit_16_to_32_no_mmx:
@@ -2469,7 +2469,7 @@ FUNC (_colorconv_blit_16_to_32)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_4, LOOP_RATIO_2)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_4, LOOP_RATIO_1)
@@ -2482,7 +2482,7 @@ FUNC (_colorconv_blit_16_to_32)
    next_line_16_to_32_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $1, %ecx
       jz do_one_pixel_16_to_32_no_mmx
 #endif
@@ -2512,7 +2512,7 @@ FUNC (_colorconv_blit_16_to_32)
          movl %edx, -4(%edi)            /* write pixel2                */
          jnz next_block_16_to_32_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_16_to_32_no_mmx:
          movl MYLOCAL1, %ecx            /* restore width */
          shrl $1, %ecx
@@ -2549,7 +2549,7 @@ FUNC (_colorconv_blit_16_to_32)
 FUNC (_colorconv_blit_16_to_8)
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_1, LOOP_RATIO_2)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_1, LOOP_RATIO_1)
@@ -2561,7 +2561,7 @@ FUNC (_colorconv_blit_16_to_8)
    next_line_16_to_8_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $1, %ecx                /* work in packs of 2 pixels */
       jz do_one_pixel_16_to_8_no_mmx
 #endif
@@ -2593,7 +2593,7 @@ FUNC (_colorconv_blit_16_to_8)
          decl %ecx
          jnz next_block_16_to_8_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_16_to_8_no_mmx:
          movl MYLOCAL1, %ecx
          shrl $1, %ecx
@@ -2630,7 +2630,7 @@ FUNC (_colorconv_blit_16_to_8)
 /* void _colorconv_blit_16_to_15 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_16_to_15_no_mmx:
 #else
@@ -2638,7 +2638,7 @@ FUNC (_colorconv_blit_16_to_15)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_2, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_2, SIZE_2, LOOP_RATIO_1)
@@ -2648,7 +2648,7 @@ FUNC (_colorconv_blit_16_to_15)
    next_line_16_to_15_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx
       jz do_one_pixel_16_to_15_no_mmx
 #endif
@@ -2676,7 +2676,7 @@ FUNC (_colorconv_blit_16_to_15)
          decl %ecx
          jnz next_block_16_to_15_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_16_to_15_no_mmx:
          movl MYLOCAL1, %ecx
          andl $3, %ecx
@@ -2722,11 +2722,11 @@ FUNC (_colorconv_blit_16_to_15)
    DESTROY_STACK_FRAME
    ret
 
-#endif  /* ALLEGRO_COLOR16 */
+#endif  /* ALLEGRO_LEGACY_COLOR16 */
 
 
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
 
 /* void _colorconv_blit_24_to_8 (struct GRAPHICS_RECT *src_rect,
  *                               struct GRAPHICS_RECT *dest_rect)
@@ -2747,7 +2747,7 @@ FUNC (_colorconv_blit_24_to_8)
 FUNC (_colorconv_blit_24_to_15)
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_3, SIZE_2, LOOP_RATIO_2)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_3, SIZE_2, LOOP_RATIO_1)
@@ -2765,7 +2765,7 @@ FUNC (_colorconv_blit_24_to_15)
 FUNC (_colorconv_blit_24_to_16)
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_3, SIZE_2, LOOP_RATIO_2)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_3, SIZE_2, LOOP_RATIO_1)
@@ -2780,7 +2780,7 @@ FUNC (_colorconv_blit_24_to_16)
 /* void _colorconv_blit_24_to_32 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_24_to_32_no_mmx:
 #else
@@ -2788,7 +2788,7 @@ FUNC (_colorconv_blit_24_to_32)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_3, SIZE_4, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_3, SIZE_4, LOOP_RATIO_1)
@@ -2798,7 +2798,7 @@ FUNC (_colorconv_blit_24_to_32)
    next_line_24_to_32_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx
       jz do_one_pixel_24_to_32_no_mmx
 #endif
@@ -2826,7 +2826,7 @@ FUNC (_colorconv_blit_24_to_32)
          decl %ecx
          jnz next_block_24_to_32_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_24_to_32_no_mmx:
          movl MYLOCAL1, %ecx      /* restore width */
          andl $3, %ecx
@@ -2873,11 +2873,11 @@ FUNC (_colorconv_blit_24_to_32)
    DESTROY_STACK_FRAME
    ret
 
-#endif  /* ALLEGRO_COLOR24 */
+#endif  /* ALLEGRO_LEGACY_COLOR24 */
 
 
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 /* void _colorconv_blit_32_to_8 (struct GRAPHICS_RECT *src_rect,
  *                               struct GRAPHICS_RECT *dest_rect)
@@ -2895,7 +2895,7 @@ FUNC (_colorconv_blit_32_to_8)
 /* void _colorconv_blit_32_to_15 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_32_to_15_no_mmx:
 #else
@@ -2903,7 +2903,7 @@ FUNC (_colorconv_blit_32_to_15)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_4, SIZE_2, LOOP_RATIO_2)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_4, SIZE_2, LOOP_RATIO_1)
@@ -2918,7 +2918,7 @@ FUNC (_colorconv_blit_32_to_15)
 /* void _colorconv_blit_32_to_16 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_32_to_16_no_mmx:
 #else
@@ -2926,7 +2926,7 @@ FUNC (_colorconv_blit_32_to_16)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_4, SIZE_2, LOOP_RATIO_2)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_4, SIZE_2, LOOP_RATIO_1)
@@ -2941,7 +2941,7 @@ FUNC (_colorconv_blit_32_to_16)
 /* void _colorconv_blit_32_to_24 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
  */
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 _align_
 _colorconv_blit_32_to_24_no_mmx:
 #else
@@ -2949,7 +2949,7 @@ FUNC (_colorconv_blit_32_to_24)
 #endif
    CREATE_STACK_FRAME
 
-#ifdef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifdef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
    INIT_REGISTERS_NO_MMX(SIZE_4, SIZE_3, LOOP_RATIO_4)
 #else
    INIT_REGISTERS_NO_MMX(SIZE_4, SIZE_3, LOOP_RATIO_1)
@@ -2961,7 +2961,7 @@ FUNC (_colorconv_blit_32_to_24)
    next_line_32_to_24_no_mmx:
       movl MYLOCAL1, %ecx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       shrl $2, %ecx
       jz do_one_pixel_32_to_24_no_mmx
 #endif
@@ -2995,7 +2995,7 @@ FUNC (_colorconv_blit_32_to_24)
          movl %eax, -4(%edi)    /* write [RGBR](4)(3)  */
          jnz next_block_32_to_24_no_mmx
 
-#ifndef ALLEGRO_COLORCONV_ALIGNED_WIDTH
+#ifndef ALLEGRO_LEGACY_COLORCONV_ALIGNED_WIDTH
       do_one_pixel_32_to_24_no_mmx:
          movl MYLOCAL1, %ecx
          andl $3, %ecx
@@ -3039,11 +3039,11 @@ FUNC (_colorconv_blit_32_to_24)
    DESTROY_STACK_FRAME
    ret
 
-#endif  /* ALLEGRO_COLOR32 */
+#endif  /* ALLEGRO_LEGACY_COLOR32 */
 
 
 
-#ifndef ALLEGRO_NO_COLORCOPY
+#ifndef ALLEGRO_LEGACY_NO_COLORCOPY
 
 /********************************************************************************************/
 /* color copy routines                                                                      */
@@ -3082,7 +3082,7 @@ FUNC (_colorcopy)
 
    movl %ecx, %ebp                  /* save for later */
 
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
    movl GLOBL(cpu_capabilities), %ecx     /* if MMX is enabled (or not disabled :) */
    andl $CPU_MMX, %ecx
    jz next_line_no_mmx
@@ -3212,7 +3212,7 @@ end_of_function:
 
 
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
 
 /* void _colorcopy_blit_15_to_15 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
@@ -3236,11 +3236,11 @@ FUNC (_colorcopy_blit_16_to_16)
    popl %ebp
    ret
 
-#endif  /* ALLEGRO_COLOR16 */
+#endif  /* ALLEGRO_LEGACY_COLOR16 */
 
 
 
-#ifdef ALLEGRO_COLOR24
+#ifdef ALLEGRO_LEGACY_COLOR24
 
 /* void _colorcopy_blit_24_to_24 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
@@ -3260,11 +3260,11 @@ FUNC (_colorcopy_blit_24_to_24)
    popl %ebp
    ret
 
-#endif  /* ALLEGRO_COLOR24 */
+#endif  /* ALLEGRO_LEGACY_COLOR24 */
 
 
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 /* void _colorcopy_blit_32_to_32 (struct GRAPHICS_RECT *src_rect,
  *                                struct GRAPHICS_RECT *dest_rect)
@@ -3284,7 +3284,7 @@ FUNC (_colorcopy_blit_32_to_32)
    popl %ebp
    ret
 
-#endif  /* ALLEGRO_COLOR32 */
+#endif  /* ALLEGRO_LEGACY_COLOR32 */
 
-#endif  /* ALLEGRO_NO_COLORCOPY */
+#endif  /* ALLEGRO_LEGACY_NO_COLORCOPY */
 

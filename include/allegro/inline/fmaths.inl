@@ -16,12 +16,12 @@
  */
 
 
-#ifndef ALLEGRO_FMATHS_INL
-#define ALLEGRO_FMATHS_INL
+#ifndef ALLEGRO_LEGACY_FMATHS_INL
+#define ALLEGRO_LEGACY_FMATHS_INL
 
-#define ALLEGRO_IMPORT_MATH_ASM
+#define ALLEGRO_LEGACY_IMPORT_MATH_ASM
 #include "asm.inl"
-#undef ALLEGRO_IMPORT_MATH_ASM
+#undef ALLEGRO_LEGACY_IMPORT_MATH_ASM
 
 #ifdef __cplusplus
    extern "C" {
@@ -51,7 +51,7 @@ AL_INLINE(double, fixtof, (fixed x),
 })
 
 
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
 
 /* use generic C versions */
 
@@ -116,7 +116,7 @@ AL_INLINE(fixed, fixsub, (fixed x, fixed y),
  *
  * PS. Don't move the #ifs inside the AL_INLINE; BCC doesn't like it.
  */
-#if (defined ALLEGRO_I386) || (!defined LONG_LONG)
+#if (defined ALLEGRO_LEGACY_I386) || (!defined LONG_LONG)
    AL_INLINE(fixed, fixmul, (fixed x, fixed y),
    {
       return ftofix(fixtof(x) * fixtof(y));
@@ -233,6 +233,6 @@ AL_INLINE(fixed, fixasin, (fixed x),
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_FMATHS_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_FMATHS_INL */
 
 

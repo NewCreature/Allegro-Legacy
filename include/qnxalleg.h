@@ -15,10 +15,10 @@
  */
 
 
-#ifndef QNX_ALLEGRO_H
-#define QNX_ALLEGRO_H
+#ifndef QNX_ALLEGRO_LEGACY_H
+#define QNX_ALLEGRO_LEGACY_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
 #error Please include allegro.h before qnxalleg.h!
 #endif
 

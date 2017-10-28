@@ -21,7 +21,7 @@
 
 
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 
 void _linear_draw_sprite8_end(void);

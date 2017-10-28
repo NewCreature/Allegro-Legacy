@@ -367,7 +367,7 @@ int install_sound(int digi, int midi, AL_CONST char *cfg_path)
 	    if (_al_linker_midi)
 	       _al_linker_midi->exit();
 	    if (!ugetc(allegro_error))
-	       ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Digital sound driver not found"));
+	       ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Digital sound driver not found"));
 	    return -1;
 	 }
 	 break;
@@ -418,7 +418,7 @@ int install_sound(int digi, int midi, AL_CONST char *cfg_path)
 	    if (_al_linker_midi)
 	       _al_linker_midi->exit();
 	    if (!ugetc(allegro_error))
-	       ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("MIDI music driver not found"));
+	       ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("MIDI music driver not found"));
 	    return -1;
 	 }
 	 break;
@@ -471,7 +471,7 @@ int install_sound(int digi, int midi, AL_CONST char *cfg_path)
 
    /* make sure this is a reasonable number of voices to use */
    if ((digi_voices > DIGI_VOICES) || (midi_voices > MIDI_VOICES)) {
-      uszprintf(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Insufficient %s voices available"),
+      uszprintf(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Insufficient %s voices available"),
 		(digi_voices > DIGI_VOICES) ? get_config_text("digital") : get_config_text("MIDI"));
       digi_driver = &digi_none; 
       midi_driver = &_midi_none; 
@@ -487,7 +487,7 @@ int install_sound(int digi, int midi, AL_CONST char *cfg_path)
       if (_al_linker_midi)
 	 _al_linker_midi->exit();
       if (!ugetc(allegro_error))
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Failed to init digital sound driver"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Failed to init digital sound driver"));
       return -1;
    }
 
@@ -499,7 +499,7 @@ int install_sound(int digi, int midi, AL_CONST char *cfg_path)
       if (_al_linker_midi)
 	 _al_linker_midi->exit();
       if (!ugetc(allegro_error))
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Failed to init MIDI music driver"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Failed to init MIDI music driver"));
       return -1;
    }
 
@@ -509,7 +509,7 @@ int install_sound(int digi, int midi, AL_CONST char *cfg_path)
    /* check that we actually got enough voices */
    if ((digi_driver->voices < digi_voices) || 
        ((midi_driver->voices < midi_voices) && (!midi_driver->raw_midi))) {
-      uszprintf(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Insufficient %s voices available"),
+      uszprintf(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Insufficient %s voices available"),
                 (digi_driver->voices < digi_voices) ? get_config_text("digital") : get_config_text("MIDI"));
       midi_driver->exit(FALSE);
       digi_driver->exit(FALSE);
@@ -567,7 +567,7 @@ int install_sound_input(int digi, int midi)
       return 0;
 
    if (!_sound_installed) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Sound system not installed"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Sound system not installed"));
       return -1;
    }
 
@@ -603,7 +603,7 @@ int install_sound_input(int digi, int midi)
 	    digi_input_driver = &digi_none;
 	    if (digi_input_card != DIGI_AUTODETECT) {
 	       if (!ugetc(allegro_error))
-		  uszprintf(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("%s does not support audio input"),
+		  uszprintf(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("%s does not support audio input"),
 			    ((DIGI_DRIVER *)digi_drivers[c].driver)->name);
 	       break;
 	    }
@@ -614,7 +614,7 @@ int install_sound_input(int digi, int midi)
    /* did we find one? */
    if ((digi_input_driver == &digi_none) && (digi_input_card != DIGI_NONE)) {
       if (!ugetc(allegro_error))
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Digital input driver not found"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Digital input driver not found"));
       return -1;
    }
 
@@ -637,7 +637,7 @@ int install_sound_input(int digi, int midi)
 	    midi_input_driver = &_midi_none;
 	    if (midi_input_card != MIDI_AUTODETECT) {
 	       if (!ugetc(allegro_error))
-		  uszprintf(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("%s does not support MIDI input"),
+		  uszprintf(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("%s does not support MIDI input"),
 			    ((MIDI_DRIVER *)midi_drivers[c].driver)->name);
 	       break;
 	    }
@@ -649,7 +649,7 @@ int install_sound_input(int digi, int midi)
    if ((midi_input_driver == &_midi_none) && (midi_input_card != MIDI_NONE)) {
       digi_input_driver = &digi_none;
       if (!ugetc(allegro_error))
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("MIDI input driver not found"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("MIDI input driver not found"));
       return -1;
    }
 
@@ -658,7 +658,7 @@ int install_sound_input(int digi, int midi)
       digi_input_driver = &digi_none;
       midi_input_driver = &_midi_none;
       if (!ugetc(allegro_error))
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Failed to init digital input driver"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Failed to init digital input driver"));
       return -1;
    }
 
@@ -668,7 +668,7 @@ int install_sound_input(int digi, int midi)
       digi_input_driver = &digi_none;
       midi_input_driver = &_midi_none;
       if (!ugetc(allegro_error))
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Failed to init MIDI input driver"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Failed to init MIDI input driver"));
       return -1;
    }
 

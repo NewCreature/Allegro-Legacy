@@ -76,7 +76,7 @@ int be_gfx_bwindowscreen_request_video_bitmap(struct BITMAP *bitmap);
 void be_gfx_vsync(void);
 struct GFX_MODE_LIST *be_gfx_bwindowscreen_fetch_mode_list(void);
 void be_gfx_bwindowscreen_accelerate(int color_depth);
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
 uintptr_t be_gfx_bwindowscreen_read_write_bank(BITMAP *bmp, int lyne);
 void be_gfx_bwindowscreen_unwrite_bank(BITMAP *bmp);
 #else
@@ -96,7 +96,7 @@ void be_gfx_bwindow_acquire(struct BITMAP *bmp);
 void be_gfx_bwindow_release(struct BITMAP *bmp);
 void be_gfx_bwindow_set_palette(AL_CONST struct RGB *p, int from, int to, int vsync);
 
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
 void _be_gfx_bwindow_unwrite_bank(BITMAP *bmp);
 uintptr_t _be_gfx_bwindow_read_write_bank(BITMAP *bmp, int lyne);
 #else

@@ -25,33 +25,33 @@
 
 
 /* a static auto config */
-#define ALLEGRO_HAVE_INTTYPES_H
-#define ALLEGRO_HAVE_STDINT_H
+#define ALLEGRO_LEGACY_HAVE_INTTYPES_H
+#define ALLEGRO_LEGACY_HAVE_STDINT_H
 
 #define LONG_LONG long long
 
 /* describe this platform */
-#ifdef ALLEGRO_STATICLINK
-   #define ALLEGRO_PLATFORM_STR  "DMC.s"
+#ifdef ALLEGRO_LEGACY_STATICLINK
+   #define ALLEGRO_LEGACY_PLATFORM_STR  "DMC.s"
 #else
-   #define ALLEGRO_PLATFORM_STR  "DMC"
+   #define ALLEGRO_LEGACY_PLATFORM_STR  "DMC"
 #endif
 
-#define ALLEGRO_WINDOWS
-#define ALLEGRO_I386
-#define ALLEGRO_LITTLE_ENDIAN
-#define ALLEGRO_MULTITHREADED
+#define ALLEGRO_LEGACY_WINDOWS
+#define ALLEGRO_LEGACY_I386
+#define ALLEGRO_LEGACY_LITTLE_ENDIAN
+#define ALLEGRO_LEGACY_MULTITHREADED
 
-#ifdef ALLEGRO_USE_CONSOLE
-   #define ALLEGRO_CONSOLE_OK
-   #define ALLEGRO_NO_MAGIC_MAIN
+#ifdef ALLEGRO_LEGACY_USE_CONSOLE
+   #define ALLEGRO_LEGACY_CONSOLE_OK
+   #define ALLEGRO_LEGACY_NO_MAGIC_MAIN
 #endif
 
 
 /* describe how function prototypes look to DMC */
-#if defined ALLEGRO_STATICLINK
+#if defined ALLEGRO_LEGACY_STATICLINK
    #define _AL_DLL
-#elif defined ALLEGRO_SRC
+#elif defined ALLEGRO_LEGACY_SRC
    #define _AL_DLL   __declspec(dllexport)
 #else
    #define _AL_DLL   __declspec(dllimport)
@@ -66,7 +66,7 @@
 
 /* Windows specific defines */
 
-#if (defined ALLEGRO_SRC)
+#if (defined ALLEGRO_LEGACY_SRC)
 
 #if (!defined S_IRUSR) && (!defined SCAN_DEPEND)
    #define S_IRUSR   S_IREAD
@@ -84,12 +84,12 @@ struct _wfinddata_t {
    wchar_t  name[260];           /* may include spaces. */
 };
 
-#endif /* ALLEGRO_SRC */
+#endif /* ALLEGRO_LEGACY_SRC */
 
 /* describe the asm syntax for this platform */
-#define ALLEGRO_ASM_PREFIX    "_"
+#define ALLEGRO_LEGACY_ASM_PREFIX    "_"
 
 /* arrange for other headers to be included later on */
-#define ALLEGRO_EXTRA_HEADER     "allegro/platform/alwin.h"
-#define ALLEGRO_INTERNAL_HEADER  "allegro/platform/aintwin.h"
-#define ALLEGRO_ASMCAPA_HEADER   "obj/dmc/asmcapa.h"
+#define ALLEGRO_LEGACY_EXTRA_HEADER     "allegro/platform/alwin.h"
+#define ALLEGRO_LEGACY_INTERNAL_HEADER  "allegro/platform/aintwin.h"
+#define ALLEGRO_LEGACY_ASMCAPA_HEADER   "obj/dmc/asmcapa.h"

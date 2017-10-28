@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_JOYSTICK_H
-#define ALLEGRO_JOYSTICK_H
+#ifndef ALLEGRO_LEGACY_JOYSTICK_H
+#define ALLEGRO_LEGACY_JOYSTICK_H
 
 #include "base.h"
 
@@ -140,6 +140,6 @@ AL_FUNC(int, calibrate_joystick, (int n));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_JOYSTICK_H */
+#endif          /* ifndef ALLEGRO_LEGACY_JOYSTICK_H */
 
 

@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_KEYBOARD_H
-#define ALLEGRO_KEYBOARD_H
+#ifndef ALLEGRO_LEGACY_KEYBOARD_H
+#define ALLEGRO_LEGACY_KEYBOARD_H
 
 #include "base.h"
 
@@ -234,7 +234,7 @@ enum {
    __allegro_KEY_MAX          = 127
 };
 
-#ifndef ALLEGRO_NO_KEY_DEFINES
+#ifndef ALLEGRO_LEGACY_NO_KEY_DEFINES
 
 #define KB_SHIFT_FLAG         __allegro_KB_SHIFT_FLAG
 #define KB_CTRL_FLAG          __allegro_KB_CTRL_FLAG
@@ -384,12 +384,12 @@ enum {
 
 #define KEY_MAX               __allegro_KEY_MAX
 
-#endif /* ALLEGRO_NO_KEY_DEFINES */
+#endif /* ALLEGRO_LEGACY_NO_KEY_DEFINES */
 
 #ifdef __cplusplus
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_KEYBOARD_H */
+#endif          /* ifndef ALLEGRO_LEGACY_KEYBOARD_H */
 
 

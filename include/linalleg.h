@@ -17,13 +17,13 @@
  */
 
 
-#ifndef LIN_ALLEGRO_H
-#define LIN_ALLEGRO_H
+#ifndef LIN_ALLEGRO_LEGACY_H
+#define LIN_ALLEGRO_LEGACY_H
 
 /*
  * THIS IS AN EX-PARROT!!
  */
 
-#endif          /* ifndef LIN_ALLEGRO_H */
+#endif          /* ifndef LIN_ALLEGRO_LEGACY_H */
 
 

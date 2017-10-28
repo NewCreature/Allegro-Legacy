@@ -19,7 +19,7 @@
 #ifndef ALPSP_H
 #define ALPSP_H
 
-#ifndef ALLEGRO_PSP
+#ifndef ALLEGRO_LEGACY_PSP
    #error bad include
 #endif
 

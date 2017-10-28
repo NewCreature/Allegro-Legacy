@@ -57,7 +57,7 @@ static int get_replacement_mask_color(BITMAP *bmp)
  */
 static void blit_from_256(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, int d_y, int w, int h)
 {
-   #ifdef ALLEGRO_COLOR8
+   #ifdef ALLEGRO_LEGACY_COLOR8
 
    int *dest_palette_color;
    uintptr_t s, d;
@@ -128,20 +128,20 @@ static void blit_from_256(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, 
    /* expand the above macro for each possible output depth */
    switch (bitmap_color_depth(dest)) {
 
-      #ifdef ALLEGRO_COLOR16
+      #ifdef ALLEGRO_LEGACY_COLOR16
       case 15:
       case 16:
          EXPAND_BLIT(16, sizeof(int16_t));
          break;
       #endif
 
-      #ifdef ALLEGRO_COLOR24
+      #ifdef ALLEGRO_LEGACY_COLOR24
       case 24:
          EXPAND_BLIT(24, 3);
          break;
       #endif
 
-      #ifdef ALLEGRO_COLOR32
+      #ifdef ALLEGRO_LEGACY_COLOR32
       case 32:
          EXPAND_BLIT(32, sizeof(int32_t));
          break;
@@ -225,7 +225,7 @@ static void blit_from_256(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, 
 
 
 
-#if (defined ALLEGRO_COLOR8) || (defined ALLEGRO_GFX_HAS_VGA)
+#if (defined ALLEGRO_LEGACY_COLOR8) || (defined ALLEGRO_LEGACY_GFX_HAS_VGA)
 
 /* dither_blit:
  *  Blits with Floyd-Steinberg error diffusion.
@@ -341,14 +341,14 @@ static void dither_blit(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, in
  */
 static void blit_from_15(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, int d_y, int w, int h)
 {
-   #ifdef ALLEGRO_COLOR16
+   #ifdef ALLEGRO_LEGACY_COLOR16
 
    int x, y, c, r, g, b;
    uintptr_t s, d;
 
    switch (bitmap_color_depth(dest)) {
 
-      #ifdef ALLEGRO_COLOR8
+      #ifdef ALLEGRO_LEGACY_COLOR8
       case 8:
          if (_color_conv & COLORCONV_DITHER_PAL)
             dither_blit(src, dest, s_x, s_y, d_x, d_y, w, h);
@@ -361,13 +361,13 @@ static void blit_from_15(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
          CONVERT_BLIT(15, sizeof(int16_t), 16, sizeof(int16_t))
          break;
 
-      #ifdef ALLEGRO_COLOR24
+      #ifdef ALLEGRO_LEGACY_COLOR24
       case 24:
          CONVERT_BLIT(15, sizeof(int16_t), 24, 3)
          break;
       #endif
 
-      #ifdef ALLEGRO_COLOR32
+      #ifdef ALLEGRO_LEGACY_COLOR32
       case 32:
          CONVERT_BLIT(15, sizeof(int16_t), 32, sizeof(int32_t))
          break;
@@ -384,14 +384,14 @@ static void blit_from_15(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
  */
 static void blit_from_16(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, int d_y, int w, int h)
 {
-   #ifdef ALLEGRO_COLOR16
+   #ifdef ALLEGRO_LEGACY_COLOR16
 
    int x, y, c, r, g, b;
    uintptr_t s, d;
 
    switch (bitmap_color_depth(dest)) {
 
-      #ifdef ALLEGRO_COLOR8
+      #ifdef ALLEGRO_LEGACY_COLOR8
       case 8:
          if (_color_conv & COLORCONV_DITHER_PAL)
             dither_blit(src, dest, s_x, s_y, d_x, d_y, w, h);
@@ -404,13 +404,13 @@ static void blit_from_16(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
          CONVERT_BLIT(16, sizeof(int16_t), 15, sizeof(int16_t))
          break;
 
-      #ifdef ALLEGRO_COLOR24
+      #ifdef ALLEGRO_LEGACY_COLOR24
       case 24:
          CONVERT_BLIT(16, sizeof(int16_t), 24, 3)
          break;
       #endif
 
-      #ifdef ALLEGRO_COLOR32
+      #ifdef ALLEGRO_LEGACY_COLOR32
       case 32:
          CONVERT_BLIT(16, sizeof(int16_t), 32, sizeof(int32_t))
          break;
@@ -427,14 +427,14 @@ static void blit_from_16(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
  */
 static void blit_from_24(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, int d_y, int w, int h)
 {
-   #ifdef ALLEGRO_COLOR24
+   #ifdef ALLEGRO_LEGACY_COLOR24
 
    int x, y, c, r, g, b;
    uintptr_t s, d;
 
    switch (bitmap_color_depth(dest)) {
 
-      #ifdef ALLEGRO_COLOR8
+      #ifdef ALLEGRO_LEGACY_COLOR8
       case 8:
          if (_color_conv & COLORCONV_DITHER_PAL)
             dither_blit(src, dest, s_x, s_y, d_x, d_y, w, h);
@@ -443,7 +443,7 @@ static void blit_from_24(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
          break;
       #endif
 
-      #ifdef ALLEGRO_COLOR16
+      #ifdef ALLEGRO_LEGACY_COLOR16
       case 15:
          if (_color_conv & COLORCONV_DITHER_HI)
             CONVERT_DITHER_BLIT(24, 3, 15, sizeof(int16_t))
@@ -459,7 +459,7 @@ static void blit_from_24(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
          break;
       #endif
 
-      #ifdef ALLEGRO_COLOR32
+      #ifdef ALLEGRO_LEGACY_COLOR32
       case 32:
          CONVERT_BLIT(24, 3, 32, sizeof(int32_t))
          break;
@@ -476,14 +476,14 @@ static void blit_from_24(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
  */
 static void blit_from_32(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, int d_y, int w, int h)
 {
-   #ifdef ALLEGRO_COLOR32
+   #ifdef ALLEGRO_LEGACY_COLOR32
 
    int x, y, c, r, g, b;
    uintptr_t s, d;
 
    switch (bitmap_color_depth(dest)) {
 
-      #ifdef ALLEGRO_COLOR8
+      #ifdef ALLEGRO_LEGACY_COLOR8
       case 8:
          if (_color_conv & COLORCONV_DITHER_PAL)
             dither_blit(src, dest, s_x, s_y, d_x, d_y, w, h);
@@ -492,7 +492,7 @@ static void blit_from_32(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
          break;
       #endif
 
-      #ifdef ALLEGRO_COLOR16
+      #ifdef ALLEGRO_LEGACY_COLOR16
       case 15:
          if (_color_conv & COLORCONV_DITHER_HI)
             CONVERT_DITHER_BLIT(32, sizeof(int32_t), 15, sizeof(int16_t))
@@ -508,7 +508,7 @@ static void blit_from_32(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
          break;
       #endif
 
-      #ifdef ALLEGRO_COLOR24
+      #ifdef ALLEGRO_LEGACY_COLOR24
       case 24:
          CONVERT_BLIT(32, sizeof(int32_t), 24, 3)
          break;
@@ -527,7 +527,7 @@ static void blit_from_32(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, i
  */
 static void blit_to_or_from_modex(BITMAP *src, BITMAP *dest, int s_x, int s_y, int d_x, int d_y, int w, int h)
 {
-   #ifdef ALLEGRO_GFX_HAS_VGA
+   #ifdef ALLEGRO_LEGACY_GFX_HAS_VGA
 
    int x, y, c, r, g, b;
    int src_depth = bitmap_color_depth(src);

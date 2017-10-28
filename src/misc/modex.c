@@ -24,18 +24,18 @@
 
 #include "allegro.h"
 
-#ifdef ALLEGRO_GFX_HAS_VGA
+#ifdef ALLEGRO_LEGACY_GFX_HAS_VGA
 
 #include "allegro/internal/aintern.h"
 #include "allegro/internal/aintvga.h"
 
-#ifdef ALLEGRO_INTERNAL_HEADER
-   #include ALLEGRO_INTERNAL_HEADER
+#ifdef ALLEGRO_LEGACY_INTERNAL_HEADER
+   #include ALLEGRO_LEGACY_INTERNAL_HEADER
 #endif
 
 #include "modexsms.h"
 
-#if (!defined ALLEGRO_LINUX) || ((defined ALLEGRO_LINUX_VGA) && ((!defined ALLEGRO_WITH_MODULES) || (defined ALLEGRO_MODULE)))
+#if (!defined ALLEGRO_LEGACY_LINUX) || ((defined ALLEGRO_LEGACY_LINUX_VGA) && ((!defined ALLEGRO_LEGACY_WITH_MODULES) || (defined ALLEGRO_LEGACY_MODULE)))
 
 
 
@@ -572,7 +572,7 @@ unsigned long _x_magic_buffer_addr = 0;
 unsigned long _x_magic_screen_addr = 0;
 int _x_magic_screen_width = 0;
 
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
    static int magic_sel = 0;
 #endif
 
@@ -589,7 +589,7 @@ int _x_magic_screen_width = 0;
  */
 static void setup_x_magic(BITMAP *b)
 {
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
 
       /* DOS buffer has to go in conventional memory */
       int seg = __dpmi_allocate_dos_memory((b->w+15)/16, &magic_sel);
@@ -624,7 +624,7 @@ static void setup_x_magic(BITMAP *b)
  */
 static void modex_exit(BITMAP *b)
 {
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
 
       /* free conventional memory buffer */
       if (_x_magic_buffer_addr) {
@@ -665,7 +665,7 @@ static BITMAP *modex_init(int w, int h, int v_w, int v_h, int color_depth)
     * The bank switchers assume asm-mode calling conventions, but the
     * library would try to call them with C calling conventions.
     */
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
    return NULL;
 #endif
 
@@ -674,7 +674,7 @@ static BITMAP *modex_init(int w, int h, int v_w, int v_h, int color_depth)
 
    /* check it is a valid resolution */
    if (color_depth != 8) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Mode-X only supports 8 bit color"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Mode-X only supports 8 bit color"));
       return NULL;
    }
 
@@ -683,7 +683,7 @@ static BITMAP *modex_init(int w, int h, int v_w, int v_h, int color_depth)
       mode++;
 
    if (!mode->regs) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Not a VGA mode-X resolution"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Not a VGA mode-X resolution"));
       return NULL;
    }
 
@@ -692,7 +692,7 @@ static BITMAP *modex_init(int w, int h, int v_w, int v_h, int color_depth)
    v_h = MAX(h, v_h);
 
    if (v_h > 0x40000/v_w) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Virtual screen size too large"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Virtual screen size too large"));
       return NULL;
    }
 
@@ -794,7 +794,7 @@ static BITMAP *modex_init(int w, int h, int v_w, int v_h, int color_depth)
       gfx_modex.poll_scroll = NULL;
    }
 
-   #ifdef ALLEGRO_LINUX
+   #ifdef ALLEGRO_LEGACY_LINUX
 
       b->vtable->acquire = __al_linux_acquire_bitmap;
       b->vtable->release = __al_linux_release_bitmap;
@@ -821,7 +821,7 @@ static BITMAP *xtended_init(int w, int h, int v_w, int v_h, int color_depth)
     * The bank switchers assume asm-mode calling conventions, but the
     * library would try to call them with C calling conventions.
     */
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
    return NULL;
 #endif
 
@@ -830,12 +830,12 @@ static BITMAP *xtended_init(int w, int h, int v_w, int v_h, int color_depth)
 
    /* check it is a valid resolution */
    if (color_depth != 8) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Xtended mode only supports 8 bit color"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Xtended mode only supports 8 bit color"));
       return NULL;
    }
 
    if ((w != 640) || (h != 400) || (v_w > 640) || (v_h > 400)) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Xtended mode only supports 640x400"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Xtended mode only supports 640x400"));
       return NULL;
    }
 
@@ -849,7 +849,7 @@ static BITMAP *xtended_init(int w, int h, int v_w, int v_h, int color_depth)
    addr = _set_vga_mode(0x100);
 
    if (!addr) {
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("VESA mode 0x100 not available"));
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("VESA mode 0x100 not available"));
       return NULL;
    }
 
@@ -1680,10 +1680,10 @@ static void really_split_modex_screen(int line)
 
 
 
-#endif      /* (!defined ALLEGRO_LINUX) || ((defined ALLEGRO_LINUX_VGA) && ... */
+#endif      /* (!defined ALLEGRO_LEGACY_LINUX) || ((defined ALLEGRO_LEGACY_LINUX_VGA) && ... */
 
 
-#if (defined ALLEGRO_LINUX_VGA) && (defined ALLEGRO_MODULE)
+#if (defined ALLEGRO_LEGACY_LINUX_VGA) && (defined ALLEGRO_LEGACY_MODULE)
 
 /* _module_init:
  *  Called when loaded as a dynamically linked module.
@@ -1694,7 +1694,7 @@ void _module_init_modex(int system_driver)
       _unix_register_gfx_driver(GFX_MODEX, &gfx_modex, TRUE, FALSE);
 }
 
-#endif	    /* (defined ALLEGRO_LINUX_VGA) && (defined ALLEGRO_MODULE) */
+#endif	    /* (defined ALLEGRO_LEGACY_LINUX_VGA) && (defined ALLEGRO_LEGACY_MODULE) */
 
 
-#endif	    /* ALLEGRO_GFX_HAS_VGA */
+#endif	    /* ALLEGRO_LEGACY_GFX_HAS_VGA */

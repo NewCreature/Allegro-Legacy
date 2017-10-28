@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_COLOR_INL
-#define ALLEGRO_COLOR_INL
+#ifndef ALLEGRO_LEGACY_COLOR_INL
+#define ALLEGRO_LEGACY_COLOR_INL
 
 #ifdef __cplusplus
    extern "C" {
@@ -160,7 +160,7 @@ AL_INLINE(int, geta32, (int c),
 })
 
 
-#ifndef ALLEGRO_DOS
+#ifndef ALLEGRO_LEGACY_DOS
 
 AL_INLINE(void, _set_color, (int idx, AL_CONST RGB *p),
 {
@@ -174,6 +174,6 @@ AL_INLINE(void, _set_color, (int idx, AL_CONST RGB *p),
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_COLOR_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_COLOR_INL */
 
 

@@ -16,7 +16,7 @@
  */
 
 
-#if (!defined ALLEGRO_MSVC) || (!defined ALLEGRO_I386)
+#if (!defined ALLEGRO_LEGACY_MSVC) || (!defined ALLEGRO_LEGACY_I386)
    #error bad include
 #endif
 
@@ -24,7 +24,7 @@
 #pragma warning (disable: 4035)
 
 
-#ifdef ALLEGRO_IMPORT_GFX_ASM
+#ifdef ALLEGRO_LEGACY_IMPORT_GFX_ASM
 
 /* _default_ds:
  *  Return a copy of the current %ds selector.
@@ -91,10 +91,10 @@ INLINE _AL_DLL void bmp_unwrite_line(BITMAP *bmp)
 END_OF_INLINE(bmp_unwrite_line);
 
 
-#endif /* ALLEGRO_IMPORT_GFX_ASM */
+#endif /* ALLEGRO_LEGACY_IMPORT_GFX_ASM */
 
 
-#ifdef ALLEGRO_IMPORT_MATH_ASM
+#ifdef ALLEGRO_LEGACY_IMPORT_MATH_ASM
 
 /* _set_errno_erange:
  */
@@ -262,7 +262,7 @@ INLINE _AL_DLL int fixceil(fixed x)
 
 END_OF_INLINE(fixceil);
 
-#endif /* ALLEGRO_IMPORT_MATH_ASM */
+#endif /* ALLEGRO_LEGACY_IMPORT_MATH_ASM */
 
 
 #pragma warning (default: 4035)

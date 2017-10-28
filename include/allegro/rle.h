@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_RLE_H
-#define ALLEGRO_RLE_H
+#ifndef ALLEGRO_LEGACY_RLE_H
+#define ALLEGRO_LEGACY_RLE_H
 
 #include "base.h"
 #include "gfx.h"
@@ -44,6 +44,6 @@ AL_FUNC(void, destroy_rle_sprite, (RLE_SPRITE *sprite));
 
 #include "inline/rle.inl"
 
-#endif          /* ifndef ALLEGRO_RLE_H */
+#endif          /* ifndef ALLEGRO_LEGACY_RLE_H */
 
 

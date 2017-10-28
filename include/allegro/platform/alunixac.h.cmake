@@ -5,152 +5,152 @@
  */
 
 /* Define if you want support for n bpp modes. */
-#cmakedefine ALLEGRO_COLOR8
-#cmakedefine ALLEGRO_COLOR16
-#cmakedefine ALLEGRO_COLOR24
-#cmakedefine ALLEGRO_COLOR32
+#cmakedefine ALLEGRO_LEGACY_COLOR8
+#cmakedefine ALLEGRO_LEGACY_COLOR16
+#cmakedefine ALLEGRO_LEGACY_COLOR24
+#cmakedefine ALLEGRO_LEGACY_COLOR32
 
 /*---------------------------------------------------------------------------*/
 
 /* Define to 1 if you have the corresponding header file. */
-#cmakedefine ALLEGRO_HAVE_DIRENT_H
-#cmakedefine ALLEGRO_HAVE_INTTYPES_H
-#cmakedefine ALLEGRO_HAVE_LINUX_AWE_VOICE_H
-#cmakedefine ALLEGRO_HAVE_LINUX_INPUT_H
-#cmakedefine ALLEGRO_HAVE_LINUX_JOYSTICK_H
-#cmakedefine ALLEGRO_HAVE_LINUX_SOUNDCARD_H
-#cmakedefine ALLEGRO_HAVE_MACHINE_SOUNDCARD_H
-#cmakedefine ALLEGRO_HAVE_SOUNDCARD_H
-#cmakedefine ALLEGRO_HAVE_STDINT_H
-#cmakedefine ALLEGRO_HAVE_SV_PROCFS_H
-#cmakedefine ALLEGRO_HAVE_SYS_IO_H
-#cmakedefine ALLEGRO_HAVE_SYS_SOUNDCARD_H
-#cmakedefine ALLEGRO_HAVE_SYS_STAT_H
-#cmakedefine ALLEGRO_HAVE_SYS_TIME_H
-#cmakedefine ALLEGRO_HAVE_SYS_UTSNAME_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_DIRENT_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_INTTYPES_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_LINUX_AWE_VOICE_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_LINUX_INPUT_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_LINUX_JOYSTICK_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_LINUX_SOUNDCARD_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_MACHINE_SOUNDCARD_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_SOUNDCARD_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_STDINT_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_SV_PROCFS_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_SYS_IO_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_SYS_SOUNDCARD_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_SYS_STAT_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_SYS_TIME_H
+#cmakedefine ALLEGRO_LEGACY_HAVE_SYS_UTSNAME_H
 
 /* Define to 1 if the corresponding functions are available. */
-#cmakedefine ALLEGRO_HAVE_GETEXECNAME
-#cmakedefine ALLEGRO_HAVE_MEMCMP
-#cmakedefine ALLEGRO_HAVE_MKSTEMP
-#cmakedefine ALLEGRO_HAVE_MMAP
-#cmakedefine ALLEGRO_HAVE_MPROTECT
-#cmakedefine ALLEGRO_HAVE_POSIX_MONOTONIC_CLOCK
-#cmakedefine ALLEGRO_HAVE_SCHED_YIELD
-#cmakedefine ALLEGRO_HAVE_STRICMP
-#cmakedefine ALLEGRO_HAVE_STRLWR
-#cmakedefine ALLEGRO_HAVE_STRUPR
-#cmakedefine ALLEGRO_HAVE_SYSCONF
+#cmakedefine ALLEGRO_LEGACY_HAVE_GETEXECNAME
+#cmakedefine ALLEGRO_LEGACY_HAVE_MEMCMP
+#cmakedefine ALLEGRO_LEGACY_HAVE_MKSTEMP
+#cmakedefine ALLEGRO_LEGACY_HAVE_MMAP
+#cmakedefine ALLEGRO_LEGACY_HAVE_MPROTECT
+#cmakedefine ALLEGRO_LEGACY_HAVE_POSIX_MONOTONIC_CLOCK
+#cmakedefine ALLEGRO_LEGACY_HAVE_SCHED_YIELD
+#cmakedefine ALLEGRO_LEGACY_HAVE_STRICMP
+#cmakedefine ALLEGRO_LEGACY_HAVE_STRLWR
+#cmakedefine ALLEGRO_LEGACY_HAVE_STRUPR
+#cmakedefine ALLEGRO_LEGACY_HAVE_SYSCONF
 
 /* Define to 1 if procfs reveals argc and argv */
-#cmakedefine ALLEGRO_HAVE_PROCFS_ARGCV
+#cmakedefine ALLEGRO_LEGACY_HAVE_PROCFS_ARGCV
 
 /*---------------------------------------------------------------------------*/
 
 /* Define if target machine is little endian. */
-#cmakedefine ALLEGRO_LITTLE_ENDIAN
+#cmakedefine ALLEGRO_LEGACY_LITTLE_ENDIAN
 
 /* Define if target machine is big endian. */
-#cmakedefine ALLEGRO_BIG_ENDIAN
+#cmakedefine ALLEGRO_LEGACY_BIG_ENDIAN
 
 /* Define for Unix platforms, to use C convention for bank switching. */
-#cmakedefine ALLEGRO_NO_ASM
+#cmakedefine ALLEGRO_LEGACY_NO_ASM
 
 /* Define if compiler prepends underscore to symbols. */
-#cmakedefine ALLEGRO_ASM_PREFIX
+#cmakedefine ALLEGRO_LEGACY_ASM_PREFIX
 
 /* Define if assembler supports MMX. */
-#cmakedefine ALLEGRO_MMX
+#cmakedefine ALLEGRO_LEGACY_MMX
 
 /* Define if assembler supports SSE. */
-#cmakedefine ALLEGRO_SSE
+#cmakedefine ALLEGRO_LEGACY_SSE
 
 /* Define if target platform is Darwin. */
-#cmakedefine ALLEGRO_DARWIN
+#cmakedefine ALLEGRO_LEGACY_DARWIN
 
 /* Define if you have the pthread library. */
-#cmakedefine ALLEGRO_HAVE_LIBPTHREAD
+#cmakedefine ALLEGRO_LEGACY_HAVE_LIBPTHREAD
 
 /* Define if constructor attribute is supported. */
-#cmakedefine ALLEGRO_USE_CONSTRUCTOR
+#cmakedefine ALLEGRO_LEGACY_USE_CONSTRUCTOR
 
 /* Define if you need to use a magic main. */
-#cmakedefine ALLEGRO_WITH_MAGIC_MAIN
+#cmakedefine ALLEGRO_LEGACY_WITH_MAGIC_MAIN
 
 /* Define if dynamically loaded modules are supported. */
-#cmakedefine ALLEGRO_WITH_MODULES
+#cmakedefine ALLEGRO_LEGACY_WITH_MODULES
 
 /*---------------------------------------------------------------------------*/
 
 /* Define if you need support for X-Windows. */
-#cmakedefine ALLEGRO_WITH_XWINDOWS
+#cmakedefine ALLEGRO_LEGACY_WITH_XWINDOWS
 
 /* Define if MIT-SHM extension is supported. */
-#cmakedefine ALLEGRO_XWINDOWS_WITH_SHM
+#cmakedefine ALLEGRO_LEGACY_XWINDOWS_WITH_SHM
 
 /* Define if XCursor ARGB extension is available. */
-#cmakedefine ALLEGRO_XWINDOWS_WITH_XCURSOR
+#cmakedefine ALLEGRO_LEGACY_XWINDOWS_WITH_XCURSOR
 
 /* Define if DGA version 2.0 or newer is supported */
-#cmakedefine ALLEGRO_XWINDOWS_WITH_XF86DGA2
+#cmakedefine ALLEGRO_LEGACY_XWINDOWS_WITH_XF86DGA2
 
 /* Define if XF86VidMode extension is supported. */
-#cmakedefine ALLEGRO_XWINDOWS_WITH_XF86VIDMODE
+#cmakedefine ALLEGRO_LEGACY_XWINDOWS_WITH_XF86VIDMODE
 
 /* Define if XIM extension is supported. */
-#cmakedefine ALLEGRO_XWINDOWS_WITH_XIM
+#cmakedefine ALLEGRO_LEGACY_XWINDOWS_WITH_XIM
 
 /* Define if xpm bitmap support is available. */
-#cmakedefine ALLEGRO_XWINDOWS_WITH_XPM
+#cmakedefine ALLEGRO_LEGACY_XWINDOWS_WITH_XPM
 
 /*---------------------------------------------------------------------------*/
 
 /* Define if target platform is linux. */
-#cmakedefine ALLEGRO_LINUX
+#cmakedefine ALLEGRO_LEGACY_LINUX
 
 /* Define to enable Linux console fbcon driver. */
-#cmakedefine ALLEGRO_LINUX_FBCON
+#cmakedefine ALLEGRO_LEGACY_LINUX_FBCON
 
 /* Define to enable Linux console SVGAlib driver. */
-#cmakedefine ALLEGRO_LINUX_SVGALIB
+#cmakedefine ALLEGRO_LEGACY_LINUX_SVGALIB
 
 /* Define if SVGAlib driver can check vga_version. */
-#cmakedefine ALLEGRO_LINUX_SVGALIB_HAVE_VGA_VERSION
+#cmakedefine ALLEGRO_LEGACY_LINUX_SVGALIB_HAVE_VGA_VERSION
 
 /* Define to enable Linux console VBE/AF driver. */
-#cmakedefine ALLEGRO_LINUX_VBEAF
+#cmakedefine ALLEGRO_LEGACY_LINUX_VBEAF
 
 /* Define to enable Linux console VGA driver. */
-#cmakedefine ALLEGRO_LINUX_VGA
+#cmakedefine ALLEGRO_LEGACY_LINUX_VGA
 
 /*---------------------------------------------------------------------------*/
 
 /* Define to the installed ALSA version. */
-#cmakedefine ALLEGRO_ALSA_VERSION @ALLEGRO_ALSA_VERSION@
+#cmakedefine ALLEGRO_LEGACY_ALSA_VERSION @ALLEGRO_LEGACY_ALSA_VERSION@
 
 /* Define if ALSA DIGI driver is supported. */
-#cmakedefine ALLEGRO_WITH_ALSADIGI
+#cmakedefine ALLEGRO_LEGACY_WITH_ALSADIGI
 
 /* Define if ALSA MIDI driver is supported. */
-#cmakedefine ALLEGRO_WITH_ALSAMIDI
+#cmakedefine ALLEGRO_LEGACY_WITH_ALSAMIDI
 
 /* Define if aRts DIGI driver is supported. */
-#cmakedefine ALLEGRO_WITH_ARTSDIGI
+#cmakedefine ALLEGRO_LEGACY_WITH_ARTSDIGI
 
 /* Define if ESD DIGI driver is supported. */
-#cmakedefine ALLEGRO_WITH_ESDDIGI
+#cmakedefine ALLEGRO_LEGACY_WITH_ESDDIGI
 
 /* Define if JACK DIGI driver is supported. */
-#cmakedefine ALLEGRO_WITH_JACKDIGI
+#cmakedefine ALLEGRO_LEGACY_WITH_JACKDIGI
 
 /* Define if OSS DIGI driver is supported. */
-#cmakedefine ALLEGRO_WITH_OSSDIGI
+#cmakedefine ALLEGRO_LEGACY_WITH_OSSDIGI
 
 /* Define if OSS MIDI driver is supported. */
-#cmakedefine ALLEGRO_WITH_OSSMIDI
+#cmakedefine ALLEGRO_LEGACY_WITH_OSSMIDI
 
 /* Define if SGI AL DIGI driver is supported. */
-#cmakedefine ALLEGRO_WITH_SGIALDIGI
+#cmakedefine ALLEGRO_LEGACY_WITH_SGIALDIGI
 
 /*---------------------------------------------------------------------------*/
 

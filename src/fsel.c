@@ -334,13 +334,13 @@ static int fs_edit_proc(int msg, DIALOG *d, int c)
 
    if (msg == MSG_UCHAR) {
       if ((c >= 'a') && (c <= 'z')) {
-	 if (!ALLEGRO_LFN)
+	 if (!ALLEGRO_LEGACY_LFN)
 	    c = utoupper(c);
       }
       else if (c == '/') {
 	 c = OTHER_PATH_SEPARATOR;
       }
-      else if (ALLEGRO_LFN) {
+      else if (ALLEGRO_LEGACY_LFN) {
 	 if ((c > 127) || (c < 32))
 	    return D_O_K;
       }

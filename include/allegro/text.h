@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_TEXT_H
-#define ALLEGRO_TEXT_H
+#ifndef ALLEGRO_LEGACY_TEXT_H
+#define ALLEGRO_LEGACY_TEXT_H
 
 #include "base.h"
 
@@ -49,6 +49,6 @@ AL_FUNC(void, destroy_font, (struct FONT *f));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_TEXT_H */
+#endif          /* ifndef ALLEGRO_LEGACY_TEXT_H */
 
 

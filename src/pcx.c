@@ -115,9 +115,9 @@ BITMAP *load_pcx_pf(PACKFILE *f, RGB *pal)
 
    for (y=0; y<height; y++) {       /* read RLE encoded PCX data */
       x = xx = 0;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
       po = _rgb_r_shift_24/8;
-#elif defined ALLEGRO_BIG_ENDIAN
+#elif defined ALLEGRO_LEGACY_BIG_ENDIAN
       po = 2 - _rgb_r_shift_24/8;
 #elif !defined SCAN_DEPEND
    #error endianess not defined
@@ -146,9 +146,9 @@ BITMAP *load_pcx_pf(PACKFILE *f, RGB *pal)
 	       x++;
 	       if (x == bytes_per_line) {
 		  xx = 0;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 		  po = _rgb_g_shift_24/8;
-#elif defined ALLEGRO_BIG_ENDIAN
+#elif defined ALLEGRO_LEGACY_BIG_ENDIAN
 		  po = 2 - _rgb_g_shift_24/8;
 #elif !defined SCAN_DEPEND
    #error endianess not defined
@@ -156,9 +156,9 @@ BITMAP *load_pcx_pf(PACKFILE *f, RGB *pal)
 	       }
 	       else if (x == bytes_per_line*2) {
 		  xx = 0;
-#ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
 		  po = _rgb_b_shift_24/8;
-#elif defined ALLEGRO_BIG_ENDIAN
+#elif defined ALLEGRO_LEGACY_BIG_ENDIAN
 		  po = 2 - _rgb_b_shift_24/8;
 #elif !defined SCAN_DEPEND
    #error endianess not defined

@@ -18,7 +18,7 @@
 
 #include "allegro.h"
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
 
 #include "cdefs32.h"
 #include "cblit.h"

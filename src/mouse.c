@@ -367,13 +367,13 @@ static void mouse_move(void)
 	 }
       }
       else {
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
 	 /* bodge to avoid using non legacy 386 asm code inside a timer handler */
 	 int old_capabilities = cpu_capabilities;
 	 cpu_capabilities = 0;
 #endif
 	 draw_mouse(TRUE, TRUE);
-#ifdef ALLEGRO_DOS
+#ifdef ALLEGRO_LEGACY_DOS
 	 cpu_capabilities = old_capabilities;
 #endif
       }
@@ -1216,7 +1216,7 @@ void remove_mouse(void)
 /* _mouse_constructor:
  *  Register mouse functions if this object file is linked in.
  */
-#ifdef ALLEGRO_USE_CONSTRUCTOR
+#ifdef ALLEGRO_LEGACY_USE_CONSTRUCTOR
    CONSTRUCTOR_FUNCTION(void _mouse_constructor(void));
 #endif
 

@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_MATRIX_INL
-#define ALLEGRO_MATRIX_INL
+#ifndef ALLEGRO_LEGACY_MATRIX_INL
+#define ALLEGRO_LEGACY_MATRIX_INL
 
 #ifdef __cplusplus
    extern "C" {
@@ -43,6 +43,6 @@ AL_INLINE(void, apply_matrix, (MATRIX *m, fixed x, fixed y, fixed z, fixed *xout
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_MATRIX_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_MATRIX_INL */
 
 

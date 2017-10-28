@@ -16,21 +16,21 @@
  */
 
 
-#ifndef ALLEGRO_GFX_INL
-#define ALLEGRO_GFX_INL
+#ifndef ALLEGRO_LEGACY_GFX_INL
+#define ALLEGRO_LEGACY_GFX_INL
 
 #include "allegro/debug.h"
 
-#define ALLEGRO_IMPORT_GFX_ASM
+#define ALLEGRO_LEGACY_IMPORT_GFX_ASM
 #include "asm.inl"
-#undef ALLEGRO_IMPORT_GFX_ASM
+#undef ALLEGRO_LEGACY_IMPORT_GFX_ASM
 
 #ifdef __cplusplus
    extern "C" {
 #endif
 
 
-#ifdef ALLEGRO_NO_ASM
+#ifdef ALLEGRO_LEGACY_NO_ASM
 
    /* use generic C versions */
 
@@ -39,11 +39,11 @@ AL_INLINE(int, _default_ds, (void),
    return 0;
 })
 
-#ifdef ALLEGRO_BCC32
+#ifdef ALLEGRO_LEGACY_BCC32
 
    /* BCC32 is a somewhat unusual platform because it mixes a MSVC/MinGW generated DLL
-    * (for which ALLEGRO_NO_ASM is not defined) with Borland C++ compiled programs for
-    * which ALLEGRO_NO_ASM is defined. As a result, Borland C++ compiled programs can't
+    * (for which ALLEGRO_LEGACY_NO_ASM is not defined) with Borland C++ compiled programs for
+    * which ALLEGRO_LEGACY_NO_ASM is defined. As a result, Borland C++ compiled programs can't
     * use the inlined version of bmp_write_line(), bmp_read_line() and bmp_unwrite_line()
     * because the write_bank() and read_bank() methods of the BITMAP class don't expect
     * the same calling convention on both sides.
@@ -79,7 +79,7 @@ AL_INLINE(void, bmp_unwrite_line, (BITMAP *bmp),
    switcher(bmp);
 })
 
-#endif      /* defined ALLEGRO_BCC32 */
+#endif      /* defined ALLEGRO_LEGACY_BCC32 */
 
 #endif      /* C vs. inline asm */
 
@@ -191,7 +191,7 @@ AL_INLINE(int, is_sub_bitmap, (BITMAP *bmp),
 })
 
 
-#ifdef ALLEGRO_MPW
+#ifdef ALLEGRO_LEGACY_MPW
 
    #define acquire_bitmap(bmp)
    #define release_bitmap(bmp)
@@ -279,6 +279,6 @@ AL_INLINE(int, get_clip_state, (BITMAP *bitmap),
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_GFX_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_GFX_INL */
 
 

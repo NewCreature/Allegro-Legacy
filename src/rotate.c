@@ -102,19 +102,19 @@ SCANLINE_DRAWER_GENERIC(generic
 
 
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
    SCANLINE_DRAWER(8, c = spr_line[l_spr_y>>16][l_spr_x>>16]);
 #endif
 
-#ifdef ALLEGRO_COLOR16
+#ifdef ALLEGRO_LEGACY_COLOR16
    SCANLINE_DRAWER(15, c = ((unsigned short *)spr_line[l_spr_y>>16])
 			   [l_spr_x>>16])
    SCANLINE_DRAWER(16, c = ((unsigned short *)spr_line[l_spr_y>>16])
 			   [l_spr_x>>16])
 #endif
 
-#ifdef ALLEGRO_COLOR24
-   #ifdef ALLEGRO_LITTLE_ENDIAN
+#ifdef ALLEGRO_LEGACY_COLOR24
+   #ifdef ALLEGRO_LEGACY_LITTLE_ENDIAN
       SCANLINE_DRAWER(24,
 		      {
 			 unsigned char *p = spr_line[l_spr_y>>16] +
@@ -135,13 +135,13 @@ SCANLINE_DRAWER_GENERIC(generic
    #endif
 #endif
 
-#ifdef ALLEGRO_COLOR32
+#ifdef ALLEGRO_LEGACY_COLOR32
    SCANLINE_DRAWER(32,
 		   c = ((uint32_t *)spr_line[l_spr_y>>16])
 		       [l_spr_x>>16])
 #endif
 
-#ifdef ALLEGRO_GFX_HAS_VGA
+#ifdef ALLEGRO_LEGACY_GFX_HAS_VGA
    static void draw_scanline_modex(
     BITMAP *bmp, BITMAP *spr, fixed l_bmp_x, int bmp_y_i, fixed r_bmp_x,
     fixed l_spr_x, fixed l_spr_y, fixed spr_dx, fixed spr_dy)
@@ -662,14 +662,14 @@ void _parallelogram_map_standard(BITMAP *bmp, BITMAP *sprite,
    }
    else if (is_linear_bitmap(bmp)) {
       switch (bitmap_color_depth(bmp)) {
-	 #ifdef ALLEGRO_COLOR8
+	 #ifdef ALLEGRO_LEGACY_COLOR8
 	    case 8:
 	       _parallelogram_map(bmp, sprite, xs, ys,
 				  draw_scanline_8, FALSE);
 	       break;
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR16
+	 #ifdef ALLEGRO_LEGACY_COLOR16
 	    case 15:
 	       _parallelogram_map(bmp, sprite, xs, ys,
 				  draw_scanline_15, FALSE);
@@ -681,14 +681,14 @@ void _parallelogram_map_standard(BITMAP *bmp, BITMAP *sprite,
 	       break;
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR24
+	 #ifdef ALLEGRO_LEGACY_COLOR24
 	    case 24:
 	       _parallelogram_map(bmp, sprite, xs, ys,
 				  draw_scanline_24, FALSE);
 	       break;
 	 #endif
 
-	 #ifdef ALLEGRO_COLOR32
+	 #ifdef ALLEGRO_LEGACY_COLOR32
 	    case 32:
 	       _parallelogram_map(bmp, sprite, xs, ys,
 				  draw_scanline_32, FALSE);
@@ -700,7 +700,7 @@ void _parallelogram_map_standard(BITMAP *bmp, BITMAP *sprite,
 	    ASSERT(0);
       }
    }
-   #ifdef ALLEGRO_GFX_HAS_VGA
+   #ifdef ALLEGRO_LEGACY_GFX_HAS_VGA
       else {
 	 _parallelogram_map(bmp, sprite, xs, ys,
 			    draw_scanline_modex, FALSE);

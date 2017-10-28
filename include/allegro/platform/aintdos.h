@@ -19,11 +19,11 @@
 #ifndef AINTDOS_H
 #define AINTDOS_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
    #error must include allegro.h first
 #endif
 
-#ifndef ALLEGRO_DOS
+#ifndef ALLEGRO_LEGACY_DOS
    #error bad include
 #endif
 
@@ -33,12 +33,12 @@
 
 
 /* macros to enable and disable interrupts */
-#if defined ALLEGRO_GCC
+#if defined ALLEGRO_LEGACY_GCC
 
    #define DISABLE()    asm volatile ("cli")
    #define ENABLE()     asm volatile ("sti")
 
-#elif defined ALLEGRO_WATCOM
+#elif defined ALLEGRO_LEGACY_WATCOM
 
    void DISABLE(void);
    void ENABLE(void);
@@ -103,7 +103,7 @@ typedef struct _IRQ_HANDLER
    AL_METHOD(int, handler, (void));    /* our C handler */
    int number;                         /* irq number */
 
-   #ifdef ALLEGRO_DJGPP
+   #ifdef ALLEGRO_LEGACY_DJGPP
       __dpmi_paddr old_vector;         /* original protected mode vector */
    #else
       void (__interrupt __far *old_vector)();

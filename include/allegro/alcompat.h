@@ -16,18 +16,18 @@
  */
 
 
-#ifndef ALLEGRO_COMPAT_H
-#define ALLEGRO_COMPAT_H
+#ifndef ALLEGRO_LEGACY_COMPAT_H
+#define ALLEGRO_LEGACY_COMPAT_H
 
 #ifdef __cplusplus
    extern "C" {
 #endif
 
 
-#ifndef ALLEGRO_SRC
+#ifndef ALLEGRO_LEGACY_SRC
 
-   #ifndef ALLEGRO_NO_CLEAR_BITMAP_ALIAS
-      #if (defined ALLEGRO_GCC)
+   #ifndef ALLEGRO_LEGACY_NO_CLEAR_BITMAP_ALIAS
+      #if (defined ALLEGRO_LEGACY_GCC)
          static __attribute__((unused)) __inline__ void clear(BITMAP *bmp)
          {
             clear_bitmap(bmp);
@@ -40,7 +40,7 @@
       #endif
    #endif
 
-   #ifndef ALLEGRO_NO_FIX_ALIASES
+   #ifndef ALLEGRO_LEGACY_NO_FIX_ALIASES
       AL_ALIAS(fixed fadd(fixed x, fixed y), fixadd(x, y))
       AL_ALIAS(fixed fsub(fixed x, fixed y), fixsub(x, y))
       AL_ALIAS(fixed fmul(fixed x, fixed y), fixmul(x, y))
@@ -58,7 +58,7 @@
       AL_ALIAS(fixed fhypot(fixed x, fixed y), fixhypot(x, y))
    #endif
 
-#endif  /* !defined ALLEGRO_SRC */
+#endif  /* !defined ALLEGRO_LEGACY_SRC */
 
 
 #define KB_NORMAL       1
@@ -234,7 +234,7 @@ AL_INLINE_DEPRECATED(int, get_file_encoding, (void),
 })
 
 
-#ifdef ALLEGRO_SRC
+#ifdef ALLEGRO_LEGACY_SRC
    AL_FUNC(int,  timer_can_simulate_retrace, (void));
    AL_FUNC(void, timer_simulate_retrace, (int enable));
 #else
@@ -247,5 +247,5 @@ AL_FUNC_DEPRECATED(int,  timer_is_using_retrace, (void));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_COMPAT_H */
+#endif          /* ifndef ALLEGRO_LEGACY_COMPAT_H */
 

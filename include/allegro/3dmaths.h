@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_3DMATHS_H
-#define ALLEGRO_3DMATHS_H
+#ifndef ALLEGRO_LEGACY_3DMATHS_H
+#define ALLEGRO_LEGACY_3DMATHS_H
 
 #include "base.h"
 #include "fixed.h"
@@ -59,6 +59,6 @@ AL_FUNC(void, matrix_to_quat, (AL_CONST struct MATRIX_f *m, struct QUAT *q));
 
 #include "inline/3dmaths.inl"
 
-#endif          /* ifndef ALLEGRO_3DMATHS_H */
+#endif          /* ifndef ALLEGRO_LEGACY_3DMATHS_H */
 
 

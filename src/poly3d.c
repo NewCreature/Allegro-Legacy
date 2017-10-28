@@ -28,11 +28,11 @@
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
 
-#if defined ALLEGRO_ASMCAPA_HEADER && !defined ALLEGRO_NO_ASM
-   #include ALLEGRO_ASMCAPA_HEADER
+#if defined ALLEGRO_LEGACY_ASMCAPA_HEADER && !defined ALLEGRO_LEGACY_NO_ASM
+   #include ALLEGRO_LEGACY_ASMCAPA_HEADER
 #endif
 
-#ifdef ALLEGRO_MMX
+#ifdef ALLEGRO_LEGACY_MMX
 
 /* for use by iscan.s */
 uint32_t _mask_mmx_15[] = { 0x03E0001F, 0x007C };
@@ -369,7 +369,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
       INTERP_Z | INTERP_FLOAT_UV | OPT_FLOAT_UV_TO_FIX
    };
 
-   #ifdef ALLEGRO_COLOR8
+   #ifdef ALLEGRO_LEGACY_COLOR8
    static POLYTYPE_INFO polytype_info8[] =
    {
       {  _poly_scanline_dummy,            NULL },
@@ -389,7 +389,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
       {  _poly_scanline_ptex_mask_trans8, _poly_scanline_atex_mask_trans8 }
    };
 
-   #ifdef ALLEGRO_MMX
+   #ifdef ALLEGRO_LEGACY_MMX
    static POLYTYPE_INFO polytype_info8x[] =
    {
       {  NULL,                    NULL },
@@ -430,7 +430,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    #endif
    #endif
 
-   #ifdef ALLEGRO_COLOR16
+   #ifdef ALLEGRO_LEGACY_COLOR16
    static POLYTYPE_INFO polytype_info15[] =
    {
       {  _poly_scanline_dummy,             NULL },
@@ -450,7 +450,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
       {  _poly_scanline_ptex_mask_trans15, _poly_scanline_atex_mask_trans15 }
    };
 
-   #ifdef ALLEGRO_MMX
+   #ifdef ALLEGRO_LEGACY_MMX
    static POLYTYPE_INFO polytype_info15x[] =
    {
       {  NULL,                            NULL },
@@ -509,7 +509,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
       {  _poly_scanline_ptex_mask_trans16, _poly_scanline_atex_mask_trans16 }
    };
 
-   #ifdef ALLEGRO_MMX
+   #ifdef ALLEGRO_LEGACY_MMX
    static POLYTYPE_INFO polytype_info16x[] =
    {
       {  NULL,                            NULL },
@@ -550,7 +550,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    #endif
    #endif
 
-   #ifdef ALLEGRO_COLOR24
+   #ifdef ALLEGRO_LEGACY_COLOR24
    static POLYTYPE_INFO polytype_info24[] =
    {
       {  _poly_scanline_dummy,             NULL },
@@ -570,7 +570,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
       {  _poly_scanline_ptex_mask_trans24, _poly_scanline_atex_mask_trans24 }
    };
 
-   #ifdef ALLEGRO_MMX
+   #ifdef ALLEGRO_LEGACY_MMX
    static POLYTYPE_INFO polytype_info24x[] =
    {
       {  NULL,                            NULL },
@@ -611,7 +611,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    #endif
    #endif
 
-   #ifdef ALLEGRO_COLOR32
+   #ifdef ALLEGRO_LEGACY_COLOR32
    static POLYTYPE_INFO polytype_info32[] =
    {
       {  _poly_scanline_dummy,             NULL },
@@ -631,7 +631,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
       {  _poly_scanline_ptex_mask_trans32, _poly_scanline_atex_mask_trans32 }
    };
 
-   #ifdef ALLEGRO_MMX
+   #ifdef ALLEGRO_LEGACY_MMX
    static POLYTYPE_INFO polytype_info32x[] =
    {
       {  NULL,                            NULL },
@@ -672,7 +672,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    #endif
    #endif
 
-   #ifdef ALLEGRO_COLOR8
+   #ifdef ALLEGRO_LEGACY_COLOR8
    static POLYTYPE_INFO polytype_info8z[] =
    {
       {  _poly_zbuf_flat8,            NULL },
@@ -693,7 +693,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    };
    #endif
 
-   #ifdef ALLEGRO_COLOR16
+   #ifdef ALLEGRO_LEGACY_COLOR16
    static POLYTYPE_INFO polytype_info15z[] =
    {
       {  _poly_zbuf_flat16,            NULL },
@@ -733,7 +733,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    };
    #endif
 
-   #ifdef ALLEGRO_COLOR24
+   #ifdef ALLEGRO_LEGACY_COLOR24
    static POLYTYPE_INFO polytype_info24z[] =
    {
       {  _poly_zbuf_flat24,            NULL },
@@ -754,7 +754,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    };
    #endif
 
-   #ifdef ALLEGRO_COLOR32
+   #ifdef ALLEGRO_LEGACY_COLOR32
    static POLYTYPE_INFO polytype_info32z[] =
    {
       {  _poly_zbuf_flat32,            NULL },
@@ -780,18 +780,18 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    int *interpinfo;
    POLYTYPE_INFO *typeinfo, *typeinfo_zbuf;
 
-   #ifdef ALLEGRO_MMX
+   #ifdef ALLEGRO_LEGACY_MMX
    POLYTYPE_INFO *typeinfo_mmx, *typeinfo_3d;
    #endif
 
    switch (bitmap_color_depth(bmp)) {
 
-      #ifdef ALLEGRO_COLOR8
+      #ifdef ALLEGRO_LEGACY_COLOR8
 
 	 case 8:
 	    interpinfo = polytype_interp_pal;
 	    typeinfo = polytype_info8;
-	 #ifdef ALLEGRO_MMX
+	 #ifdef ALLEGRO_LEGACY_MMX
 	    typeinfo_mmx = polytype_info8x;
 	    typeinfo_3d = polytype_info8d;
 	 #endif
@@ -800,12 +800,12 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
 
       #endif
 
-      #ifdef ALLEGRO_COLOR16
+      #ifdef ALLEGRO_LEGACY_COLOR16
 
 	 case 15:
 	    interpinfo = polytype_interp_tc;
 	    typeinfo = polytype_info15;
-	 #ifdef ALLEGRO_MMX
+	 #ifdef ALLEGRO_LEGACY_MMX
 	    typeinfo_mmx = polytype_info15x;
 	    typeinfo_3d = polytype_info15d;
 	 #endif
@@ -815,7 +815,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
 	 case 16:
 	    interpinfo = polytype_interp_tc;
 	    typeinfo = polytype_info16;
-	 #ifdef ALLEGRO_MMX
+	 #ifdef ALLEGRO_LEGACY_MMX
 	    typeinfo_mmx = polytype_info16x;
 	    typeinfo_3d = polytype_info16d;
 	 #endif
@@ -824,12 +824,12 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
 
       #endif
 
-      #ifdef ALLEGRO_COLOR24
+      #ifdef ALLEGRO_LEGACY_COLOR24
 
 	 case 24:
 	    interpinfo = polytype_interp_tc;
 	    typeinfo = polytype_info24;
-	 #ifdef ALLEGRO_MMX
+	 #ifdef ALLEGRO_LEGACY_MMX
 	    typeinfo_mmx = polytype_info24x;
 	    typeinfo_3d = polytype_info24d;
 	 #endif
@@ -838,12 +838,12 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
 
       #endif
 
-      #ifdef ALLEGRO_COLOR32
+      #ifdef ALLEGRO_LEGACY_COLOR32
 
 	 case 32:
 	    interpinfo = polytype_interp_tc;
 	    typeinfo = polytype_info32;
-	 #ifdef ALLEGRO_MMX
+	 #ifdef ALLEGRO_LEGACY_MMX
 	    typeinfo_mmx = polytype_info32x;
 	    typeinfo_3d = polytype_info32d;
 	 #endif
@@ -881,7 +881,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
       return typeinfo_zbuf[type].filler;
    }
 
-   #ifdef ALLEGRO_MMX
+   #ifdef ALLEGRO_LEGACY_MMX
    if ((cpu_capabilities & CPU_MMX) && (typeinfo_mmx[type].filler)) {
       if ((cpu_capabilities & CPU_3DNOW) && (typeinfo_3d[type].filler)) {
 	 _optim_alternative_drawer = typeinfo_3d[type].alternative;
@@ -1083,14 +1083,14 @@ static void draw_polygon_segment(BITMAP *bmp, int ytop, int ybottom, POLYGON_EDG
 static void do_polygon3d(BITMAP *bmp, int top, int bottom, POLYGON_EDGE *left_edge, SCANLINE_FILLER drawer, int flags, int color, POLYGON_SEGMENT *info)
 {
    int ytop, ybottom;
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       int old87 = 0;
    #endif
    POLYGON_EDGE *right_edge;
    ASSERT(bmp);
 
    /* set fpu to single-precision, truncate mode */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       if (flags & (INTERP_Z | INTERP_FLOAT_UV))
          old87 = _control87(PC_24 | RC_CHOP, MCW_PC | MCW_RC);
    #endif
@@ -1127,7 +1127,7 @@ static void do_polygon3d(BITMAP *bmp, int top, int bottom, POLYGON_EDGE *left_ed
    release_bitmap(bmp);
 
    /* reset fpu mode */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       if (flags & (INTERP_Z | INTERP_FLOAT_UV))
          _control87(old87, MCW_PC | MCW_RC);
    #endif
@@ -1530,7 +1530,7 @@ void _soft_triangle3d(BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, 
 {
    int flags;
 
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       int old87 = 0;
    #endif
 
@@ -1570,7 +1570,7 @@ void _soft_triangle3d(BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, 
    }
 
    /* set fpu to single-precision, truncate mode */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       if (flags & (INTERP_Z | INTERP_FLOAT_UV))
 	 old87 = _control87(PC_24 | RC_CHOP, MCW_PC | MCW_RC);
    #endif
@@ -1605,7 +1605,7 @@ void _soft_triangle3d(BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, 
    }
 
    /* reset fpu mode */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       if (flags & (INTERP_Z | INTERP_FLOAT_UV))
 	 _control87(old87, MCW_PC | MCW_RC);
    #endif
@@ -1620,7 +1620,7 @@ void _soft_triangle3d_f(BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f
 {
    int flags;
 
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       int old87 = 0;
    #endif
 
@@ -1660,7 +1660,7 @@ void _soft_triangle3d_f(BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f
    }
 
    /* set fpu to single-precision, truncate mode */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       if (flags & (INTERP_Z | INTERP_FLOAT_UV))
          old87 = _control87(PC_24 | RC_CHOP, MCW_PC | MCW_RC);
    #endif
@@ -1695,7 +1695,7 @@ void _soft_triangle3d_f(BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f
    }
 
    /* reset fpu mode */
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       if (flags & (INTERP_Z | INTERP_FLOAT_UV))
 	 _control87(old87, MCW_PC | MCW_RC);
    #endif
@@ -1708,7 +1708,7 @@ void _soft_triangle3d_f(BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f
  */
 void _soft_quad3d(BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, V3D *v3, V3D *v4)
 {
-   #if (defined ALLEGRO_GCC) && (defined ALLEGRO_I386)
+   #if (defined ALLEGRO_LEGACY_GCC) && (defined ALLEGRO_LEGACY_I386)
       ASSERT(bmp);
 
       /* dodgy assumption alert! See comments for triangle() */
@@ -1735,7 +1735,7 @@ void _soft_quad3d(BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, V3D 
  */
 void _soft_quad3d_f(BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3, V3D_f *v4)
 {
-   #if (defined ALLEGRO_GCC) && (defined ALLEGRO_I386)
+   #if (defined ALLEGRO_LEGACY_GCC) && (defined ALLEGRO_LEGACY_I386)
       ASSERT(bmp);
 
       /* dodgy assumption alert! See comments for triangle() */

@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_DRAW_INL
-#define ALLEGRO_DRAW_INL
+#ifndef ALLEGRO_LEGACY_DRAW_INL
+#define ALLEGRO_LEGACY_DRAW_INL
 
 #include "allegro/debug.h"
 #include "allegro/3d.h"
@@ -63,7 +63,7 @@ AL_INLINE(void, _allegro_hline, (BITMAP *bmp, int x1, int y, int x2, int color),
  * called our functions _allegro_vline and _allegro_hline.  User programs
  * should use the vline/hline aliases as they are the official names.
  */
-#ifndef ALLEGRO_NO_VHLINE_ALIAS
+#ifndef ALLEGRO_LEGACY_NO_VHLINE_ALIAS
    AL_ALIAS_VOID_RET(vline(BITMAP *bmp, int x, int y_1, int y2, int color), _allegro_vline(bmp, x, y_1, y2, color))
    AL_ALIAS_VOID_RET(hline(BITMAP *bmp, int x1, int y, int x2, int color),  _allegro_hline(bmp, x1, y, x2, color))
 #endif
@@ -554,6 +554,6 @@ AL_INLINE(int, _getpixel32, (BITMAP *bmp, int x, int y),
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_DRAW_INL */
+#endif          /* ifndef ALLEGRO_LEGACY_DRAW_INL */
 
 

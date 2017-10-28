@@ -18,7 +18,7 @@
 
 #include "allegro.h"
 
-#ifdef ALLEGRO_COLOR8
+#ifdef ALLEGRO_LEGACY_COLOR8
 
 #define _bma_scan_gcol
 

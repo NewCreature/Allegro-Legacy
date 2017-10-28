@@ -1122,7 +1122,7 @@ static int load_patches(MIDI *midi)
       running_status = 0;
 
       while (p < end) {                         /* work through data stream */
-#if defined ALLEGRO_BEOS || defined ALLEGRO_HAIKU
+#if defined ALLEGRO_LEGACY_BEOS || defined ALLEGRO_LEGACY_HAIKU
          /* Is there a bug in this routine, or in gcc under BeOS/x86? --PW */
          { int i; for (i=1; i; i--); }
 #endif
@@ -1603,7 +1603,7 @@ static void midi_lock_mem(void)
 /* midi_constructor:
  *  Register my functions with the code in sound.c.
  */
-#ifdef ALLEGRO_USE_CONSTRUCTOR
+#ifdef ALLEGRO_LEGACY_USE_CONSTRUCTOR
    CONSTRUCTOR_FUNCTION(void _midi_constructor(void));
 #endif
 

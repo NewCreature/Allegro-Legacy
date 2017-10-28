@@ -17,10 +17,10 @@
  */
 
 
-#ifndef MAC_ALLEGRO_H
-#define MAC_ALLEGRO_H
+#ifndef MAC_ALLEGRO_LEGACY_H
+#define MAC_ALLEGRO_LEGACY_H
 
-#ifndef ALLEGRO_H
+#ifndef ALLEGRO_LEGACY_H
 #error Please include allegro.h before macalleg.h!
 #endif
 
@@ -124,6 +124,6 @@ extern void _mac_unlock(void *address, unsigned long size);
    }
 #endif
 
-#endif          /* ifndef MAC_ALLEGRO_H */
+#endif          /* ifndef MAC_ALLEGRO_LEGACY_H */
 
 

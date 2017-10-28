@@ -38,31 +38,31 @@
 
 /* these are available in OpenWatcom 1.3 (12.3) */
 #if __WATCOMC__ >= 1230
-   #define ALLEGRO_HAVE_INTTYPES_H	1
-   #define ALLEGRO_HAVE_STDINT_H	1
+   #define ALLEGRO_LEGACY_HAVE_INTTYPES_H	1
+   #define ALLEGRO_LEGACY_HAVE_STDINT_H	1
 #else
-   #define ALLEGRO_GUESS_INTTYPES_OK
+   #define ALLEGRO_LEGACY_GUESS_INTTYPES_OK
 #endif
 
 
 /* describe this platform */
-#define ALLEGRO_PLATFORM_STR  "Watcom"
-#define ALLEGRO_DOS
-#define ALLEGRO_I386
-#define ALLEGRO_LITTLE_ENDIAN
-#define ALLEGRO_CONSOLE_OK
-#define ALLEGRO_VRAM_SINGLE_SURFACE
+#define ALLEGRO_LEGACY_PLATFORM_STR  "Watcom"
+#define ALLEGRO_LEGACY_DOS
+#define ALLEGRO_LEGACY_I386
+#define ALLEGRO_LEGACY_LITTLE_ENDIAN
+#define ALLEGRO_LEGACY_CONSOLE_OK
+#define ALLEGRO_LEGACY_VRAM_SINGLE_SURFACE
 
-#define ALLEGRO_LFN  0
+#define ALLEGRO_LEGACY_LFN  0
 
 #define LONG_LONG    long long
-#ifdef ALLEGRO_GUESS_INTTYPES_OK
+#ifdef ALLEGRO_LEGACY_GUESS_INTTYPES_OK
    #define int64_t   signed long long
    #define uint64_t  unsigned long long
 #endif
 
 #if __WATCOMC__ >= 1100
-   #define ALLEGRO_MMX
+   #define ALLEGRO_LEGACY_MMX
 #endif
 
 #if __WATCOMC__ >= 1200   /* Open Watcom 1.0 */
@@ -191,5 +191,5 @@ void _unlock_dpmi_data(void *addr, int size);
 
 
 /* arrange for other headers to be included later on */
-#define ALLEGRO_EXTRA_HEADER     "allegro/platform/aldos.h"
-#define ALLEGRO_INTERNAL_HEADER  "allegro/platform/aintdos.h"
+#define ALLEGRO_LEGACY_EXTRA_HEADER     "allegro/platform/aldos.h"
+#define ALLEGRO_LEGACY_INTERNAL_HEADER  "allegro/platform/aintdos.h"

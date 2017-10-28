@@ -193,7 +193,7 @@ static void fli_skip(int bytes)
 #define READ_CHAR_NC(p)    (*(signed char *)(p)++)
 #endif
 
-#if (defined ALLEGRO_GCC) && (defined ALLEGRO_LITTLE_ENDIAN) && (!defined ALLEGRO_ARM) && (!defined ALLEGRO_PSP)
+#if (defined ALLEGRO_LEGACY_GCC) && (defined ALLEGRO_LEGACY_LITTLE_ENDIAN) && (!defined ALLEGRO_LEGACY_ARM) && (!defined ALLEGRO_LEGACY_PSP)
 
 #if 0
 /* the "cast expression as lvalue" extension is deprecated in GCC 3.4 */
@@ -265,7 +265,7 @@ static signed long _fli_read_long_nc(unsigned char **p)
 #define READ_RLE_BYTE_NC(p,pos,size)                            \
    memset((pos), READ_BYTE_NC(p), (size))
 
-#if (defined ALLEGRO_GCC) && (defined ALLEGRO_I386)
+#if (defined ALLEGRO_LEGACY_GCC) && (defined ALLEGRO_LEGACY_I386)
 
 #define READ_RLE_WORD_NC(p,pos,size)                            \
 {                                                               \

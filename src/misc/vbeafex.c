@@ -33,17 +33,17 @@
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
 
-#ifdef ALLEGRO_INTERNAL_HEADER
-   #include ALLEGRO_INTERNAL_HEADER
+#ifdef ALLEGRO_LEGACY_INTERNAL_HEADER
+   #include ALLEGRO_LEGACY_INTERNAL_HEADER
 #endif
 
 #ifndef SCAN_DEPEND
-   #ifdef ALLEGRO_DOS
+   #ifdef ALLEGRO_LEGACY_DOS
       #include <dos.h>
       #include <conio.h>
    #endif
 
-   #ifdef ALLEGRO_DJGPP
+   #ifdef ALLEGRO_LEGACY_DJGPP
       #include <crt0.h>
       #include <sys/nearptr.h>
    #endif
@@ -362,7 +362,7 @@ static void save_ds(void)
  */
 static void load_ds(void)
 {
-   #ifdef ALLEGRO_GCC
+   #ifdef ALLEGRO_LEGACY_GCC
 
       /* use gcc-style inline asm */
       asm (
@@ -373,7 +373,7 @@ static void load_ds(void)
       : "%eax"
       );
 
-   #elif defined ALLEGRO_WATCOM
+   #elif defined ALLEGRO_LEGACY_WATCOM
 
       /* use Watcom-style inline asm */
       {
@@ -618,7 +618,7 @@ static void dpmi_int86(int intno, __dpmi_regs *regs)
  */
 static void my_segread(SCITECH_SREGS *sregs)
 {
-   #ifdef ALLEGRO_GCC
+   #ifdef ALLEGRO_LEGACY_GCC
 
       /* use gcc-style inline asm */
       asm (
@@ -646,7 +646,7 @@ static void my_segread(SCITECH_SREGS *sregs)
 
 
 
-#ifdef ALLEGRO_GCC      /* gcc version of my_int386x() */
+#ifdef ALLEGRO_LEGACY_GCC      /* gcc version of my_int386x() */
 
 
 
@@ -766,7 +766,7 @@ static int my_int386x(int intno, SCITECH_REGS *in, SCITECH_REGS *out, SCITECH_SR
 
 
 
-#elif defined ALLEGRO_WATCOM
+#elif defined ALLEGRO_LEGACY_WATCOM
 
 
 
@@ -1012,7 +1012,7 @@ static const char *get_machine_name(void)
    if (!buffer)
       buffer = _AL_MALLOC(BUFFER_SIZE);
 
-   #ifdef ALLEGRO_DJGPP
+   #ifdef ALLEGRO_LEGACY_DJGPP
       gethostname(buffer, BUFFER_SIZE-1);
    #else
       _al_sane_strncpy(buffer, "pc", BUFFER_SIZE);

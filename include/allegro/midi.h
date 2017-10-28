@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_MIDI_H
-#define ALLEGRO_MIDI_H
+#ifndef ALLEGRO_LEGACY_MIDI_H
+#define ALLEGRO_LEGACY_MIDI_H
 
 #include "base.h"
 
@@ -139,6 +139,6 @@ AL_FUNC(void, lock_midi, (struct MIDI *midi));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_MIDI_H */
+#endif          /* ifndef ALLEGRO_LEGACY_MIDI_H */
 
 

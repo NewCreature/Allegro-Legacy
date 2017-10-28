@@ -815,7 +815,7 @@ printf("set_gfx 11\n");
       gfx_driver = NULL;  /* set by init_gfx_driver() */
 
       if (!ugetc(allegro_error))
-	 ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, get_config_text("Unable to find a suitable graphics driver"));
+	 ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Unable to find a suitable graphics driver"));
 
       TRACE(PREFIX_E "Failed setting graphic driver %d.\n", card);
       return -1;
@@ -898,7 +898,7 @@ printf("set_gfx 11\n");
  */
 static int _set_gfx_mode_safe(int card, int w, int h, int v_w, int v_h)
 {
-   char buf[ALLEGRO_ERROR_SIZE], tmp1[64];
+   char buf[ALLEGRO_LEGACY_ERROR_SIZE], tmp1[64];
    struct GFX_MODE mode;
    int ret, driver;
 
@@ -918,7 +918,7 @@ static int _set_gfx_mode_safe(int card, int w, int h, int v_w, int v_h)
       if (_set_gfx_mode(driver, w, h, 0, 0, TRUE) == 0)
          return 0;
 
-      ustrzcpy(allegro_error, ALLEGRO_ERROR_SIZE, buf);
+      ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, buf);
 
       /* finally use the safe settings */
       set_color_depth(mode.bpp);

@@ -289,7 +289,7 @@ AL_CONST fixed radtofix_r = (fixed)2670177;  /* 256/2pi */
 
 
 
-#if (defined ALLEGRO_I386) && (!defined ALLEGRO_NO_ASM)
+#if (defined ALLEGRO_LEGACY_I386) && (!defined ALLEGRO_LEGACY_NO_ASM)
 
 
 

@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_CONFIG_H
-#define ALLEGRO_CONFIG_H
+#ifndef ALLEGRO_LEGACY_CONFIG_H
+#define ALLEGRO_LEGACY_CONFIG_H
 
 #include "base.h"
 
@@ -60,6 +60,6 @@ AL_FUNC(void, free_config_entries, (AL_CONST char ***names));
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_CONFIG_H */
+#endif          /* ifndef ALLEGRO_LEGACY_CONFIG_H */
 
 

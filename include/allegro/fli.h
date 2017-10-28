@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_FLI_H
-#define ALLEGRO_FLI_H
+#ifndef ALLEGRO_LEGACY_FLI_H
+#define ALLEGRO_LEGACY_FLI_H
 
 #include "base.h"
 #include "palette.h"
@@ -58,6 +58,6 @@ AL_VAR(volatile int, fli_timer);       /* for timing FLI playback */
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_FLI_H */
+#endif          /* ifndef ALLEGRO_LEGACY_FLI_H */
 
 

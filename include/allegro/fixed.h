@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_FIXED_H
-#define ALLEGRO_FIXED_H
+#ifndef ALLEGRO_LEGACY_FIXED_H
+#define ALLEGRO_LEGACY_FIXED_H
 
 #include "base.h"
 
@@ -34,6 +34,6 @@ AL_VAR(AL_CONST fixed, radtofix_r);
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_FIXED_H */
+#endif          /* ifndef ALLEGRO_LEGACY_FIXED_H */
 
 

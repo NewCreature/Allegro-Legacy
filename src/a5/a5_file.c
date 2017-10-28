@@ -17,7 +17,7 @@
    #define NAMLEN(dirent) (strlen((dirent)->d_name))
 #else
    /* Apparently all new systems have `dirent.h'. */
-   #error ALLEGRO_HAVE_DIRENT_H not defined
+   #error ALLEGRO_LEGACY_HAVE_DIRENT_H not defined
 #endif
 
 #define PREFIX_I "al-unix INFO: "
