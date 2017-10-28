@@ -179,15 +179,6 @@ set(ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_INTERNAL_FILES
         )
 
 set(ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_PLATFORM_FILES
-        include/allegro/platform/aintbeos.h
-        include/allegro/platform/aintdos.h
-        include/allegro/platform/aintlnx.h
-        include/allegro/platform/aintmac.h
-        include/allegro/platform/aintosx.h
-        include/allegro/platform/aintpsp.h
-        include/allegro/platform/aintqnx.h
-        include/allegro/platform/aintunix.h
-        include/allegro/platform/aintwin.h
         include/allegro/platform/al386gcc.h
         include/allegro/platform/al386vc.h
         include/allegro/platform/al386wat.h
