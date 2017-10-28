@@ -1,6 +1,6 @@
-/*         ______   ___    ___ 
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+/*         ______   ___    ___
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -25,6 +25,7 @@
 #include <math.h>
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
+#include "a5alleg.h"
 
 
 
@@ -41,7 +42,7 @@ void drawing_mode(int mode, BITMAP *pattern, int x_anchor, int y_anchor)
    _drawing_y_anchor = y_anchor;
 
    if (pattern) {
-      _drawing_x_mask = 1; 
+      _drawing_x_mask = 1;
       while (_drawing_x_mask < (unsigned)pattern->w)
 	 _drawing_x_mask <<= 1;        /* find power of two greater than w */
 
@@ -327,13 +328,13 @@ static int *palette_expansion_table(int bpp)
    if (_current_palette_changed & (1<<(bpp-1))) {
       for (c=0; c<PAL_SIZE; c++) {
 	 table[c] = makecol_depth(bpp,
-				  _rgb_scale_6[_current_palette[c].r], 
-				  _rgb_scale_6[_current_palette[c].g], 
+				  _rgb_scale_6[_current_palette[c].r],
+				  _rgb_scale_6[_current_palette[c].g],
 				  _rgb_scale_6[_current_palette[c].b]);
       }
 
       _current_palette_changed &= ~(1<<(bpp-1));
-   } 
+   }
 
    return table;
 }
@@ -409,7 +410,7 @@ void get_palette_range(PALETTE p, int from, int to)
 
 
 
-/* fade_interpolate: 
+/* fade_interpolate:
  *  Calculates a palette part way between source and dest, returning it
  *  in output. The pos indicates how far between the two extremes it should
  *  be: 0 = return source, 64 = return dest, 32 = return exactly half way.
@@ -423,7 +424,7 @@ void fade_interpolate(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE de
    ASSERT(from >= 0 && from < PAL_SIZE);
    ASSERT(to >= 0 && to < PAL_SIZE);
 
-   for (c=from; c<=to; c++) { 
+   for (c=from; c<=to; c++) {
       output[c].r = ((int)source[c].r * (63-pos) + (int)dest[c].r * pos) / 64;
       output[c].g = ((int)source[c].g * (63-pos) + (int)dest[c].g * pos) / 64;
       output[c].b = ((int)source[c].b * (63-pos) + (int)dest[c].b * pos) / 64;
@@ -457,6 +458,7 @@ void fade_from_range(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE des
 	 if (c != last) {
 	    fade_interpolate(source, dest, temp, c, from, to);
 	    set_palette_range(temp, from, to, TRUE);
+        allegro_render_screen();
 	    last = c;
 	 }
       }
@@ -466,17 +468,19 @@ void fade_from_range(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE des
 	 fade_interpolate(source, dest, temp, c, from, to);
 	 set_palette_range(temp, from, to, TRUE);
 	 set_palette_range(temp, from, to, TRUE);
+     allegro_render_screen();
       }
    }
 
    set_palette_range(dest, from, to, TRUE);
+   allegro_render_screen();
 }
 
 
 
 /* fade_in_range:
  *  Fades from a solid black palette to p, at the specified speed (1 is
- *  the slowest, 64 is instantaneous). Only affects colors between from and 
+ *  the slowest, 64 is instantaneous). Only affects colors between from and
  *  to (inclusive, pass 0 and 255 to fade the entire palette).
  */
 void fade_in_range(AL_LEGACY_CONST PALETTE p, int speed, int from, int to)
@@ -490,9 +494,9 @@ void fade_in_range(AL_LEGACY_CONST PALETTE p, int speed, int from, int to)
 
 
 /* fade_out_range:
- *  Fades from the current palette to a solid black palette, at the 
- *  specified speed (1 is the slowest, 64 is instantaneous). Only affects 
- *  colors between from and to (inclusive, pass 0 and 255 to fade the 
+ *  Fades from the current palette to a solid black palette, at the
+ *  specified speed (1 is the slowest, 64 is instantaneous). Only affects
+ *  colors between from and to (inclusive, pass 0 and 255 to fade the
  *  entire palette).
  */
 void fade_out_range(int speed, int from, int to)
@@ -533,7 +537,7 @@ void fade_in(AL_LEGACY_CONST PALETTE p, int speed)
 
 
 /* fade_out:
- *  Fades from the current palette to a solid black palette, at the 
+ *  Fades from the current palette to a solid black palette, at the
  *  specified speed (1 is the slowest, 64 is instantaneous).
  */
 void fade_out(int speed)
@@ -641,9 +645,9 @@ void _normal_rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color)
 
 
 /* do_line:
- *  Calculates all the points along a line between x1, y1 and x2, y2, 
- *  calling the supplied function for each one. This will be passed a 
- *  copy of the bmp parameter, the x and y position, and a copy of the 
+ *  Calculates all the points along a line between x1, y1 and x2, y2,
+ *  calling the supplied function for each one. This will be passed a
+ *  copy of the bmp parameter, the x and y position, and a copy of the
  *  d parameter (so do_line() can be used with putpixel()).
  */
 void do_line(BITMAP *bmp, int x1, int y1, int x2, int y2, int d, void (*proc)(BITMAP *, int, int, int))
@@ -924,7 +928,7 @@ void _fast_line(BITMAP *bmp, int x1, int y1, int x2, int y2, int color)
 
 /* do_circle:
  *  Helper function for the circle drawing routines. Calculates the points
- *  in a circle of radius r around point x, y, and calls the specified 
+ *  in a circle of radius r around point x, y, and calls the specified
  *  routine for each one. The output proc will be passed first a copy of
  *  the bmp parameter, then the x, y point, then a copy of the d parameter
  *  (so putpixel() can be used as the callback).
@@ -933,33 +937,33 @@ void do_circle(BITMAP *bmp, int x, int y, int radius, int d, void (*proc)(BITMAP
 {
    int cx = 0;
    int cy = radius;
-   int df = 1 - radius; 
+   int df = 1 - radius;
    int d_e = 3;
    int d_se = -2 * radius + 5;
 
    do {
-      proc(bmp, x+cx, y+cy, d); 
+      proc(bmp, x+cx, y+cy, d);
 
-      if (cx) 
-	 proc(bmp, x-cx, y+cy, d); 
+      if (cx)
+	 proc(bmp, x-cx, y+cy, d);
 
-      if (cy) 
+      if (cy)
 	 proc(bmp, x+cx, y-cy, d);
 
-      if ((cx) && (cy)) 
-	 proc(bmp, x-cx, y-cy, d); 
+      if ((cx) && (cy))
+	 proc(bmp, x-cx, y-cy, d);
 
       if (cx != cy) {
-	 proc(bmp, x+cy, y+cx, d); 
+	 proc(bmp, x+cy, y+cx, d);
 
-	 if (cx) 
+	 if (cx)
 	    proc(bmp, x+cy, y-cx, d);
 
-	 if (cy) 
-	    proc(bmp, x-cy, y+cx, d); 
+	 if (cy)
+	    proc(bmp, x-cy, y+cx, d);
 
-	 if (cx && cy) 
-	    proc(bmp, x-cy, y-cx, d); 
+	 if (cx && cy)
+	    proc(bmp, x-cy, y-cx, d);
       }
 
       if (df < 0)  {
@@ -967,14 +971,14 @@ void do_circle(BITMAP *bmp, int x, int y, int radius, int d, void (*proc)(BITMAP
 	 d_e += 2;
 	 d_se += 2;
       }
-      else { 
+      else {
 	 df += d_se;
 	 d_e += 2;
 	 d_se += 4;
 	 cy--;
-      } 
+      }
 
-      cx++; 
+      cx++;
 
    } while (cx <= cy);
 }
@@ -1024,7 +1028,7 @@ void _soft_circlefill(BITMAP *bmp, int x, int y, int radius, int color)
 {
    int cx = 0;
    int cy = radius;
-   int df = 1 - radius; 
+   int df = 1 - radius;
    int d_e = 3;
    int d_se = -2 * radius + 5;
    int clip, sx, sy, dx, dy;
@@ -1060,7 +1064,7 @@ void _soft_circlefill(BITMAP *bmp, int x, int y, int radius, int color)
 	 d_e += 2;
 	 d_se += 2;
       }
-      else { 
+      else {
 	 if (cx != cy) {
 	    bmp->vtable->hfill(bmp, x-cx, y-cy, x+cx, color);
 
@@ -1072,9 +1076,9 @@ void _soft_circlefill(BITMAP *bmp, int x, int y, int radius, int color)
 	 d_e += 2;
 	 d_se += 4;
 	 cy--;
-      } 
+      }
 
-      cx++; 
+      cx++;
 
    } while (cx <= cy);
 
@@ -1087,9 +1091,9 @@ void _soft_circlefill(BITMAP *bmp, int x, int y, int radius, int color)
 
 /* do_ellipse:
  *  Helper function for the ellipse drawing routines. Calculates the points
- *  in an ellipse of radius rx and ry around point x, y, and calls the 
- *  specified routine for each one. The output proc will be passed first a 
- *  copy of the bmp parameter, then the x, y point, then a copy of the d 
+ *  in an ellipse of radius rx and ry around point x, y, and calls the
+ *  specified routine for each one. The output proc will be passed first a
+ *  copy of the bmp parameter, then the x, y point, then a copy of the d
  *  parameter (so putpixel() can be used as the callback).
  */
 void do_ellipse(BITMAP *bmp, int ix, int iy, int rx0, int ry0, int d,
@@ -1405,9 +1409,9 @@ static INLINE void get_point_on_arc(int r, fixed a, int *out_x, int *out_y, int 
 /* do_arc:
  *  Helper function for the arc function. Calculates the points in an arc
  *  of radius r around point x, y, going anticlockwise from fixed point
- *  binary angle ang1 to ang2, and calls the specified routine for each one. 
- *  The output proc will be passed first a copy of the bmp parameter, then 
- *  the x, y point, then a copy of the d parameter (so putpixel() can be 
+ *  binary angle ang1 to ang2, and calls the specified routine for each one.
+ *  The output proc will be passed first a copy of the bmp parameter, then
+ *  the x, y point, then a copy of the d parameter (so putpixel() can be
  *  used as the callback).
  */
 void do_arc(BITMAP *bmp, int x, int y, fixed ang1, fixed ang2, int r, int d, void (*proc)(BITMAP *, int, int, int))
@@ -1511,7 +1515,7 @@ void do_arc(BITMAP *bmp, int x, int y, fixed ang1, fixed ang2, int r, int d, voi
 	    if (px <= ex)
 	       det++;
 	 }
-	 
+
 	 if (det == 2)
 	    break;
       }
@@ -1575,4 +1579,3 @@ void _soft_arc(BITMAP *bmp, int x, int y, fixed ang1, fixed ang2, int r, int col
 
    release_bitmap(bmp);
 }
-
