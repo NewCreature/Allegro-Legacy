@@ -79,5 +79,6 @@
 #ifdef ALLEGRO_LEGACY_EXTRA_HEADER
    #include ALLEGRO_LEGACY_EXTRA_HEADER
 #endif
+#include "allegro/platform/ala5.h"
 
 #endif          /* ifndef ALLEGRO_LEGACY_H */
