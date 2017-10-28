@@ -38,6 +38,7 @@ static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
 {
     ALLEGRO_EVENT_QUEUE * queue;
     ALLEGRO_EVENT event;
+    double cur_time, prev_time = 0.0, diff_time;
     int i;
 
     queue = al_create_event_queue();
@@ -64,6 +65,9 @@ static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
         }
         else
         {
+            cur_time = al_get_time();
+            diff_time = cur_time - prev_time;
+            prev_time = al_get_time();
             for(i = 0; i < a5_timers; i++)
             {
                 if(al_get_timer_event_source(a5_timer[i]) == event.any.source)
@@ -78,6 +82,7 @@ static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
                     a5_param_timer_proc[i](a5_param_timer_data[i]);
                 }
             }
+            _handle_timer_tick(MSEC_TO_TIMER(diff_time * 1000.0));
         }
     }
     return NULL;
