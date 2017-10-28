@@ -66,7 +66,7 @@ static void a5_sys_get_executable_name(char *output, int size)
     }
 }
 
-static void a5_sys_set_window_title(AL_LEGACY_CONST char * name)
+static void a5_sys_set_window_title(AL_CONST char * name)
 {
     if(_a5_display)
     {
@@ -84,7 +84,7 @@ static int a5_sys_set_close_button_callback(void (*proc)(void))
    return 0;
 }
 
-static void a5_sys_message(AL_LEGACY_CONST char * msg)
+static void a5_sys_message(AL_CONST char * msg)
 {
     printf("%s\n", msg);
 }

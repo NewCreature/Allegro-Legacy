@@ -555,7 +555,7 @@ int lzss_read(PACKFILE *file, LZSS_UNPACK_DATA *dat, int s, unsigned char *buf)
  *  unpacking a sequence of bytes into the supplied buffer, but had to suspend
  *  because the buffer wasn't big enough.
  */
-int _al_lzss_incomplete_state(AL_LEGACY_CONST LZSS_UNPACK_DATA *dat)
+int _al_lzss_incomplete_state(AL_CONST LZSS_UNPACK_DATA *dat)
 {
    return dat->state == 2;
 }

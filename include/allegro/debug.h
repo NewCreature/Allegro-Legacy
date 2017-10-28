@@ -25,11 +25,11 @@
    extern "C" {
 #endif
 
-AL_LEGACY_FUNC(void, al_assert, (AL_LEGACY_CONST char *file, int linenr));
-AL_LEGACY_PRINTFUNC(void, al_trace, (AL_LEGACY_CONST char *msg, ...), 1, 2);
+AL_LEGACY_FUNC(void, al_assert, (AL_CONST char *file, int linenr));
+AL_LEGACY_PRINTFUNC(void, al_trace, (AL_CONST char *msg, ...), 1, 2);
 
-AL_LEGACY_FUNC(void, register_assert_handler, (AL_LEGACY_METHOD(int, handler, (AL_LEGACY_CONST char *msg))));
-AL_LEGACY_FUNC(void, register_trace_handler, (AL_LEGACY_METHOD(int, handler, (AL_LEGACY_CONST char *msg))));
+AL_LEGACY_FUNC(void, register_assert_handler, (AL_LEGACY_METHOD(int, handler, (AL_CONST char *msg))));
+AL_LEGACY_FUNC(void, register_trace_handler, (AL_LEGACY_METHOD(int, handler, (AL_CONST char *msg))));
 
 
 #ifdef DEBUGMODE

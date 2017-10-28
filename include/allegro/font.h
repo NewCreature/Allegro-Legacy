@@ -49,15 +49,15 @@ AL_LEGACY_FUNC(int, is_color_font, (FONT *f));
 AL_LEGACY_FUNC(int, is_mono_font, (FONT *f));
 AL_LEGACY_FUNC(int, is_compatible_font, (FONT *f1, FONT *f2));
 
-AL_LEGACY_FUNC(void, register_font_file_type, (AL_LEGACY_CONST char *ext, FONT *(*load)(AL_LEGACY_CONST char *filename, RGB *pal, void *param)));
-AL_LEGACY_FUNC(FONT *, load_font, (AL_LEGACY_CONST char *filename, RGB *pal, void *param));
+AL_LEGACY_FUNC(void, register_font_file_type, (AL_CONST char *ext, FONT *(*load)(AL_CONST char *filename, RGB *pal, void *param)));
+AL_LEGACY_FUNC(FONT *, load_font, (AL_CONST char *filename, RGB *pal, void *param));
 
-AL_LEGACY_FUNC(FONT *, load_dat_font, (AL_LEGACY_CONST char *filename, RGB *pal, void *param));
-AL_LEGACY_FUNC(FONT *, load_bios_font, (AL_LEGACY_CONST char *filename, RGB *pal, void *param));
-AL_LEGACY_FUNC(FONT *, load_grx_font, (AL_LEGACY_CONST char *filename, RGB *pal, void *param));
-AL_LEGACY_FUNC(FONT *, load_grx_or_bios_font, (AL_LEGACY_CONST char *filename, RGB *pal, void *param));
-AL_LEGACY_FUNC(FONT *, load_bitmap_font, (AL_LEGACY_CONST char *fname, RGB *pal, void *param));
-AL_LEGACY_FUNC(FONT *, load_txt_font, (AL_LEGACY_CONST char *fname, RGB *pal, void *param));
+AL_LEGACY_FUNC(FONT *, load_dat_font, (AL_CONST char *filename, RGB *pal, void *param));
+AL_LEGACY_FUNC(FONT *, load_bios_font, (AL_CONST char *filename, RGB *pal, void *param));
+AL_LEGACY_FUNC(FONT *, load_grx_font, (AL_CONST char *filename, RGB *pal, void *param));
+AL_LEGACY_FUNC(FONT *, load_grx_or_bios_font, (AL_CONST char *filename, RGB *pal, void *param));
+AL_LEGACY_FUNC(FONT *, load_bitmap_font, (AL_CONST char *fname, RGB *pal, void *param));
+AL_LEGACY_FUNC(FONT *, load_txt_font, (AL_CONST char *fname, RGB *pal, void *param));
 
 AL_LEGACY_FUNC(FONT *, grab_font_from_bitmap, (BITMAP *bmp));
 

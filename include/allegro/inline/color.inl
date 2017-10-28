@@ -162,7 +162,7 @@ AL_LEGACY_INLINE(int, geta32, (int c),
 
 #ifndef ALLEGRO_LEGACY_DOS
 
-AL_LEGACY_INLINE(void, _set_color, (int idx, AL_LEGACY_CONST RGB *p),
+AL_LEGACY_INLINE(void, _set_color, (int idx, AL_CONST RGB *p),
 {
    set_color(idx, p);
 })

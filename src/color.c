@@ -286,7 +286,7 @@ static void bestfit_init(void)
 /* bestfit_color:
  *  Searches a palette for the color closest to the requested R, G, B value.
  */
-int bestfit_color(AL_LEGACY_CONST PALETTE pal, int r, int g, int b)
+int bestfit_color(AL_CONST PALETTE pal, int r, int g, int b)
 {
    int i, coldiff, lowest, bestfit;
 
@@ -307,7 +307,7 @@ int bestfit_color(AL_LEGACY_CONST PALETTE pal, int r, int g, int b)
       i = 1;
 
    while (i<PAL_SIZE) {
-      AL_LEGACY_CONST RGB *rgb = &pal[i];
+      AL_CONST RGB *rgb = &pal[i];
       coldiff = (col_diff + 0) [ (rgb->g - g) & 0x7F ];
       if (coldiff < lowest) {
 	 coldiff += (col_diff + 128) [ (rgb->r - r) & 0x7F ];
@@ -489,7 +489,7 @@ void rgb_to_hsv(int r, int g, int b, float *h, float *s, float *v)
  *  times better than normal 256*32000 tests so the calculation time
  *  is now less than one second at all computers I tested.
  */
-void create_rgb_table(RGB_MAP *table, AL_LEGACY_CONST PALETTE pal, void (*callback)(int pos))
+void create_rgb_table(RGB_MAP *table, AL_CONST PALETTE pal, void (*callback)(int pos))
 {
    #define UNUSED 65535
    #define LAST 65532
@@ -673,7 +673,7 @@ void create_rgb_table(RGB_MAP *table, AL_LEGACY_CONST PALETTE pal, void (*callba
  *  not NULL, it will be called 256 times during the calculation, allowing
  *  you to display a progress indicator.
  */
-void create_light_table(COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, int r, int g, int b, void (*callback)(int pos))
+void create_light_table(COLOR_MAP *table, AL_CONST PALETTE pal, int r, int g, int b, void (*callback)(int pos))
 {
    int r1, g1, b1, r2, g2, b2, x, y;
    unsigned int t1, t2;
@@ -740,7 +740,7 @@ void create_light_table(COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, int r, in
  *  function is not NULL, it will be called 256 times during the calculation, 
  *  allowing you to display a progress indicator.
  */
-void create_trans_table(COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, int r, int g, int b, void (*callback)(int pos))
+void create_trans_table(COLOR_MAP *table, AL_CONST PALETTE pal, int r, int g, int b, void (*callback)(int pos))
 {
    int tmp[768], *q;
    int x, y, i, j, k;
@@ -824,7 +824,7 @@ void create_trans_table(COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, int r, in
  *  256 times during the calculation, allowing you to display a progress 
  *  indicator.
  */
-void create_color_table(COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, void (*blend)(AL_LEGACY_CONST PALETTE pal, int x, int y, RGB *rgb), void (*callback)(int pos))
+void create_color_table(COLOR_MAP *table, AL_CONST PALETTE pal, void (*blend)(AL_CONST PALETTE pal, int x, int y, RGB *rgb), void (*callback)(int pos))
 {
    int x, y;
    RGB c;
@@ -851,7 +851,7 @@ void create_color_table(COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, void (*bl
  *  paletted equivalent of whatever truecolor blender mode is currently 
  *  selected.
  */
-void create_blender_table(COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, void (*callback)(int pos))
+void create_blender_table(COLOR_MAP *table, AL_CONST PALETTE pal, void (*callback)(int pos))
 {
    int x, y, c;
    int r, g, b;

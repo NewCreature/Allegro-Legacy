@@ -32,9 +32,9 @@
 typedef struct MOUSE_DRIVER
 {
    int  id;
-   AL_LEGACY_CONST char *name;
-   AL_LEGACY_CONST char *desc;
-   AL_LEGACY_CONST char *ascii_name;
+   AL_CONST char *name;
+   AL_CONST char *desc;
+   AL_CONST char *ascii_name;
    AL_LEGACY_METHOD(int,  init, (void));
    AL_LEGACY_METHOD(void, exit, (void));
    AL_LEGACY_METHOD(void, poll, (void));
@@ -43,7 +43,7 @@ typedef struct MOUSE_DRIVER
    AL_LEGACY_METHOD(void, set_range, (int x1, int y_1, int x2, int y2));
    AL_LEGACY_METHOD(void, set_speed, (int xspeed, int yspeed));
    AL_LEGACY_METHOD(void, get_mickeys, (int *mickeyx, int *mickeyy));
-   AL_LEGACY_METHOD(int,  analyse_data, (AL_LEGACY_CONST char *buffer, int size));
+   AL_LEGACY_METHOD(int,  analyse_data, (AL_CONST char *buffer, int size));
    AL_LEGACY_METHOD(void, enable_hardware_cursor, (int mode));
    AL_LEGACY_METHOD(int,  select_system_cursor, (int cursor));
 } MOUSE_DRIVER;

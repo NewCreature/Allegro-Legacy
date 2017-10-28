@@ -561,7 +561,7 @@ int editor()
 
 
 /* dialog callback for retrieving information about the accent key */
-AL_LEGACY_CONST char *accent_list_getter(int index, int *list_size)
+AL_CONST char *accent_list_getter(int index, int *list_size)
 {
    if (index < 0) {
       if (list_size)

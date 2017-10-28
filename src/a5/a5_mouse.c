@@ -128,6 +128,6 @@ MOUSE_DRIVER mouse_allegro_5 = {
    NULL, //be_mouse_set_speed,	// AL_LEGACY_METHOD(void, set_speed, (int xspeed, int yspeed));
    a5_mouse_get_mickeys, //be_mouse_get_mickeys,// AL_LEGACY_METHOD(void, get_mickeys, (int *mickeyx, int *mickeyy));
    NULL,                // AL_LEGACY_METHOD(int,  analyse_data, (const char *buffer, int size));
-   NULL,                // AL_LEGACY_METHOD(void,  enable_hardware_cursor, (AL_LEGACY_CONST int mode));
-   NULL                 // AL_LEGACY_METHOD(int,  select_system_cursor, (AL_LEGACY_CONST int cursor));
+   NULL,                // AL_LEGACY_METHOD(void,  enable_hardware_cursor, (AL_CONST int mode));
+   NULL                 // AL_LEGACY_METHOD(int,  select_system_cursor, (AL_CONST int cursor));
 };

@@ -75,7 +75,7 @@ int _packfile_type = 0;
 
 static PACKFILE_VTABLE normal_vtable;
 
-static PACKFILE *pack_fopen_special_file(AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *mode);
+static PACKFILE *pack_fopen_special_file(AL_CONST char *filename, AL_CONST char *mode);
 
 static int filename_encoding = U_ASCII;
 
@@ -140,7 +140,7 @@ char *fix_filename_slashes(char *filename)
  *  Returns the canonical form of the specified filename, i.e. the
  *  minimal absolute filename describing the same file.
  */
-char *canonicalize_filename(char *dest, AL_LEGACY_CONST char *filename, int size)
+char *canonicalize_filename(char *dest, AL_CONST char *filename, int size)
 {
    int saved_errno = errno;
    char buf[1024], buf2[1024];
@@ -178,7 +178,7 @@ char *canonicalize_filename(char *dest, AL_LEGACY_CONST char *filename, int size
 
       /* if the filename starts with ~ then it's relative to a home directory */
       if ((ugetc(filename) == '~')) {
-	 AL_LEGACY_CONST char *tail = filename + uwidth(filename); /* could be the username */
+	 AL_CONST char *tail = filename + uwidth(filename); /* could be the username */
 	 char *home = NULL;                /* their home directory */
 
 	 if (ugetc(tail) == '/' || !ugetc(tail)) {
@@ -332,7 +332,7 @@ char *canonicalize_filename(char *dest, AL_LEGACY_CONST char *filename, int size
  *  whose size in bytes is SIZE and returns a pointer to it.
  *  It does not append '/' to the path.
  */
-char *make_absolute_filename(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *filename, int size)
+char *make_absolute_filename(char *dest, AL_CONST char *path, AL_CONST char *filename, int size)
 {
    char tmp[1024];
    ASSERT(dest);
@@ -357,7 +357,7 @@ char *make_absolute_filename(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_C
  *  NULL if it cannot do so.
  *  It does not append '/' to the path.
  */
-char *make_relative_filename(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *filename, int size)
+char *make_relative_filename(char *dest, AL_CONST char *path, AL_CONST char *filename, int size)
 {
    char *my_path, *my_filename;
    char *reduced_path = NULL, *reduced_filename = NULL;
@@ -470,7 +470,7 @@ char *make_relative_filename(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_C
 /* is_relative_filename:
  *  Checks whether the specified filename is relative.
  */
-int is_relative_filename(AL_LEGACY_CONST char *filename)
+int is_relative_filename(AL_CONST char *filename)
 {
    ASSERT(filename);
 
@@ -498,7 +498,7 @@ int is_relative_filename(AL_LEGACY_CONST char *filename)
  *  Replaces filename in path with different one.
  *  It does not append '/' to the path.
  */
-char *replace_filename(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *filename, int size)
+char *replace_filename(char *dest, AL_CONST char *path, AL_CONST char *filename, int size)
 {
    char tmp[1024];
    int pos, c;
@@ -530,7 +530,7 @@ char *replace_filename(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST c
  *  Replaces extension in filename with different one.
  *  It appends '.' if it is not present in the filename.
  */
-char *replace_extension(char *dest, AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *ext, int size)
+char *replace_extension(char *dest, AL_CONST char *filename, AL_CONST char *ext, int size)
 {
    char tmp[1024], tmp2[16];
    int pos, end, c;
@@ -565,7 +565,7 @@ char *replace_extension(char *dest, AL_LEGACY_CONST char *filename, AL_LEGACY_CO
 /* append_filename:
  *  Append filename to path, adding separator if necessary.
  */
-char *append_filename(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *filename, int size)
+char *append_filename(char *dest, AL_CONST char *path, AL_CONST char *filename, int size)
 {
    char tmp[1024];
    int pos, c;
@@ -601,7 +601,7 @@ char *append_filename(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST ch
  *  to the filename portion. Both '\' and '/' are recognized as directory
  *  separators.
  */
-char *get_filename(AL_LEGACY_CONST char *path)
+char *get_filename(AL_CONST char *path)
 {
    int c;
    const char *ptr, *ret;
@@ -624,7 +624,7 @@ char *get_filename(AL_LEGACY_CONST char *path)
  *  When passed a complete filename (with or without path information)
  *  this returns a pointer to the file extension.
  */
-char *get_extension(AL_LEGACY_CONST char *filename)
+char *get_extension(AL_CONST char *filename)
 {
    int pos, c;
    ASSERT(filename);
@@ -702,7 +702,7 @@ int get_filename_encoding(void)
  *  to the attributes of the matching file. If an error occurs the system
  *  error code will be stored in errno.
  */
-int file_exists(AL_LEGACY_CONST char *filename, int attrib, int *aret)
+int file_exists(AL_CONST char *filename, int attrib, int *aret)
 {
    struct al_ffblk info;
    ASSERT(filename);
@@ -741,7 +741,7 @@ int file_exists(AL_LEGACY_CONST char *filename, int attrib, int *aret)
 /* exists:
  *  Shortcut version of file_exists().
  */
-int exists(AL_LEGACY_CONST char *filename)
+int exists(AL_CONST char *filename)
 {
    ASSERT(filename);
    return file_exists(filename, FA_ARCH | FA_RDONLY, NULL);
@@ -754,7 +754,7 @@ int exists(AL_LEGACY_CONST char *filename)
  *  If the file does not exist or an error occurs, it will return zero
  *  and store the system error code in errno.
  */
-uint64_t file_size_ex(AL_LEGACY_CONST char *filename)
+uint64_t file_size_ex(AL_CONST char *filename)
 {
    ASSERT(filename);
    if (ustrchr(filename, '#')) {
@@ -777,7 +777,7 @@ uint64_t file_size_ex(AL_LEGACY_CONST char *filename)
 
 
 /* For binary compatibility with 4.2.0. */
-long file_size(AL_LEGACY_CONST char *filename)
+long file_size(AL_CONST char *filename)
 {
    return file_size_ex(filename);
 }
@@ -788,7 +788,7 @@ long file_size(AL_LEGACY_CONST char *filename)
  * This is an internal symbol and only required because _al_file_size was
  * exposed in the Windows DLL.
  */
-long _al_file_size(AL_LEGACY_CONST char *filename)
+long _al_file_size(AL_CONST char *filename)
 {
    return _al_file_size_ex(filename);
 }
@@ -800,7 +800,7 @@ long _al_file_size(AL_LEGACY_CONST char *filename)
  *  If the file does not exist or an error occurs, it will return zero
  *  and store the system error code in errno.
  */
-time_t file_time(AL_LEGACY_CONST char *filename)
+time_t file_time(AL_CONST char *filename)
 {
    ASSERT(filename);
 
@@ -815,7 +815,7 @@ time_t file_time(AL_LEGACY_CONST char *filename)
 /* delete_file:
  *  Removes a file from the disk.
  */
-int delete_file(AL_LEGACY_CONST char *filename)
+int delete_file(AL_CONST char *filename)
 {
    char tmp[1024];
    ASSERT(filename);
@@ -845,7 +845,7 @@ int delete_file(AL_LEGACY_CONST char *filename)
  *  made to callback(). The file attribute may contain any of the FA_*
  *  flags from dir.h.
  */
-int for_each_file(AL_LEGACY_CONST char *name, int attrib, void (*callback)(AL_LEGACY_CONST char *filename, int attrib, int param), int param)
+int for_each_file(AL_CONST char *name, int attrib, void (*callback)(AL_CONST char *filename, int attrib, int param), int param)
 {
    char buf[1024];
    struct al_ffblk info;
@@ -899,7 +899,7 @@ int for_each_file(AL_LEGACY_CONST char *name, int attrib, void (*callback)(AL_LE
  *  times callback() was called and returned 0. The file attribute masks may
  *  contain any of the FA_* flags from dir.h.
  */
-int for_each_file_ex(AL_LEGACY_CONST char *name, int in_attrib, int out_attrib, int (*callback)(AL_LEGACY_CONST char *filename, int attrib, void *param), void *param)
+int for_each_file_ex(AL_CONST char *name, int in_attrib, int out_attrib, int (*callback)(AL_CONST char *filename, int attrib, void *param), void *param)
 {
    char buf[1024];
    struct al_ffblk info;
@@ -943,7 +943,7 @@ int for_each_file_ex(AL_LEGACY_CONST char *name, int in_attrib, int out_attrib, 
 /* find_resource:
  *  Tries lots of different places that a resource file might live.
  */
-static int find_resource(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *datafile, AL_LEGACY_CONST char *objectname, AL_LEGACY_CONST char *subdir, int size)
+static int find_resource(char *dest, AL_CONST char *path, AL_CONST char *name, AL_CONST char *datafile, AL_CONST char *objectname, AL_CONST char *subdir, int size)
 {
    char _name[128], _objectname[128], hash[8];
    char tmp[16];
@@ -1061,7 +1061,7 @@ static int find_resource(char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST
  *  priority. Call with path set to NULL to remove a path. Returns 1 on success
  *  and 0 on failure.
  */
-int set_allegro_resource_path(int priority, AL_LEGACY_CONST char *path)
+int set_allegro_resource_path(int priority, AL_CONST char *path)
 {
    RESOURCE_PATH *node = resource_path_list;
    RESOURCE_PATH *prior_node = NULL;
@@ -1150,9 +1150,9 @@ static void destroy_resource_path_list(void)
  *  success, and stores a full path to the file (at most size bytes) in
  *  the dest parameter.
  */
-int find_allegro_resource(char *dest, AL_LEGACY_CONST char *resource, AL_LEGACY_CONST char *ext, AL_LEGACY_CONST char *datafile, AL_LEGACY_CONST char *objectname, AL_LEGACY_CONST char *envvar, AL_LEGACY_CONST char *subdir, int size)
+int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ext, AL_CONST char *datafile, AL_CONST char *objectname, AL_CONST char *envvar, AL_CONST char *subdir, int size)
 {
-   int (*sys_find_resource)(char *, AL_LEGACY_CONST char *, int);
+   int (*sys_find_resource)(char *, AL_CONST char *, int);
    char rname[128], path[1024], tmp[128];
    char *s;
    int i, c;
@@ -1359,7 +1359,7 @@ static PACKFILE *pack_fopen_exe_file(void)
  *  Recursive helper to handle opening member objects from datafiles,
  *  given a fake filename in the form 'object_name[/nestedobject]'.
  */
-static PACKFILE *pack_fopen_datafile_object(PACKFILE *f, AL_LEGACY_CONST char *objname)
+static PACKFILE *pack_fopen_datafile_object(PACKFILE *f, AL_CONST char *objname)
 {
    char buf[512];   /* text is read into buf as UTF-8 */
    char tmp[512*4]; /* this should be enough even when expanding to UCS-4 */
@@ -1436,7 +1436,7 @@ static PACKFILE *pack_fopen_datafile_object(PACKFILE *f, AL_LEGACY_CONST char *o
  *  Helper to handle opening psuedo-files, ie. datafile objects and data
  *  that has been appended to the end of the executable.
  */
-static PACKFILE *pack_fopen_special_file(AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *mode)
+static PACKFILE *pack_fopen_special_file(AL_CONST char *filename, AL_CONST char *mode)
 {
    char fname[1024], objname[512], tmp[16];
    PACKFILE *f;
@@ -1492,7 +1492,7 @@ static PACKFILE *pack_fopen_special_file(AL_LEGACY_CONST char *filename, AL_LEGA
  *  This only affects "normal" PACKFILEs, i.e. ones not using user-supplied
  *  packfile vtables.
  */
-void packfile_password(AL_LEGACY_CONST char *password)
+void packfile_password(AL_CONST char *password)
 {
    int i = 0;
    int c;
@@ -1640,7 +1640,7 @@ static void free_packfile(PACKFILE *f)
  *  returns NULL and stores an error code in errno. An attempt to read
  *  a normal file in packed mode will cause errno to be set to EDOM.
  */
-PACKFILE *_pack_fdopen(int fd, AL_LEGACY_CONST char *mode)
+PACKFILE *_pack_fdopen(int fd, AL_CONST char *mode)
 {
    PACKFILE *f, *f2;
    long header = FALSE;
@@ -1826,7 +1826,7 @@ PACKFILE *_pack_fdopen(int fd, AL_LEGACY_CONST char *mode)
  *  it returns NULL and stores an error code in errno. An attempt to read a
  *  normal file in packed mode will cause errno to be set to EDOM.
  */
-PACKFILE *pack_fopen(AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *mode)
+PACKFILE *pack_fopen(AL_CONST char *filename, AL_CONST char *mode)
 {
    char tmp[1024];
    int fd;
@@ -1880,7 +1880,7 @@ PACKFILE *pack_fopen(AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *mode)
  *  packfile_password() does not have any effect on packfiles opened
  *  with pack_fopen_vtable().
  */
-PACKFILE *pack_fopen_vtable(AL_LEGACY_CONST PACKFILE_VTABLE *vtable, void *userdata)
+PACKFILE *pack_fopen_vtable(AL_CONST PACKFILE_VTABLE *vtable, void *userdata)
 {
    PACKFILE *f;
    ASSERT(vtable);
@@ -2475,7 +2475,7 @@ long pack_fread(void *p, long n, PACKFILE *f)
  *  of items written, which will be less than n if an error occurs. Error
  *  codes are stored in errno.
  */
-long pack_fwrite(AL_LEGACY_CONST void *p, long n, PACKFILE *f)
+long pack_fwrite(AL_CONST void *p, long n, PACKFILE *f)
 {
    ASSERT(f);
    ASSERT(f->vtable);
@@ -2571,7 +2571,7 @@ char *pack_fgets(char *p, int max, PACKFILE *f)
  *  to UTF-8 before writing. Newline characters (\n) are written as \r\n
  *  on DOS and Windows platforms.
  */
-int pack_fputs(AL_LEGACY_CONST char *p, PACKFILE *f)
+int pack_fputs(AL_CONST char *p, PACKFILE *f)
 {
    char *buf, *s;
    int bufsize;
@@ -2636,7 +2636,7 @@ static int normal_getc(void *_f);
 static int normal_ungetc(int ch, void *_f);
 static int normal_putc(int c, void *_f);
 static long normal_fread(void *p, long n, void *_f);
-static long normal_fwrite(AL_LEGACY_CONST void *p, long n, void *_f);
+static long normal_fwrite(AL_CONST void *p, long n, void *_f);
 static int normal_fseek(void *_f, int offset);
 static int normal_feof(void *_f);
 static int normal_ferror(void *_f);
@@ -2800,10 +2800,10 @@ static int normal_putc(int c, void *_f)
 
 
 
-static long normal_fwrite(AL_LEGACY_CONST void *p, long n, void *_f)
+static long normal_fwrite(AL_CONST void *p, long n, void *_f)
 {
    PACKFILE *f = _f;
-   AL_LEGACY_CONST unsigned char *cp = (AL_LEGACY_CONST unsigned char *)p;
+   AL_CONST unsigned char *cp = (AL_CONST unsigned char *)p;
    long i;
 
    for (i=0; i<n; i++) {

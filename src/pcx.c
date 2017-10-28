@@ -26,7 +26,7 @@
  *  the palette data in the specified palette (this should be an array of
  *  at least 256 RGB structures).
  */
-BITMAP *load_pcx(AL_LEGACY_CONST char *filename, RGB *pal)
+BITMAP *load_pcx(AL_CONST char *filename, RGB *pal)
 {
    PACKFILE *f;
    BITMAP *bmp;
@@ -210,7 +210,7 @@ BITMAP *load_pcx_pf(PACKFILE *f, RGB *pal)
  *  Writes a bitmap into a PCX file, using the specified palette (this
  *  should be an array of at least 256 RGB structures).
  */
-int save_pcx(AL_LEGACY_CONST char *filename, BITMAP *bmp, AL_LEGACY_CONST RGB *pal)
+int save_pcx(AL_CONST char *filename, BITMAP *bmp, AL_CONST RGB *pal)
 {
    PACKFILE *f;
    int ret;
@@ -235,7 +235,7 @@ int save_pcx(AL_LEGACY_CONST char *filename, BITMAP *bmp, AL_LEGACY_CONST RGB *p
  *  offset into the file is left after the TGA file just written. On failure
  *  the offset is left at the end of whatever incomplete data was written.
  */
-int save_pcx_pf(PACKFILE *f, BITMAP *bmp, AL_LEGACY_CONST RGB *pal)
+int save_pcx_pf(PACKFILE *f, BITMAP *bmp, AL_CONST RGB *pal)
 {
    PALETTE tmppal;
    int c;

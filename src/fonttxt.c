@@ -24,7 +24,7 @@
 /* load_txt_font:
  *  Loads a scripted font.
  */
-FONT *load_txt_font(AL_LEGACY_CONST char *filename, RGB *pal, void *param)
+FONT *load_txt_font(AL_CONST char *filename, RGB *pal, void *param)
 {
    char buf[1024], *font_str, *start_str = 0, *end_str = 0;
    char font_filename[1024];

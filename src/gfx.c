@@ -203,7 +203,7 @@ void vsync(void)
 /* set_color:
  *  Sets a single palette entry.
  */
-void set_color(int index, AL_LEGACY_CONST RGB *p)
+void set_color(int index, AL_CONST RGB *p)
 {
    ASSERT(index >= 0 && index < PAL_SIZE);
    set_palette_range((struct RGB *)p-index, index, index, FALSE);
@@ -214,7 +214,7 @@ void set_color(int index, AL_LEGACY_CONST RGB *p)
 /* set_palette:
  *  Sets the entire color palette.
  */
-void set_palette(AL_LEGACY_CONST PALETTE p)
+void set_palette(AL_CONST PALETTE p)
 {
    set_palette_range(p, 0, PAL_SIZE-1, TRUE);
 }
@@ -224,7 +224,7 @@ void set_palette(AL_LEGACY_CONST PALETTE p)
 /* set_palette_range:
  *  Sets a part of the color palette.
  */
-void set_palette_range(AL_LEGACY_CONST PALETTE p, int from, int to, int vsync)
+void set_palette_range(AL_CONST PALETTE p, int from, int to, int vsync)
 {
    int c;
 
@@ -263,7 +263,7 @@ static int prev_palette_color[PAL_SIZE];
  *  The previous settings are copied onto a one-deep stack, from where they
  *  can be restored by calling unselect_palette().
  */
-void select_palette(AL_LEGACY_CONST PALETTE p)
+void select_palette(AL_CONST PALETTE p)
 {
    int c;
 
@@ -416,7 +416,7 @@ void get_palette_range(PALETTE p, int from, int to)
  *  be: 0 = return source, 64 = return dest, 32 = return exactly half way.
  *  Only affects colors between from and to (inclusive).
  */
-void fade_interpolate(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE dest, PALETTE output, int pos, int from, int to)
+void fade_interpolate(AL_CONST PALETTE source, AL_CONST PALETTE dest, PALETTE output, int pos, int from, int to)
 {
    int c;
 
@@ -438,7 +438,7 @@ void fade_interpolate(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE de
  *  is instantaneous). Only affects colors between from and to (inclusive,
  *  pass 0 and 255 to fade the entire palette).
  */
-void fade_from_range(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE dest, int speed, int from, int to)
+void fade_from_range(AL_CONST PALETTE source, AL_CONST PALETTE dest, int speed, int from, int to)
 {
    PALETTE temp;
    int c, start, last;
@@ -483,7 +483,7 @@ void fade_from_range(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE des
  *  the slowest, 64 is instantaneous). Only affects colors between from and
  *  to (inclusive, pass 0 and 255 to fade the entire palette).
  */
-void fade_in_range(AL_LEGACY_CONST PALETTE p, int speed, int from, int to)
+void fade_in_range(AL_CONST PALETTE p, int speed, int from, int to)
 {
    ASSERT(speed > 0 && speed <= 64);
    ASSERT(from >= 0 && from < PAL_SIZE);
@@ -516,7 +516,7 @@ void fade_out_range(int speed, int from, int to)
  *  Fades from source to dest, at the specified speed (1 is the slowest, 64
  *  is instantaneous).
  */
-void fade_from(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE dest, int speed)
+void fade_from(AL_CONST PALETTE source, AL_CONST PALETTE dest, int speed)
 {
    ASSERT(speed > 0 && speed <= 64);
    fade_from_range(source, dest, speed, 0, PAL_SIZE-1);
@@ -528,7 +528,7 @@ void fade_from(AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE dest, int
  *  Fades from a solid black palette to p, at the specified speed (1 is
  *  the slowest, 64 is instantaneous).
  */
-void fade_in(AL_LEGACY_CONST PALETTE p, int speed)
+void fade_in(AL_CONST PALETTE p, int speed)
 {
    ASSERT(speed > 0 && speed <= 64);
    fade_in_range(p, speed, 0, PAL_SIZE-1);

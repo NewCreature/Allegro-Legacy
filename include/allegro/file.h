@@ -27,24 +27,24 @@
 
 AL_LEGACY_FUNC(char *, fix_filename_case, (char *path));
 AL_LEGACY_FUNC(char *, fix_filename_slashes, (char *path));
-AL_LEGACY_FUNC(char *, canonicalize_filename, (char *dest, AL_LEGACY_CONST char *filename, int size));
-AL_LEGACY_FUNC(char *, make_absolute_filename, (char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *filename, int size));
-AL_LEGACY_FUNC(char *, make_relative_filename, (char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *filename, int size));
-AL_LEGACY_FUNC(int, is_relative_filename, (AL_LEGACY_CONST char *filename));
-AL_LEGACY_FUNC(char *, replace_filename, (char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *filename, int size));
-AL_LEGACY_FUNC(char *, replace_extension, (char *dest, AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *ext, int size));
-AL_LEGACY_FUNC(char *, append_filename, (char *dest, AL_LEGACY_CONST char *path, AL_LEGACY_CONST char *filename, int size));
-AL_LEGACY_FUNC(char *, get_filename, (AL_LEGACY_CONST char *path));
-AL_LEGACY_FUNC(char *, get_extension, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(char *, canonicalize_filename, (char *dest, AL_CONST char *filename, int size));
+AL_LEGACY_FUNC(char *, make_absolute_filename, (char *dest, AL_CONST char *path, AL_CONST char *filename, int size));
+AL_LEGACY_FUNC(char *, make_relative_filename, (char *dest, AL_CONST char *path, AL_CONST char *filename, int size));
+AL_LEGACY_FUNC(int, is_relative_filename, (AL_CONST char *filename));
+AL_LEGACY_FUNC(char *, replace_filename, (char *dest, AL_CONST char *path, AL_CONST char *filename, int size));
+AL_LEGACY_FUNC(char *, replace_extension, (char *dest, AL_CONST char *filename, AL_CONST char *ext, int size));
+AL_LEGACY_FUNC(char *, append_filename, (char *dest, AL_CONST char *path, AL_CONST char *filename, int size));
+AL_LEGACY_FUNC(char *, get_filename, (AL_CONST char *path));
+AL_LEGACY_FUNC(char *, get_extension, (AL_CONST char *filename));
 AL_LEGACY_FUNC(void, put_backslash, (char *filename));
-AL_LEGACY_FUNC(int, file_exists, (AL_LEGACY_CONST char *filename, int attrib, int *aret));
-AL_LEGACY_FUNC(int, exists, (AL_LEGACY_CONST char *filename));
-AL_LEGACY_FUNC(uint64_t, file_size_ex, (AL_LEGACY_CONST char *filename));
-AL_LEGACY_FUNC(time_t, file_time, (AL_LEGACY_CONST char *filename));
-AL_LEGACY_FUNC(int, delete_file, (AL_LEGACY_CONST char *filename));
-AL_LEGACY_FUNC(int, for_each_file_ex, (AL_LEGACY_CONST char *name, int in_attrib, int out_attrib, AL_LEGACY_METHOD(int, callback, (AL_LEGACY_CONST char *filename, int attrib, void *param)), void *param));
-AL_LEGACY_FUNC(int, set_allegro_resource_path, (int priority, AL_LEGACY_CONST char *path));
-AL_LEGACY_FUNC(int, find_allegro_resource, (char *dest, AL_LEGACY_CONST char *resource, AL_LEGACY_CONST char *ext, AL_LEGACY_CONST char *datafile, AL_LEGACY_CONST char *objectname, AL_LEGACY_CONST char *envvar, AL_LEGACY_CONST char *subdir, int size));
+AL_LEGACY_FUNC(int, file_exists, (AL_CONST char *filename, int attrib, int *aret));
+AL_LEGACY_FUNC(int, exists, (AL_CONST char *filename));
+AL_LEGACY_FUNC(uint64_t, file_size_ex, (AL_CONST char *filename));
+AL_LEGACY_FUNC(time_t, file_time, (AL_CONST char *filename));
+AL_LEGACY_FUNC(int, delete_file, (AL_CONST char *filename));
+AL_LEGACY_FUNC(int, for_each_file_ex, (AL_CONST char *name, int in_attrib, int out_attrib, AL_LEGACY_METHOD(int, callback, (AL_CONST char *filename, int attrib, void *param)), void *param));
+AL_LEGACY_FUNC(int, set_allegro_resource_path, (int priority, AL_CONST char *path));
+AL_LEGACY_FUNC(int, find_allegro_resource, (char *dest, AL_CONST char *resource, AL_CONST char *ext, AL_CONST char *datafile, AL_CONST char *objectname, AL_CONST char *envvar, AL_CONST char *subdir, int size));
 
 struct al_ffblk        /* file info block for the al_find*() routines */
 {
@@ -57,7 +57,7 @@ struct al_ffblk        /* file info block for the al_find*() routines */
 
 AL_LEGACY_FUNC(uint64_t, al_ffblk_get_size, (struct al_ffblk *info));
 
-AL_LEGACY_FUNC(int, al_findfirst, (AL_LEGACY_CONST char *pattern, struct al_ffblk *info, int attrib));
+AL_LEGACY_FUNC(int, al_findfirst, (AL_CONST char *pattern, struct al_ffblk *info, int attrib));
 AL_LEGACY_FUNC(int, al_findnext, (struct al_ffblk *info));
 AL_LEGACY_FUNC(void, al_findclose, (struct al_ffblk *info));
 
@@ -111,7 +111,7 @@ struct _al_normal_packfile_details
 
 struct PACKFILE                           /* our very own FILE structure... */
 {
-   AL_LEGACY_CONST PACKFILE_VTABLE *vtable;
+   AL_CONST PACKFILE_VTABLE *vtable;
    void *userdata;
    int is_normal_packfile;
 
@@ -131,7 +131,7 @@ struct PACKFILE_VTABLE
    AL_LEGACY_METHOD(int, pf_ungetc, (int c, void *userdata));
    AL_LEGACY_METHOD(long, pf_fread, (void *p, long n, void *userdata));
    AL_LEGACY_METHOD(int, pf_putc, (int c, void *userdata));
-   AL_LEGACY_METHOD(long, pf_fwrite, (AL_LEGACY_CONST void *p, long n, void *userdata));
+   AL_LEGACY_METHOD(long, pf_fwrite, (AL_CONST void *p, long n, void *userdata));
    AL_LEGACY_METHOD(int, pf_fseek, (void *userdata, int offset));
    AL_LEGACY_METHOD(int, pf_feof, (void *userdata));
    AL_LEGACY_METHOD(int, pf_ferror, (void *userdata));
@@ -143,9 +143,9 @@ struct PACKFILE_VTABLE
 AL_LEGACY_FUNC(void, set_filename_encoding, (int encoding));
 AL_LEGACY_FUNC(int, get_filename_encoding, (void));
 
-AL_LEGACY_FUNC(void, packfile_password, (AL_LEGACY_CONST char *password));
-AL_LEGACY_FUNC(PACKFILE *, pack_fopen, (AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *mode));
-AL_LEGACY_FUNC(PACKFILE *, pack_fopen_vtable, (AL_LEGACY_CONST PACKFILE_VTABLE *vtable, void *userdata));
+AL_LEGACY_FUNC(void, packfile_password, (AL_CONST char *password));
+AL_LEGACY_FUNC(PACKFILE *, pack_fopen, (AL_CONST char *filename, AL_CONST char *mode));
+AL_LEGACY_FUNC(PACKFILE *, pack_fopen_vtable, (AL_CONST PACKFILE_VTABLE *vtable, void *userdata));
 AL_LEGACY_FUNC(int, pack_fclose, (PACKFILE *f));
 AL_LEGACY_FUNC(int, pack_fseek, (PACKFILE *f, int offset));
 AL_LEGACY_FUNC(PACKFILE *, pack_fopen_chunk, (PACKFILE *f, int pack));
@@ -163,10 +163,10 @@ AL_LEGACY_FUNC(long, pack_mgetl, (PACKFILE *f));
 AL_LEGACY_FUNC(int, pack_mputw, (int w, PACKFILE *f));
 AL_LEGACY_FUNC(long, pack_mputl, (long l, PACKFILE *f));
 AL_LEGACY_FUNC(long, pack_fread, (void *p, long n, PACKFILE *f));
-AL_LEGACY_FUNC(long, pack_fwrite, (AL_LEGACY_CONST void *p, long n, PACKFILE *f));
+AL_LEGACY_FUNC(long, pack_fwrite, (AL_CONST void *p, long n, PACKFILE *f));
 AL_LEGACY_FUNC(int, pack_ungetc, (int c, PACKFILE *f));
 AL_LEGACY_FUNC(char *, pack_fgets, (char *p, int max, PACKFILE *f));
-AL_LEGACY_FUNC(int, pack_fputs, (AL_LEGACY_CONST char *p, PACKFILE *f));
+AL_LEGACY_FUNC(int, pack_fputs, (AL_CONST char *p, PACKFILE *f));
 AL_LEGACY_FUNC(void *, pack_get_userdata, (PACKFILE *f));
 
 

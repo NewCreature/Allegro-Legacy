@@ -32,7 +32,7 @@
  *  using the colors from the original font bitmap (the one imported into
  *  the grabber program), which allows multicolored text output.
  */
-void textout_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color, int bg)
+void textout_ex(BITMAP *bmp, AL_CONST FONT *f, AL_CONST char *str, int x, int y, int color, int bg)
 {
    ASSERT(bmp);
    ASSERT(f);
@@ -46,7 +46,7 @@ void textout_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str,
  *  Like textout_ex(), but uses the x coordinate as the centre rather than 
  *  the left of the string.
  */
-void textout_centre_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color, int bg)
+void textout_centre_ex(BITMAP *bmp, AL_CONST FONT *f, AL_CONST char *str, int x, int y, int color, int bg)
 {
    int len;
    ASSERT(bmp);
@@ -63,7 +63,7 @@ void textout_centre_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST cha
  *  Like textout_ex(), but uses the x coordinate as the right rather than 
  *  the left of the string.
  */
-void textout_right_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color, int bg)
+void textout_right_ex(BITMAP *bmp, AL_CONST FONT *f, AL_CONST char *str, int x, int y, int color, int bg)
 {
    int len;
    ASSERT(bmp);
@@ -81,7 +81,7 @@ void textout_right_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char
  */
 #define MAX_TOKEN  128
 
-void textout_justify_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str, int x1, int x2, int y, int diff, int color, int bg)
+void textout_justify_ex(BITMAP *bmp, AL_CONST FONT *f, AL_CONST char *str, int x1, int x2, int y, int diff, int color, int bg)
 {
    char toks[32];
    char *tok[MAX_TOKEN];
@@ -143,7 +143,7 @@ void textout_justify_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST ch
 /* textprintf_ex:
  *  Formatted text output, using a printf() style format string.
  */
-void textprintf_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, int bg, AL_LEGACY_CONST char *format, ...)
+void textprintf_ex(BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, int bg, AL_CONST char *format, ...)
 {
    char buf[512];
    va_list ap;
@@ -164,7 +164,7 @@ void textprintf_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color
  *  Like textprintf_ex(), but uses the x coordinate as the centre rather than 
  *  the left of the string.
  */
-void textprintf_centre_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, int bg, AL_LEGACY_CONST char *format, ...)
+void textprintf_centre_ex(BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, int bg, AL_CONST char *format, ...)
 {
    char buf[512];
    va_list ap;
@@ -185,7 +185,7 @@ void textprintf_centre_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, in
  *  Like textprintf_ex(), but uses the x coordinate as the right rather than 
  *  the left of the string.
  */
-void textprintf_right_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, int bg, AL_LEGACY_CONST char *format, ...)
+void textprintf_right_ex(BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, int bg, AL_CONST char *format, ...)
 {
    char buf[512];
    va_list ap;
@@ -205,7 +205,7 @@ void textprintf_right_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int
 /* textprintf_justify_ex:
  *  Like textprintf_ex(), but right justifies the string to the specified area.
  */
-void textprintf_justify_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x1, int x2, int y, int diff, int color, int bg, AL_LEGACY_CONST char *format, ...)
+void textprintf_justify_ex(BITMAP *bmp, AL_CONST FONT *f, int x1, int x2, int y, int diff, int color, int bg, AL_CONST char *format, ...)
 {
    char buf[512];
    va_list ap;
@@ -225,7 +225,7 @@ void textprintf_justify_ex(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x1, int x2,
 /* text_length:
  *  Calculates the length of a string in a particular font.
  */
-int text_length(AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str)
+int text_length(AL_CONST FONT *f, AL_CONST char *str)
 {
    ASSERT(f);
    ASSERT(str);
@@ -237,7 +237,7 @@ int text_length(AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str)
 /* text_height:
  *  Returns the height of a character in the specified font.
  */
-int text_height(AL_LEGACY_CONST FONT *f)
+int text_height(AL_CONST FONT *f)
 {
    ASSERT(f);
    return f->vtable->font_height(f);
@@ -320,7 +320,7 @@ int text_mode(int mode)
 /* textprintf:
  *  Formatted text output, using a printf() style format string.
  */
-void textprintf(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, AL_LEGACY_CONST char *format, ...)
+void textprintf(BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, AL_CONST char *format, ...)
 {
    char buf[512];
    va_list ap;
@@ -341,7 +341,7 @@ void textprintf(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, A
  *  Like textprintf(), but uses the x coordinate as the centre rather than 
  *  the left of the string.
  */
-void textprintf_centre(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, AL_LEGACY_CONST char *format, ...)
+void textprintf_centre(BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, AL_CONST char *format, ...)
 {
    char buf[512];
    va_list ap;
@@ -362,7 +362,7 @@ void textprintf_centre(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int c
  *  Like textout(), but uses the x coordinate as the right rather than 
  *  the left of the string.
  */
-void textprintf_right(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, AL_LEGACY_CONST char *format, ...)
+void textprintf_right(BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, AL_CONST char *format, ...)
 {
    char buf[512];
    va_list ap;
@@ -382,7 +382,7 @@ void textprintf_right(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int co
 /* textprintf_justify:
  *  Like textprintf(), but right justifies the string to the specified area.
  */
-void textprintf_justify(BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x1, int x2, int y, int diff, int color, AL_LEGACY_CONST char *format, ...)
+void textprintf_justify(BITMAP *bmp, AL_CONST FONT *f, int x1, int x2, int y, int diff, int color, AL_CONST char *format, ...)
 {
    char buf[512];
    va_list ap;

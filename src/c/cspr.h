@@ -923,7 +923,7 @@ void FUNC_LINEAR_DRAW_CHARACTER(BITMAP *dst, BITMAP *src, int dx, int dy, int co
 /* _linear_draw_rle_sprite:
  *  Draws an RLE sprite onto a linear bitmap at the specified position.
  */
-void FUNC_LINEAR_DRAW_RLE_SPRITE(BITMAP *dst, AL_LEGACY_CONST RLE_SPRITE *src, int dx, int dy)
+void FUNC_LINEAR_DRAW_RLE_SPRITE(BITMAP *dst, AL_CONST RLE_SPRITE *src, int dx, int dy)
 {
    int x, y, w, h;
    int dxbeg, dybeg;
@@ -1111,7 +1111,7 @@ void FUNC_LINEAR_DRAW_RLE_SPRITE(BITMAP *dst, AL_LEGACY_CONST RLE_SPRITE *src, i
 /* _linear_draw_trans_rle_sprite:
  *  Draws a translucent RLE sprite onto a linear bitmap.
  */
-void FUNC_LINEAR_DRAW_TRANS_RLE_SPRITE(BITMAP *dst, AL_LEGACY_CONST RLE_SPRITE *src, int dx, int dy)
+void FUNC_LINEAR_DRAW_TRANS_RLE_SPRITE(BITMAP *dst, AL_CONST RLE_SPRITE *src, int dx, int dy)
 {
    int x, y, w, h;
    int dxbeg, dybeg;
@@ -1314,7 +1314,7 @@ next_line2:{}
 /* _linear_draw_trans_rgba_rle_sprite:
  *  Draws a translucent RGBA RLE sprite onto a linear bitmap.
  */
-void FUNC_LINEAR_DRAW_TRANS_RGBA_RLE_SPRITE(BITMAP *dst, AL_LEGACY_CONST RLE_SPRITE *src, int dx, int dy)
+void FUNC_LINEAR_DRAW_TRANS_RGBA_RLE_SPRITE(BITMAP *dst, AL_CONST RLE_SPRITE *src, int dx, int dy)
 {
    int x, y, w, h;
    int dxbeg, dybeg;
@@ -1510,7 +1510,7 @@ void FUNC_LINEAR_DRAW_TRANS_RGBA_RLE_SPRITE(BITMAP *dst, AL_LEGACY_CONST RLE_SPR
 /* _linear_draw_lit_rle_sprite:
  *  Draws a tinted RLE sprite onto a linear bitmap.
  */
-void FUNC_LINEAR_DRAW_LIT_RLE_SPRITE(BITMAP *dst, AL_LEGACY_CONST RLE_SPRITE *src, int dx, int dy, int color)
+void FUNC_LINEAR_DRAW_LIT_RLE_SPRITE(BITMAP *dst, AL_CONST RLE_SPRITE *src, int dx, int dy, int color)
 {
    int x, y, w, h;
    int dxbeg, dybeg;

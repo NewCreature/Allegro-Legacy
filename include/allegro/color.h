@@ -70,33 +70,33 @@ AL_LEGACY_ARRAY(int, _rgb_scale_6);
 
 AL_LEGACY_VAR(int *, palette_color);
 
-AL_LEGACY_FUNC(void, set_color, (int idx, AL_LEGACY_CONST RGB *p));
-AL_LEGACY_FUNC(void, set_palette, (AL_LEGACY_CONST PALETTE p));
-AL_LEGACY_FUNC(void, set_palette_range, (AL_LEGACY_CONST PALETTE p, int from, int to, int retracesync));
+AL_LEGACY_FUNC(void, set_color, (int idx, AL_CONST RGB *p));
+AL_LEGACY_FUNC(void, set_palette, (AL_CONST PALETTE p));
+AL_LEGACY_FUNC(void, set_palette_range, (AL_CONST PALETTE p, int from, int to, int retracesync));
 
 AL_LEGACY_FUNC(void, get_color, (int idx, RGB *p));
 AL_LEGACY_FUNC(void, get_palette, (PALETTE p));
 AL_LEGACY_FUNC(void, get_palette_range, (PALETTE p, int from, int to));
 
-AL_LEGACY_FUNC(void, fade_interpolate, (AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE dest, PALETTE output, int pos, int from, int to));
-AL_LEGACY_FUNC(void, fade_from_range, (AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE dest, int speed, int from, int to));
-AL_LEGACY_FUNC(void, fade_in_range, (AL_LEGACY_CONST PALETTE p, int speed, int from, int to));
+AL_LEGACY_FUNC(void, fade_interpolate, (AL_CONST PALETTE source, AL_CONST PALETTE dest, PALETTE output, int pos, int from, int to));
+AL_LEGACY_FUNC(void, fade_from_range, (AL_CONST PALETTE source, AL_CONST PALETTE dest, int speed, int from, int to));
+AL_LEGACY_FUNC(void, fade_in_range, (AL_CONST PALETTE p, int speed, int from, int to));
 AL_LEGACY_FUNC(void, fade_out_range, (int speed, int from, int to));
-AL_LEGACY_FUNC(void, fade_from, (AL_LEGACY_CONST PALETTE source, AL_LEGACY_CONST PALETTE dest, int speed));
-AL_LEGACY_FUNC(void, fade_in, (AL_LEGACY_CONST PALETTE p, int speed));
+AL_LEGACY_FUNC(void, fade_from, (AL_CONST PALETTE source, AL_CONST PALETTE dest, int speed));
+AL_LEGACY_FUNC(void, fade_in, (AL_CONST PALETTE p, int speed));
 AL_LEGACY_FUNC(void, fade_out, (int speed));
 
-AL_LEGACY_FUNC(void, select_palette, (AL_LEGACY_CONST PALETTE p));
+AL_LEGACY_FUNC(void, select_palette, (AL_CONST PALETTE p));
 AL_LEGACY_FUNC(void, unselect_palette, (void));
 
 AL_LEGACY_FUNC(void, generate_332_palette, (PALETTE pal));
-AL_LEGACY_FUNC(int, generate_optimized_palette, (struct BITMAP *image, PALETTE pal, AL_LEGACY_CONST signed char rsvdcols[256]));
+AL_LEGACY_FUNC(int, generate_optimized_palette, (struct BITMAP *image, PALETTE pal, AL_CONST signed char rsvdcols[256]));
 
-AL_LEGACY_FUNC(void, create_rgb_table, (RGB_MAP *table, AL_LEGACY_CONST PALETTE pal, AL_LEGACY_METHOD(void, callback, (int pos))));
-AL_LEGACY_FUNC(void, create_light_table, (COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, int r, int g, int b, AL_LEGACY_METHOD(void, callback, (int pos))));
-AL_LEGACY_FUNC(void, create_trans_table, (COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, int r, int g, int b, AL_LEGACY_METHOD(void, callback, (int pos))));
-AL_LEGACY_FUNC(void, create_color_table, (COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, AL_LEGACY_METHOD(void, blend, (AL_LEGACY_CONST PALETTE pal, int x, int y, RGB *rgb)), AL_LEGACY_METHOD(void, callback, (int pos))));
-AL_LEGACY_FUNC(void, create_blender_table, (COLOR_MAP *table, AL_LEGACY_CONST PALETTE pal, AL_LEGACY_METHOD(void, callback, (int pos))));
+AL_LEGACY_FUNC(void, create_rgb_table, (RGB_MAP *table, AL_CONST PALETTE pal, AL_LEGACY_METHOD(void, callback, (int pos))));
+AL_LEGACY_FUNC(void, create_light_table, (COLOR_MAP *table, AL_CONST PALETTE pal, int r, int g, int b, AL_LEGACY_METHOD(void, callback, (int pos))));
+AL_LEGACY_FUNC(void, create_trans_table, (COLOR_MAP *table, AL_CONST PALETTE pal, int r, int g, int b, AL_LEGACY_METHOD(void, callback, (int pos))));
+AL_LEGACY_FUNC(void, create_color_table, (COLOR_MAP *table, AL_CONST PALETTE pal, AL_LEGACY_METHOD(void, blend, (AL_CONST PALETTE pal, int x, int y, RGB *rgb)), AL_LEGACY_METHOD(void, callback, (int pos))));
+AL_LEGACY_FUNC(void, create_blender_table, (COLOR_MAP *table, AL_CONST PALETTE pal, AL_LEGACY_METHOD(void, callback, (int pos))));
 
 typedef AL_LEGACY_METHOD(unsigned long, BLENDER_FUNC, (unsigned long x, unsigned long y, unsigned long n));
 
@@ -122,7 +122,7 @@ AL_LEGACY_FUNC(void, set_screen_blender, (int r, int g, int b, int a));
 AL_LEGACY_FUNC(void, hsv_to_rgb, (float h, float s, float v, int *r, int *g, int *b));
 AL_LEGACY_FUNC(void, rgb_to_hsv, (int r, int g, int b, float *h, float *s, float *v));
 
-AL_LEGACY_FUNC(int, bestfit_color, (AL_LEGACY_CONST PALETTE pal, int r, int g, int b));
+AL_LEGACY_FUNC(int, bestfit_color, (AL_CONST PALETTE pal, int r, int g, int b));
 
 AL_LEGACY_FUNC(int, makecol, (int r, int g, int b));
 AL_LEGACY_FUNC(int, makecol8, (int r, int g, int b));

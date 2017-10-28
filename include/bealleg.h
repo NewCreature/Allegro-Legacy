@@ -268,7 +268,7 @@ AL_LEGACY_VAR(volatile int, _be_focus_count);
 AL_LEGACY_VAR(volatile bool, _be_gfx_initialized);
 AL_LEGACY_VAR(int, *_be_dirty_lines);
 
-AL_LEGACY_ARRAY(AL_LEGACY_CONST BE_MODE_TABLE, _be_mode_table);
+AL_LEGACY_ARRAY(AL_CONST BE_MODE_TABLE, _be_mode_table);
 
 
 extern int32 (*_be_sync_func)();

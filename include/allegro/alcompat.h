@@ -138,53 +138,53 @@ AL_LEGACY_FUNC_DEPRECATED(int, initialise_joystick, (void));
 #define OLD_FILESEL_WIDTH   -1
 #define OLD_FILESEL_HEIGHT  -1
 
-AL_LEGACY_INLINE_DEPRECATED(int, file_select, (AL_LEGACY_CONST char *message, char *path, AL_LEGACY_CONST char *ext),
+AL_LEGACY_INLINE_DEPRECATED(int, file_select, (AL_CONST char *message, char *path, AL_CONST char *ext),
 {
    return file_select_ex(message, path, ext, 1024, OLD_FILESEL_WIDTH, OLD_FILESEL_HEIGHT);
 })
 
 
 /* the old (and broken!) file enumeration function */
-AL_LEGACY_FUNC_DEPRECATED(int, for_each_file, (AL_LEGACY_CONST char *name, int attrib, AL_LEGACY_METHOD(void, callback, (AL_LEGACY_CONST char *filename, int attrib, int param)), int param));
+AL_LEGACY_FUNC_DEPRECATED(int, for_each_file, (AL_CONST char *name, int attrib, AL_LEGACY_METHOD(void, callback, (AL_CONST char *filename, int attrib, int param)), int param));
 /* long is 32-bit only on some systems, and we want to list DVDs! */
-AL_LEGACY_FUNC_DEPRECATED(long, file_size, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC_DEPRECATED(long, file_size, (AL_CONST char *filename));
 
 
 /* the old state-based textout functions */
 AL_LEGACY_VAR(int, _textmode);
 AL_LEGACY_FUNC_DEPRECATED(int, text_mode, (int mode));
 
-AL_LEGACY_INLINE_DEPRECATED(void, textout, (struct BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color),
+AL_LEGACY_INLINE_DEPRECATED(void, textout, (struct BITMAP *bmp, AL_CONST FONT *f, AL_CONST char *str, int x, int y, int color),
 {
    textout_ex(bmp, f, str, x, y, color, _textmode);
 })
 
-AL_LEGACY_INLINE_DEPRECATED(void, textout_centre, (struct BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color),
+AL_LEGACY_INLINE_DEPRECATED(void, textout_centre, (struct BITMAP *bmp, AL_CONST FONT *f, AL_CONST char *str, int x, int y, int color),
 {
    textout_centre_ex(bmp, f, str, x, y, color, _textmode);
 })
 
-AL_LEGACY_INLINE_DEPRECATED(void, textout_right, (struct BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color),
+AL_LEGACY_INLINE_DEPRECATED(void, textout_right, (struct BITMAP *bmp, AL_CONST FONT *f, AL_CONST char *str, int x, int y, int color),
 {
    textout_right_ex(bmp, f, str, x, y, color, _textmode);
 })
 
-AL_LEGACY_INLINE_DEPRECATED(void, textout_justify, (struct BITMAP *bmp, AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *str, int x1, int x2, int y, int diff, int color),
+AL_LEGACY_INLINE_DEPRECATED(void, textout_justify, (struct BITMAP *bmp, AL_CONST FONT *f, AL_CONST char *str, int x1, int x2, int y, int diff, int color),
 {
    textout_justify_ex(bmp, f, str, x1, x2, y, diff, color, _textmode);
 })
 
-AL_LEGACY_PRINTFUNC_DEPRECATED(void, textprintf, (struct BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, AL_LEGACY_CONST char *format, ...), 6, 7);
-AL_LEGACY_PRINTFUNC_DEPRECATED(void, textprintf_centre, (struct BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, AL_LEGACY_CONST char *format, ...), 6, 7);
-AL_LEGACY_PRINTFUNC_DEPRECATED(void, textprintf_right, (struct BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x, int y, int color, AL_LEGACY_CONST char *format, ...), 6, 7);
-AL_LEGACY_PRINTFUNC_DEPRECATED(void, textprintf_justify, (struct BITMAP *bmp, AL_LEGACY_CONST FONT *f, int x1, int x2, int y, int diff, int color, AL_LEGACY_CONST char *format, ...), 8, 9);
+AL_LEGACY_PRINTFUNC_DEPRECATED(void, textprintf, (struct BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, AL_CONST char *format, ...), 6, 7);
+AL_LEGACY_PRINTFUNC_DEPRECATED(void, textprintf_centre, (struct BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, AL_CONST char *format, ...), 6, 7);
+AL_LEGACY_PRINTFUNC_DEPRECATED(void, textprintf_right, (struct BITMAP *bmp, AL_CONST FONT *f, int x, int y, int color, AL_CONST char *format, ...), 6, 7);
+AL_LEGACY_PRINTFUNC_DEPRECATED(void, textprintf_justify, (struct BITMAP *bmp, AL_CONST FONT *f, int x1, int x2, int y, int diff, int color, AL_CONST char *format, ...), 8, 9);
 
 AL_LEGACY_INLINE_DEPRECATED(void, draw_character, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color),
 {
    draw_character_ex(bmp, sprite, x, y, color, _textmode);
 })
 
-AL_LEGACY_INLINE_DEPRECATED(int, gui_textout, (struct BITMAP *bmp, AL_LEGACY_CONST char *s, int x, int y, int color, int centre),
+AL_LEGACY_INLINE_DEPRECATED(int, gui_textout, (struct BITMAP *bmp, AL_CONST char *s, int x, int y, int color, int centre),
 {
    return gui_textout_ex(bmp, s, x, y, color, _textmode, centre);
 })

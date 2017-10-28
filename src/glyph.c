@@ -24,7 +24,7 @@
 /* helper macro for drawing glyphs in each color depth */
 #define DRAW_GLYPH(bits, size)                                               \
 {                                                                            \
-   AL_LEGACY_CONST unsigned char *data = glyph->dat;                                \
+   AL_CONST unsigned char *data = glyph->dat;                                \
    unsigned long addr;                                                       \
    int w = glyph->w;                                                         \
    int h = glyph->h;                                                         \
@@ -139,7 +139,7 @@
 /* _linear_draw_glyph8:
  *  Draws a glyph onto an 8 bit bitmap.
  */
-void _linear_draw_glyph8(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
+void _linear_draw_glyph8(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
 {
    DRAW_GLYPH(8, 1);
 }
@@ -153,7 +153,7 @@ void _linear_draw_glyph8(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, 
 /* _linear_draw_glyph16:
  *  Draws a glyph onto a 16 bit bitmap.
  */
-void _linear_draw_glyph16(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
+void _linear_draw_glyph16(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
 {
    DRAW_GLYPH(16, sizeof(int16_t));
 }
@@ -167,7 +167,7 @@ void _linear_draw_glyph16(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x,
 /* _linear_draw_glyph24:
  *  Draws a glyph onto a 24 bit bitmap.
  */
-void _linear_draw_glyph24(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
+void _linear_draw_glyph24(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
 {
    DRAW_GLYPH(24, 3);
 }
@@ -181,7 +181,7 @@ void _linear_draw_glyph24(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x,
 /* _linear_draw_glyph32:
  *  Draws a glyph onto a 32 bit bitmap.
  */
-void _linear_draw_glyph32(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
+void _linear_draw_glyph32(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
 {
    DRAW_GLYPH(32, sizeof(int32_t));
 }

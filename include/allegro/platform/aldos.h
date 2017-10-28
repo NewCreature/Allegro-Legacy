@@ -262,7 +262,7 @@ AL_LEGACY_VAR(GFX_DRIVER, gfx_xtended);
 AL_LEGACY_FUNC_DEPRECATED(void, split_modex_screen, (int lyne));
 
 
-AL_LEGACY_INLINE(void, _set_color, (int index, AL_LEGACY_CONST RGB *p),
+AL_LEGACY_INLINE(void, _set_color, (int index, AL_CONST RGB *p),
 {
    outportb(0x3C8, index);
    outportb(0x3C9, p->r);
@@ -347,7 +347,7 @@ AL_LEGACY_VAR(MIDI_DRIVER, midi_awe32);
 extern "C" {
 #endif
 
-AL_LEGACY_FUNC(int, load_ibk, (AL_LEGACY_CONST char *filename, int drums));
+AL_LEGACY_FUNC(int, load_ibk, (AL_CONST char *filename, int drums));
 
 #ifdef __cplusplus
 }

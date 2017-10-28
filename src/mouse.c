@@ -1029,7 +1029,7 @@ int install_mouse(void)
    _DRIVER_INFO *driver_list;
    int num_buttons = -1;
    int config_num_buttons;
-   AL_LEGACY_CONST char *emulate;
+   AL_CONST char *emulate;
    char tmp1[64], tmp2[64];
    int i;
 

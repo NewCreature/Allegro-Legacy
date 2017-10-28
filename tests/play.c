@@ -23,7 +23,7 @@
 
 
 
-void format_id(char *buf, int n, int driver_id, AL_LEGACY_CONST char *name)
+void format_id(char *buf, int n, int driver_id, AL_CONST char *name)
 {
    char tmp[8];
 

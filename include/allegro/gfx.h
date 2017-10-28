@@ -80,14 +80,14 @@ typedef struct GFX_MODE_LIST
 typedef struct GFX_DRIVER        /* creates and manages the screen bitmap */
 {
    int  id;
-   AL_LEGACY_CONST char *name;
-   AL_LEGACY_CONST char *desc;
-   AL_LEGACY_CONST char *ascii_name;
+   AL_CONST char *name;
+   AL_CONST char *desc;
+   AL_CONST char *ascii_name;
    AL_LEGACY_METHOD(struct BITMAP *, init, (int w, int h, int v_w, int v_h, int color_depth));
    AL_LEGACY_METHOD(void, exit, (struct BITMAP *b));
    AL_LEGACY_METHOD(int, scroll, (int x, int y));
    AL_LEGACY_METHOD(void, vsync, (void));
-   AL_LEGACY_METHOD(void, set_palette, (AL_LEGACY_CONST struct RGB *p, int from, int to, int retracesync));
+   AL_LEGACY_METHOD(void, set_palette, (AL_CONST struct RGB *p, int from, int to, int retracesync));
    AL_LEGACY_METHOD(int, request_scroll, (int x, int y));
    AL_LEGACY_METHOD(int, poll_scroll, (void));
    AL_LEGACY_METHOD(void, enable_triple_buffer, (void));
@@ -189,12 +189,12 @@ typedef struct GFX_VTABLE        /* functions for drawing onto bitmaps */
    AL_LEGACY_METHOD(void, draw_trans_sprite, (struct BITMAP *bmp, struct BITMAP *sprite, int x, int y));
    AL_LEGACY_METHOD(void, draw_trans_rgba_sprite, (struct BITMAP *bmp, struct BITMAP *sprite, int x, int y));
    AL_LEGACY_METHOD(void, draw_lit_sprite, (struct BITMAP *bmp, struct BITMAP *sprite, int x, int y, int color));
-   AL_LEGACY_METHOD(void, draw_rle_sprite, (struct BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-   AL_LEGACY_METHOD(void, draw_trans_rle_sprite, (struct BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-   AL_LEGACY_METHOD(void, draw_trans_rgba_rle_sprite, (struct BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-   AL_LEGACY_METHOD(void, draw_lit_rle_sprite, (struct BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
+   AL_LEGACY_METHOD(void, draw_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+   AL_LEGACY_METHOD(void, draw_trans_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+   AL_LEGACY_METHOD(void, draw_trans_rgba_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+   AL_LEGACY_METHOD(void, draw_lit_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
    AL_LEGACY_METHOD(void, draw_character, (struct BITMAP *bmp, struct BITMAP *sprite, int x, int y, int color, int bg));
-   AL_LEGACY_METHOD(void, draw_glyph, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT_GLYPH *glyph, int x, int y, int color, int bg));
+   AL_LEGACY_METHOD(void, draw_glyph, (struct BITMAP *bmp, AL_CONST struct FONT_GLYPH *glyph, int x, int y, int color, int bg));
    AL_LEGACY_METHOD(void, blit_from_memory, (struct BITMAP *source, struct BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
    AL_LEGACY_METHOD(void, blit_to_memory, (struct BITMAP *source, struct BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
    AL_LEGACY_METHOD(void, blit_from_system, (struct BITMAP *source, struct BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
@@ -210,14 +210,14 @@ typedef struct GFX_VTABLE        /* functions for drawing onto bitmaps */
    AL_LEGACY_METHOD(void, draw_gouraud_sprite, (struct BITMAP *bmp, struct BITMAP *sprite, int x, int y, int c1, int c2, int c3, int c4));
    AL_LEGACY_METHOD(void, draw_sprite_end, (void));
    AL_LEGACY_METHOD(void, blit_end, (void));
-   AL_LEGACY_METHOD(void, polygon, (struct BITMAP *bmp, int vertices, AL_LEGACY_CONST int *points, int color));
+   AL_LEGACY_METHOD(void, polygon, (struct BITMAP *bmp, int vertices, AL_CONST int *points, int color));
    AL_LEGACY_METHOD(void, rect, (struct BITMAP *bmp, int x1, int y_1, int x2, int y2, int color));
    AL_LEGACY_METHOD(void, circle, (struct BITMAP *bmp, int x, int y, int radius, int color));
    AL_LEGACY_METHOD(void, circlefill, (struct BITMAP *bmp, int x, int y, int radius, int color));
    AL_LEGACY_METHOD(void, ellipse, (struct BITMAP *bmp, int x, int y, int rx, int ry, int color));
    AL_LEGACY_METHOD(void, ellipsefill, (struct BITMAP *bmp, int x, int y, int rx, int ry, int color));
    AL_LEGACY_METHOD(void, arc, (struct BITMAP *bmp, int x, int y, fixed ang1, fixed ang2, int r, int color));
-   AL_LEGACY_METHOD(void, spline, (struct BITMAP *bmp, AL_LEGACY_CONST int points[8], int color));
+   AL_LEGACY_METHOD(void, spline, (struct BITMAP *bmp, AL_CONST int points[8], int color));
    AL_LEGACY_METHOD(void, floodfill, (struct BITMAP *bmp, int x, int y, int color));
    AL_LEGACY_METHOD(void, polygon3d, (struct BITMAP *bmp, int type, struct BITMAP *texture, int vc, V3D *vtx[]));
    AL_LEGACY_METHOD(void, polygon3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, int vc, V3D_f *vtx[]));

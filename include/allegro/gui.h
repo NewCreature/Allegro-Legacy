@@ -195,8 +195,8 @@ AL_LEGACY_FUNCPTR(int, gui_mouse_b, (void));
 
 AL_LEGACY_FUNC(void, gui_set_screen, (BITMAP *bmp));
 AL_LEGACY_FUNC(BITMAP *, gui_get_screen, (void));
-AL_LEGACY_FUNC(int, gui_textout_ex, (struct BITMAP *bmp, AL_LEGACY_CONST char *s, int x, int y, int color, int bg, int centre));
-AL_LEGACY_FUNC(int, gui_strlen, (AL_LEGACY_CONST char *s));
+AL_LEGACY_FUNC(int, gui_textout_ex, (struct BITMAP *bmp, AL_CONST char *s, int x, int y, int color, int bg, int centre));
+AL_LEGACY_FUNC(int, gui_strlen, (AL_CONST char *s));
 AL_LEGACY_FUNC(void, position_dialog, (DIALOG *dialog, int x, int y));
 AL_LEGACY_FUNC(void, centre_dialog, (DIALOG *dialog));
 AL_LEGACY_FUNC(void, set_dialog_color, (DIALOG *dialog, int fg, int bg));
@@ -214,9 +214,9 @@ AL_LEGACY_FUNC(int, do_menu, (MENU *menu, int x, int y));
 AL_LEGACY_FUNC(MENU_PLAYER *, init_menu, (MENU *menu, int x, int y));
 AL_LEGACY_FUNC(int, update_menu, (MENU_PLAYER *player));
 AL_LEGACY_FUNC(int, shutdown_menu, (MENU_PLAYER *player));
-AL_LEGACY_FUNC(int, alert, (AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2, AL_LEGACY_CONST char *s3, AL_LEGACY_CONST char *b1, AL_LEGACY_CONST char *b2, int c1, int c2));
-AL_LEGACY_FUNC(int, alert3, (AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2, AL_LEGACY_CONST char *s3, AL_LEGACY_CONST char *b1, AL_LEGACY_CONST char *b2, AL_LEGACY_CONST char *b3, int c1, int c2, int c3));
-AL_LEGACY_FUNC(int, file_select_ex, (AL_LEGACY_CONST char *message, char *path, AL_LEGACY_CONST char *ext, int size, int w, int h));
+AL_LEGACY_FUNC(int, alert, (AL_CONST char *s1, AL_CONST char *s2, AL_CONST char *s3, AL_CONST char *b1, AL_CONST char *b2, int c1, int c2));
+AL_LEGACY_FUNC(int, alert3, (AL_CONST char *s1, AL_CONST char *s2, AL_CONST char *s3, AL_CONST char *b1, AL_CONST char *b2, AL_CONST char *b3, int c1, int c2, int c3));
+AL_LEGACY_FUNC(int, file_select_ex, (AL_CONST char *message, char *path, AL_CONST char *ext, int size, int w, int h));
 
 AL_LEGACY_FUNC(int, gfx_mode_select, (int *card, int *w, int *h));
 AL_LEGACY_FUNC(int, gfx_mode_select_ex, (int *card, int *w, int *h, int *color_depth));

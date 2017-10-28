@@ -690,7 +690,7 @@ void qscale_matrix_f(MATRIX_f *m, float scale)
  *  applied to a vector v, (v * out) = ((v * m1) * m2). Any number of
  *  transformations can be concatenated in this way.
  */
-void matrix_mul(AL_LEGACY_CONST MATRIX *m1, AL_LEGACY_CONST MATRIX *m2, MATRIX *out)
+void matrix_mul(AL_CONST MATRIX *m1, AL_CONST MATRIX *m2, MATRIX *out)
 {
    MATRIX temp;
    int i, j;
@@ -726,7 +726,7 @@ void matrix_mul(AL_LEGACY_CONST MATRIX *m1, AL_LEGACY_CONST MATRIX *m2, MATRIX *
 /* matrix_mul_f:
  *  Floating point version of matrix_mul().
  */
-void matrix_mul_f(AL_LEGACY_CONST MATRIX_f *m1, AL_LEGACY_CONST MATRIX_f *m2, MATRIX_f *out)
+void matrix_mul_f(AL_CONST MATRIX_f *m1, AL_CONST MATRIX_f *m2, MATRIX_f *out)
 {
    MATRIX_f temp;
    int i, j;
@@ -848,7 +848,7 @@ void cross_product_f(float x1, float y1, float z1, float x2, float y2, float z2,
  *  Helper function for backface culling: returns the z component of the
  *  normal vector to the polygon formed from the three vertices.
  */
-fixed polygon_z_normal(AL_LEGACY_CONST V3D *v1, AL_LEGACY_CONST V3D *v2, AL_LEGACY_CONST V3D *v3)
+fixed polygon_z_normal(AL_CONST V3D *v1, AL_CONST V3D *v2, AL_CONST V3D *v3)
 {
    ASSERT(v1);
    ASSERT(v2);
@@ -861,7 +861,7 @@ fixed polygon_z_normal(AL_LEGACY_CONST V3D *v1, AL_LEGACY_CONST V3D *v2, AL_LEGA
 /* polygon_z_normal_f:
  *  Floating point version of polygon_z_normal().
  */
-float polygon_z_normal_f(AL_LEGACY_CONST V3D_f *v1, AL_LEGACY_CONST V3D_f *v2, AL_LEGACY_CONST V3D_f *v3)
+float polygon_z_normal_f(AL_CONST V3D_f *v1, AL_CONST V3D_f *v2, AL_CONST V3D_f *v3)
 {
    ASSERT(v1);
    ASSERT(v2);

@@ -27,7 +27,7 @@
 /* worker function for counting objects with origin */
 static int do_origin_check(DATAFILE *dat, int *param, int param2)
 {
-   AL_LEGACY_CONST char *orig = get_datafile_property(dat, DAT_ORIG);
+   AL_CONST char *orig = get_datafile_property(dat, DAT_ORIG);
 
    if (orig[0])
       (*param)++;
@@ -56,7 +56,7 @@ static int change_query(int popup)
 /* worker function for changing to a relative filename */
 static int do_change_relative(DATAFILE *dat, int *param, int param2)
 {
-   AL_LEGACY_CONST char *orig = get_datafile_property(dat, DAT_ORIG);
+   AL_CONST char *orig = get_datafile_property(dat, DAT_ORIG);
    char relative[FILENAME_LENGTH];
 
    if (!orig[0] || is_relative_filename(orig)) {
@@ -104,7 +104,7 @@ static int change_relative(void)
 /* worker function for changing to an absolute filename */
 static int do_change_absolute(DATAFILE *dat, int *param, int param2)
 {
-   AL_LEGACY_CONST char *orig = get_datafile_property(dat, DAT_ORIG);
+   AL_CONST char *orig = get_datafile_property(dat, DAT_ORIG);
    char absolute[FILENAME_LENGTH];
 
    if (!orig[0] || !is_relative_filename(orig)) {

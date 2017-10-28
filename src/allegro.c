@@ -211,8 +211,8 @@ static int debug_trace_virgin = TRUE;
 static FILE *assert_file = NULL;
 static FILE *trace_file = NULL;
 
-static int (*assert_handler)(AL_LEGACY_CONST char *msg) = NULL;
-int (*_al_trace_handler)(AL_LEGACY_CONST char *msg) = NULL;
+static int (*assert_handler)(AL_CONST char *msg) = NULL;
+int (*_al_trace_handler)(AL_CONST char *msg) = NULL;
 
 
 /* Module linking system stuff: if an object file is linked in, then its
@@ -228,7 +228,7 @@ struct _AL_LEGACY_LINKER_MOUSE *_al_linker_mouse = NULL;
 /* dynamic registration system for cleanup code */
 struct al_exit_func {
    void (*funcptr)(void);
-   AL_LEGACY_CONST char *desc;
+   AL_CONST char *desc;
    struct al_exit_func *next;
 };
 
@@ -241,7 +241,7 @@ static struct al_exit_func *exit_func_list = NULL;
  *  `desc' should point to a statically allocated string to help with
  *  debugging.
  */
-void _add_exit_func(void (*func)(void), AL_LEGACY_CONST char *desc)
+void _add_exit_func(void (*func)(void), AL_CONST char *desc)
 {
    struct al_exit_func *n;
 
@@ -517,7 +517,7 @@ void allegro_exit(void)
 /* allegro_message:
  *  Displays a message in whatever form the current platform requires.
  */
-void allegro_message(AL_LEGACY_CONST char *msg, ...)
+void allegro_message(AL_CONST char *msg, ...)
 {
    char *buf = _AL_LEGACY_MALLOC_ATOMIC(ALLEGRO_LEGACY_MESSAGE_SIZE);
    char *tmp = _AL_LEGACY_MALLOC_ATOMIC(ALLEGRO_LEGACY_MESSAGE_SIZE);
@@ -603,7 +603,7 @@ static void debug_exit(void)
 /* al_assert:
  *  Raises an assert (uses ASCII strings).
  */
-void al_assert(AL_LEGACY_CONST char *file, int line)
+void al_assert(AL_CONST char *file, int line)
 {
    static int asserted = FALSE;
    int olderr = errno;
@@ -660,7 +660,7 @@ void al_assert(AL_LEGACY_CONST char *file, int line)
 /* al_trace:
  *  Outputs a trace message (uses ASCII strings).
  */
-void al_trace(AL_LEGACY_CONST char *msg, ...)
+void al_trace(AL_CONST char *msg, ...)
 {
    int olderr = errno;
    char buf[512];
@@ -704,7 +704,7 @@ void al_trace(AL_LEGACY_CONST char *msg, ...)
 /* register_assert_handler:
  *  Installs a user handler for assert failures.
  */
-void register_assert_handler(int (*handler)(AL_LEGACY_CONST char *msg))
+void register_assert_handler(int (*handler)(AL_CONST char *msg))
 {
    assert_handler = handler;
 }
@@ -714,7 +714,7 @@ void register_assert_handler(int (*handler)(AL_LEGACY_CONST char *msg))
 /* register_trace_handler:
  *  Installs a user handler for trace output.
  */
-void register_trace_handler(int (*handler)(AL_LEGACY_CONST char *msg))
+void register_trace_handler(int (*handler)(AL_CONST char *msg))
 {
    _al_trace_handler = handler;
 }
@@ -759,7 +759,7 @@ void *_al_realloc(void *mem, size_t size)
  *  uses any user overloaded memory allocation system in use.
  *  The result of this function _must_ be freed with _AL_LEGACY_FREE().
  */
-char *_al_strdup(AL_LEGACY_CONST char *string)
+char *_al_strdup(AL_CONST char *string)
 {
    char *newstring = _AL_LEGACY_MALLOC(strlen(string) + 1);
 

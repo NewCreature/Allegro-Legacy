@@ -52,9 +52,9 @@ typedef struct SAMPLE                  /* a sample */
 typedef struct DIGI_DRIVER             /* driver for playing digital sfx */
 {
    int  id;                            /* driver ID code */
-   AL_LEGACY_CONST char *name;                /* driver name */
-   AL_LEGACY_CONST char *desc;                /* description string */
-   AL_LEGACY_CONST char *ascii_name;          /* ASCII format name string */
+   AL_CONST char *name;                /* driver name */
+   AL_CONST char *desc;                /* description string */
+   AL_CONST char *ascii_name;          /* ASCII format name string */
    int  voices;                        /* available voices */
    int  basevoice;                     /* voice number offset */
    int  max_voices;                    /* maximum voices we can support */
@@ -73,7 +73,7 @@ typedef struct DIGI_DRIVER             /* driver for playing digital sfx */
    AL_LEGACY_METHOD(int,  buffer_size, (void));
 
    /* voice control functions */
-   AL_LEGACY_METHOD(void, init_voice, (int voice, AL_LEGACY_CONST SAMPLE *sample));
+   AL_LEGACY_METHOD(void, init_voice, (int voice, AL_CONST SAMPLE *sample));
    AL_LEGACY_METHOD(void, release_voice, (int voice));
    AL_LEGACY_METHOD(void, start_voice, (int voice));
    AL_LEGACY_METHOD(void, stop_voice, (int voice));
@@ -139,22 +139,22 @@ AL_LEGACY_VAR(int, digi_input_card);
 AL_LEGACY_FUNC(int, detect_digi_driver, (int driver_id));
 
 
-AL_LEGACY_FUNC(SAMPLE *, load_sample, (AL_LEGACY_CONST char *filename));
-AL_LEGACY_FUNC(SAMPLE *, load_wav, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(SAMPLE *, load_sample, (AL_CONST char *filename));
+AL_LEGACY_FUNC(SAMPLE *, load_wav, (AL_CONST char *filename));
 AL_LEGACY_FUNC(SAMPLE *, load_wav_pf, (struct PACKFILE *f));
-AL_LEGACY_FUNC(SAMPLE *, load_voc, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(SAMPLE *, load_voc, (AL_CONST char *filename));
 AL_LEGACY_FUNC(SAMPLE *, load_voc_pf, (struct PACKFILE *f));
-AL_LEGACY_FUNC(int, save_sample, (AL_LEGACY_CONST char *filename, SAMPLE *spl));
+AL_LEGACY_FUNC(int, save_sample, (AL_CONST char *filename, SAMPLE *spl));
 AL_LEGACY_FUNC(SAMPLE *, create_sample, (int bits, int stereo, int freq, int len));
 AL_LEGACY_FUNC(void, destroy_sample, (SAMPLE *spl));
 
-AL_LEGACY_FUNC(int, play_sample, (AL_LEGACY_CONST SAMPLE *spl, int vol, int pan, int freq, int loop));
-AL_LEGACY_FUNC(void, stop_sample, (AL_LEGACY_CONST SAMPLE *spl));
-AL_LEGACY_FUNC(void, adjust_sample, (AL_LEGACY_CONST SAMPLE *spl, int vol, int pan, int freq, int loop));
+AL_LEGACY_FUNC(int, play_sample, (AL_CONST SAMPLE *spl, int vol, int pan, int freq, int loop));
+AL_LEGACY_FUNC(void, stop_sample, (AL_CONST SAMPLE *spl));
+AL_LEGACY_FUNC(void, adjust_sample, (AL_CONST SAMPLE *spl, int vol, int pan, int freq, int loop));
 
-AL_LEGACY_FUNC(int, allocate_voice, (AL_LEGACY_CONST SAMPLE *spl));
+AL_LEGACY_FUNC(int, allocate_voice, (AL_CONST SAMPLE *spl));
 AL_LEGACY_FUNC(void, deallocate_voice, (int voice));
-AL_LEGACY_FUNC(void, reallocate_voice, (int voice, AL_LEGACY_CONST SAMPLE *spl));
+AL_LEGACY_FUNC(void, reallocate_voice, (int voice, AL_CONST SAMPLE *spl));
 AL_LEGACY_FUNC(void, release_voice, (int voice));
 AL_LEGACY_FUNC(void, voice_start, (int voice));
 AL_LEGACY_FUNC(void, voice_stop, (int voice));
@@ -208,7 +208,7 @@ AL_LEGACY_FUNCPTR(void, digi_recorder, (void));
 
 AL_LEGACY_FUNC(void, lock_sample, (struct SAMPLE *spl));
 
-AL_LEGACY_FUNC(void, register_sample_file_type, (AL_LEGACY_CONST char *ext, AL_LEGACY_METHOD(struct SAMPLE *, load, (AL_LEGACY_CONST char *filename)), AL_LEGACY_METHOD(int, save, (AL_LEGACY_CONST char *filename, struct SAMPLE *spl))));
+AL_LEGACY_FUNC(void, register_sample_file_type, (AL_CONST char *ext, AL_LEGACY_METHOD(struct SAMPLE *, load, (AL_CONST char *filename)), AL_LEGACY_METHOD(int, save, (AL_CONST char *filename, struct SAMPLE *spl))));
 
 #ifdef __cplusplus
    }

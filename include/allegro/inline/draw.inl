@@ -101,7 +101,7 @@ AL_LEGACY_INLINE(void, triangle, (BITMAP *bmp, int x1, int y_1, int x2, int y2, 
 })
 
 
-AL_LEGACY_INLINE(void, polygon, (BITMAP *bmp, int vertices, AL_LEGACY_CONST int *points, int color),
+AL_LEGACY_INLINE(void, polygon, (BITMAP *bmp, int vertices, AL_CONST int *points, int color),
 {
    ASSERT(bmp);
 
@@ -161,7 +161,7 @@ AL_LEGACY_INLINE(void, arc, (BITMAP *bmp, int x, int y, fixed ang1, fixed ang2, 
 
 
 
-AL_LEGACY_INLINE(void, spline, (BITMAP *bmp, AL_LEGACY_CONST int points[8], int color),
+AL_LEGACY_INLINE(void, spline, (BITMAP *bmp, AL_CONST int points[8], int color),
 {
    ASSERT(bmp);
 

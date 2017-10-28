@@ -14931,7 +14931,7 @@ insulate you from some of the differences between systems:
    structures, like in the BITMAP structure. These arrays are effectively 
    equivalent to the flexible array members of ISO C99.
 
-<b>AL_LEGACY_CONST</b><br>
+<b>AL_CONST</b><br>
    Use this in place of the regular "const" object modifier keyword, and 
    your code will work correctly on any of the supported compilers.
 

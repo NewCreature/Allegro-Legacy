@@ -34,7 +34,7 @@
 
 #define INLINE
 #define ZERO_SIZE_ARRAY(type, name)             type name[64]
-#define AL_LEGACY_CONST								const
+#define AL_CONST								const
 #define AL_LEGACY_VAR(type, name)                      extern type name
 #define AL_LEGACY_ARRAY(type, name)                    extern type name[]
 #define AL_LEGACY_FUNC(type, name, args)               type name args

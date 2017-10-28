@@ -27,8 +27,8 @@
 
 typedef int32_t fixed;
 
-AL_LEGACY_VAR(AL_LEGACY_CONST fixed, fixtorad_r);
-AL_LEGACY_VAR(AL_LEGACY_CONST fixed, radtofix_r);
+AL_LEGACY_VAR(AL_CONST fixed, fixtorad_r);
+AL_LEGACY_VAR(AL_CONST fixed, radtofix_r);
 
 #ifdef __cplusplus
    }

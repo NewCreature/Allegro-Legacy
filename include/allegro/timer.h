@@ -34,9 +34,9 @@
 typedef struct TIMER_DRIVER
 {
    int  id;
-   AL_LEGACY_CONST char *name;
-   AL_LEGACY_CONST char *desc;
-   AL_LEGACY_CONST char *ascii_name;
+   AL_CONST char *name;
+   AL_CONST char *desc;
+   AL_CONST char *ascii_name;
    AL_LEGACY_METHOD(int,  init, (void));
    AL_LEGACY_METHOD(void, exit, (void));
    AL_LEGACY_METHOD(int,  install_int, (AL_LEGACY_METHOD(void, proc, (void)), long speed));

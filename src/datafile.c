@@ -1361,7 +1361,7 @@ static void *load_file_object(PACKFILE *f, long size)
  *  Loads an entire data file into memory, and returns a pointer to it. 
  *  On error, sets errno and returns NULL.
  */
-DATAFILE *load_datafile(AL_LEGACY_CONST char *filename)
+DATAFILE *load_datafile(AL_CONST char *filename)
 {
    ASSERT(filename);
    return load_datafile_callback(filename, NULL);
@@ -1373,7 +1373,7 @@ DATAFILE *load_datafile(AL_LEGACY_CONST char *filename)
  *  Loads an entire data file into memory, and returns a pointer to it. 
  *  On error, sets errno and returns NULL.
  */
-DATAFILE *load_datafile_callback(AL_LEGACY_CONST char *filename, void (*callback)(DATAFILE *))
+DATAFILE *load_datafile_callback(AL_CONST char *filename, void (*callback)(DATAFILE *))
 {
    PACKFILE *f;
    DATAFILE *dat;
@@ -1410,7 +1410,7 @@ DATAFILE *load_datafile_callback(AL_LEGACY_CONST char *filename, void (*callback
  *  Reads offsets of all objects inside datafile.
  *  On error, sets errno and returns NULL.
  */
-DATAFILE_INDEX *create_datafile_index(AL_LEGACY_CONST char *filename)
+DATAFILE_INDEX *create_datafile_index(AL_CONST char *filename)
 {
    PACKFILE *f;
    DATAFILE_INDEX *index;
@@ -1487,7 +1487,7 @@ DATAFILE_INDEX *create_datafile_index(AL_LEGACY_CONST char *filename)
 /* load_datafile_object:
  *  Loads a single object from a datafile.
  */
-DATAFILE *load_datafile_object(AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *objectname)
+DATAFILE *load_datafile_object(AL_CONST char *filename, AL_CONST char *objectname)
 {
    PACKFILE *f;
    DATAFILE *dat;
@@ -1608,7 +1608,7 @@ DATAFILE *load_datafile_object(AL_LEGACY_CONST char *filename, AL_LEGACY_CONST c
  *  Loads a single object from a datafile using its offset.
  *  On error, returns NULL.
  */
-DATAFILE *load_datafile_object_indexed(AL_LEGACY_CONST DATAFILE_INDEX *index, int item)
+DATAFILE *load_datafile_object_indexed(AL_CONST DATAFILE_INDEX *index, int item)
 {
    int type;
    PACKFILE *f;
@@ -1731,7 +1731,7 @@ void unload_datafile_object(DATAFILE *dat)
 /* find_datafile_object:
  *  Returns a pointer to the datafile object with the given name
  */
-DATAFILE *find_datafile_object(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *objectname)
+DATAFILE *find_datafile_object(AL_CONST DATAFILE *dat, AL_CONST char *objectname)
 {
    char name[512];
    int recurse = FALSE;
@@ -1776,7 +1776,7 @@ DATAFILE *find_datafile_object(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST ch
  *  Returns the specified property string for the datafile object, or
  *  an empty string if the property does not exist.
  */
-AL_LEGACY_CONST char *get_datafile_property(AL_LEGACY_CONST DATAFILE *dat, int type)
+AL_CONST char *get_datafile_property(AL_CONST DATAFILE *dat, int type)
 {
    DATAFILE_PROPERTY *prop;
    ASSERT(dat);

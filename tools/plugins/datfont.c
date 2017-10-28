@@ -72,7 +72,7 @@ static void* makenew_font(long* size)
 
 
 /* displays a font in the grabber object view window */
-static void plot_font(AL_LEGACY_CONST DATAFILE *dat, int x, int y)
+static void plot_font(AL_CONST DATAFILE *dat, int x, int y)
 {
     FONT* f = dat->dat;
     int cx = x, bufpos, ch;
@@ -129,7 +129,7 @@ static void plot_font(AL_LEGACY_CONST DATAFILE *dat, int x, int y)
 
 
 /* returns a description string for a font object */
-static void get_font_desc(AL_LEGACY_CONST DATAFILE *dat, char *s)
+static void get_font_desc(AL_CONST DATAFILE *dat, char *s)
 {
    FONT *fnt = (FONT *)dat->dat;
    char *mono = (is_mono_font(fnt)) ? "mono" : "color";
@@ -160,7 +160,7 @@ static void get_font_desc(AL_LEGACY_CONST DATAFILE *dat, char *s)
 
 
 /* exports a font into an external file */
-static int export_font(AL_LEGACY_CONST DATAFILE* dat, AL_LEGACY_CONST char* filename)
+static int export_font(AL_CONST DATAFILE* dat, AL_CONST char* filename)
 {
     char buf[1024], tmp[1024];
     PACKFILE *pack;
@@ -295,7 +295,7 @@ static int export_font(AL_LEGACY_CONST DATAFILE* dat, AL_LEGACY_CONST char* file
 
 
 /* import routine for the GRX font copyright message */
-static void import_grx_message(AL_LEGACY_CONST char* filename)
+static void import_grx_message(AL_CONST char* filename)
 {
     PACKFILE *pack;
     int w, h, num, i, end, begin;
@@ -413,7 +413,7 @@ static void upgrade_to_color(FONT* f)
 static DATAFILE *fonts_datafile;
 
 /* Get a list of fonts for a font datafile */
-static AL_LEGACY_CONST char *datafile_fontname_getter(int index, int *list_size)
+static AL_CONST char *datafile_fontname_getter(int index, int *list_size)
 {
    DATAFILE *datf = fonts_datafile;
    int n;
@@ -442,7 +442,7 @@ static AL_LEGACY_CONST char *datafile_fontname_getter(int index, int *list_size)
 
 
 /* List the fonts available in a datafile */
-static FONT *grab_datafile_font(AL_LEGACY_CONST char *filename)
+static FONT *grab_datafile_font(AL_CONST char *filename)
 {
    const char *names[2] = { NULL, NULL };
    FONT *f = NULL;
@@ -463,7 +463,7 @@ static FONT *grab_datafile_font(AL_LEGACY_CONST char *filename)
 }
 
 /* imports a font from an external file (handles various formats) */
-static DATAFILE *grab_font(int type, AL_LEGACY_CONST char *filename, DATAFILE_PROPERTY **prop, int depth)
+static DATAFILE *grab_font(int type, AL_CONST char *filename, DATAFILE_PROPERTY **prop, int depth)
 {
    PACKFILE *f;
    FONT *font;
@@ -679,7 +679,7 @@ static int save_color_font(FONT* f, PACKFILE* pack)
 
 
 /* saves a font into a datafile */
-static int save_font(DATAFILE *dat, AL_LEGACY_CONST int *fixed_prop, int pack, int pack_kids, int strip, int sort, int verbose, int extra, PACKFILE *f)
+static int save_font(DATAFILE *dat, AL_CONST int *fixed_prop, int pack, int pack_kids, int strip, int sort, int verbose, int extra, PACKFILE *f)
 {
     FONT* font = dat->dat;
 

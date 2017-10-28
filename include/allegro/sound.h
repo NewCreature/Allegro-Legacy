@@ -31,7 +31,7 @@
 AL_LEGACY_FUNC(void, reserve_voices, (int digi_voices, int midi_voices));
 AL_LEGACY_FUNC(void, set_volume_per_voice, (int scale));
 
-AL_LEGACY_FUNC(int, install_sound, (int digi, int midi, AL_LEGACY_CONST char *cfg_path));
+AL_LEGACY_FUNC(int, install_sound, (int digi, int midi, AL_CONST char *cfg_path));
 AL_LEGACY_FUNC(void, remove_sound, (void));
 
 AL_LEGACY_FUNC(int, install_sound_input, (int digi, int midi));

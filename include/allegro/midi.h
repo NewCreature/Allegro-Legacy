@@ -48,9 +48,9 @@ typedef struct MIDI                    /* a midi file */
 typedef struct MIDI_DRIVER             /* driver for playing midi music */
 {
    int  id;                            /* driver ID code */
-   AL_LEGACY_CONST char *name;                /* driver name */
-   AL_LEGACY_CONST char *desc;                /* description string */
-   AL_LEGACY_CONST char *ascii_name;          /* ASCII format name string */
+   AL_CONST char *name;                /* driver name */
+   AL_CONST char *desc;                /* description string */
+   AL_CONST char *ascii_name;          /* ASCII format name string */
    int  voices;                        /* available voices */
    int  basevoice;                     /* voice number offset */
    int  max_voices;                    /* maximum voices we can support */
@@ -68,8 +68,8 @@ typedef struct MIDI_DRIVER             /* driver for playing midi music */
    AL_LEGACY_METHOD(void, raw_midi, (int data));
 
    /* dynamic patch loading routines */
-   AL_LEGACY_METHOD(int,  load_patches, (AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums));
-   AL_LEGACY_METHOD(void, adjust_patches, (AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums));
+   AL_LEGACY_METHOD(int,  load_patches, (AL_CONST char *patches, AL_CONST char *drums));
+   AL_LEGACY_METHOD(void, adjust_patches, (AL_CONST char *patches, AL_CONST char *drums));
 
    /* note control functions */
    AL_LEGACY_METHOD(void, key_on, (int inst, int note, int bend, int vol, int pan));
@@ -115,7 +115,7 @@ AL_LEGACY_VAR(long, midi_loop_end);           /* loop when we hit this position 
 
 AL_LEGACY_FUNC(int, detect_midi_driver, (int driver_id));
 
-AL_LEGACY_FUNC(MIDI *, load_midi, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(MIDI *, load_midi, (AL_CONST char *filename));
 AL_LEGACY_FUNC(void, destroy_midi, (MIDI *midi));
 AL_LEGACY_FUNC(int, play_midi, (MIDI *midi, int loop));
 AL_LEGACY_FUNC(int, play_looped_midi, (MIDI *midi, int loop_start, int loop_end));
@@ -128,8 +128,8 @@ AL_LEGACY_FUNC(void, midi_out, (unsigned char *data, int length));
 AL_LEGACY_FUNC(int, load_midi_patches, (void));
 
 AL_LEGACY_FUNCPTR(void, midi_msg_callback, (int msg, int byte1, int byte2));
-AL_LEGACY_FUNCPTR(void, midi_meta_callback, (int type, AL_LEGACY_CONST unsigned char *data, int length));
-AL_LEGACY_FUNCPTR(void, midi_sysex_callback, (AL_LEGACY_CONST unsigned char *data, int length));
+AL_LEGACY_FUNCPTR(void, midi_meta_callback, (int type, AL_CONST unsigned char *data, int length));
+AL_LEGACY_FUNCPTR(void, midi_sysex_callback, (AL_CONST unsigned char *data, int length));
 
 AL_LEGACY_FUNCPTR(void, midi_recorder, (unsigned char data));
 

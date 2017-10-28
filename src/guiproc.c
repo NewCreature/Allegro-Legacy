@@ -43,7 +43,7 @@ typedef char *(*getfuncptr)(int, int *);
  *  & character as an underbar for displaying keyboard shortcuts. Returns
  *  the width of the output string in pixels.
  */
-int gui_textout_ex(BITMAP *bmp, AL_LEGACY_CONST char *s, int x, int y, int color, int bg, int centre)
+int gui_textout_ex(BITMAP *bmp, AL_CONST char *s, int x, int y, int color, int bg, int centre)
 {
    char tmp[1024];
    int hline_pos = -1;
@@ -100,7 +100,7 @@ int gui_textout_ex(BITMAP *bmp, AL_LEGACY_CONST char *s, int x, int y, int color
 /* gui_strlen:
  *  Returns the length of a string in pixels, ignoring '&' characters.
  */
-int gui_strlen(AL_LEGACY_CONST char *s)
+int gui_strlen(AL_CONST char *s)
 {
    ASSERT(s);
    return gui_textout_ex(NULL, s, 0, 0, 0, 0, 0);

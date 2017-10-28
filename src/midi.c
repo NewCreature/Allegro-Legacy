@@ -124,8 +124,8 @@ static int midi_looping;                        /* set during loops */
 
 /* hook functions */
 void (*midi_msg_callback)(int msg, int byte1, int byte2) = NULL;
-void (*midi_meta_callback)(int type, AL_LEGACY_CONST unsigned char *data, int length) = NULL;
-void (*midi_sysex_callback)(AL_LEGACY_CONST unsigned char *data, int length) = NULL;
+void (*midi_meta_callback)(int type, AL_CONST unsigned char *data, int length) = NULL;
+void (*midi_sysex_callback)(AL_CONST unsigned char *data, int length) = NULL;
 
 
 
@@ -153,7 +153,7 @@ void lock_midi(MIDI *midi)
  *  Loads a standard MIDI file, returning a pointer to a MIDI structure,
  *  or NULL on error. 
  */
-MIDI *load_midi(AL_LEGACY_CONST char *filename)
+MIDI *load_midi(AL_CONST char *filename)
 {
    int c;
    char buf[4];
@@ -275,7 +275,7 @@ void destroy_midi(MIDI *midi)
  *  number read, and alters the data pointer according to the number of
  *  bytes it used.
  */
-static unsigned long parse_var_len(AL_LEGACY_CONST unsigned char **data)
+static unsigned long parse_var_len(AL_CONST unsigned char **data)
 {
    unsigned long val = **data & 0x7F;
 
@@ -757,7 +757,7 @@ END_OF_STATIC_FUNCTION(process_controller);
 /* process_meta_event:
  *  Processes the next meta-event on the specified track.
  */
-static void process_meta_event(AL_LEGACY_CONST unsigned char **pos, long *timer)
+static void process_meta_event(AL_CONST unsigned char **pos, long *timer)
 {
    unsigned char metatype = *((*pos)++);
    long length = parse_var_len(pos);
@@ -788,7 +788,7 @@ END_OF_STATIC_FUNCTION(process_meta_event);
 /* process_midi_event:
  *  Processes the next MIDI event on the specified track.
  */
-static void process_midi_event(AL_LEGACY_CONST unsigned char **pos, unsigned char *running_status, long *timer)
+static void process_midi_event(AL_CONST unsigned char **pos, unsigned char *running_status, long *timer)
 {
    unsigned char byte1, byte2; 
    int channel;
@@ -930,13 +930,13 @@ static void midi_player(void)
 
 	 /* while events are waiting, process them */
 	 while (midi_track[c].timer <= 0) { 
-	    process_midi_event((AL_LEGACY_CONST unsigned char**) &midi_track[c].pos, 
+	    process_midi_event((AL_CONST unsigned char**) &midi_track[c].pos, 
 			       &midi_track[c].running_status,
 			       &midi_track[c].timer); 
 
 	    /* read next time offset */
 	    if (midi_track[c].pos) { 
-	       l = parse_var_len((AL_LEGACY_CONST unsigned char**) &midi_track[c].pos);
+	       l = parse_var_len((AL_CONST unsigned char**) &midi_track[c].pos);
 	       l *= midi_speed;
 	       midi_track[c].timer += l;
 	    }
@@ -1163,7 +1163,7 @@ static int load_patches(MIDI *midi)
 	       switch (event) {
 		  case 0xF0:                    /* sysex */
 		  case 0xF7: 
-		     l = parse_var_len((AL_LEGACY_CONST unsigned char**) &p);
+		     l = parse_var_len((AL_CONST unsigned char**) &p);
 		     p += l;
 		     break;
 
@@ -1177,7 +1177,7 @@ static int load_patches(MIDI *midi)
 
 		  case 0xFF:                    /* meta-event */
 		     p++;
-		     l = parse_var_len((AL_LEGACY_CONST unsigned char**) &p);
+		     l = parse_var_len((AL_CONST unsigned char**) &p);
 		     p += l;
 		     break;
 
@@ -1194,7 +1194,7 @@ static int load_patches(MIDI *midi)
 	 }
 
 	 if (p < end)                           /* skip time offset */
-	    parse_var_len((AL_LEGACY_CONST unsigned char**) &p);
+	    parse_var_len((AL_CONST unsigned char**) &p);
       }
    }
 
@@ -1238,7 +1238,7 @@ static void prepare_to_play(MIDI *midi)
    for (c=0; c<MIDI_TRACKS; c++) {
       if (midi->track[c].data) {
 	 midi_track[c].pos = midi->track[c].data;
-	 midi_track[c].timer = parse_var_len((AL_LEGACY_CONST unsigned char**) &midi_track[c].pos);
+	 midi_track[c].timer = parse_var_len((AL_CONST unsigned char**) &midi_track[c].pos);
 	 midi_track[c].timer *= midi_speed;
       }
       else {
@@ -1512,7 +1512,7 @@ void midi_out(unsigned char *data, int length)
    _midi_tick++;
 
    while (pos < data+length)
-      process_midi_event((AL_LEGACY_CONST unsigned char**) &pos, &running_status, &timer);
+      process_midi_event((AL_CONST unsigned char**) &pos, &running_status, &timer);
 
    update_controllers();
 

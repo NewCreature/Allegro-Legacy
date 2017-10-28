@@ -26,7 +26,7 @@
 #endif
 
 
-AL_LEGACY_INLINE(void, set_window_title, (AL_LEGACY_CONST char *name),
+AL_LEGACY_INLINE(void, set_window_title, (AL_CONST char *name),
 {
    ASSERT(system_driver);
 

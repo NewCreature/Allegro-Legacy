@@ -84,7 +84,7 @@ static int common_ascii[KEY_MAX] =
  * likely to be found on every keyboard are named. All keyboard drivers should
  * provide their own implementation though, especially if they use positional
  * mapping. */
-AL_LEGACY_CONST char *_keyboard_common_names[KEY_MAX] =
+AL_CONST char *_keyboard_common_names[KEY_MAX] =
 {
    "(none)",     "A",          "B",          "C",
    "D",          "E",          "F",          "G",
@@ -596,9 +596,9 @@ int scancode_to_ascii(int scancode)
 /* scancode_to_name:
  *  Converts the given scancode to a description of the key.
  */
-AL_LEGACY_CONST char *scancode_to_name(int scancode)
+AL_CONST char *scancode_to_name(int scancode)
 {
-   AL_LEGACY_CONST char *name = NULL;
+   AL_CONST char *name = NULL;
 
    ASSERT(keyboard_driver);
    ASSERT((scancode >= 0) && (scancode < KEY_MAX));

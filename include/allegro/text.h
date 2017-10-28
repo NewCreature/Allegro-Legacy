@@ -33,16 +33,16 @@ struct FONT;
 
 AL_LEGACY_VAR(struct FONT *, font);
 AL_LEGACY_VAR(int, allegro_404_char);
-AL_LEGACY_FUNC(void, textout_ex, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color, int bg));
-AL_LEGACY_FUNC(void, textout_centre_ex, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color, int bg));
-AL_LEGACY_FUNC(void, textout_right_ex, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT *f, AL_LEGACY_CONST char *str, int x, int y, int color, int bg));
-AL_LEGACY_FUNC(void, textout_justify_ex, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT *f, AL_LEGACY_CONST char *str, int x1, int x2, int y, int diff, int color, int bg));
-AL_LEGACY_PRINTFUNC(void, textprintf_ex, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT *f, int x, int y, int color, int bg, AL_LEGACY_CONST char *format, ...), 7, 8);
-AL_LEGACY_PRINTFUNC(void, textprintf_centre_ex, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT *f, int x, int y, int color, int bg, AL_LEGACY_CONST char *format, ...), 7, 8);
-AL_LEGACY_PRINTFUNC(void, textprintf_right_ex, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT *f, int x, int y, int color, int bg, AL_LEGACY_CONST char *format, ...), 7, 8);
-AL_LEGACY_PRINTFUNC(void, textprintf_justify_ex, (struct BITMAP *bmp, AL_LEGACY_CONST struct FONT *f, int x1, int x2, int y, int diff, int color, int bg, AL_LEGACY_CONST char *format, ...), 9, 10);
-AL_LEGACY_FUNC(int, text_length, (AL_LEGACY_CONST struct FONT *f, AL_LEGACY_CONST char *str));
-AL_LEGACY_FUNC(int, text_height, (AL_LEGACY_CONST struct FONT *f));
+AL_LEGACY_FUNC(void, textout_ex, (struct BITMAP *bmp, AL_CONST struct FONT *f, AL_CONST char *str, int x, int y, int color, int bg));
+AL_LEGACY_FUNC(void, textout_centre_ex, (struct BITMAP *bmp, AL_CONST struct FONT *f, AL_CONST char *str, int x, int y, int color, int bg));
+AL_LEGACY_FUNC(void, textout_right_ex, (struct BITMAP *bmp, AL_CONST struct FONT *f, AL_CONST char *str, int x, int y, int color, int bg));
+AL_LEGACY_FUNC(void, textout_justify_ex, (struct BITMAP *bmp, AL_CONST struct FONT *f, AL_CONST char *str, int x1, int x2, int y, int diff, int color, int bg));
+AL_LEGACY_PRINTFUNC(void, textprintf_ex, (struct BITMAP *bmp, AL_CONST struct FONT *f, int x, int y, int color, int bg, AL_CONST char *format, ...), 7, 8);
+AL_LEGACY_PRINTFUNC(void, textprintf_centre_ex, (struct BITMAP *bmp, AL_CONST struct FONT *f, int x, int y, int color, int bg, AL_CONST char *format, ...), 7, 8);
+AL_LEGACY_PRINTFUNC(void, textprintf_right_ex, (struct BITMAP *bmp, AL_CONST struct FONT *f, int x, int y, int color, int bg, AL_CONST char *format, ...), 7, 8);
+AL_LEGACY_PRINTFUNC(void, textprintf_justify_ex, (struct BITMAP *bmp, AL_CONST struct FONT *f, int x1, int x2, int y, int diff, int color, int bg, AL_CONST char *format, ...), 9, 10);
+AL_LEGACY_FUNC(int, text_length, (AL_CONST struct FONT *f, AL_CONST char *str));
+AL_LEGACY_FUNC(int, text_height, (AL_CONST struct FONT *f));
 AL_LEGACY_FUNC(void, destroy_font, (struct FONT *f));
 
 #ifdef __cplusplus

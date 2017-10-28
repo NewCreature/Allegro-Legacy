@@ -74,7 +74,7 @@ char *_alemu_strupr(char *string)
 /* _alemu_stricmp:
  *  Case-insensitive comparison of strings.
  */
-int _alemu_stricmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
+int _alemu_stricmp(AL_CONST char *s1, AL_CONST char *s2)
 {
    int c1, c2;
    ASSERT(s1);
@@ -97,7 +97,7 @@ int _alemu_stricmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
 /* _alemu_memcmp:
  *  Comparison of two memory blocks.
  */
-int _alemu_memcmp(AL_LEGACY_CONST void *s1, AL_LEGACY_CONST void *s2, size_t num)
+int _alemu_memcmp(AL_CONST void *s1, AL_CONST void *s2, size_t num)
 {
    size_t i;
    ASSERT(s1);

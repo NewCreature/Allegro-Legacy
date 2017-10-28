@@ -50,12 +50,12 @@ typedef struct DATEDIT_OBJECT_INFO
 {
    int type;
    char *desc;
-   void (*get_desc)(AL_LEGACY_CONST DATAFILE *dat, char *s);
+   void (*get_desc)(AL_CONST DATAFILE *dat, char *s);
    void *(*makenew)(long *size);
-   int (*save)(DATAFILE *dat, AL_LEGACY_CONST int *fixed_prop, int pack, int pack_kids, int strip, int sort, int verbose, int extra, PACKFILE *f);
-   void (*plot)(AL_LEGACY_CONST DATAFILE *dat, int x, int y);
+   int (*save)(DATAFILE *dat, AL_CONST int *fixed_prop, int pack, int pack_kids, int strip, int sort, int verbose, int extra, PACKFILE *f);
+   void (*plot)(AL_CONST DATAFILE *dat, int x, int y);
    int (*dclick)(DATAFILE *dat);
-   void (*dat2s)(DATAFILE *dat, AL_LEGACY_CONST char *name, FILE *file, FILE *header);
+   void (*dat2s)(DATAFILE *dat, AL_CONST char *name, FILE *file, FILE *header);
 } DATEDIT_OBJECT_INFO;
 
 
@@ -65,8 +65,8 @@ typedef struct DATEDIT_GRABBER_INFO
    int type;
    char *grab_ext;
    char *export_ext;
-   DATAFILE *(*grab)(int type, AL_LEGACY_CONST char *filename, DATAFILE_PROPERTY **prop, int depth);  /* TODO: get rid of 'depth' */
-   int (*exporter)(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *filename);
+   DATAFILE *(*grab)(int type, AL_CONST char *filename, DATAFILE_PROPERTY **prop, int depth);  /* TODO: get rid of 'depth' */
+   int (*exporter)(AL_CONST DATAFILE *dat, AL_CONST char *filename);
    char *prop_types;
 } DATEDIT_GRABBER_INFO;
 
@@ -107,29 +107,29 @@ extern DATAFILE datedit_info;
 
 void datedit_init(void);
 
-void datedit_msg(AL_LEGACY_CONST char *fmt, ...);
-void datedit_startmsg(AL_LEGACY_CONST char *fmt, ...);
-void datedit_endmsg(AL_LEGACY_CONST char *fmt, ...);
-void datedit_error(AL_LEGACY_CONST char *fmt, ...);
-int datedit_ask(AL_LEGACY_CONST char *fmt, ...);
-int datedit_select(AL_LEGACY_CONST char *(*list_getter)(int index, int *list_size), AL_LEGACY_CONST char *fmt, ...);
+void datedit_msg(AL_CONST char *fmt, ...);
+void datedit_startmsg(AL_CONST char *fmt, ...);
+void datedit_endmsg(AL_CONST char *fmt, ...);
+void datedit_error(AL_CONST char *fmt, ...);
+int datedit_ask(AL_CONST char *fmt, ...);
+int datedit_select(AL_CONST char *(*list_getter)(int index, int *list_size), AL_CONST char *fmt, ...);
 
-char *datedit_pretty_name(AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *ext, int force_ext);
-int datedit_clean_typename(AL_LEGACY_CONST char *type);
-AL_LEGACY_CONST char *datedit_get_property(DATAFILE_PROPERTY **prop, int type);
+char *datedit_pretty_name(AL_CONST char *name, AL_CONST char *ext, int force_ext);
+int datedit_clean_typename(AL_CONST char *type);
+AL_CONST char *datedit_get_property(DATAFILE_PROPERTY **prop, int type);
 int datedit_numprop(DATAFILE_PROPERTY **prop, int type);
-void datedit_insert_property(DATAFILE_PROPERTY **prop, int type, AL_LEGACY_CONST char *value);
-void datedit_set_property(DATAFILE *dat, int type, AL_LEGACY_CONST char *value);
+void datedit_insert_property(DATAFILE_PROPERTY **prop, int type, AL_CONST char *value);
+void datedit_set_property(DATAFILE *dat, int type, AL_CONST char *value);
 void datedit_find_character(BITMAP *bmp, int *x, int *y, int *w, int *h);
 DATAFILE *datedit_construct(int type, void *dat, long size, DATAFILE_PROPERTY **prop);
-AL_LEGACY_CONST char *datedit_desc(AL_LEGACY_CONST DATAFILE *dat);
+AL_CONST char *datedit_desc(AL_CONST DATAFILE *dat);
 void datedit_sort_datafile(DATAFILE *dat);
 void datedit_sort_properties(DATAFILE_PROPERTY *prop);
-long datedit_asc2ftime(AL_LEGACY_CONST char *time);
-AL_LEGACY_CONST char *datedit_ftime2asc(long time);
-AL_LEGACY_CONST char *datedit_ftime2asc_int(long time);
-AL_LEGACY_CONST char *datedit_grab_ext(int type);
-AL_LEGACY_CONST char *datedit_export_ext(int type);
+long datedit_asc2ftime(AL_CONST char *time);
+AL_CONST char *datedit_ftime2asc(long time);
+AL_CONST char *datedit_ftime2asc_int(long time);
+AL_CONST char *datedit_grab_ext(int type);
+AL_CONST char *datedit_export_ext(int type);
 
 
 
@@ -145,35 +145,35 @@ typedef struct DATEDIT_SAVE_DATAFILE_OPTIONS {
 
 
 
-DATAFILE *datedit_load_datafile(AL_LEGACY_CONST char *name, int compile_sprites, AL_LEGACY_CONST char *password);
-int datedit_save_datafile(DATAFILE *dat, AL_LEGACY_CONST char *name, AL_LEGACY_CONST int *fixed_prop, AL_LEGACY_CONST DATEDIT_SAVE_DATAFILE_OPTIONS *options, AL_LEGACY_CONST char *password);
-int datedit_save_header(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *headername, AL_LEGACY_CONST char *progname, AL_LEGACY_CONST char *prefix, int verbose);
+DATAFILE *datedit_load_datafile(AL_CONST char *name, int compile_sprites, AL_CONST char *password);
+int datedit_save_datafile(DATAFILE *dat, AL_CONST char *name, AL_CONST int *fixed_prop, AL_CONST DATEDIT_SAVE_DATAFILE_OPTIONS *options, AL_CONST char *password);
+int datedit_save_header(AL_CONST DATAFILE *dat, AL_CONST char *name, AL_CONST char *headername, AL_CONST char *progname, AL_CONST char *prefix, int verbose);
 
-int datedit_export(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *name);
-void datedit_export_name(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *ext, char *buf);
+int datedit_export(AL_CONST DATAFILE *dat, AL_CONST char *name);
+void datedit_export_name(AL_CONST DATAFILE *dat, AL_CONST char *name, AL_CONST char *ext, char *buf);
 
-DATAFILE *datedit_insert(DATAFILE *dat, DATAFILE **ret, AL_LEGACY_CONST char *name, int type, void *v, long size);
+DATAFILE *datedit_insert(DATAFILE *dat, DATAFILE **ret, AL_CONST char *name, int type, void *v, long size);
 DATAFILE *datedit_delete(DATAFILE *dat, int i);
 
 void datedit_swap(DATAFILE *dat, int i1, int i2);
 
 
 typedef struct DATEDIT_GRAB_PARAMETERS {
-   AL_LEGACY_CONST char *datafile;  /* absolute filename of the datafile              */
-   AL_LEGACY_CONST char *filename;  /* absolute filename of the original file         */
-   AL_LEGACY_CONST char *name;      /* name of the object                             */
+   AL_CONST char *datafile;  /* absolute filename of the datafile              */
+   AL_CONST char *filename;  /* absolute filename of the original file         */
+   AL_CONST char *name;      /* name of the object                             */
    int type;                 /* type of the object                             */
    int x, y, w, h;           /* area to grab within the bitmap                 */
    int colordepth;           /* color depth to grab to                         */
    int relative;             /* whether to use relative filenames for DAT_ORIG */
 } DATEDIT_GRAB_PARAMETERS;
 
-DATAFILE *datedit_grabnew(DATAFILE *dat, AL_LEGACY_CONST DATEDIT_GRAB_PARAMETERS *params);
-int datedit_grabreplace(DATAFILE *dat, AL_LEGACY_CONST DATEDIT_GRAB_PARAMETERS *params);
+DATAFILE *datedit_grabnew(DATAFILE *dat, AL_CONST DATEDIT_GRAB_PARAMETERS *params);
+int datedit_grabreplace(DATAFILE *dat, AL_CONST DATEDIT_GRAB_PARAMETERS *params);
 int datedit_grabupdate(DATAFILE *dat, DATEDIT_GRAB_PARAMETERS *params);
-DATAFILE *datedit_grab(DATAFILE_PROPERTY *prop, AL_LEGACY_CONST DATEDIT_GRAB_PARAMETERS *params);
+DATAFILE *datedit_grab(DATAFILE_PROPERTY *prop, AL_CONST DATEDIT_GRAB_PARAMETERS *params);
 
-int datedit_update(DATAFILE *dat, AL_LEGACY_CONST char *datafile, int force, int verbose, int *changed);
+int datedit_update(DATAFILE *dat, AL_CONST char *datafile, int force, int verbose, int *changed);
 
 extern void (*grabber_sel_palette)(PALETTE pal);
 extern void (*grabber_select_property)(int type);

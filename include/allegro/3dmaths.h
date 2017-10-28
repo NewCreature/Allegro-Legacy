@@ -50,8 +50,8 @@ AL_LEGACY_VAR(float, _persp_yoffset_f);
 
 AL_LEGACY_FUNC(void, set_projection_viewport, (int x, int y, int w, int h));
 
-AL_LEGACY_FUNC(void, quat_to_matrix, (AL_LEGACY_CONST struct QUAT *q, struct MATRIX_f *m));
-AL_LEGACY_FUNC(void, matrix_to_quat, (AL_LEGACY_CONST struct MATRIX_f *m, struct QUAT *q));
+AL_LEGACY_FUNC(void, quat_to_matrix, (AL_CONST struct QUAT *q, struct MATRIX_f *m));
+AL_LEGACY_FUNC(void, matrix_to_quat, (AL_CONST struct MATRIX_f *m, struct QUAT *q));
 
 #ifdef __cplusplus
    }

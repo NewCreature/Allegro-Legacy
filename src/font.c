@@ -444,7 +444,7 @@ int allegro_404_char = '^';
  *  (mono and color vtable entry)
  *  Returns the height, in pixels of the font.
  */
-static int font_height(AL_LEGACY_CONST FONT *f)
+static int font_height(AL_CONST FONT *f)
 {
    ASSERT(f);
    return f->height;
@@ -456,10 +456,10 @@ static int font_height(AL_LEGACY_CONST FONT *f)
  *  (mono and color vtable entry)
  *  Returns the length, in pixels, of a string as rendered in a font.
  */
-static int length(AL_LEGACY_CONST FONT* f, AL_LEGACY_CONST char* text)
+static int length(AL_CONST FONT* f, AL_CONST char* text)
 {
     int ch = 0, w = 0;
-    AL_LEGACY_CONST char* p = text;
+    AL_CONST char* p = text;
     ASSERT(text);
     ASSERT(f);
 
@@ -475,7 +475,7 @@ static int length(AL_LEGACY_CONST FONT* f, AL_LEGACY_CONST char* text)
 /* _mono_find_glyph:
  *  Helper for mono vtable, below.
  */
-FONT_GLYPH* _mono_find_glyph(AL_LEGACY_CONST FONT* f, int ch)
+FONT_GLYPH* _mono_find_glyph(AL_CONST FONT* f, int ch)
 {
     FONT_MONO_DATA* mf = (FONT_MONO_DATA*)(f->data);
 
@@ -497,7 +497,7 @@ FONT_GLYPH* _mono_find_glyph(AL_LEGACY_CONST FONT* f, int ch)
  *  Returns the length, in pixels, of a character as rendered in a
  *  monochrome font.
  */
-static int mono_char_length(AL_LEGACY_CONST FONT* f, int ch)
+static int mono_char_length(AL_CONST FONT* f, int ch)
 {
     FONT_GLYPH* g = _mono_find_glyph(f, ch);
     return g ? g->w : 0;
@@ -510,7 +510,7 @@ static int mono_char_length(AL_LEGACY_CONST FONT* f, int ch)
  *  Renders a character, in a monochrome font, onto a bitmap at a given
  *  location and in given colors. Returns the character width, in pixels.
  */
-static int mono_render_char(AL_LEGACY_CONST FONT* f, int ch, int fg, int bg, BITMAP* bmp, int x, int y)
+static int mono_render_char(AL_CONST FONT* f, int ch, int fg, int bg, BITMAP* bmp, int x, int y)
 {
     int w = 0;
     FONT_GLYPH* g = 0;
@@ -535,10 +535,10 @@ static int mono_render_char(AL_LEGACY_CONST FONT* f, int ch, int fg, int bg, BIT
  *  Renders a string, in a monochrome font, onto a bitmap at a given
  *  location and in given colors.
  */
-static void mono_render(AL_LEGACY_CONST FONT* f, AL_LEGACY_CONST char* text, int fg, int bg, BITMAP* bmp, int x, int y)
+static void mono_render(AL_CONST FONT* f, AL_CONST char* text, int fg, int bg, BITMAP* bmp, int x, int y)
 {
     int ch = 0;
-    AL_LEGACY_CONST char* p = text;
+    AL_CONST char* p = text;
 
     acquire_bitmap(bmp);
 
@@ -860,7 +860,7 @@ static int mono_transpose_font(FONT* f, int drange)
 /* _color_find_glyph:
  *  Helper for color vtable entries, below.
  */
-BITMAP* _color_find_glyph(AL_LEGACY_CONST FONT* f, int ch)
+BITMAP* _color_find_glyph(AL_CONST FONT* f, int ch)
 {
     FONT_COLOR_DATA* cf = (FONT_COLOR_DATA*)(f->data);
 
@@ -882,7 +882,7 @@ BITMAP* _color_find_glyph(AL_LEGACY_CONST FONT* f, int ch)
  *  Returns the length of a character, in pixels, as it would be rendered
  *  in this font.
  */
-static int color_char_length(AL_LEGACY_CONST FONT* f, int ch)
+static int color_char_length(AL_CONST FONT* f, int ch)
 {
     BITMAP* g = _color_find_glyph(f, ch);
     return g ? g->w : 0;
@@ -897,7 +897,7 @@ static int color_char_length(AL_LEGACY_CONST FONT* f, int ch)
  *  mono; if bg == -1, render as transparent, else render as opaque.
  *  Returns the character width, in pixels.
  */
-static int color_render_char(AL_LEGACY_CONST FONT* f, int ch, int fg, int bg, BITMAP* bmp, int x, int y)
+static int color_render_char(AL_CONST FONT* f, int ch, int fg, int bg, BITMAP* bmp, int x, int y)
 {
     int w = 0;
     int h = f->vtable->font_height(f);
@@ -959,7 +959,7 @@ static int color_render_char(AL_LEGACY_CONST FONT* f, int ch, int fg, int bg, BI
  *  using the specified colors. fg is ignored. if bg == -1, render as
  *  transparent, else render as opaque. Returns the character width, in pixels.
  */
-static int trans_render_char(AL_LEGACY_CONST FONT* f, int ch, int fg, int bg, BITMAP* bmp, int x, int y)
+static int trans_render_char(AL_CONST FONT* f, int ch, int fg, int bg, BITMAP* bmp, int x, int y)
 {
     int w = 0;
     int h = f->vtable->font_height(f);
@@ -990,9 +990,9 @@ static int trans_render_char(AL_LEGACY_CONST FONT* f, int ch, int fg, int bg, BI
  *  the specified colors. If fg == -1, render as color, else render as
  *  mono; if bg == -1, render as transparent, else render as opaque.
  */
-static void color_render(AL_LEGACY_CONST FONT* f, AL_LEGACY_CONST char* text, int fg, int bg, BITMAP* bmp, int x, int y)
+static void color_render(AL_CONST FONT* f, AL_CONST char* text, int fg, int bg, BITMAP* bmp, int x, int y)
 {
-    AL_LEGACY_CONST char* p = text;
+    AL_CONST char* p = text;
     int ch = 0;
 
     acquire_bitmap(bmp);

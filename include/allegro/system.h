@@ -93,7 +93,7 @@ AL_LEGACY_INLINE(int, install_allegro, (int system_id, int *errno_ptr,
 
 AL_LEGACY_FUNC(void, allegro_exit, (void));
 
-AL_LEGACY_PRINTFUNC(void, allegro_message, (AL_LEGACY_CONST char *msg, ...), 1, 2);
+AL_LEGACY_PRINTFUNC(void, allegro_message, (AL_CONST char *msg, ...), 1, 2);
 AL_LEGACY_FUNC(void, get_executable_name, (char *output, int size));
 AL_LEGACY_FUNC(int, set_close_button_callback, (AL_LEGACY_METHOD(void, proc, (void))));
 
@@ -199,17 +199,17 @@ AL_LEGACY_VAR(int, cpu_capabilities);
 typedef struct SYSTEM_DRIVER
 {
    int  id;
-   AL_LEGACY_CONST char *name;
-   AL_LEGACY_CONST char *desc;
-   AL_LEGACY_CONST char *ascii_name;
+   AL_CONST char *name;
+   AL_CONST char *desc;
+   AL_CONST char *ascii_name;
    AL_LEGACY_METHOD(int, init, (void));
    AL_LEGACY_METHOD(void, exit, (void));
    AL_LEGACY_METHOD(void, get_executable_name, (char *output, int size));
-   AL_LEGACY_METHOD(int, find_resource, (char *dest, AL_LEGACY_CONST char *resource, int size));
-   AL_LEGACY_METHOD(void, set_window_title, (AL_LEGACY_CONST char *name));
+   AL_LEGACY_METHOD(int, find_resource, (char *dest, AL_CONST char *resource, int size));
+   AL_LEGACY_METHOD(void, set_window_title, (AL_CONST char *name));
    AL_LEGACY_METHOD(int, set_close_button_callback, (AL_LEGACY_METHOD(void, proc, (void))));
-   AL_LEGACY_METHOD(void, message, (AL_LEGACY_CONST char *msg));
-   AL_LEGACY_METHOD(void, assert_buffer, (AL_LEGACY_CONST char *msg));
+   AL_LEGACY_METHOD(void, message, (AL_CONST char *msg));
+   AL_LEGACY_METHOD(void, assert_buffer, (AL_CONST char *msg));
    AL_LEGACY_METHOD(void, save_console_state, (void));
    AL_LEGACY_METHOD(void, restore_console_state, (void));
    AL_LEGACY_METHOD(struct BITMAP *, create_bitmap, (int color_depth, int width, int height));
@@ -218,7 +218,7 @@ typedef struct SYSTEM_DRIVER
    AL_LEGACY_METHOD(void, created_sub_bitmap, (struct BITMAP *bmp, struct BITMAP *parent));
    AL_LEGACY_METHOD(int, destroy_bitmap, (struct BITMAP *bitmap));
    AL_LEGACY_METHOD(void, read_hardware_palette, (void));
-   AL_LEGACY_METHOD(void, set_palette_range, (AL_LEGACY_CONST struct RGB *p, int from, int to, int retracesync));
+   AL_LEGACY_METHOD(void, set_palette_range, (AL_CONST struct RGB *p, int from, int to, int retracesync));
    AL_LEGACY_METHOD(struct GFX_VTABLE *, get_vtable, (int color_depth));
    AL_LEGACY_METHOD(int, set_display_switch_mode, (int mode));
    AL_LEGACY_METHOD(void, display_switch_lock, (int lock, int foreground));

@@ -74,7 +74,7 @@
 #define int64_t      signed __int64
 #define uint64_t     unsigned __int64
 
-#define AL_LEGACY_CONST     const
+#define AL_CONST     const
 
 /* windows specific defines */
 #ifdef NONAMELESSUNION

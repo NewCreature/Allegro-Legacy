@@ -27,10 +27,10 @@
  *  Polygon helper function: initialises an edge structure for the 2d
  *  rasteriser.
  */
-static void fill_edge_structure(POLYGON_EDGE *edge, AL_LEGACY_CONST int *i1, AL_LEGACY_CONST int *i2)
+static void fill_edge_structure(POLYGON_EDGE *edge, AL_CONST int *i1, AL_CONST int *i2)
 {
    if (i2[1] < i1[1]) {
-      AL_LEGACY_CONST int *it;
+      AL_CONST int *it;
 
       it = i1;
       i1 = i2;
@@ -115,12 +115,12 @@ POLYGON_EDGE *_remove_edge(POLYGON_EDGE *list, POLYGON_EDGE *edge)
  *  number of vertices, then an array containing a series of x, y points 
  *  (a total of vertices*2 values).
  */
-void _soft_polygon(BITMAP *bmp, int vertices, AL_LEGACY_CONST int *points, int color)
+void _soft_polygon(BITMAP *bmp, int vertices, AL_CONST int *points, int color)
 {
    int c;
    int top = INT_MAX;
    int bottom = INT_MIN;
-   AL_LEGACY_CONST int *i1, *i2;
+   AL_CONST int *i1, *i2;
    POLYGON_EDGE *edge, *next_edge;
    POLYGON_EDGE *active_edges = NULL;
    POLYGON_EDGE *inactive_edges = NULL;

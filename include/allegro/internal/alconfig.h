@@ -151,8 +151,8 @@
       #define ALLEGRO_LEGACY_ARM
    #endif
 
-   #ifndef AL_LEGACY_CONST
-      #define AL_LEGACY_CONST     const
+   #ifndef AL_CONST
+      #define AL_CONST     const
    #endif
 
    #ifndef AL_LEGACY_FUNC_DEPRECATED
@@ -209,8 +209,8 @@
    #define ZERO_SIZE_ARRAY(type, name)             type name[]
 #endif
 
-#ifndef AL_LEGACY_CONST
-   #define AL_LEGACY_CONST
+#ifndef AL_CONST
+   #define AL_CONST
 #endif
 
 #ifndef AL_LEGACY_VAR
@@ -317,7 +317,7 @@
 
 /* emulate missing library functions */
 #ifdef ALLEGRO_LEGACY_NO_STRICMP
-   AL_LEGACY_FUNC(int, _alemu_stricmp, (AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2));
+   AL_LEGACY_FUNC(int, _alemu_stricmp, (AL_CONST char *s1, AL_CONST char *s2));
    #define stricmp _alemu_stricmp
 #endif
 
@@ -332,7 +332,7 @@
 #endif
 
 #ifdef ALLEGRO_LEGACY_NO_MEMCMP
-   AL_LEGACY_FUNC(int, _alemu_memcmp, (AL_LEGACY_CONST void *s1, AL_LEGACY_CONST void *s2, size_t num));
+   AL_LEGACY_FUNC(int, _alemu_memcmp, (AL_CONST void *s1, AL_CONST void *s2, size_t num));
    #define memcmp _alemu_memcmp
 #endif
 

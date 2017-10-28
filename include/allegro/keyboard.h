@@ -28,9 +28,9 @@
 typedef struct KEYBOARD_DRIVER
 {
    int  id;
-   AL_LEGACY_CONST char *name;
-   AL_LEGACY_CONST char *desc;
-   AL_LEGACY_CONST char *ascii_name;
+   AL_CONST char *name;
+   AL_CONST char *desc;
+   AL_CONST char *ascii_name;
    int autorepeat;
    AL_LEGACY_METHOD(int,  init, (void));
    AL_LEGACY_METHOD(void, exit, (void));
@@ -40,7 +40,7 @@ typedef struct KEYBOARD_DRIVER
    AL_LEGACY_METHOD(void, wait_for_input, (void));
    AL_LEGACY_METHOD(void, stop_waiting_for_input, (void));
    AL_LEGACY_METHOD(int,  scancode_to_ascii, (int scancode));
-   AL_LEGACY_METHOD(AL_LEGACY_CONST char *, scancode_to_name, (int scancode));
+   AL_LEGACY_METHOD(AL_CONST char *, scancode_to_name, (int scancode));
 } KEYBOARD_DRIVER;
 
 
@@ -74,7 +74,7 @@ AL_LEGACY_FUNC(void, clear_keybuf, (void));
 AL_LEGACY_FUNC(void, set_leds, (int leds));
 AL_LEGACY_FUNC(void, set_keyboard_rate, (int delay, int repeat));
 AL_LEGACY_FUNC(int, scancode_to_ascii, (int scancode));
-AL_LEGACY_FUNC(AL_LEGACY_CONST char *, scancode_to_name, (int scancode));
+AL_LEGACY_FUNC(AL_CONST char *, scancode_to_name, (int scancode));
 
 /* The KEY_ macros are no longer #defined directly to avoid conflicting with
  * linux (which has its own KEY_ constants).  "__allegro_"-prefixed constants

@@ -361,7 +361,7 @@ static int fs_edit_proc(int msg, DIALOG *d, int c)
  *  ustricmp for filenames: makes sure that eg "foo.bar" comes before
  *  "foo-1.bar", and also that "foo9.bar" comes before "foo10.bar".
  */
-static int ustrfilecmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
+static int ustrfilecmp(AL_CONST char *s1, AL_CONST char *s2)
 {
    int c1, c2;
    int x1, x2;
@@ -403,7 +403,7 @@ static int ustrfilecmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
 /* fs_flist_putter:
  *  Callback routine for for_each_file() to fill the file selector listbox.
  */
-static int fs_flist_putter(AL_LEGACY_CONST char *str, int attrib, void *check_attrib)
+static int fs_flist_putter(AL_CONST char *str, int attrib, void *check_attrib)
 {
    char *s, *ext, *name;
    int c, c2;
@@ -639,7 +639,7 @@ static int fs_flist_proc(int msg, DIALOG *d, int c)
 /* parse_extension_string:
  *  Parses the extension string, possibly containing attribute characters.
  */
-static void parse_extension_string(AL_LEGACY_CONST char *ext)
+static void parse_extension_string(AL_CONST char *ext)
 {
    attrb_state_t state;
    char ext_tokens[32], attrb_char[32];
@@ -839,7 +839,7 @@ static void stretch_dialog(DIALOG *d, int width, int height)
  *  includes only files with .PCX or .BMP extensions. Returns zero if it 
  *  was closed with the Cancel button or non-zero if it was OK'd.
  */
-int file_select_ex(AL_LEGACY_CONST char *message, char *path, AL_LEGACY_CONST char *ext, int size, int width, int height)
+int file_select_ex(AL_CONST char *message, char *path, AL_CONST char *ext, int size, int width, int height)
 {
    static attrb_state_t default_attrb_state[ATTRB_MAX] = DEFAULT_ATTRB_STATE;
    int ret;

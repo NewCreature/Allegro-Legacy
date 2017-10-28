@@ -133,7 +133,7 @@ static void usage(void)
 
 
 /* callback for outputting messages */
-void datedit_msg(AL_LEGACY_CONST char *fmt, ...)
+void datedit_msg(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -148,7 +148,7 @@ void datedit_msg(AL_LEGACY_CONST char *fmt, ...)
 
 
 /* callback for starting a 2-part message output */
-void datedit_startmsg(AL_LEGACY_CONST char *fmt, ...)
+void datedit_startmsg(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -164,7 +164,7 @@ void datedit_startmsg(AL_LEGACY_CONST char *fmt, ...)
 
 
 /* callback for ending a 2-part message output */
-void datedit_endmsg(AL_LEGACY_CONST char *fmt, ...)
+void datedit_endmsg(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -179,7 +179,7 @@ void datedit_endmsg(AL_LEGACY_CONST char *fmt, ...)
 
 
 /* callback for printing errors */
-void datedit_error(AL_LEGACY_CONST char *fmt, ...)
+void datedit_error(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -196,7 +196,7 @@ void datedit_error(AL_LEGACY_CONST char *fmt, ...)
 
 
 /* callback for asking questions */
-int datedit_ask(AL_LEGACY_CONST char *fmt, ...)
+int datedit_ask(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -274,7 +274,7 @@ int datedit_ask(AL_LEGACY_CONST char *fmt, ...)
 
 /* callback for the datedit functions to show a list of options */
 /* Returns -1 if canceled */
-int datedit_select(AL_LEGACY_CONST char *(*list_getter)(int index, int *list_size), AL_LEGACY_CONST char *fmt, ...)
+int datedit_select(AL_CONST char *(*list_getter)(int index, int *list_size), AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -304,7 +304,7 @@ int datedit_select(AL_LEGACY_CONST char *(*list_getter)(int index, int *list_siz
 
 
 /* checks if a string is one of the names specified on the command line */
-static int is_name(AL_LEGACY_CONST char *name)
+static int is_name(AL_CONST char *name)
 {
    char str1[256], str2[256];
    int i, e;
@@ -337,10 +337,10 @@ static int is_name(AL_LEGACY_CONST char *name)
 
 
 /* does a view operation */
-static void do_view(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *parentname)
+static void do_view(AL_CONST DATAFILE *dat, AL_CONST char *parentname)
 {
    int i, j;
-   AL_LEGACY_CONST char *name;
+   AL_CONST char *name;
    DATAFILE_PROPERTY *prop;
    char tmp[256];
 
@@ -385,7 +385,7 @@ static void do_view(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *parentn
 static void do_export(DATAFILE *dat, char *parentname)
 {
    int i;
-   AL_LEGACY_CONST char *name;
+   AL_CONST char *name;
    char tmp[256];
 
    for (i=0; dat[i].type != DAT_END; i++) {
@@ -416,7 +416,7 @@ static void do_export(DATAFILE *dat, char *parentname)
 static void do_delete(DATAFILE **dat, char *parentname)
 {
    int i;
-   AL_LEGACY_CONST char *name;
+   AL_CONST char *name;
    char tmp[256];
 
    for (i=0; (*dat)[i].type != DAT_END; i++) {
@@ -444,7 +444,7 @@ static void do_delete(DATAFILE **dat, char *parentname)
 
 
 /* open a sub-datafile in the parent datafile */
-static DATAFILE *open_sub_datafile(DATAFILE *parent, AL_LEGACY_CONST char *name)
+static DATAFILE *open_sub_datafile(DATAFILE *parent, AL_CONST char *name)
 {
    DATAFILE *dat;
    int c;
@@ -470,7 +470,7 @@ static DATAFILE *open_sub_datafile(DATAFILE *parent, AL_LEGACY_CONST char *name)
 
 
 /* close a sub-datafile from the parent datafile */
-static DATAFILE *close_sub_datafile(DATAFILE *parent, AL_LEGACY_CONST char *name, DATAFILE *dat)
+static DATAFILE *close_sub_datafile(DATAFILE *parent, AL_CONST char *name, DATAFILE *dat)
 {
    int c;
 
@@ -489,7 +489,7 @@ static DATAFILE *close_sub_datafile(DATAFILE *parent, AL_LEGACY_CONST char *name
 
 
 /* adds a file to the archive */
-static int do_add_file(AL_LEGACY_CONST char *filename, int attrib, void *param)
+static int do_add_file(AL_CONST char *filename, int attrib, void *param)
 {
    DATEDIT_GRAB_PARAMETERS params;
    DATAFILE **dat = param;
@@ -579,7 +579,7 @@ static int do_add_file(AL_LEGACY_CONST char *filename, int attrib, void *param)
 static void do_update(DATAFILE *dat, int force, char *parentname)
 {
    int i;
-   AL_LEGACY_CONST char *name;
+   AL_CONST char *name;
    char tmp[256];
 
    for (i=0; dat[i].type != DAT_END; i++) {
@@ -608,7 +608,7 @@ static void do_update(DATAFILE *dat, int force, char *parentname)
 static void do_set_props(DATAFILE *dat, char *parentname)
 {
    int i, j;
-   AL_LEGACY_CONST char *name;
+   AL_CONST char *name;
    char tmp[256];
    char propname[256], *propvalue;
    int type;
@@ -662,7 +662,7 @@ static void do_set_props(DATAFILE *dat, char *parentname)
 static void do_setpal(DATAFILE **dat, char *parentname)
 {
    int i;
-   AL_LEGACY_CONST char *name;
+   AL_CONST char *name;
    char tmp[256];
 
    for (i=0; (*dat)[i].type != DAT_END; i++) {
@@ -700,7 +700,7 @@ static void do_setpal(DATAFILE **dat, char *parentname)
 /* recursive helper for writing out datafile dependencies */
 static void save_dependencies(DATAFILE *dat, FILE *f, int *depth)
 {
-   AL_LEGACY_CONST char *orig;
+   AL_CONST char *orig;
    int c, i;
    int hasspace;
 

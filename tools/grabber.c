@@ -544,7 +544,7 @@ static int foreach_selection(int (*proc)(DATAFILE *, int *, int), int *count, in
 
 
 /* checks whether two menus have the same name */
-static int compare_menu_names(AL_LEGACY_CONST char *n1, AL_LEGACY_CONST char *n2)
+static int compare_menu_names(AL_CONST char *n1, AL_CONST char *n2)
 {
    char buf1[256], buf2[256];
    int i, j;
@@ -684,7 +684,7 @@ static void add_menu_shortcuts(MENU *menu)
 
 
 /* allow plugins to override the default menu actions */
-static int check_menu_hook(AL_LEGACY_CONST char *name, int flags, int *ret)
+static int check_menu_hook(AL_CONST char *name, int flags, int *ret)
 {
    int i;
 
@@ -1410,7 +1410,7 @@ static DIALOG prop_dlg[] =
 
 
 /* brings up the property/new object dialog */
-static int do_edit(char *title, char *type_string, char *value_string, int type, AL_LEGACY_CONST char *val, int change_type, int show_type)
+static int do_edit(char *title, char *type_string, char *value_string, int type, AL_CONST char *val, int change_type, int show_type)
 {
    prop_dlg[PROP_DLG_TITLE].dp = title;
    prop_dlg[PROP_DLG_TYPE_STRING].dp = type_string;
@@ -1467,7 +1467,7 @@ static void alert_no_selection(void)
 
 
 /* brings up the property editing dialog */
-static int edit_property(char *title, char *value_string, int type, AL_LEGACY_CONST char *val, int change_type, int show_type)
+static int edit_property(char *title, char *value_string, int type, AL_CONST char *val, int change_type, int show_type)
 {
    int sel = single_selection();
    DATAITEM *dat;
@@ -1613,12 +1613,12 @@ static int folded_size = 0;
 
 
 /* helper function for comparing two pointers */
-static INLINE int ptr_cmp(AL_LEGACY_CONST void *elem_p1, AL_LEGACY_CONST void *elem_p2)
+static INLINE int ptr_cmp(AL_CONST void *elem_p1, AL_CONST void *elem_p2)
 {
-   AL_LEGACY_CONST void *ptr1 = *(AL_LEGACY_CONST void **)elem_p1;
-   AL_LEGACY_CONST void *ptr2 = *(AL_LEGACY_CONST void **)elem_p2;
+   AL_CONST void *ptr1 = *(AL_CONST void **)elem_p1;
+   AL_CONST void *ptr2 = *(AL_CONST void **)elem_p2;
 
-   return (int)((AL_LEGACY_CONST unsigned long)ptr2 - (AL_LEGACY_CONST unsigned long)ptr1);
+   return (int)((AL_CONST unsigned long)ptr2 - (AL_CONST unsigned long)ptr1);
 }
 
 
@@ -1668,7 +1668,7 @@ static int is_datafile_folded(DATAFILE *dat)
 
 
 /* displays a datafile in the grabber object view window */
-static void plot_datafile(AL_LEGACY_CONST DATAFILE *dat, int x, int y)
+static void plot_datafile(AL_CONST DATAFILE *dat, int x, int y)
 {
    textout_ex(screen,
 	      font,
@@ -1857,7 +1857,7 @@ static void update_info(void)
 /* helper for recovering data stored in the info chunk */
 static void retrieve_property(int object, int type, char *def)
 {
-   AL_LEGACY_CONST char *p = get_datafile_property(&datedit_info, type);
+   AL_CONST char *p = get_datafile_property(&datedit_info, type);
 
    if ((p) && (*p))
       strcpy(main_dlg[object].dp, p);
@@ -1877,7 +1877,7 @@ static void load(char *filename, int flush)
    int new_obj_count;
    int items_num;
    int sort;
-   AL_LEGACY_CONST char *sort_prop;
+   AL_CONST char *sort_prop;
 
    set_busy_mouse(TRUE);
 
@@ -2203,7 +2203,7 @@ static int strip_saver(void)
 
 
 /* worker function for the update commands */
-static int update_worker(AL_LEGACY_CONST char *name, int selection_only, int force)
+static int update_worker(AL_CONST char *name, int selection_only, int force)
 {
    int c;
    int nowhere;
@@ -2278,7 +2278,7 @@ static int force_sel_updater(void)
 
 
 /* formats a heading for the file select dialog */
-static void format_file_select_heading(char *dest, char *s1, char *s2, AL_LEGACY_CONST char *ext)
+static void format_file_select_heading(char *dest, char *s1, char *s2, AL_CONST char *ext)
 {
    int len;
 
@@ -2315,7 +2315,7 @@ static int reader(void)
    DATAFILE *dat;
    char buf[FILENAME_LENGTH], buf2[256];
    DATEDIT_GRAB_PARAMETERS params;
-   AL_LEGACY_CONST char *s;
+   AL_CONST char *s;
 
    CHECK_MENU_HOOK("Read", DATEDIT_MENU_FILE);
 
@@ -2436,7 +2436,7 @@ static int grabber(void)
 {
    DATAFILE *dat;
    char *desc = "binary data";
-   AL_LEGACY_CONST char *ext, *origin;
+   AL_CONST char *ext, *origin;
    DATEDIT_GRAB_PARAMETERS params;
    char buf[256], name[FILENAME_LENGTH];
    int sel;
@@ -2519,7 +2519,7 @@ static int grabber(void)
 static int exporter(void)
 {
    char *desc = "binary data";
-   AL_LEGACY_CONST char *ext;
+   AL_CONST char *ext;
    char buf[256], name[FILENAME_LENGTH];
    DATAFILE *dat;
    int sel;
@@ -2583,7 +2583,7 @@ static int deleter(void)
    int todel_count = 0;
    int todel_alloc = 0;
    char buf[256];
-   AL_LEGACY_CONST char *name = "";
+   AL_CONST char *name = "";
    int first = 0;
    int i;
 
@@ -2723,7 +2723,7 @@ static int replacer(int type)
 {
    DATAFILE *dat;
    char buf[256];
-   AL_LEGACY_CONST char *name;
+   AL_CONST char *name;
    int i, sel;
    void *v = NULL;
    long size;
@@ -3099,7 +3099,7 @@ static DIALOG sys_dlg[] =
 static int sysinfo(void)
 {
    char *systext;
-   AL_LEGACY_CONST char* s;
+   AL_CONST char* s;
    int i, type;
 
    CHECK_MENU_HOOK("System", DATEDIT_MENU_HELP);
@@ -3320,7 +3320,7 @@ static int sheller(void)
    DATAFILE *dat;
    char buf[256], cmd[256], ext[256], filename[256];
    DATEDIT_GRAB_PARAMETERS params;
-   AL_LEGACY_CONST char *s, * s2, *origin;
+   AL_CONST char *s, * s2, *origin;
 
    int oldw = SCREEN_W;
    int oldh = SCREEN_H;
@@ -3521,7 +3521,7 @@ static int sheller(void)
 
 
 /* callback for the datedit functions to display a message */
-void datedit_msg(AL_LEGACY_CONST char *fmt, ...)
+void datedit_msg(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -3543,7 +3543,7 @@ void datedit_msg(AL_LEGACY_CONST char *fmt, ...)
 
 
 /* callback for the datedit functions to start a multi-part message */
-void datedit_startmsg(AL_LEGACY_CONST char *fmt, ...)
+void datedit_startmsg(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -3558,7 +3558,7 @@ void datedit_startmsg(AL_LEGACY_CONST char *fmt, ...)
 
 
 /* callback for the datedit functions to end a multi-part message */
-void datedit_endmsg(AL_LEGACY_CONST char *fmt, ...)
+void datedit_endmsg(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -3580,7 +3580,7 @@ void datedit_endmsg(AL_LEGACY_CONST char *fmt, ...)
 
 
 /* callback for the datedit functions to report an error */
-void datedit_error(AL_LEGACY_CONST char *fmt, ...)
+void datedit_error(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -3600,7 +3600,7 @@ void datedit_error(AL_LEGACY_CONST char *fmt, ...)
 
 
 /* callback for the datedit functions to ask a question */
-int datedit_ask(AL_LEGACY_CONST char *fmt, ...)
+int datedit_ask(AL_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -3629,7 +3629,7 @@ int datedit_ask(AL_LEGACY_CONST char *fmt, ...)
 
 /* callback for the datedit functions to show a list of options */
 /* Returns -1 if canceled */
-int datedit_select(AL_LEGACY_CONST char *(*list_getter)(int index, int *list_size), AL_LEGACY_CONST char *fmt, ...)
+int datedit_select(AL_CONST char *(*list_getter)(int index, int *list_size), AL_CONST char *fmt, ...)
 {
    DIALOG datedit_select_dlg[] = {
       /* (dialog proc)     (x)   (y)   (w)   (h)   (fg)  (bg)  (key)    (flags)     (d1)           (d2)     (dp)                 (dp2) (dp3) */

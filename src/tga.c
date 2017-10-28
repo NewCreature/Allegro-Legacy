@@ -249,7 +249,7 @@ static void rle_tga_read16(unsigned short *b, int w, PACKFILE *f)
  *  palette data in the specified palette (this should be an array
  *  of at least 256 RGB structures).
  */
-BITMAP *load_tga(AL_LEGACY_CONST char *filename, RGB *pal)
+BITMAP *load_tga(AL_CONST char *filename, RGB *pal)
 {
    PACKFILE *f;
    BITMAP *bmp;
@@ -474,7 +474,7 @@ BITMAP *load_tga_pf(PACKFILE *f, RGB *pal)
  *  Writes a bitmap into a TGA file, using the specified palette (this
  *  should be an array of at least 256 RGB structures).
  */
-int save_tga(AL_LEGACY_CONST char *filename, BITMAP *bmp, AL_LEGACY_CONST RGB *pal)
+int save_tga(AL_CONST char *filename, BITMAP *bmp, AL_CONST RGB *pal)
 {
    PACKFILE *f;
    int ret;
@@ -499,7 +499,7 @@ int save_tga(AL_LEGACY_CONST char *filename, BITMAP *bmp, AL_LEGACY_CONST RGB *p
  *  offset into the file is left after the TGA file just written. On failure
  *  the offset is left at the end of whatever incomplete data was written.
  */
-int save_tga_pf(PACKFILE *f, BITMAP *bmp, AL_LEGACY_CONST RGB *pal)
+int save_tga_pf(PACKFILE *f, BITMAP *bmp, AL_CONST RGB *pal)
 {
    unsigned char image_palette[256][3];
    int x, y, c, r, g, b;

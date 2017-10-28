@@ -50,7 +50,7 @@ enum {
 AL_LEGACY_VAR(int, _screensaver_policy);
 
 
-AL_LEGACY_FUNCPTR(int, _al_trace_handler, (AL_LEGACY_CONST char *msg));
+AL_LEGACY_FUNCPTR(int, _al_trace_handler, (AL_CONST char *msg));
 
 
 /* malloc wrappers */
@@ -66,8 +66,8 @@ AL_LEGACY_FUNCPTR(int, _al_trace_handler, (AL_LEGACY_CONST char *msg));
 AL_LEGACY_FUNC(void *, _al_malloc, (size_t size));
 AL_LEGACY_FUNC(void, _al_free, (void *mem));
 AL_LEGACY_FUNC(void *, _al_realloc, (void *mem, size_t size));
-AL_LEGACY_FUNC(char *, _al_strdup, (AL_LEGACY_CONST char *string));
-AL_LEGACY_FUNC(char *, _al_ustrdup, (AL_LEGACY_CONST char *string));
+AL_LEGACY_FUNC(char *, _al_strdup, (AL_CONST char *string));
+AL_LEGACY_FUNC(char *, _al_ustrdup, (AL_CONST char *string));
 
 
 
@@ -87,7 +87,7 @@ AL_LEGACY_INLINE(void, _grow_scratch_mem, (int size),
 
 
 /* list of functions to call at program cleanup */
-AL_LEGACY_FUNC(void, _add_exit_func, (AL_LEGACY_METHOD(void, func, (void)), AL_LEGACY_CONST char *desc));
+AL_LEGACY_FUNC(void, _add_exit_func, (AL_LEGACY_METHOD(void, func, (void)), AL_CONST char *desc));
 AL_LEGACY_FUNC(void, _remove_exit_func, (AL_LEGACY_METHOD(void, func, (void))));
 
 
@@ -95,10 +95,10 @@ AL_LEGACY_FUNC(void, _remove_exit_func, (AL_LEGACY_METHOD(void, func, (void))));
 typedef struct UTYPE_INFO
 {
    int id;
-   AL_LEGACY_METHOD(int, u_getc, (AL_LEGACY_CONST char *s));
+   AL_LEGACY_METHOD(int, u_getc, (AL_CONST char *s));
    AL_LEGACY_METHOD(int, u_getx, (char **s));
    AL_LEGACY_METHOD(int, u_setc, (char *s, int c));
-   AL_LEGACY_METHOD(int, u_width, (AL_LEGACY_CONST char *s));
+   AL_LEGACY_METHOD(int, u_width, (AL_CONST char *s));
    AL_LEGACY_METHOD(int, u_cwidth, (int c));
    AL_LEGACY_METHOD(int, u_isok, (int c));
    int u_width_max;
@@ -112,9 +112,9 @@ AL_LEGACY_FUNC(UTYPE_INFO *, _find_utype, (int type));
 
 
 /* wrappers for implementing disk I/O on different platforms */
-AL_LEGACY_FUNC(int, _al_file_isok, (AL_LEGACY_CONST char *filename));
-AL_LEGACY_FUNC(uint64_t, _al_file_size_ex, (AL_LEGACY_CONST char *filename));
-AL_LEGACY_FUNC(time_t, _al_file_time, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(int, _al_file_isok, (AL_CONST char *filename));
+AL_LEGACY_FUNC(uint64_t, _al_file_size_ex, (AL_CONST char *filename));
+AL_LEGACY_FUNC(time_t, _al_file_time, (AL_CONST char *filename));
 AL_LEGACY_FUNC(int, _al_drive_exists, (int drive));
 AL_LEGACY_FUNC(int, _al_getdrive, (void));
 AL_LEGACY_FUNC(void, _al_getdcwd, (int drive, char *buf, int size));
@@ -122,16 +122,16 @@ AL_LEGACY_FUNC(void, _al_getdcwd, (int drive, char *buf, int size));
 AL_LEGACY_FUNC(void, _al_detect_filename_encoding, (void));
 
 /* obsolete; only exists for binary compatibility with 4.2.0 */
-AL_LEGACY_FUNC(long, _al_file_size, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(long, _al_file_size, (AL_CONST char *filename));
 
 
 /* packfile stuff */
 AL_LEGACY_VAR(int, _packfile_filesize);
 AL_LEGACY_VAR(int, _packfile_datasize);
 AL_LEGACY_VAR(int, _packfile_type);
-AL_LEGACY_FUNC(PACKFILE *, _pack_fdopen, (int fd, AL_LEGACY_CONST char *mode));
+AL_LEGACY_FUNC(PACKFILE *, _pack_fdopen, (int fd, AL_CONST char *mode));
 
-AL_LEGACY_FUNC(int, _al_lzss_incomplete_state, (AL_LEGACY_CONST LZSS_UNPACK_DATA *dat));
+AL_LEGACY_FUNC(int, _al_lzss_incomplete_state, (AL_CONST LZSS_UNPACK_DATA *dat));
 
 
 /* config stuff */
@@ -185,7 +185,7 @@ AL_LEGACY_FUNC(void, _handle_key_press, (int keycode, int scancode));
 AL_LEGACY_FUNC(void, _handle_key_release, (int scancode));
 
 AL_LEGACY_VAR(int, _keyboard_installed);
-AL_LEGACY_ARRAY(AL_LEGACY_CONST char *, _keyboard_common_names);
+AL_LEGACY_ARRAY(AL_CONST char *, _keyboard_common_names);
 AL_LEGACY_ARRAY(volatile char, _key);
 AL_LEGACY_VAR(volatile int, _key_shifts);
 
@@ -198,7 +198,7 @@ AL_LEGACY_ARRAY(char *, _pckeys_names);
 AL_LEGACY_FUNC(void, _pckeys_init, (void));
 AL_LEGACY_FUNC(void, _handle_pckey, (int code));
 AL_LEGACY_FUNC(int,  _pckey_scancode_to_ascii, (int scancode));
-AL_LEGACY_FUNC(AL_LEGACY_CONST char *, _pckey_scancode_to_name, (int scancode));
+AL_LEGACY_FUNC(AL_CONST char *, _pckey_scancode_to_name, (int scancode));
 
 AL_LEGACY_VAR(unsigned short *, _key_ascii_table);
 AL_LEGACY_VAR(unsigned short *, _key_capslock_table);
@@ -272,11 +272,11 @@ AL_LEGACY_FUNC(void, _draw_textbox, (char *thetext, int *listsize, int draw, int
 /* text- and font-related stuff */
 typedef struct FONT_VTABLE
 {
-   AL_LEGACY_METHOD(int, font_height, (AL_LEGACY_CONST FONT *f));
-   AL_LEGACY_METHOD(int, char_length, (AL_LEGACY_CONST FONT *f, int ch));
-   AL_LEGACY_METHOD(int, text_length, (AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *text));
-   AL_LEGACY_METHOD(int, render_char, (AL_LEGACY_CONST FONT *f, int ch, int fg, int bg, BITMAP *bmp, int x, int y));
-   AL_LEGACY_METHOD(void, render, (AL_LEGACY_CONST FONT *f, AL_LEGACY_CONST char *text, int fg, int bg, BITMAP *bmp, int x, int y));
+   AL_LEGACY_METHOD(int, font_height, (AL_CONST FONT *f));
+   AL_LEGACY_METHOD(int, char_length, (AL_CONST FONT *f, int ch));
+   AL_LEGACY_METHOD(int, text_length, (AL_CONST FONT *f, AL_CONST char *text));
+   AL_LEGACY_METHOD(int, render_char, (AL_CONST FONT *f, int ch, int fg, int bg, BITMAP *bmp, int x, int y));
+   AL_LEGACY_METHOD(void, render, (AL_CONST FONT *f, AL_CONST char *text, int fg, int bg, BITMAP *bmp, int x, int y));
    AL_LEGACY_METHOD(void, destroy, (FONT *f));
 
    AL_LEGACY_METHOD(int, get_font_ranges, (FONT *f));
@@ -294,8 +294,8 @@ AL_LEGACY_VAR(FONT_VTABLE *, font_vtable_color);
 AL_LEGACY_VAR(FONT_VTABLE, _font_vtable_trans);
 AL_LEGACY_VAR(FONT_VTABLE *, font_vtable_trans);
 
-AL_LEGACY_FUNC(FONT_GLYPH *, _mono_find_glyph, (AL_LEGACY_CONST FONT *f, int ch));
-AL_LEGACY_FUNC(BITMAP *, _color_find_glyph, (AL_LEGACY_CONST FONT *f, int ch));
+AL_LEGACY_FUNC(FONT_GLYPH *, _mono_find_glyph, (AL_CONST FONT *f, int ch));
+AL_LEGACY_FUNC(BITMAP *, _color_find_glyph, (AL_CONST FONT *f, int ch));
 
 typedef struct FONT_MONO_DATA 
 {
@@ -540,11 +540,11 @@ AL_LEGACY_FUNC(void, _linear_draw_sprite_h_flip8, (BITMAP *bmp, BITMAP *sprite, 
 AL_LEGACY_FUNC(void, _linear_draw_sprite_vh_flip8, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_trans_sprite8, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_lit_sprite8, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color));
-AL_LEGACY_FUNC(void, _linear_draw_rle_sprite8, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite8, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite8, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
+AL_LEGACY_FUNC(void, _linear_draw_rle_sprite8, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite8, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite8, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
 AL_LEGACY_FUNC(void, _linear_draw_character8, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color, int bg));
-AL_LEGACY_FUNC(void, _linear_draw_glyph8, (BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
+AL_LEGACY_FUNC(void, _linear_draw_glyph8, (BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
 AL_LEGACY_FUNC(void, _linear_blit8, (BITMAP *source,BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _linear_blit_backward8, (BITMAP *source,BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _linear_masked_blit8, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
@@ -560,10 +560,10 @@ AL_LEGACY_FUNC(void, _linear_hline15, (BITMAP *bmp, int x1, int y, int x2, int c
 AL_LEGACY_FUNC(void, _linear_draw_trans_sprite15, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_sprite15, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_lit_sprite15, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color));
-AL_LEGACY_FUNC(void, _linear_draw_rle_sprite15, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite15, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_rle_sprite15, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite15, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
+AL_LEGACY_FUNC(void, _linear_draw_rle_sprite15, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite15, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_rle_sprite15, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite15, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
 
 AL_LEGACY_FUNC(int,  _linear_getpixel16, (BITMAP *bmp, int x, int y));
 AL_LEGACY_FUNC(void, _linear_putpixel16, (BITMAP *bmp, int x, int y, int color));
@@ -578,12 +578,12 @@ AL_LEGACY_FUNC(void, _linear_draw_sprite_vh_flip16, (BITMAP *bmp, BITMAP *sprite
 AL_LEGACY_FUNC(void, _linear_draw_trans_sprite16, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_sprite16, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_lit_sprite16, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color));
-AL_LEGACY_FUNC(void, _linear_draw_rle_sprite16, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite16, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_rle_sprite16, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite16, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
+AL_LEGACY_FUNC(void, _linear_draw_rle_sprite16, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite16, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_rle_sprite16, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite16, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
 AL_LEGACY_FUNC(void, _linear_draw_character16, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color, int bg));
-AL_LEGACY_FUNC(void, _linear_draw_glyph16, (BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
+AL_LEGACY_FUNC(void, _linear_draw_glyph16, (BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
 AL_LEGACY_FUNC(void, _linear_blit16, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _linear_blit_backward16, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _linear_masked_blit16, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
@@ -606,12 +606,12 @@ AL_LEGACY_FUNC(void, _linear_draw_sprite_vh_flip24, (BITMAP *bmp, BITMAP *sprite
 AL_LEGACY_FUNC(void, _linear_draw_trans_sprite24, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_sprite24, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_lit_sprite24, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color));
-AL_LEGACY_FUNC(void, _linear_draw_rle_sprite24, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite24, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_rle_sprite24, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite24, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
+AL_LEGACY_FUNC(void, _linear_draw_rle_sprite24, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite24, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_trans_rgba_rle_sprite24, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite24, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
 AL_LEGACY_FUNC(void, _linear_draw_character24, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color, int bg));
-AL_LEGACY_FUNC(void, _linear_draw_glyph24, (BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
+AL_LEGACY_FUNC(void, _linear_draw_glyph24, (BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
 AL_LEGACY_FUNC(void, _linear_blit24, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _linear_blit_backward24, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _linear_masked_blit24, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
@@ -633,11 +633,11 @@ AL_LEGACY_FUNC(void, _linear_draw_sprite_h_flip32, (BITMAP *bmp, BITMAP *sprite,
 AL_LEGACY_FUNC(void, _linear_draw_sprite_vh_flip32, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_trans_sprite32, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _linear_draw_lit_sprite32, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color));
-AL_LEGACY_FUNC(void, _linear_draw_rle_sprite32, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite32, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite32, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
+AL_LEGACY_FUNC(void, _linear_draw_rle_sprite32, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_trans_rle_sprite32, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _linear_draw_lit_rle_sprite32, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
 AL_LEGACY_FUNC(void, _linear_draw_character32, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color, int bg));
-AL_LEGACY_FUNC(void, _linear_draw_glyph32, (BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
+AL_LEGACY_FUNC(void, _linear_draw_glyph32, (BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
 AL_LEGACY_FUNC(void, _linear_blit32, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _linear_blit_backward32, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _linear_masked_blit32, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
@@ -657,11 +657,11 @@ AL_LEGACY_FUNC(void, _x_draw_sprite_h_flip, (BITMAP *bmp, BITMAP *sprite, int x,
 AL_LEGACY_FUNC(void, _x_draw_sprite_vh_flip, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _x_draw_trans_sprite, (BITMAP *bmp, BITMAP *sprite, int x, int y));
 AL_LEGACY_FUNC(void, _x_draw_lit_sprite, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color));
-AL_LEGACY_FUNC(void, _x_draw_rle_sprite, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _x_draw_trans_rle_sprite, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y));
-AL_LEGACY_FUNC(void, _x_draw_lit_rle_sprite, (BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
+AL_LEGACY_FUNC(void, _x_draw_rle_sprite, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _x_draw_trans_rle_sprite, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(void, _x_draw_lit_rle_sprite, (BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y, int color));
 AL_LEGACY_FUNC(void, _x_draw_character, (BITMAP *bmp, BITMAP *sprite, int x, int y, int color, int bg));
-AL_LEGACY_FUNC(void, _x_draw_glyph, (BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
+AL_LEGACY_FUNC(void, _x_draw_glyph, (BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg));
 AL_LEGACY_FUNC(void, _x_blit_from_memory, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _x_blit_to_memory, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
 AL_LEGACY_FUNC(void, _x_blit, (BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height));
@@ -685,7 +685,7 @@ typedef void (COLORCONV_BLITTER_FUNC)(GRAPHICS_RECT *src_rect, GRAPHICS_RECT *de
 
 AL_LEGACY_FUNC(COLORCONV_BLITTER_FUNC *, _get_colorconv_blitter, (int from_depth, int to_depth));
 AL_LEGACY_FUNC(void, _release_colorconv_blitter, (COLORCONV_BLITTER_FUNC *blitter));
-AL_LEGACY_FUNC(void, _set_colorconv_palette, (AL_LEGACY_CONST struct RGB *p, int from, int to));
+AL_LEGACY_FUNC(void, _set_colorconv_palette, (AL_CONST struct RGB *p, int from, int to));
 AL_LEGACY_FUNC(unsigned char *, _get_colorconv_map, (void));
 
 #ifdef ALLEGRO_LEGACY_COLOR8
@@ -850,8 +850,8 @@ AL_LEGACY_VAR(BITMAP *, _zbuffer);
 AL_LEGACY_VAR(SCANLINE_FILLER, _optim_alternative_drawer);
 AL_LEGACY_FUNC(POLYGON_EDGE *, _add_edge, (POLYGON_EDGE *list, POLYGON_EDGE *edge, int sort_by_x));
 AL_LEGACY_FUNC(POLYGON_EDGE *, _remove_edge, (POLYGON_EDGE *list, POLYGON_EDGE *edge));
-AL_LEGACY_FUNC(int, _fill_3d_edge_structure, (POLYGON_EDGE *edge, AL_LEGACY_CONST V3D *v1, AL_LEGACY_CONST V3D *v2, int flags, BITMAP *bmp));
-AL_LEGACY_FUNC(int, _fill_3d_edge_structure_f, (POLYGON_EDGE *edge, AL_LEGACY_CONST V3D_f *v1, AL_LEGACY_CONST V3D_f *v2, int flags, BITMAP *bmp));
+AL_LEGACY_FUNC(int, _fill_3d_edge_structure, (POLYGON_EDGE *edge, AL_CONST V3D *v1, AL_CONST V3D *v2, int flags, BITMAP *bmp));
+AL_LEGACY_FUNC(int, _fill_3d_edge_structure_f, (POLYGON_EDGE *edge, AL_CONST V3D_f *v1, AL_CONST V3D_f *v2, int flags, BITMAP *bmp));
 AL_LEGACY_FUNC(SCANLINE_FILLER, _get_scanline_filler, (int type, int *flags, POLYGON_SEGMENT *info, BITMAP *texture, BITMAP *bmp));
 AL_LEGACY_FUNC(void, _clip_polygon_segment, (POLYGON_SEGMENT *info, fixed gap, int flags));
 AL_LEGACY_FUNC(void, _clip_polygon_segment_f, (POLYGON_SEGMENT *info, int gap, int flags));
@@ -1094,7 +1094,7 @@ AL_LEGACY_FUNC(int, _digmid_find_patches, (char *dir, int dir_size, char *file, 
 
 typedef struct          /* a virtual (as seen by the user) soundcard voice */
 {
-   AL_LEGACY_CONST SAMPLE *sample;      /* which sample are we playing? (NULL = free) */
+   AL_CONST SAMPLE *sample;      /* which sample are we playing? (NULL = free) */
    int num;             /* physical voice number (-1 = been killed off) */
    int autokill;        /* set to free the voice when the sample finishes */
    long time;           /* when we were started (for voice allocation) */
@@ -1126,7 +1126,7 @@ AL_LEGACY_ARRAY(PHYS_VOICE, _phys_voice);
 AL_LEGACY_FUNC(int,  _mixer_init, (int bufsize, int freq, int stereo, int is16bit, int *voices));
 AL_LEGACY_FUNC(void, _mixer_exit, (void));
 AL_LEGACY_FUNC(void, _mix_some_samples, (uintptr_t buf, unsigned short seg, int issigned));
-AL_LEGACY_FUNC(void, _mixer_init_voice, (int voice, AL_LEGACY_CONST SAMPLE *sample));
+AL_LEGACY_FUNC(void, _mixer_init_voice, (int voice, AL_CONST SAMPLE *sample));
 AL_LEGACY_FUNC(void, _mixer_release_voice, (int voice));
 AL_LEGACY_FUNC(void, _mixer_start_voice, (int voice));
 AL_LEGACY_FUNC(void, _mixer_stop_voice, (int voice));
@@ -1152,8 +1152,8 @@ AL_LEGACY_FUNC(void, _mixer_set_vibrato, (int voice, int rate, int depth));
 AL_LEGACY_FUNC(void, _dummy_noop1, (int p));
 AL_LEGACY_FUNC(void, _dummy_noop2, (int p1, int p2));
 AL_LEGACY_FUNC(void, _dummy_noop3, (int p1, int p2, int p3));
-AL_LEGACY_FUNC(int,  _dummy_load_patches, (AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums));
-AL_LEGACY_FUNC(void, _dummy_adjust_patches, (AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums));
+AL_LEGACY_FUNC(int,  _dummy_load_patches, (AL_CONST char *patches, AL_CONST char *drums));
+AL_LEGACY_FUNC(void, _dummy_adjust_patches, (AL_CONST char *patches, AL_CONST char *drums));
 AL_LEGACY_FUNC(void, _dummy_key_on, (int inst, int note, int bend, int vol, int pan));
 
 

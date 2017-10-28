@@ -66,7 +66,7 @@
 #endif
 
 #if __WATCOMC__ >= 1200   /* Open Watcom 1.0 */
-   #define AL_LEGACY_CONST const
+   #define AL_CONST const
 #endif
 
 

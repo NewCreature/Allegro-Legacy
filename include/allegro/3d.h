@@ -70,11 +70,11 @@ AL_LEGACY_FUNC(void, _soft_triangle3d, (struct BITMAP *bmp, int type, struct BIT
 AL_LEGACY_FUNC(void, _soft_triangle3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3));
 AL_LEGACY_FUNC(void, _soft_quad3d, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D *v1, V3D *v2, V3D *v3, V3D *v4));
 AL_LEGACY_FUNC(void, _soft_quad3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3, V3D_f *v4));
-AL_LEGACY_FUNC(int, clip3d, (int type, fixed min_z, fixed max_z, int vc, AL_LEGACY_CONST V3D *vtx[], V3D *vout[], V3D *vtmp[], int out[]));
-AL_LEGACY_FUNC(int, clip3d_f, (int type, float min_z, float max_z, int vc, AL_LEGACY_CONST V3D_f *vtx[], V3D_f *vout[], V3D_f *vtmp[], int out[]));
+AL_LEGACY_FUNC(int, clip3d, (int type, fixed min_z, fixed max_z, int vc, AL_CONST V3D *vtx[], V3D *vout[], V3D *vtmp[], int out[]));
+AL_LEGACY_FUNC(int, clip3d_f, (int type, float min_z, float max_z, int vc, AL_CONST V3D_f *vtx[], V3D_f *vout[], V3D_f *vtmp[], int out[]));
 
-AL_LEGACY_FUNC(fixed, polygon_z_normal, (AL_LEGACY_CONST V3D *v1, AL_LEGACY_CONST V3D *v2, AL_LEGACY_CONST V3D *v3));
-AL_LEGACY_FUNC(float, polygon_z_normal_f, (AL_LEGACY_CONST V3D_f *v1, AL_LEGACY_CONST V3D_f *v2, AL_LEGACY_CONST V3D_f *v3));
+AL_LEGACY_FUNC(fixed, polygon_z_normal, (AL_CONST V3D *v1, AL_CONST V3D *v2, AL_CONST V3D *v3));
+AL_LEGACY_FUNC(float, polygon_z_normal_f, (AL_CONST V3D_f *v1, AL_CONST V3D_f *v2, AL_CONST V3D_f *v3));
 
 /* Note: You are not supposed to mix ZBUFFER with BITMAP even though it is
  * currently possible. This is just the internal representation, and it may

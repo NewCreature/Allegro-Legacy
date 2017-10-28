@@ -168,7 +168,7 @@ static void create_indexed_palette(int to_depth)
 /* _set_colorconv_palette:
  *  Updates 8-bit palette entries.
  */
-void _set_colorconv_palette(AL_LEGACY_CONST struct RGB *p, int from, int to)
+void _set_colorconv_palette(AL_CONST struct RGB *p, int from, int to)
 {
    int n, color;
 

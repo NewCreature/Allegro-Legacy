@@ -80,10 +80,10 @@ AL_LEGACY_FUNC(void, qtranslate_matrix_f, (MATRIX_f *m, float x, float y, float 
 AL_LEGACY_FUNC(void, qscale_matrix, (MATRIX *m, fixed scale));
 AL_LEGACY_FUNC(void, qscale_matrix_f, (MATRIX_f *m, float scale));
 
-AL_LEGACY_FUNC(void, matrix_mul, (AL_LEGACY_CONST MATRIX *m1, AL_LEGACY_CONST MATRIX *m2, MATRIX *out));
-AL_LEGACY_FUNC(void, matrix_mul_f, (AL_LEGACY_CONST MATRIX_f *m1, AL_LEGACY_CONST MATRIX_f *m2, MATRIX_f *out));
+AL_LEGACY_FUNC(void, matrix_mul, (AL_CONST MATRIX *m1, AL_CONST MATRIX *m2, MATRIX *out));
+AL_LEGACY_FUNC(void, matrix_mul_f, (AL_CONST MATRIX_f *m1, AL_CONST MATRIX_f *m2, MATRIX_f *out));
 
-AL_LEGACY_FUNC(void, apply_matrix_f, (AL_LEGACY_CONST MATRIX_f *m, float x, float y, float z, float *xout, float *yout, float *zout));
+AL_LEGACY_FUNC(void, apply_matrix_f, (AL_CONST MATRIX_f *m, float x, float y, float z, float *xout, float *yout, float *zout));
 
 #ifdef __cplusplus
    }

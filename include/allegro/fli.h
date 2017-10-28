@@ -33,10 +33,10 @@ struct BITMAP;
 #define FLI_ERROR       -2
 #define FLI_NOT_OPEN    -3
 
-AL_LEGACY_FUNC(int, play_fli, (AL_LEGACY_CONST char *filename, struct BITMAP *bmp, int loop, AL_LEGACY_METHOD(int, callback, (void))));
+AL_LEGACY_FUNC(int, play_fli, (AL_CONST char *filename, struct BITMAP *bmp, int loop, AL_LEGACY_METHOD(int, callback, (void))));
 AL_LEGACY_FUNC(int, play_memory_fli, (void *fli_data, struct BITMAP *bmp, int loop, AL_LEGACY_METHOD(int, callback, (void))));
 
-AL_LEGACY_FUNC(int, open_fli, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(int, open_fli, (AL_CONST char *filename));
 AL_LEGACY_FUNC(int, open_memory_fli, (void *fli_data));
 AL_LEGACY_FUNC(void, close_fli, (void));
 AL_LEGACY_FUNC(int, next_fli_frame, (int loop));
