@@ -28,7 +28,7 @@
 /* creates a new palette object */
 static void *makenew_palette(long *size)
 {
-   RGB *pal = _AL_MALLOC(sizeof(PALETTE));
+   RGB *pal = _AL_LEGACY_MALLOC(sizeof(PALETTE));
 
    memcpy(pal, default_palette, sizeof(PALETTE));
    *size = sizeof(PALETTE);
@@ -125,14 +125,14 @@ static DATAFILE *grab_palette(int type, AL_CONST char *filename, DATAFILE_PROPER
    _color_depth = 8;
    set_color_conversion(COLORCONV_TOTAL);
 
-   pal = _AL_MALLOC(sizeof(PALETTE));
+   pal = _AL_LEGACY_MALLOC(sizeof(PALETTE));
    bmp = load_bitmap(filename, pal);
 
    _color_depth = oldcolordepth;
    set_color_conversion(COLORCONV_NONE);
 
    if (!bmp) {
-      _AL_FREE(pal);
+      _AL_LEGACY_FREE(pal);
       return NULL;
    }
 

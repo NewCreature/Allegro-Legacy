@@ -29,7 +29,7 @@
 
 
 /* length in bytes of the cpu_vendor string */
-#define _AL_CPU_VENDOR_SIZE 32
+#define _AL_LEGACY_CPU_VENDOR_SIZE 32
 
 
 /* flag for how many times we have been initialised */
@@ -58,10 +58,10 @@ AL_FUNCPTR(int, _al_trace_handler, (AL_CONST char *msg));
  * the memory management routines.  We don't have that feature in 4.2, but we
  * use the same macros names in order to reduce divergence of the codebases.
  */
-#define _AL_MALLOC(SIZE)         (_al_malloc(SIZE))
-#define _AL_MALLOC_ATOMIC(SIZE)  (_al_malloc(SIZE))
-#define _AL_FREE(PTR)            (_al_free(PTR))
-#define _AL_REALLOC(PTR, SIZE)   (_al_realloc(PTR, SIZE))
+#define _AL_LEGACY_MALLOC(SIZE)         (_al_malloc(SIZE))
+#define _AL_LEGACY_MALLOC_ATOMIC(SIZE)  (_al_malloc(SIZE))
+#define _AL_LEGACY_FREE(PTR)            (_al_free(PTR))
+#define _AL_LEGACY_REALLOC(PTR, SIZE)   (_al_realloc(PTR, SIZE))
 
 AL_FUNC(void *, _al_malloc, (size_t size));
 AL_FUNC(void, _al_free, (void *mem));
@@ -80,7 +80,7 @@ AL_INLINE(void, _grow_scratch_mem, (int size),
 {
    if (size > _scratch_mem_size) {
       size = (size+1023) & 0xFFFFFC00;
-      _scratch_mem = _AL_REALLOC(_scratch_mem, size);
+      _scratch_mem = _AL_LEGACY_REALLOC(_scratch_mem, size);
       _scratch_mem_size = size;
    }
 })
@@ -1216,22 +1216,22 @@ AL_FUNC(void, _register_font_file_type_init, (void));
 
 
 /* for module linking system; see comment in allegro.c */
-struct _AL_LINKER_MIDI
+struct _AL_LEGACY_LINKER_MIDI
 {
    AL_METHOD(int, init, (void));
    AL_METHOD(void, exit, (void));
 };
 
-AL_VAR(struct _AL_LINKER_MIDI *, _al_linker_midi);
+AL_VAR(struct _AL_LEGACY_LINKER_MIDI *, _al_linker_midi);
 
-struct _AL_LINKER_MOUSE
+struct _AL_LEGACY_LINKER_MOUSE
 {
    AL_METHOD(void, set_mouse_etc, (void));
    AL_METHOD(void, show_mouse, (BITMAP *));
    BITMAP **mouse_screen_ptr;
 };
 
-AL_VAR(struct _AL_LINKER_MOUSE *, _al_linker_mouse);
+AL_VAR(struct _AL_LEGACY_LINKER_MOUSE *, _al_linker_mouse);
 
 
 /* dynamic driver lists */
@@ -1247,7 +1247,7 @@ AL_FUNC(void *, _al_sane_realloc, (void *ptr, size_t size));
 AL_FUNC(char *, _al_sane_strncpy, (char *dest, const char *src, size_t n));
 
 
-#define _AL_RAND_MAX  0xFFFF
+#define _AL_LEGACY_RAND_MAX  0xFFFF
 AL_FUNC(void, _al_srand, (int seed));
 AL_FUNC(int, _al_rand, (void));
 

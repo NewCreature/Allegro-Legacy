@@ -742,7 +742,7 @@ void set_volume(int digi_volume, int midi_volume)
    int i;
 
    if (digi_volume >= 0) {
-      voice_vol = _AL_MALLOC_ATOMIC(sizeof(int)*VIRTUAL_VOICES);
+      voice_vol = _AL_LEGACY_MALLOC_ATOMIC(sizeof(int)*VIRTUAL_VOICES);
 
       /* Retrieve the (relative) volume of each voice. */
       for (i=0; i<VIRTUAL_VOICES; i++)
@@ -756,7 +756,7 @@ void set_volume(int digi_volume, int midi_volume)
 	    voice_set_volume(i, voice_vol[i]);
       }
 
-      _AL_FREE(voice_vol);
+      _AL_LEGACY_FREE(voice_vol);
    }
 
    if (midi_volume >= 0)
@@ -1116,7 +1116,7 @@ SAMPLE *create_sample(int bits, int stereo, int freq, int len)
    ASSERT(freq > 0);
    ASSERT(len > 0);
 
-   spl = _AL_MALLOC(sizeof(SAMPLE)); 
+   spl = _AL_LEGACY_MALLOC(sizeof(SAMPLE)); 
    if (!spl)
       return NULL;
 
@@ -1129,9 +1129,9 @@ SAMPLE *create_sample(int bits, int stereo, int freq, int len)
    spl->loop_end = len;
    spl->param = 0;
 
-   spl->data = _AL_MALLOC_ATOMIC(len * ((bits==8) ? 1 : sizeof(short)) * ((stereo) ? 2 : 1));
+   spl->data = _AL_LEGACY_MALLOC_ATOMIC(len * ((bits==8) ? 1 : sizeof(short)) * ((stereo) ? 2 : 1));
    if (!spl->data) {
-      _AL_FREE(spl);
+      _AL_LEGACY_FREE(spl);
       return NULL;
    }
 
@@ -1152,11 +1152,11 @@ void destroy_sample(SAMPLE *spl)
 
       if (spl->data) {
 	 UNLOCK_DATA(spl->data, spl->len * ((spl->bits==8) ? 1 : sizeof(short)) * ((spl->stereo) ? 2 : 1));
-	 _AL_FREE(spl->data);
+	 _AL_LEGACY_FREE(spl->data);
       }
 
       UNLOCK_DATA(spl, sizeof(SAMPLE));
-      _AL_FREE(spl);
+      _AL_LEGACY_FREE(spl);
    }
 }
 

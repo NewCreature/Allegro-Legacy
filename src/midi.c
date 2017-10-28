@@ -167,7 +167,7 @@ MIDI *load_midi(AL_CONST char *filename)
    if (!fp)
       return NULL;
 
-   midi = _AL_MALLOC(sizeof(MIDI));              /* get some memory */
+   midi = _AL_LEGACY_MALLOC(sizeof(MIDI));              /* get some memory */
    if (!midi) {
       pack_fclose(fp);
       return NULL;
@@ -222,7 +222,7 @@ MIDI *load_midi(AL_CONST char *filename)
       data = pack_mgetl(fp);                 /* length of track chunk */
       midi->track[c].len = data;
 
-      midi->track[c].data = _AL_MALLOC_ATOMIC(data); /* allocate memory */
+      midi->track[c].data = _AL_LEGACY_MALLOC_ATOMIC(data); /* allocate memory */
       if (!midi->track[c].data)
 	 goto err;
 					     /* finally, read track data */
@@ -257,12 +257,12 @@ void destroy_midi(MIDI *midi)
       for (c=0; c<MIDI_TRACKS; c++) {
 	 if (midi->track[c].data) {
 	    UNLOCK_DATA(midi->track[c].data, midi->track[c].len);
-	    _AL_FREE(midi->track[c].data);
+	    _AL_LEGACY_FREE(midi->track[c].data);
 	 }
       }
 
       UNLOCK_DATA(midi, sizeof(MIDI));
-      _AL_FREE(midi);
+      _AL_LEGACY_FREE(midi);
    }
 }
 
@@ -1607,7 +1607,7 @@ static void midi_lock_mem(void)
    CONSTRUCTOR_FUNCTION(void _midi_constructor(void));
 #endif
 
-static struct _AL_LINKER_MIDI midi_linker = {
+static struct _AL_LEGACY_LINKER_MIDI midi_linker = {
    midi_init,
    midi_exit
 };

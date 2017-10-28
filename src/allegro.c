@@ -198,7 +198,7 @@ int os_multitasking = FALSE;
 
 
 /* processor information */
-char cpu_vendor[_AL_CPU_VENDOR_SIZE] = EMPTY_STRING;
+char cpu_vendor[_AL_LEGACY_CPU_VENDOR_SIZE] = EMPTY_STRING;
 int cpu_family = 0;
 int cpu_model = 0;
 int cpu_capabilities = 0;
@@ -221,8 +221,8 @@ int (*_al_trace_handler)(AL_CONST char *msg) = NULL;
  * linked in, then the structure pointers will be null, so we don't need
  * to bother with that bit of code elsewhere.
  */
-struct _AL_LINKER_MIDI *_al_linker_midi = NULL;
-struct _AL_LINKER_MOUSE *_al_linker_mouse = NULL;
+struct _AL_LEGACY_LINKER_MIDI *_al_linker_midi = NULL;
+struct _AL_LEGACY_LINKER_MOUSE *_al_linker_mouse = NULL;
 
 
 /* dynamic registration system for cleanup code */
@@ -249,7 +249,7 @@ void _add_exit_func(void (*func)(void), AL_CONST char *desc)
       if (n->funcptr == func)
 	 return;
 
-   n = _AL_MALLOC(sizeof(struct al_exit_func));
+   n = _AL_LEGACY_MALLOC(sizeof(struct al_exit_func));
    if (!n)
       return;
 
@@ -274,7 +274,7 @@ void _remove_exit_func(void (*func)(void))
 	    prev->next = iter->next;
 	 else
 	    exit_func_list = iter->next;
-	 _AL_FREE(iter);
+	 _AL_LEGACY_FREE(iter);
 	 return;
       }
       prev = iter;
@@ -506,7 +506,7 @@ void allegro_exit(void)
    }
 
    if (_scratch_mem) {
-      _AL_FREE(_scratch_mem);
+      _AL_LEGACY_FREE(_scratch_mem);
       _scratch_mem = NULL;
       _scratch_mem_size = 0;
    }
@@ -519,8 +519,8 @@ void allegro_exit(void)
  */
 void allegro_message(AL_CONST char *msg, ...)
 {
-   char *buf = _AL_MALLOC_ATOMIC(ALLEGRO_LEGACY_MESSAGE_SIZE);
-   char *tmp = _AL_MALLOC_ATOMIC(ALLEGRO_LEGACY_MESSAGE_SIZE);
+   char *buf = _AL_LEGACY_MALLOC_ATOMIC(ALLEGRO_LEGACY_MESSAGE_SIZE);
+   char *tmp = _AL_LEGACY_MALLOC_ATOMIC(ALLEGRO_LEGACY_MESSAGE_SIZE);
    va_list ap;
    ASSERT(msg);
    va_start(ap, msg);
@@ -532,8 +532,8 @@ void allegro_message(AL_CONST char *msg, ...)
    else
       fputs(uconvert(buf, U_CURRENT, tmp, U_ASCII_CP, ALLEGRO_LEGACY_MESSAGE_SIZE), stdout);
 
-   _AL_FREE(buf);
-   _AL_FREE(tmp);
+   _AL_LEGACY_FREE(buf);
+   _AL_LEGACY_FREE(tmp);
 }
 
 
@@ -757,11 +757,11 @@ void *_al_realloc(void *mem, size_t size)
 /* _al_strdup:
  *  Wrapper for when a program needs to duplicate a string in a way that
  *  uses any user overloaded memory allocation system in use.
- *  The result of this function _must_ be freed with _AL_FREE().
+ *  The result of this function _must_ be freed with _AL_LEGACY_FREE().
  */
 char *_al_strdup(AL_CONST char *string)
 {
-   char *newstring = _AL_MALLOC(strlen(string) + 1);
+   char *newstring = _AL_LEGACY_MALLOC(strlen(string) + 1);
 
    if (newstring)
       strcpy(newstring, string);

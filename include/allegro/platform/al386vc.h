@@ -29,7 +29,7 @@
 /* _default_ds:
  *  Return a copy of the current %ds selector.
  */
-INLINE _AL_DLL int _default_ds(void)
+INLINE _AL_LEGACY_DLL int _default_ds(void)
 {
    _asm {
       mov eax, 0
@@ -44,7 +44,7 @@ END_OF_INLINE(_default_ds);
 /* bmp_write_line:
  *  Bank switch function.
  */
-INLINE _AL_DLL uintptr_t bmp_write_line(BITMAP *bmp, int lyne)
+INLINE _AL_LEGACY_DLL uintptr_t bmp_write_line(BITMAP *bmp, int lyne)
 { 
    _asm { 
       mov edx, bmp
@@ -61,7 +61,7 @@ END_OF_INLINE(bmp_write_line);
 /* bmp_read_line:
  *  Bank switch function.
  */
-INLINE _AL_DLL uintptr_t bmp_read_line(BITMAP *bmp, int lyne)
+INLINE _AL_LEGACY_DLL uintptr_t bmp_read_line(BITMAP *bmp, int lyne)
 {
    _asm {
       mov edx, bmp
@@ -78,7 +78,7 @@ END_OF_INLINE(bmp_read_line);
 /* bmp_unwrite_line:
  *  Terminate bank switch function.
  */
-INLINE _AL_DLL void bmp_unwrite_line(BITMAP *bmp)
+INLINE _AL_LEGACY_DLL void bmp_unwrite_line(BITMAP *bmp)
 {
    _asm {
       mov edx, bmp
@@ -110,7 +110,7 @@ END_OF_INLINE(_set_errno_erange);
 /* fixadd:
  *  Fixed point (16.16) addition.
  */
-INLINE _AL_DLL fixed fixadd(fixed x, fixed y)
+INLINE _AL_LEGACY_DLL fixed fixadd(fixed x, fixed y)
 {
    _asm {
       mov eax, x
@@ -132,7 +132,7 @@ END_OF_INLINE(fixadd);
 /* fixsub:
  *  Fixed point (16.16) subtraction.
  */
-INLINE _AL_DLL fixed fixsub(fixed x, fixed y)
+INLINE _AL_LEGACY_DLL fixed fixsub(fixed x, fixed y)
 {
    _asm {
       mov eax, x
@@ -154,7 +154,7 @@ END_OF_INLINE(fixsub);
 /* fixmul:
  *  Fixed point (16.16) multiplication.
  */
-INLINE _AL_DLL fixed fixmul(fixed x, fixed y)
+INLINE _AL_LEGACY_DLL fixed fixmul(fixed x, fixed y)
 {
    _asm {
       mov eax, x
@@ -184,7 +184,7 @@ END_OF_INLINE(fixmul);
 /* fixdiv:
  *  Fixed point (16.16) division.
  */
-INLINE _AL_DLL fixed fixdiv(fixed x, fixed y)
+INLINE _AL_LEGACY_DLL fixed fixdiv(fixed x, fixed y)
 {
    _asm {
       mov ecx, y
@@ -227,7 +227,7 @@ END_OF_INLINE(fixdiv);
  * Fixed point version of floor().
  * Note that it returns an integer result (not a fixed one)
  */
-INLINE _AL_DLL int fixfloor(fixed x)
+INLINE _AL_LEGACY_DLL int fixfloor(fixed x)
 {
    _asm {
       mov eax, x
@@ -243,7 +243,7 @@ END_OF_INLINE(fixfloor);
  *  Fixed point version of ceil().
  *  Note that it returns an integer result (not a fixed one)
  */
-INLINE _AL_DLL int fixceil(fixed x)
+INLINE _AL_LEGACY_DLL int fixceil(fixed x)
 {
    _asm {
       mov eax, x

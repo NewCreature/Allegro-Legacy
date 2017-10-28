@@ -1220,7 +1220,7 @@ void remove_mouse(void)
    CONSTRUCTOR_FUNCTION(void _mouse_constructor(void));
 #endif
 
-static struct _AL_LINKER_MOUSE mouse_linker = {
+static struct _AL_LEGACY_LINKER_MOUSE mouse_linker = {
    set_mouse_etc,
    show_mouse,
    &_mouse_screen

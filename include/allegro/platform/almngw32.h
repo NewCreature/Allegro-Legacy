@@ -53,16 +53,16 @@
 
 /* describe how function prototypes look to MINGW32 */
 #if (defined ALLEGRO_LEGACY_STATICLINK) || (defined ALLEGRO_LEGACY_SRC)
-   #define _AL_DLL
+   #define _AL_LEGACY_DLL
 #else
-   #define _AL_DLL   __declspec(dllimport)
+   #define _AL_LEGACY_DLL   __declspec(dllimport)
 #endif
 
-#define AL_VAR(type, name)                   extern _AL_DLL type name
-#define AL_ARRAY(type, name)                 extern _AL_DLL type name[]
+#define AL_VAR(type, name)                   extern _AL_LEGACY_DLL type name
+#define AL_ARRAY(type, name)                 extern _AL_LEGACY_DLL type name[]
 #define AL_FUNC(type, name, args)            extern type name args
 #define AL_METHOD(type, name, args)          type (*name) args
-#define AL_FUNCPTR(type, name, args)         extern _AL_DLL type (*name) args
+#define AL_FUNCPTR(type, name, args)         extern _AL_LEGACY_DLL type (*name) args
 
 
 /* windows specific defines */

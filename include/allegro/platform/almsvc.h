@@ -52,18 +52,18 @@
 
 /* describe how function prototypes look to MSVC */
 #if defined ALLEGRO_LEGACY_STATICLINK
-   #define _AL_DLL
+   #define _AL_LEGACY_DLL
 #elif defined ALLEGRO_LEGACY_SRC
-   #define _AL_DLL   __declspec(dllexport)
+   #define _AL_LEGACY_DLL   __declspec(dllexport)
 #else
-   #define _AL_DLL   __declspec(dllimport)
+   #define _AL_LEGACY_DLL   __declspec(dllimport)
 #endif
 
-#define AL_VAR(type, name)             extern _AL_DLL type name
-#define AL_ARRAY(type, name)           extern _AL_DLL type name[]
-#define AL_FUNC(type, name, args)      _AL_DLL type __cdecl name args
+#define AL_VAR(type, name)             extern _AL_LEGACY_DLL type name
+#define AL_ARRAY(type, name)           extern _AL_LEGACY_DLL type name[]
+#define AL_FUNC(type, name, args)      _AL_LEGACY_DLL type __cdecl name args
 #define AL_METHOD(type, name, args)    type (__cdecl *name) args
-#define AL_FUNCPTR(type, name, args)   extern _AL_DLL type (__cdecl *name) args
+#define AL_FUNCPTR(type, name, args)   extern _AL_LEGACY_DLL type (__cdecl *name) args
 
 #ifdef AL_INLINE
    #define END_OF_INLINE(name)         void *_force_instantiate_##name = name;
@@ -73,7 +73,7 @@
 
 #undef AL_INLINE
 
-#define AL_INLINE(type, name, args, code)    __inline _AL_DLL type __cdecl name args code END_OF_INLINE(name)
+#define AL_INLINE(type, name, args, code)    __inline _AL_LEGACY_DLL type __cdecl name args code END_OF_INLINE(name)
 
 #define INLINE       __inline
 

@@ -878,17 +878,17 @@ DIALOG_PLAYER *init_dialog(DIALOG *dialog, int focus_obj)
    if (active_menu_player)
       object_message(active_menu_player->dialog, MSG_LOSTMOUSE, 0);
 
-   player = _AL_MALLOC(sizeof(DIALOG_PLAYER));
+   player = _AL_LEGACY_MALLOC(sizeof(DIALOG_PLAYER));
    if (!player) {
       *allegro_errno = ENOMEM;
       return NULL;
    }
 
    /* append player to the list */
-   n = _AL_MALLOC(sizeof(struct al_active_dialog_player));
+   n = _AL_LEGACY_MALLOC(sizeof(struct al_active_dialog_player));
    if (!n) {
       *allegro_errno = ENOMEM;
-      _AL_FREE (player);
+      _AL_LEGACY_FREE (player);
       return NULL;
    }
 
@@ -1366,7 +1366,7 @@ int shutdown_dialog(DIALOG_PLAYER *player)
 	 if (iter == current_active_dialog_player)
 	    current_active_dialog_player = prev;
 
-	 _AL_FREE (iter);
+	 _AL_LEGACY_FREE (iter);
 	 break;
       }
    }
@@ -1383,7 +1383,7 @@ int shutdown_dialog(DIALOG_PLAYER *player)
 
    obj = player->obj;
 
-   _AL_FREE(player);
+   _AL_LEGACY_FREE(player);
 
    return obj;
 }
@@ -1425,7 +1425,7 @@ static int bar_entry_length(const char *text)
    len = gui_strlen(tok1) + 16;
    if (tok2)
       len += gui_strlen(tok2) + 16;
-   _AL_FREE(buf);
+   _AL_LEGACY_FREE(buf);
 
    return len;
 }
@@ -1518,7 +1518,7 @@ static void draw_menu_item(MENU_PLAYER *m, int c)
          putpixel(gui_bmp, x+w-8, my+5, fg);
       }
 
-      _AL_FREE(buf);
+      _AL_LEGACY_FREE(buf);
    }
    else
       hline(gui_bmp, x, y+text_height(font)/2+2, x+w, fg);
@@ -1656,7 +1656,7 @@ static void layout_menu(MENU_PLAYER *m, MENU *menu, int bar, int x, int y, int m
 	       extra = MAX(extra, c);
 	    }
 
-	    _AL_FREE(buf);
+	    _AL_LEGACY_FREE(buf);
 	 }
       }
    }
@@ -1783,7 +1783,7 @@ static MENU_PLAYER *init_single_menu(MENU *menu, MENU_PLAYER *parent, DIALOG *di
    MENU_PLAYER *player;
    ASSERT(menu);
 
-   player = _AL_MALLOC(sizeof(MENU_PLAYER));
+   player = _AL_LEGACY_MALLOC(sizeof(MENU_PLAYER));
    if (!player) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -2163,7 +2163,7 @@ static int shutdown_single_menu(MENU_PLAYER *player, int *dret)
 
    ret = player->ret;
 
-   _AL_FREE(player);
+   _AL_LEGACY_FREE(player);
 
    return ret;
 }

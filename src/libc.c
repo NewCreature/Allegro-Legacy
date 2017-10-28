@@ -116,7 +116,7 @@ int _alemu_memcmp(AL_CONST void *s1, AL_CONST void *s2, size_t num)
 
 
 /* _al_sane_realloc:
- *  _AL_REALLOC() substitution with guaranteed behaviour.
+ *  _AL_LEGACY_REALLOC() substitution with guaranteed behaviour.
  */
 /*void *_al_sane_realloc(void *ptr, size_t size)
 {
@@ -125,15 +125,15 @@ int _alemu_memcmp(AL_CONST void *s1, AL_CONST void *s2, size_t num)
    tmp_ptr = NULL;
 
    if (ptr && size) {
-      tmp_ptr = _AL_REALLOC(ptr, size);
-      if (!tmp_ptr && ptr) _AL_FREE(ptr);
+      tmp_ptr = _AL_LEGACY_REALLOC(ptr, size);
+      if (!tmp_ptr && ptr) _AL_LEGACY_FREE(ptr);
    }
    else if (!size) {
       tmp_ptr = NULL;
-      if (ptr) _AL_FREE(ptr);
+      if (ptr) _AL_LEGACY_FREE(ptr);
    }
    else if (!ptr) {
-      tmp_ptr = _AL_MALLOC(size);
+      tmp_ptr = _AL_LEGACY_MALLOC(size);
    }
 
    return tmp_ptr;
@@ -172,5 +172,5 @@ int _alemu_memcmp(AL_CONST void *s1, AL_CONST void *s2, size_t num)
 /*int _al_rand(void)
 {
    _al_rand_seed = (_al_rand_seed + 1) * 1103515245 + 12345;
-   return ((_al_rand_seed >> 16) & _AL_RAND_MAX);
+   return ((_al_rand_seed >> 16) & _AL_LEGACY_RAND_MAX);
 } */

@@ -22,7 +22,7 @@
 
 
 
-#define FLOATSINCOS(x, s, c)  _AL_SINCOS((x) * AL_PI / 128.0, s ,c)
+#define FLOATSINCOS(x, s, c)  _AL_LEGACY_SINCOS((x) * AL_PI / 128.0, s ,c)
 
 
 #define EPSILON (0.001)

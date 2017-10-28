@@ -48,10 +48,10 @@ void register_bitmap_file_type(AL_CONST char *ext, BITMAP *(*load)(AL_CONST char
    if (strlen(aext) == 0) return;
 
    if (!iter) 
-      iter = bitmap_type_list = _AL_MALLOC(sizeof(struct BITMAP_TYPE_INFO));
+      iter = bitmap_type_list = _AL_LEGACY_MALLOC(sizeof(struct BITMAP_TYPE_INFO));
    else {
       for (iter = bitmap_type_list; iter->next; iter = iter->next);
-      iter = iter->next = _AL_MALLOC(sizeof(struct BITMAP_TYPE_INFO));
+      iter = iter->next = _AL_LEGACY_MALLOC(sizeof(struct BITMAP_TYPE_INFO));
    }
 
    if (iter) {
@@ -141,14 +141,14 @@ BITMAP *_fixup_loaded_bitmap(BITMAP *bmp, PALETTE pal, int bpp)
       else
 	 pal = _current_palette;
 
-      rgb_map = _AL_MALLOC(sizeof(RGB_MAP));
+      rgb_map = _AL_LEGACY_MALLOC(sizeof(RGB_MAP));
       if (rgb_map != NULL)
 	 create_rgb_table(rgb_map, pal, NULL);
 
       blit(bmp, b2, 0, 0, 0, 0, bmp->w, bmp->h);
 
       if (rgb_map != NULL)
-	 _AL_FREE(rgb_map);
+	 _AL_LEGACY_FREE(rgb_map);
       rgb_map = old_map;
    }
    else if (bitmap_color_depth(bmp) == 8) {
@@ -176,8 +176,8 @@ static void register_bitmap_file_type_exit(void)
 
    while (iter) {
       next = iter->next;
-      _AL_FREE(iter->ext);
-      _AL_FREE(iter);
+      _AL_LEGACY_FREE(iter->ext);
+      _AL_LEGACY_FREE(iter);
       iter = next;
    }
    
@@ -240,8 +240,8 @@ void _register_bitmap_file_type_init(void)
 
       while (iter) {
          next = iter->next;
-         _AL_FREE(iter->ext);
-         _AL_FREE(iter);
+         _AL_LEGACY_FREE(iter->ext);
+         _AL_LEGACY_FREE(iter);
          iter = next;
       }
    

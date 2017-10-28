@@ -287,9 +287,9 @@ void destroy_gfx_mode_list(GFX_MODE_LIST *gfx_mode_list)
 {
    if (gfx_mode_list) {
       if (gfx_mode_list->mode)
-         _AL_FREE(gfx_mode_list->mode);
+         _AL_LEGACY_FREE(gfx_mode_list->mode);
 
-      _AL_FREE(gfx_mode_list);
+      _AL_LEGACY_FREE(gfx_mode_list);
    }
 }
 
@@ -728,7 +728,7 @@ printf("set_gfx 11\n");
 	 system_driver->restore_console_state();
 
       if (_gfx_bank) {
-	 _AL_FREE(_gfx_bank);
+	 _AL_LEGACY_FREE(_gfx_bank);
 	 _gfx_bank = NULL;
       }
 
@@ -1001,13 +1001,13 @@ BITMAP *_make_bitmap(int w, int h, uintptr_t addr, GFX_DRIVER *driver, int color
 
    size = sizeof(BITMAP) + sizeof(char *) * h;
 
-   b = (BITMAP *)_AL_MALLOC(size);
+   b = (BITMAP *)_AL_LEGACY_MALLOC(size);
    if (!b)
       return NULL;
 
-   _gfx_bank = _AL_REALLOC(_gfx_bank, h * sizeof(int));
+   _gfx_bank = _AL_LEGACY_REALLOC(_gfx_bank, h * sizeof(int));
    if (!_gfx_bank) {
-      _AL_FREE(b);
+      _AL_LEGACY_FREE(b);
       return NULL;
    }
 
@@ -1093,7 +1093,7 @@ BITMAP *create_bitmap_ex(int color_depth, int width, int height)
     * pointer is always available.
     */
    nr_pointers = MAX(2, height);
-   bitmap = _AL_MALLOC(sizeof(BITMAP) + (sizeof(char *) * nr_pointers));
+   bitmap = _AL_LEGACY_MALLOC(sizeof(BITMAP) + (sizeof(char *) * nr_pointers));
    if (!bitmap)
       return NULL;
 
@@ -1104,9 +1104,9 @@ BITMAP *create_bitmap_ex(int color_depth, int width, int height)
    padding = (color_depth == 24) ? 1 : 0;
 
    printf("create 5\n");
-   bitmap->dat = _AL_MALLOC_ATOMIC(width * height * BYTES_PER_PIXEL(color_depth) + padding);
+   bitmap->dat = _AL_LEGACY_MALLOC_ATOMIC(width * height * BYTES_PER_PIXEL(color_depth) + padding);
    if (!bitmap->dat) {
-      _AL_FREE(bitmap);
+      _AL_LEGACY_FREE(bitmap);
       return NULL;
    }
 
@@ -1186,7 +1186,7 @@ BITMAP *create_sub_bitmap(BITMAP *parent, int x, int y, int width, int height)
    /* get memory for structure and line pointers */
    /* (see create_bitmap for the reason we need at least two) */
    nr_pointers = MAX(2, height);
-   bitmap = _AL_MALLOC(sizeof(BITMAP) + (sizeof(char *) * nr_pointers));
+   bitmap = _AL_LEGACY_MALLOC(sizeof(BITMAP) + (sizeof(char *) * nr_pointers));
    if (!bitmap)
       return NULL;
 
@@ -1258,7 +1258,7 @@ static BITMAP *add_vram_block(int x, int y, int w, int h)
    VRAM_BITMAP *b, *new_b;
    VRAM_BITMAP **last_p;
 
-   new_b = _AL_MALLOC(sizeof(VRAM_BITMAP));
+   new_b = _AL_LEGACY_MALLOC(sizeof(VRAM_BITMAP));
    if (!new_b)
       return NULL;
 
@@ -1269,7 +1269,7 @@ static BITMAP *add_vram_block(int x, int y, int w, int h)
 
    new_b->bmp = create_sub_bitmap(screen, x, y, w, h);
    if (!new_b->bmp) {
-      _AL_FREE(new_b);
+      _AL_LEGACY_FREE(new_b);
       return NULL;
    }
 
@@ -1335,7 +1335,7 @@ BITMAP *create_video_bitmap(int width, int height)
       if (!bmp)
 	 return NULL;
 
-      b = _AL_MALLOC(sizeof(VRAM_BITMAP));
+      b = _AL_LEGACY_MALLOC(sizeof(VRAM_BITMAP));
       b->x = -1;
       b->y = -1;
       b->w = 0;
@@ -1490,7 +1490,7 @@ void destroy_bitmap(BITMAP *bitmap)
 	       if (pos->x < 0) {
 		  /* the driver is in charge of this object */
 		  gfx_driver->destroy_video_bitmap(bitmap);
-		  _AL_FREE(pos);
+		  _AL_LEGACY_FREE(pos);
 		  return;
 	       }
 
@@ -1506,7 +1506,7 @@ void destroy_bitmap(BITMAP *bitmap)
 	       if (failed_bitmap_h > BMP_MAX_SIZE)
 		  failed_bitmap_h = BMP_MAX_SIZE;
 
-	       _AL_FREE(pos);
+	       _AL_LEGACY_FREE(pos);
 	       break;
 	    }
 
@@ -1533,9 +1533,9 @@ void destroy_bitmap(BITMAP *bitmap)
       }
 
       if (bitmap->dat)
-	 _AL_FREE(bitmap->dat);
+	 _AL_LEGACY_FREE(bitmap->dat);
 
-      _AL_FREE(bitmap);
+      _AL_LEGACY_FREE(bitmap);
    }
 }
 

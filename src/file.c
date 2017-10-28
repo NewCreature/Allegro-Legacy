@@ -203,7 +203,7 @@ char *canonicalize_filename(char *dest, AL_CONST char *filename, int size)
 	     * pointers. This code is safe on the assumption that ASCII is
 	     * the most efficient encoding, but wasteful of memory */
 	    userlen = tail - username + ucwidth('\0');
-	    ascii_username = _AL_MALLOC_ATOMIC(userlen);
+	    ascii_username = _AL_LEGACY_MALLOC_ATOMIC(userlen);
 
 	    if (ascii_username) {
 	       /* convert the username to ASCII, find the password entry,
@@ -219,7 +219,7 @@ char *canonicalize_filename(char *dest, AL_CONST char *filename, int size)
 		      (strcmp(pwd->pw_name, ascii_username) != 0))
 		  ;
 
-	       _AL_FREE(ascii_username);
+	       _AL_LEGACY_FREE(ascii_username);
 
 	       if (pwd)
 		  home = _al_strdup(pwd->pw_dir);
@@ -234,7 +234,7 @@ char *canonicalize_filename(char *dest, AL_CONST char *filename, int size)
 	  */
 	 if (home) {
 	    do_uconvert(home, U_ASCII, buf+pos, U_CURRENT, sizeof(buf)-pos);
-	    _AL_FREE(home);
+	    _AL_LEGACY_FREE(home);
 	    pos = ustrsize(buf);
 	    filename = tail;
 	    goto no_relativisation;
@@ -382,7 +382,7 @@ char *make_relative_filename(char *dest, AL_CONST char *path, AL_CONST char *fil
 
    my_filename = _al_ustrdup(filename);
    if (!my_filename) {
-      _AL_FREE(my_path);
+      _AL_LEGACY_FREE(my_path);
       return NULL;
    }
 
@@ -427,8 +427,8 @@ char *make_relative_filename(char *dest, AL_CONST char *path, AL_CONST char *fil
       /* Bail out if previously something went wrong (eg. user supplied
        * paths are not canonical and we can't understand them). */
       if (!reduced_path) {
-	 _AL_FREE(my_path);
-	 _AL_FREE(my_filename);
+	 _AL_LEGACY_FREE(my_path);
+	 _AL_LEGACY_FREE(my_filename);
 	 return NULL;
       }
       /* Otherwise, we are in the latter case and need to count the number
@@ -450,16 +450,16 @@ char *make_relative_filename(char *dest, AL_CONST char *path, AL_CONST char *fil
    /* Bail out if previously something went wrong (eg. user supplied
     * paths are not canonical and we can't understand them). */
    if (!reduced_filename) {
-      _AL_FREE(my_path);
-      _AL_FREE(my_filename);
+      _AL_LEGACY_FREE(my_path);
+      _AL_LEGACY_FREE(my_filename);
       return NULL;
    }
 
    ustrzcat(dest, size, reduced_filename);
    ustrzcat(dest, size, get_filename(filename));
 
-   _AL_FREE(my_path);
-   _AL_FREE(my_filename);
+   _AL_LEGACY_FREE(my_path);
+   _AL_LEGACY_FREE(my_filename);
 
    /* Harmonize path separators. */
    return fix_filename_slashes(dest);
@@ -1076,7 +1076,7 @@ int set_allegro_resource_path(int priority, AL_CONST char *path)
       if (node && priority == node->priority)
 	 new_node = node;
       else {
-	 new_node = _AL_MALLOC(sizeof(RESOURCE_PATH));
+	 new_node = _AL_LEGACY_MALLOC(sizeof(RESOURCE_PATH));
 	 if (!new_node)
 	    return 0;
 
@@ -1109,7 +1109,7 @@ int set_allegro_resource_path(int priority, AL_CONST char *path)
 	  else
 	     resource_path_list = node->next;
 
-	  _AL_FREE(node);
+	  _AL_LEGACY_FREE(node);
 
 	  if (!resource_path_list)
 	     _remove_exit_func(destroy_resource_path_list);
@@ -1132,7 +1132,7 @@ static void destroy_resource_path_list(void)
 
    while (node) {
       resource_path_list = node->next;
-      _AL_FREE(node);
+      _AL_LEGACY_FREE(node);
       node = resource_path_list;
    }
 }
@@ -1546,7 +1546,7 @@ static int clone_password(PACKFILE *f)
    ASSERT(f->is_normal_packfile);
 
    if (the_password[0]) {
-      if ((f->normal.passdata = _AL_MALLOC_ATOMIC(strlen(the_password)+1)) == NULL) {
+      if ((f->normal.passdata = _AL_LEGACY_MALLOC_ATOMIC(strlen(the_password)+1)) == NULL) {
 	 *allegro_errno = ENOMEM;
 	 return FALSE;
       }
@@ -1571,9 +1571,9 @@ static PACKFILE *create_packfile(int is_normal_packfile)
    PACKFILE *f;
 
    if (is_normal_packfile)
-      f = _AL_MALLOC(sizeof(PACKFILE));
+      f = _AL_LEGACY_MALLOC(sizeof(PACKFILE));
    else
-      f = _AL_MALLOC(sizeof(PACKFILE) - sizeof(struct _al_normal_packfile_details));
+      f = _AL_LEGACY_MALLOC(sizeof(PACKFILE) - sizeof(struct _al_normal_packfile_details));
 
    if (f == NULL) {
       *allegro_errno = ENOMEM;
@@ -1624,7 +1624,7 @@ static void free_packfile(PACKFILE *f)
 	 ASSERT(!f->normal.passpos);
       }
 
-      _AL_FREE(f);
+      _AL_LEGACY_FREE(f);
    }
 }
 
@@ -1981,7 +1981,7 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
          /* Get the path of the temporary directory */
          do {
             size = new_size;
-            tmp_dir = _AL_REALLOC(tmp_dir, size);
+            tmp_dir = _AL_LEGACY_REALLOC(tmp_dir, size);
             new_size = GetTempPath(size, tmp_dir);
          } while ( (size < new_size) && (new_size > 0) );
 
@@ -2016,7 +2016,7 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
        */
       #ifdef ALLEGRO_LEGACY_HAVE_MKSTEMP
 
-         tmp_name = _AL_MALLOC_ATOMIC(strlen(tmp_dir) + 16);
+         tmp_name = _AL_LEGACY_MALLOC_ATOMIC(strlen(tmp_dir) + 16);
          sprintf(tmp_name, "%s/XXXXXX", tmp_dir);
          tmp_fd = mkstemp(tmp_name);
 
@@ -2026,7 +2026,7 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
           * an atomic operation, this is not secure
           */
          tmpnam_string = tmpnam(NULL);
-         tmp_name = _AL_MALLOC_ATOMIC(strlen(tmp_dir) + strlen(tmpnam_string) + 2);
+         tmp_name = _AL_LEGACY_MALLOC_ATOMIC(strlen(tmp_dir) + strlen(tmpnam_string) + 2);
          sprintf(tmp_name, "%s/%s", tmp_dir, tmpnam_string);
 
          if (tmp_name) {
@@ -2040,8 +2040,8 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
       #endif
 
       if (tmp_fd < 0) {
-         _AL_FREE(tmp_dir);
-         _AL_FREE(tmp_name);
+         _AL_LEGACY_FREE(tmp_dir);
+         _AL_LEGACY_FREE(tmp_name);
 
          return NULL;
       }
@@ -2060,8 +2060,8 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
 	 chunk->normal.flags |= PACKFILE_FLAG_CHUNK;
       }
 
-      _AL_FREE(tmp_dir);
-      _AL_FREE(tmp_name);
+      _AL_LEGACY_FREE(tmp_dir);
+      _AL_LEGACY_FREE(tmp_name);
    }
    else {
       /* read a sub-chunk */
@@ -2077,9 +2077,9 @@ PACKFILE *pack_fopen_chunk(PACKFILE *f, int pack)
       if (f->normal.flags & PACKFILE_FLAG_OLD_CRYPT) {
 	 /* backward compatibility mode */
 	 if (f->normal.passdata) {
-	    if ((chunk->normal.passdata = _AL_MALLOC_ATOMIC(strlen(f->normal.passdata)+1)) == NULL) {
+	    if ((chunk->normal.passdata = _AL_LEGACY_MALLOC_ATOMIC(strlen(f->normal.passdata)+1)) == NULL) {
 	       *allegro_errno = ENOMEM;
-	       _AL_FREE(chunk);
+	       _AL_LEGACY_FREE(chunk);
 	       return NULL;
 	    }
 	    _al_sane_strncpy(chunk->normal.passdata, f->normal.passdata, strlen(f->normal.passdata)+1);
@@ -2193,7 +2193,7 @@ PACKFILE *pack_fclose_chunk(PACKFILE *f)
       pack_fclose(tmp);
 
       delete_file(name);
-      _AL_FREE(name);
+      _AL_LEGACY_FREE(name);
    }
    else {
       /* finish reading a chunk */
@@ -2581,7 +2581,7 @@ int pack_fputs(AL_CONST char *p, PACKFILE *f)
    *allegro_errno = 0;
 
    bufsize = uconvert_size(p, U_CURRENT, U_UTF8);
-   buf = _AL_MALLOC_ATOMIC(bufsize);
+   buf = _AL_LEGACY_MALLOC_ATOMIC(bufsize);
    if (!buf)
       return -1;
 
@@ -2597,7 +2597,7 @@ int pack_fputs(AL_CONST char *p, PACKFILE *f)
       s++;
    }
 
-   _AL_FREE(buf);
+   _AL_LEGACY_FREE(buf);
 
    if (*allegro_errno)
       return -1;
@@ -2698,7 +2698,7 @@ static int normal_fclose(void *_f)
    }
 
    if (f->normal.passdata) {
-      _AL_FREE(f->normal.passdata);
+      _AL_LEGACY_FREE(f->normal.passdata);
       f->normal.passdata = NULL;
       f->normal.passpos = NULL;
    }
