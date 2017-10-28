@@ -31,7 +31,7 @@ extern "C" {
 #endif
 
 
-AL_FUNC(PtWidget_t *, qnx_get_window, (void));
+AL_LEGACY_FUNC(PtWidget_t *, qnx_get_window, (void));
 
 
 #ifdef __cplusplus

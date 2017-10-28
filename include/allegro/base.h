@@ -97,7 +97,7 @@
 
 #define AL_ID(a,b,c,d)     (((a)<<24) | ((b)<<16) | ((c)<<8) | (d))
 
-AL_VAR(int *, allegro_errno);
+AL_LEGACY_VAR(int *, allegro_errno);
 
 typedef struct _DRIVER_INFO         /* info about a hardware driver */
 {

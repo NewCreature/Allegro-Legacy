@@ -26,8 +26,8 @@
 typedef struct SAMPLE_TYPE_INFO
 {
    char *ext;
-   SAMPLE *(*load)(AL_CONST char *filename);
-   int (*save)(AL_CONST char *filename, SAMPLE *smp);
+   SAMPLE *(*load)(AL_LEGACY_CONST char *filename);
+   int (*save)(AL_LEGACY_CONST char *filename, SAMPLE *smp);
    struct SAMPLE_TYPE_INFO *next;
 } SAMPLE_TYPE_INFO;
 
@@ -39,7 +39,7 @@ static SAMPLE_TYPE_INFO *sample_type_list = NULL;
  *  Informs Allegro of a new sample file type, telling it how to load and
  *  save files of this format (either function may be NULL).
  */
-void register_sample_file_type(AL_CONST char *ext, SAMPLE *(*load)(AL_CONST char *filename), int (*save)(AL_CONST char *filename, SAMPLE *smp))
+void register_sample_file_type(AL_LEGACY_CONST char *ext, SAMPLE *(*load)(AL_LEGACY_CONST char *filename), int (*save)(AL_LEGACY_CONST char *filename, SAMPLE *smp))
 {
    char tmp[32], *aext;
    SAMPLE_TYPE_INFO *iter = sample_type_list;
@@ -68,7 +68,7 @@ void register_sample_file_type(AL_CONST char *ext, SAMPLE *(*load)(AL_CONST char
 /* load_sample:
  *  Loads a sample from disk.
  */
-SAMPLE *load_sample(AL_CONST char *filename)
+SAMPLE *load_sample(AL_LEGACY_CONST char *filename)
 {
    char tmp[32], *aext;
    SAMPLE_TYPE_INFO *iter;
@@ -92,7 +92,7 @@ SAMPLE *load_sample(AL_CONST char *filename)
 /* save_sample:
  *  Writes a sample to disk.
  */
-int save_sample(AL_CONST char *filename, SAMPLE *smp)
+int save_sample(AL_LEGACY_CONST char *filename, SAMPLE *smp)
 {
    char tmp[32], *aext;
    SAMPLE_TYPE_INFO *iter;

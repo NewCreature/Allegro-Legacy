@@ -33,22 +33,22 @@ extern char **__crt0_argv;
 
 /* System driver */
 #define SYSTEM_QNX            AL_ID('Q','S','Y','S')
-AL_VAR(SYSTEM_DRIVER, system_qnx);
+AL_LEGACY_VAR(SYSTEM_DRIVER, system_qnx);
 
 
 /* Timer driver */
 #define TIMERDRV_UNIX_PTHREADS	AL_ID('P','T','H','R')
-AL_VAR(TIMER_DRIVER, timerdrv_unix_pthreads);
+AL_LEGACY_VAR(TIMER_DRIVER, timerdrv_unix_pthreads);
 
 
 /* Keyboard driver */
 #define KEYBOARD_QNX          AL_ID('Q','K','E','Y')
-AL_VAR(KEYBOARD_DRIVER, keyboard_qnx);
+AL_LEGACY_VAR(KEYBOARD_DRIVER, keyboard_qnx);
 
 
 /* Mouse driver */
 #define MOUSE_QNX             AL_ID('Q','M','S','E')
-AL_VAR(MOUSE_DRIVER, mouse_qnx);
+AL_LEGACY_VAR(MOUSE_DRIVER, mouse_qnx);
 
 
 /* Graphics drivers */
@@ -57,18 +57,18 @@ AL_VAR(MOUSE_DRIVER, mouse_qnx);
 #define GFX_PHOTON_SOFT       AL_ID('Q','P','S','O')
 #define GFX_PHOTON_SAFE       AL_ID('Q','P','S','A')
 #define GFX_PHOTON_WIN        AL_ID('Q','P','W','N')
-AL_VAR(GFX_DRIVER, gfx_photon);
-AL_VAR(GFX_DRIVER, gfx_photon_accel);
-AL_VAR(GFX_DRIVER, gfx_photon_soft);
-AL_VAR(GFX_DRIVER, gfx_photon_safe);
-AL_VAR(GFX_DRIVER, gfx_photon_win);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_photon);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_photon_accel);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_photon_soft);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_photon_safe);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_photon_win);
 
 
 /* Sound driver */
 #define DIGI_ALSA             AL_ID('A','L','S','A')
-AL_VAR(DIGI_DRIVER, digi_alsa);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_alsa);
 
 
 /* MIDI driver */
 #define MIDI_ALSA             AL_ID('A','M','I','D')
-AL_VAR(MIDI_DRIVER, midi_alsa);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_alsa);

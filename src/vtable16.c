@@ -72,7 +72,7 @@ GFX_VTABLE __linear_vtable16 =
    _linear_masked_blit16,
    _linear_clear_to_color16,
    _pivot_scaled_sprite_flip,
-   NULL,    // AL_METHOD(void, do_stretch_blit, (struct BITMAP *source, struct BITMAP *dest, int source_x, int source_y, int source_width, int source_height, int dest_x, int dest_y, int dest_width, int dest_height, int masked))
+   NULL,    // AL_LEGACY_METHOD(void, do_stretch_blit, (struct BITMAP *source, struct BITMAP *dest, int source_x, int source_y, int source_width, int source_height, int dest_x, int dest_y, int dest_width, int dest_height, int masked))
    _soft_draw_gouraud_sprite,
    _linear_draw_sprite16_end,
    _linear_blit16_end,

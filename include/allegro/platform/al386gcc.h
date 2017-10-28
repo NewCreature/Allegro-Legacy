@@ -25,7 +25,7 @@
 /* _default_ds:
  *  Return a copy of the current %ds selector.
  */
-AL_INLINE(int, _default_ds, (void),
+AL_LEGACY_INLINE(int, _default_ds, (void),
 {
    short result;
 
@@ -43,7 +43,7 @@ AL_INLINE(int, _default_ds, (void),
 /* bmp_write_line:
  *  Bank switch function.
  */
-AL_INLINE(uintptr_t, bmp_write_line, (BITMAP *bmp, int lyne),
+AL_LEGACY_INLINE(uintptr_t, bmp_write_line, (BITMAP *bmp, int lyne),
 {
    uintptr_t result;
 
@@ -65,7 +65,7 @@ AL_INLINE(uintptr_t, bmp_write_line, (BITMAP *bmp, int lyne),
 /* bmp_read_line:
  *  Bank switch function.
  */
-AL_INLINE(uintptr_t, bmp_read_line, (BITMAP *bmp, int lyne),
+AL_LEGACY_INLINE(uintptr_t, bmp_read_line, (BITMAP *bmp, int lyne),
 {
    uintptr_t result;
 
@@ -87,7 +87,7 @@ AL_INLINE(uintptr_t, bmp_read_line, (BITMAP *bmp, int lyne),
 /* bmp_unwrite_line:
  *  Terminate bank switch function.
  */
-AL_INLINE(void, bmp_unwrite_line, (BITMAP *bmp),
+AL_LEGACY_INLINE(void, bmp_unwrite_line, (BITMAP *bmp),
 {
    __asm__ volatile (
       "  call *%1 "
@@ -130,7 +130,7 @@ AL_INLINE(void, bmp_unwrite_line, (BITMAP *bmp),
 /* fixadd:
  *  Fixed point (16.16) addition.
  */
-AL_INLINE(fixed, fixadd, (fixed x, fixed y),
+AL_LEGACY_INLINE(fixed, fixadd, (fixed x, fixed y),
 {
    fixed result;
 
@@ -168,7 +168,7 @@ AL_INLINE(fixed, fixadd, (fixed x, fixed y),
 /* fixsub:
  *  Fixed point (16.16) subtraction.
  */
-AL_INLINE(fixed, fixsub, (fixed x, fixed y),
+AL_LEGACY_INLINE(fixed, fixsub, (fixed x, fixed y),
 {
    fixed result;
 
@@ -206,7 +206,7 @@ AL_INLINE(fixed, fixsub, (fixed x, fixed y),
 /* fixmul:
  *  Fixed point (16.16) multiplication.
  */
-AL_INLINE(fixed, fixmul, (fixed x, fixed y),
+AL_LEGACY_INLINE(fixed, fixmul, (fixed x, fixed y),
 {
    fixed edx __attribute__ ((__unused__));
    fixed result;
@@ -258,7 +258,7 @@ AL_INLINE(fixed, fixmul, (fixed x, fixed y),
 /* fixdiv:
  *  Fixed point (16.16) division.
  */
-AL_INLINE(fixed, fixdiv, (fixed x, fixed y),
+AL_LEGACY_INLINE(fixed, fixdiv, (fixed x, fixed y),
 {
    fixed edx __attribute__ ((__unused__));
    fixed reg __attribute__ ((__unused__));
@@ -342,7 +342,7 @@ AL_INLINE(fixed, fixdiv, (fixed x, fixed y),
  * Fixed point version of floor().
  * Note that it returns an integer result (not a fixed one)
  */
-AL_INLINE(int, fixfloor, (fixed x),
+AL_LEGACY_INLINE(int, fixfloor, (fixed x),
 {
    int result;
 
@@ -363,7 +363,7 @@ AL_INLINE(int, fixfloor, (fixed x),
  * Fixed point version of ceil().
  * Note that it returns an integer result (not a fixed one)
  */
-AL_INLINE(int, fixceil, (fixed x),
+AL_LEGACY_INLINE(int, fixceil, (fixed x),
 {
    int result;
 

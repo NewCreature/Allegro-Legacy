@@ -29,41 +29,41 @@
    #include <allegro5/allegro_acodec.h>
 #endif
 
-AL_VAR(ALLEGRO_DISPLAY *, _a5_display);
+AL_LEGACY_VAR(ALLEGRO_DISPLAY *, _a5_display);
 
 /* System driver */
 #define SYSTEM_ALLEGRO_5        AL_ID('A','5',' ',' ')
-AL_VAR(SYSTEM_DRIVER, system_allegro_5);
+AL_LEGACY_VAR(SYSTEM_DRIVER, system_allegro_5);
 
 /* Timer driver */
 #define TIMERDRV_ALLEGRO_5      AL_ID('A','5','T',' ')
-AL_VAR(TIMER_DRIVER, timerdrv_allegro_5);
+AL_LEGACY_VAR(TIMER_DRIVER, timerdrv_allegro_5);
 
 /* Keyboard driver */
 #define KEYBOARD_ALLEGRO_5      AL_ID('A','5','K','B')
-AL_VAR(KEYBOARD_DRIVER, keyboard_allegro_5);
+AL_LEGACY_VAR(KEYBOARD_DRIVER, keyboard_allegro_5);
 
 /* Mouse driver */
 #define MOUSE_ALLEGRO_5         AL_ID('A','5','M',' ')
-AL_VAR(MOUSE_DRIVER, mouse_allegro_5);
+AL_LEGACY_VAR(MOUSE_DRIVER, mouse_allegro_5);
 
 /* Gfx drivers */
 #define GFX_ALLEGRO_5           AL_ID('A','5','D',' ')
-AL_VAR(GFX_DRIVER, gfx_allegro_5);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_allegro_5);
 
 /* Digital sound drivers */
 #define DIGI_ALLEGRO_5          AL_ID('A','5','A',' ')
-AL_VAR(DIGI_DRIVER, digi_allegro_5);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_allegro_5);
 
 /* MIDI music drivers */
 #define MIDI_ALLEGRO_5         AL_ID('A','5','M','M')
 //#define MIDI_QUICKTIME          AL_ID('Q','T','M',' ')
-AL_VAR(MIDI_DRIVER, midi_allegro_5);
-//AL_VAR(MIDI_DRIVER, midi_quicktime);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_allegro_5);
+//AL_LEGACY_VAR(MIDI_DRIVER, midi_quicktime);
 
 /* Joystick drivers */
 #define JOYSTICK_ALLEGRO_5      AL_ID('A','5','J',' ')
-AL_VAR(JOYSTICK_DRIVER, joystick_allegro_5);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_allegro_5);
 
 #define GFX_DRIVER_ALLEGRO_5                                            \
    { GFX_ALLEGRO_5,            &display_allegro_5,            TRUE },	\

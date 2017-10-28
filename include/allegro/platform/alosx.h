@@ -75,41 +75,41 @@ extern char **__crt0_argv;
 
 /* System driver */
 #define SYSTEM_MACOSX           AL_ID('O','S','X',' ')
-AL_VAR(SYSTEM_DRIVER, system_macosx);
+AL_LEGACY_VAR(SYSTEM_DRIVER, system_macosx);
 
 /* Timer driver */
 #define TIMERDRV_UNIX_PTHREADS  AL_ID('P','T','H','R')
-AL_VAR(TIMER_DRIVER, timerdrv_unix_pthreads);
+AL_LEGACY_VAR(TIMER_DRIVER, timerdrv_unix_pthreads);
 
 /* Keyboard driver */
 #define KEYBOARD_MACOSX         AL_ID('O','S','X','K')
-AL_VAR(KEYBOARD_DRIVER, keyboard_macosx);
+AL_LEGACY_VAR(KEYBOARD_DRIVER, keyboard_macosx);
 
 /* Mouse driver */
 #define MOUSE_MACOSX            AL_ID('O','S','X','M')
-AL_VAR(MOUSE_DRIVER, mouse_macosx);
+AL_LEGACY_VAR(MOUSE_DRIVER, mouse_macosx);
 
 /* Gfx drivers */
 #define GFX_QUARTZ_WINDOW       AL_ID('Q','Z','W','N')
 #define GFX_QUARTZ_FULLSCREEN   AL_ID('Q','Z','F','L')
-AL_VAR(GFX_DRIVER, gfx_quartz_window);
-AL_VAR(GFX_DRIVER, gfx_quartz_full);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_quartz_window);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_quartz_full);
 
 /* Digital sound drivers */
 #define DIGI_CORE_AUDIO         AL_ID('D','C','A',' ')
 #define DIGI_SOUND_MANAGER      AL_ID('S','N','D','M')
-AL_VAR(DIGI_DRIVER, digi_core_audio);
-AL_VAR(DIGI_DRIVER, digi_sound_manager);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_core_audio);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_sound_manager);
 
 /* MIDI music drivers */
 #define MIDI_CORE_AUDIO         AL_ID('M','C','A',' ')
 #define MIDI_QUICKTIME          AL_ID('Q','T','M',' ')
-AL_VAR(MIDI_DRIVER, midi_core_audio);
-AL_VAR(MIDI_DRIVER, midi_quicktime);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_core_audio);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_quicktime);
 
 /* Joystick drivers */
 #define JOYSTICK_HID            AL_ID('H','I','D','J')
-AL_VAR(JOYSTICK_DRIVER, joystick_hid);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_hid);
 
 
 #endif

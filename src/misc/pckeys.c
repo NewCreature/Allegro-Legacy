@@ -349,7 +349,7 @@ int _pckey_scancode_to_ascii(int scancode)
  *  Like above, but returns a static string and also works for things like
  *  modifier keys.
  */
-AL_CONST char *_pckey_scancode_to_name(int scancode)
+AL_LEGACY_CONST char *_pckey_scancode_to_name(int scancode)
 {
    if ((scancode < 0) || (scancode >= KEY_MAX))
       return NULL;
@@ -666,7 +666,7 @@ static void update_key_descriptions(void)
 static void read_keyboard_config(void)
 {
    char filename[1024], tmp1[128], tmp2[128], *ext, *datafile;
-   AL_CONST char* name;
+   AL_LEGACY_CONST char* name;
 
    name = get_config_string(uconvert_ascii("system", tmp1), uconvert_ascii("keyboard", tmp2), _keyboard_layout);
 

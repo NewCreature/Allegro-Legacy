@@ -235,15 +235,15 @@ TIMER_DRIVER timer_allegro5 = {
    empty_string,	// char *name;
    empty_string,	// char *desc;
    "Allegro 5 Timer",		// char *ascii_name;
-   a5_timer_init,	// AL_METHOD(int, init, (void));
-   a5_timer_exit,	// AL_METHOD(void, exit, (void));
-   a5_timer_install_int, 		// AL_METHOD(int, install_int, (AL_METHOD(void, proc, (void)), long speed));
-   a5_timer_remove_int,		// AL_METHOD(void, remove_int, (AL_METHOD(void, proc, (void))));
-   a5_timer_install_param_int,		// AL_METHOD(int, install_param_int, (AL_METHOD(void, proc, (void *param)), void *param, long speed));
-   a5_timer_remove_param_int,		// AL_METHOD(void, remove_param_int, (AL_METHOD(void, proc, (void *param)), void *param));
-   NULL,		// AL_METHOD(int, can_simulate_retrace, (void));
-   NULL,		// AL_METHOD(void, simulate_retrace, (int enable));
-   a5_timer_rest,	// AL_METHOD(void, rest, (long time, AL_METHOD(void, callback, (void))));
+   a5_timer_init,	// AL_LEGACY_METHOD(int, init, (void));
+   a5_timer_exit,	// AL_LEGACY_METHOD(void, exit, (void));
+   a5_timer_install_int, 		// AL_LEGACY_METHOD(int, install_int, (AL_LEGACY_METHOD(void, proc, (void)), long speed));
+   a5_timer_remove_int,		// AL_LEGACY_METHOD(void, remove_int, (AL_LEGACY_METHOD(void, proc, (void))));
+   a5_timer_install_param_int,		// AL_LEGACY_METHOD(int, install_param_int, (AL_LEGACY_METHOD(void, proc, (void *param)), void *param, long speed));
+   a5_timer_remove_param_int,		// AL_LEGACY_METHOD(void, remove_param_int, (AL_LEGACY_METHOD(void, proc, (void *param)), void *param));
+   NULL,		// AL_LEGACY_METHOD(int, can_simulate_retrace, (void));
+   NULL,		// AL_LEGACY_METHOD(void, simulate_retrace, (int enable));
+   a5_timer_rest,	// AL_LEGACY_METHOD(void, rest, (long time, AL_LEGACY_METHOD(void, callback, (void))));
 };
 
 _DRIVER_INFO _timer_driver_list[] = {

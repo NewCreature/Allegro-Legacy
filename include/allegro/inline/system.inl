@@ -26,7 +26,7 @@
 #endif
 
 
-AL_INLINE(void, set_window_title, (AL_CONST char *name),
+AL_LEGACY_INLINE(void, set_window_title, (AL_LEGACY_CONST char *name),
 {
    ASSERT(system_driver);
 
@@ -35,7 +35,7 @@ AL_INLINE(void, set_window_title, (AL_CONST char *name),
 })
 
 
-AL_INLINE(int, desktop_color_depth, (void),
+AL_LEGACY_INLINE(int, desktop_color_depth, (void),
 {
    ASSERT(system_driver);
 
@@ -46,7 +46,7 @@ AL_INLINE(int, desktop_color_depth, (void),
 })
 
 
-AL_INLINE(int, get_desktop_resolution, (int *width, int *height),
+AL_LEGACY_INLINE(int, get_desktop_resolution, (int *width, int *height),
 {
    ASSERT(system_driver);
 

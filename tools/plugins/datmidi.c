@@ -44,7 +44,7 @@ static void *makenew_midi(long *size)
 
 
 /* displays a MIDI file in the grabber object view window */
-static void plot_midi(AL_CONST DATAFILE *dat, int x, int y)
+static void plot_midi(AL_LEGACY_CONST DATAFILE *dat, int x, int y)
 {
    textout_ex(screen, font, "Double-click in the item list to play it", x, y+32, gui_fg_color, gui_bg_color);
 }
@@ -61,7 +61,7 @@ static int dclick_midi(DATAFILE *dat)
 
 
 /* exports a MIDI object into an external file */
-static int export_midi(AL_CONST DATAFILE *dat, AL_CONST char *filename)
+static int export_midi(AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *filename)
 {
    MIDI *midi = (MIDI *)dat->dat;
    PACKFILE *f;
@@ -101,7 +101,7 @@ static int export_midi(AL_CONST DATAFILE *dat, AL_CONST char *filename)
 
 
 /* imports a MIDI object from an external file */
-static DATAFILE *grab_midi(int type, AL_CONST char *filename, DATAFILE_PROPERTY **prop, int depth)
+static DATAFILE *grab_midi(int type, AL_LEGACY_CONST char *filename, DATAFILE_PROPERTY **prop, int depth)
 {
    return datedit_construct(type, load_midi(filename), 0, prop);
 }
@@ -109,7 +109,7 @@ static DATAFILE *grab_midi(int type, AL_CONST char *filename, DATAFILE_PROPERTY 
 
 
 /* saves a MIDI object in the datafile format */
-static int save_midi(DATAFILE *dat, AL_CONST int *fixed_prop, int pack, int pack_kids, int strip, int sort, int verbose, int extra, PACKFILE *f)
+static int save_midi(DATAFILE *dat, AL_LEGACY_CONST int *fixed_prop, int pack, int pack_kids, int strip, int sort, int verbose, int extra, PACKFILE *f)
 {
    MIDI *midi = (MIDI *)dat->dat;
    int c;

@@ -35,15 +35,15 @@ int  _dummy_init(int input, int voices) { digi_none.desc = _midi_none.desc = get
 void _dummy_exit(int input) { }
 int  _dummy_set_mixer_volume(int volume) { return 0; }
 int  _dummy_get_mixer_volume(void) { return -1; }
-void _dummy_init_voice(int voice, AL_CONST SAMPLE *sample) { }
+void _dummy_init_voice(int voice, AL_LEGACY_CONST SAMPLE *sample) { }
 void _dummy_noop1(int p) { }
 void _dummy_noop2(int p1, int p2) { }
 void _dummy_noop3(int p1, int p2, int p3) { }
 int  _dummy_get_position(int voice) { return -1; }
 int  _dummy_get(int voice) { return 0; }
 void _dummy_raw_midi(int data) { }
-int  _dummy_load_patches(AL_CONST char *patches, AL_CONST char *drums) { return 0; }
-void _dummy_adjust_patches(AL_CONST char *patches, AL_CONST char *drums) { }
+int  _dummy_load_patches(AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums) { return 0; }
+void _dummy_adjust_patches(AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums) { }
 void _dummy_key_on(int inst, int note, int bend, int vol, int pan) { }
 
 /* put this after all the dummy functions, so they will all get locked */
@@ -297,7 +297,7 @@ void reserve_voices(int digi_voices, int midi_voices)
  *  allegro.h. Pass DIGI_AUTODETECT and MIDI_AUTODETECT if you don't know 
  *  what the soundcard is.
  */
-int install_sound(int digi, int midi, AL_CONST char *cfg_path)
+int install_sound(int digi, int midi, AL_LEGACY_CONST char *cfg_path)
 {
    char tmp1[64], tmp2[64];
    char *sound = uconvert_ascii("sound", tmp1);
@@ -850,7 +850,7 @@ void lock_sample(SAMPLE *spl)
  *  Reads a mono VOC format sample file, returning a SAMPLE structure, 
  *  or NULL on error.
  */
-SAMPLE *load_voc(AL_CONST char *filename)
+SAMPLE *load_voc(AL_LEGACY_CONST char *filename)
 {
    PACKFILE *f;
    SAMPLE *spl;
@@ -977,7 +977,7 @@ SAMPLE *load_voc_pf(PACKFILE *f)
  *  Reads a RIFF WAV format sample file, returning a SAMPLE structure, 
  *  or NULL on error.
  */
-SAMPLE *load_wav(AL_CONST char *filename)
+SAMPLE *load_wav(AL_LEGACY_CONST char *filename)
 {
    PACKFILE *f;
    SAMPLE *spl;
@@ -1166,7 +1166,7 @@ void destroy_sample(SAMPLE *spl)
  *  Converts a pitch from the relative 1000 = original format to an absolute
  *  value in hz.
  */
-static INLINE int absolute_freq(int freq, AL_CONST SAMPLE *spl)
+static INLINE int absolute_freq(int freq, AL_LEGACY_CONST SAMPLE *spl)
 {
    ASSERT(spl);
    if (freq == 1000)
@@ -1187,7 +1187,7 @@ static INLINE int absolute_freq(int freq, AL_CONST SAMPLE *spl)
  *  stop_sample(), and can be manipulated while it is playing by calling
  *  adjust_sample().
  */
-int play_sample(AL_CONST SAMPLE *spl, int vol, int pan, int freq, int loop)
+int play_sample(AL_LEGACY_CONST SAMPLE *spl, int vol, int pan, int freq, int loop)
 {
    int voice;
    ASSERT(spl);
@@ -1221,7 +1221,7 @@ END_OF_FUNCTION(play_sample);
  *  first one it comes across. If the sample is not playing it has no
  *  effect.
  */
-void adjust_sample(AL_CONST SAMPLE *spl, int vol, int pan, int freq, int loop)
+void adjust_sample(AL_LEGACY_CONST SAMPLE *spl, int vol, int pan, int freq, int loop)
 {
    int c;
    ASSERT(spl);
@@ -1246,7 +1246,7 @@ END_OF_FUNCTION(adjust_sample);
  *  in looped mode. If there are several copies of the sample playing,
  *  it will stop them all.
  */
-void stop_sample(AL_CONST SAMPLE *spl)
+void stop_sample(AL_LEGACY_CONST SAMPLE *spl)
 {
    int c;
    ASSERT(spl);
@@ -1376,7 +1376,7 @@ static INLINE int allocate_virtual_voice(void)
  *  since there are 256 virtual voices and anyone who needs more than that
  *  needs some urgent repairs to their brain :-)
  */
-int allocate_voice(AL_CONST SAMPLE *spl)
+int allocate_voice(AL_LEGACY_CONST SAMPLE *spl)
 {
    int phys, virt;
    ASSERT(spl);
@@ -1436,7 +1436,7 @@ END_OF_FUNCTION(deallocate_voice);
 /* reallocate_voice:
  *  Switches an already-allocated voice to use a different sample.
  */
-void reallocate_voice(int voice, AL_CONST SAMPLE *spl)
+void reallocate_voice(int voice, AL_LEGACY_CONST SAMPLE *spl)
 {
    int phys;
    ASSERT(spl);

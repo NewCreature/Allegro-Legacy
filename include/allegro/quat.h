@@ -31,17 +31,17 @@ typedef struct QUAT
 } QUAT;
 
 
-AL_VAR(QUAT, identity_quat);
+AL_LEGACY_VAR(QUAT, identity_quat);
 
-AL_FUNC(void, quat_mul, (AL_CONST QUAT *p, AL_CONST QUAT *q, QUAT *out));
-AL_FUNC(void, get_x_rotate_quat, (QUAT *q, float r));
-AL_FUNC(void, get_y_rotate_quat, (QUAT *q, float r));
-AL_FUNC(void, get_z_rotate_quat, (QUAT *q, float r));
-AL_FUNC(void, get_rotation_quat, (QUAT *q, float x, float y, float z));
-AL_FUNC(void, get_vector_rotation_quat, (QUAT *q, float x, float y, float z, float a));
+AL_LEGACY_FUNC(void, quat_mul, (AL_LEGACY_CONST QUAT *p, AL_LEGACY_CONST QUAT *q, QUAT *out));
+AL_LEGACY_FUNC(void, get_x_rotate_quat, (QUAT *q, float r));
+AL_LEGACY_FUNC(void, get_y_rotate_quat, (QUAT *q, float r));
+AL_LEGACY_FUNC(void, get_z_rotate_quat, (QUAT *q, float r));
+AL_LEGACY_FUNC(void, get_rotation_quat, (QUAT *q, float x, float y, float z));
+AL_LEGACY_FUNC(void, get_vector_rotation_quat, (QUAT *q, float x, float y, float z, float a));
 
-AL_FUNC(void, apply_quat, (AL_CONST QUAT *q, float x, float y, float z, float *xout, float *yout, float *zout));
-AL_FUNC(void, quat_slerp, (AL_CONST QUAT *from, AL_CONST QUAT *to, float t, QUAT *out, int how));
+AL_LEGACY_FUNC(void, apply_quat, (AL_LEGACY_CONST QUAT *q, float x, float y, float z, float *xout, float *yout, float *zout));
+AL_LEGACY_FUNC(void, quat_slerp, (AL_LEGACY_CONST QUAT *from, AL_LEGACY_CONST QUAT *to, float t, QUAT *out, int how));
 
 #define QUAT_SHORT   0
 #define QUAT_LONG    1

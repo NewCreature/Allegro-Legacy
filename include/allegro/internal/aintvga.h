@@ -30,20 +30,20 @@
 #endif
 
 
-AL_VAR(int, _crtc);
+AL_LEGACY_VAR(int, _crtc);
 
-AL_FUNC(void, _vga_regs_init, (void));
-AL_FUNC(void, _vga_vsync, (void));
-AL_FUNC(void, _vga_set_palette_range, (AL_CONST PALETTE p, int from, int to, int do_sync));
-AL_FUNC(void, _set_vga_virtual_width, (int old_width, int new_width));
-AL_FUNC(uintptr_t, _set_vga_mode, (int modenum));
-AL_FUNC(void, _unset_vga_mode, (void));
-AL_FUNC(void, _save_vga_mode, (void));
-AL_FUNC(void, _restore_vga_mode, (void));
+AL_LEGACY_FUNC(void, _vga_regs_init, (void));
+AL_LEGACY_FUNC(void, _vga_vsync, (void));
+AL_LEGACY_FUNC(void, _vga_set_palette_range, (AL_LEGACY_CONST PALETTE p, int from, int to, int do_sync));
+AL_LEGACY_FUNC(void, _set_vga_virtual_width, (int old_width, int new_width));
+AL_LEGACY_FUNC(uintptr_t, _set_vga_mode, (int modenum));
+AL_LEGACY_FUNC(void, _unset_vga_mode, (void));
+AL_LEGACY_FUNC(void, _save_vga_mode, (void));
+AL_LEGACY_FUNC(void, _restore_vga_mode, (void));
 
 
 /* reads the current value of a VGA hardware register */
-AL_INLINE(int, _read_vga_register, (int port, int idx),
+AL_LEGACY_INLINE(int, _read_vga_register, (int port, int idx),
 {
    if (port==0x3C0)
       inportb(_crtc+6); 
@@ -54,7 +54,7 @@ AL_INLINE(int, _read_vga_register, (int port, int idx),
 
 
 /* writes to a VGA hardware register */
-AL_INLINE(void, _write_vga_register, (int port, int idx, int v),
+AL_LEGACY_INLINE(void, _write_vga_register, (int port, int idx, int v),
 {
    if (port==0x3C0) {
       inportb(_crtc+6);
@@ -69,7 +69,7 @@ AL_INLINE(void, _write_vga_register, (int port, int idx, int v),
 
 
 /* alters specific bits of a VGA hardware register */
-AL_INLINE(void, _alter_vga_register, (int port, int idx, int mask, int v),
+AL_LEGACY_INLINE(void, _alter_vga_register, (int port, int idx, int mask, int v),
 {
    int temp;
    temp = _read_vga_register(port, idx);
@@ -80,7 +80,7 @@ AL_INLINE(void, _alter_vga_register, (int port, int idx, int mask, int v),
 
 
 /* waits until the VGA isn't in a horizontal blank */
-AL_INLINE(void, _vsync_out_h, (void),
+AL_LEGACY_INLINE(void, _vsync_out_h, (void),
 {
    do {
    } while (inportb(0x3DA) & 1);
@@ -88,7 +88,7 @@ AL_INLINE(void, _vsync_out_h, (void),
 
 
 /* waits until the VGA isn't in a vertical blank */
-AL_INLINE(void, _vsync_out_v, (void),
+AL_LEGACY_INLINE(void, _vsync_out_v, (void),
 {
    do {
    } while (inportb(0x3DA) & 8);
@@ -96,7 +96,7 @@ AL_INLINE(void, _vsync_out_v, (void),
 
 
 /* waits until the VGA is in a vertical blank */
-AL_INLINE(void, _vsync_in, (void),
+AL_LEGACY_INLINE(void, _vsync_in, (void),
 {
    if (_timer_use_retrace) {
       int t = retrace_count; 
@@ -112,7 +112,7 @@ AL_INLINE(void, _vsync_in, (void),
 
 
 /* modifies the VGA pelpan register */
-AL_INLINE(void, _write_hpp, (int value),
+AL_LEGACY_INLINE(void, _write_hpp, (int value),
 {
    if (_timer_use_retrace) {
       _retrace_hpp_value = value;

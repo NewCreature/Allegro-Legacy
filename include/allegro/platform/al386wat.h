@@ -85,7 +85,7 @@ void _bmp_unbank_switcher(BITMAP *bmp, void *bank_unswitcher);
 /* _set_errno_erange:
  *  Watcom's asm syntax doesn't provide any nice way to do this inline...
  */
-AL_INLINE(void, _set_errno_erange, (void),
+AL_LEGACY_INLINE(void, _set_errno_erange, (void),
 {
    *allegro_errno = ERANGE;
 })

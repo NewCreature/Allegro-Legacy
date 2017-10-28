@@ -106,7 +106,7 @@ static char *uconvert_static_string(char *str)
 
 
 /* helper for converting a static const string */
-static AL_CONST char *uconvert_static_const_string(AL_CONST char *str)
+static AL_LEGACY_CONST char *uconvert_static_const_string(AL_LEGACY_CONST char *str)
 {
    int size;
    char *new_str;
@@ -142,9 +142,9 @@ static char **uconvert_static_string_array(char *str_array[])
 typedef struct SOUNDCARD
 {
    int id;
-   AL_CONST char *name;
+   AL_LEGACY_CONST char *name;
    char **param;
-   AL_CONST char *desc;
+   AL_LEGACY_CONST char *desc;
    int present;
 } SOUNDCARD;
 
@@ -1072,7 +1072,7 @@ static BITMAP *popup_bitmap2 = NULL;
 
 
 /* helper for displaying a popup message */
-static void popup(AL_CONST char *s1, AL_CONST char *s2)
+static void popup(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
 {
    int w, w2, c, ct;
 
@@ -1385,7 +1385,7 @@ static int detect_mouse(void)
    int buffer_size = sizeof(buffer_array[0]);
    char *buffer;
    char tmp1[256], tmp2[256], tmp3[64], tmp4[64];
-   AL_CONST char *drv_name;
+   AL_LEGACY_CONST char *drv_name;
    int count_array[NUM_FD] = {0, 0, 0, 0};
    int count;
    _DRIVER_INFO *list;
@@ -1816,7 +1816,7 @@ static void get_joystick_drivers(_DRIVER_INFO **list, int *list_size)
 
 
 /* dialog callback for retrieving information about the joystick list */
-static AL_CONST char *joystick_getter(int index, int *list_size)
+static AL_LEGACY_CONST char *joystick_getter(int index, int *list_size)
 {
    _DRIVER_INFO *list;
    int size;
@@ -1855,7 +1855,7 @@ static void get_mouse_drivers(_DRIVER_INFO **list, int *list_size)
 
 
 /* dialog callback for retrieving information about the mouse list */
-static AL_CONST char *mouse_getter(int index, int *list_size)
+static AL_LEGACY_CONST char *mouse_getter(int index, int *list_size)
 {
    _DRIVER_INFO *list;
    int size;
@@ -2538,7 +2538,7 @@ static DIALOG_STATE main_handler(int c)
 {
    char b1[256], b2[256], tmp1[256], tmp2[256];
    int i;
-   AL_CONST char *s;
+   AL_LEGACY_CONST char *s;
    char* s2;
    DATAFILE *data;
    _DRIVER_INFO *list;

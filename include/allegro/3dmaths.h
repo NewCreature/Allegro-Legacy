@@ -29,29 +29,29 @@
 struct QUAT;
 struct MATRIX_f;
 
-AL_FUNC(fixed, vector_length, (fixed x, fixed y, fixed z));
-AL_FUNC(float, vector_length_f, (float x, float y, float z));
+AL_LEGACY_FUNC(fixed, vector_length, (fixed x, fixed y, fixed z));
+AL_LEGACY_FUNC(float, vector_length_f, (float x, float y, float z));
 
-AL_FUNC(void, normalize_vector, (fixed *x, fixed *y, fixed *z));
-AL_FUNC(void, normalize_vector_f, (float *x, float *y, float *z));
+AL_LEGACY_FUNC(void, normalize_vector, (fixed *x, fixed *y, fixed *z));
+AL_LEGACY_FUNC(void, normalize_vector_f, (float *x, float *y, float *z));
 
-AL_FUNC(void, cross_product, (fixed x1, fixed y_1, fixed z1, fixed x2, fixed y2, fixed z2, fixed *xout, fixed *yout, fixed *zout));
-AL_FUNC(void, cross_product_f, (float x1, float y_1, float z1, float x2, float y2, float z2, float *xout, float *yout, float *zout));
+AL_LEGACY_FUNC(void, cross_product, (fixed x1, fixed y_1, fixed z1, fixed x2, fixed y2, fixed z2, fixed *xout, fixed *yout, fixed *zout));
+AL_LEGACY_FUNC(void, cross_product_f, (float x1, float y_1, float z1, float x2, float y2, float z2, float *xout, float *yout, float *zout));
 
-AL_VAR(fixed, _persp_xscale);
-AL_VAR(fixed, _persp_yscale);
-AL_VAR(fixed, _persp_xoffset);
-AL_VAR(fixed, _persp_yoffset);
+AL_LEGACY_VAR(fixed, _persp_xscale);
+AL_LEGACY_VAR(fixed, _persp_yscale);
+AL_LEGACY_VAR(fixed, _persp_xoffset);
+AL_LEGACY_VAR(fixed, _persp_yoffset);
 
-AL_VAR(float, _persp_xscale_f);
-AL_VAR(float, _persp_yscale_f);
-AL_VAR(float, _persp_xoffset_f);
-AL_VAR(float, _persp_yoffset_f);
+AL_LEGACY_VAR(float, _persp_xscale_f);
+AL_LEGACY_VAR(float, _persp_yscale_f);
+AL_LEGACY_VAR(float, _persp_xoffset_f);
+AL_LEGACY_VAR(float, _persp_yoffset_f);
 
-AL_FUNC(void, set_projection_viewport, (int x, int y, int w, int h));
+AL_LEGACY_FUNC(void, set_projection_viewport, (int x, int y, int w, int h));
 
-AL_FUNC(void, quat_to_matrix, (AL_CONST struct QUAT *q, struct MATRIX_f *m));
-AL_FUNC(void, matrix_to_quat, (AL_CONST struct MATRIX_f *m, struct QUAT *q));
+AL_LEGACY_FUNC(void, quat_to_matrix, (AL_LEGACY_CONST struct QUAT *q, struct MATRIX_f *m));
+AL_LEGACY_FUNC(void, matrix_to_quat, (AL_LEGACY_CONST struct MATRIX_f *m, struct QUAT *q));
 
 #ifdef __cplusplus
    }

@@ -233,14 +233,14 @@ static void usage(void)
 
 
 /* unused callback for datedit.c */
-int datedit_ask(AL_CONST char *fmt, ...) { return 0; }
+int datedit_ask(AL_LEGACY_CONST char *fmt, ...) { return 0; }
 
 /* unused callback for datedit.c */
-int datedit_select(AL_CONST char *(*list_getter)(int index, int *list_size), AL_CONST char *fmt, ...) { return 0; }
+int datedit_select(AL_LEGACY_CONST char *(*list_getter)(int index, int *list_size), AL_LEGACY_CONST char *fmt, ...) { return 0; }
 
 
 /* callback for outputting messages */
-void datedit_msg(AL_CONST char *fmt, ...)
+void datedit_msg(AL_LEGACY_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -255,7 +255,7 @@ void datedit_msg(AL_CONST char *fmt, ...)
 
 
 /* callback for starting a 2-part message output */
-void datedit_startmsg(AL_CONST char *fmt, ...)
+void datedit_startmsg(AL_LEGACY_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -271,7 +271,7 @@ void datedit_startmsg(AL_CONST char *fmt, ...)
 
 
 /* callback for ending a 2-part message output */
-void datedit_endmsg(AL_CONST char *fmt, ...)
+void datedit_endmsg(AL_LEGACY_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -286,7 +286,7 @@ void datedit_endmsg(AL_CONST char *fmt, ...)
 
 
 /* callback for printing errors */
-void datedit_error(AL_CONST char *fmt, ...)
+void datedit_error(AL_LEGACY_CONST char *fmt, ...)
 {
    va_list args;
    char buf[1024];
@@ -412,7 +412,7 @@ static void scan_patches(MIDI *midi, char *patches, char *drums)
 
 
 /* reads a MIDI file to see what patches it requires */
-static int read_midi(AL_CONST char *filename, int attrib, void *param)
+static int read_midi(AL_LEGACY_CONST char *filename, int attrib, void *param)
 {
    char patches[128], drums[128];
    char fname[256];
@@ -542,7 +542,7 @@ static void mem_write_file(PACKFILE *f, int size)
 
 
 /* imports data from a GUS patch file */
-static DATAFILE *grab_patch(int type, AL_CONST char *filename, DATAFILE_PROPERTY **prop, int depth)
+static DATAFILE *grab_patch(int type, AL_LEGACY_CONST char *filename, DATAFILE_PROPERTY **prop, int depth)
 {
    PACKFILE *f;
    int64_t sz = file_size_ex(filename);

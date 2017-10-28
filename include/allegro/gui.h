@@ -28,7 +28,7 @@
 struct BITMAP;
 struct DIALOG;
 
-typedef AL_METHOD(int, DIALOG_PROC, (int msg, struct DIALOG *d, int c));
+typedef AL_LEGACY_METHOD(int, DIALOG_PROC, (int msg, struct DIALOG *d, int c));
 
 typedef struct DIALOG
 {
@@ -46,7 +46,7 @@ typedef struct DIALOG
 typedef struct MENU
 {
    char *text;                   /* menu item text */
-   AL_METHOD(int, proc, (void)); /* callback function */
+   AL_LEGACY_METHOD(int, proc, (void)); /* callback function */
    struct MENU *child;           /* to allow nested menus */
    int flags;                    /* flags about the menu state */
    void *dp;                     /* any data the menu might require */
@@ -147,80 +147,80 @@ typedef struct MENU_PLAYER
 
 
 /* some dialog procedures */
-AL_FUNC(int, d_yield_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_clear_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_box_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_shadow_box_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_bitmap_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_text_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_ctext_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_rtext_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_button_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_check_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_radio_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_icon_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_keyboard_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_edit_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_list_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_text_list_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_textbox_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_slider_proc, (int msg, DIALOG *d, int c));
-AL_FUNC(int, d_menu_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_yield_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_clear_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_box_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_shadow_box_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_bitmap_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_text_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_ctext_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_rtext_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_button_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_check_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_radio_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_icon_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_keyboard_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_edit_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_list_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_text_list_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_textbox_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_slider_proc, (int msg, DIALOG *d, int c));
+AL_LEGACY_FUNC(int, d_menu_proc, (int msg, DIALOG *d, int c));
 
-AL_VAR(DIALOG_PROC, gui_shadow_box_proc);
-AL_VAR(DIALOG_PROC, gui_ctext_proc);
-AL_VAR(DIALOG_PROC, gui_button_proc);
-AL_VAR(DIALOG_PROC, gui_edit_proc);
-AL_VAR(DIALOG_PROC, gui_list_proc);
-AL_VAR(DIALOG_PROC, gui_text_list_proc);
+AL_LEGACY_VAR(DIALOG_PROC, gui_shadow_box_proc);
+AL_LEGACY_VAR(DIALOG_PROC, gui_ctext_proc);
+AL_LEGACY_VAR(DIALOG_PROC, gui_button_proc);
+AL_LEGACY_VAR(DIALOG_PROC, gui_edit_proc);
+AL_LEGACY_VAR(DIALOG_PROC, gui_list_proc);
+AL_LEGACY_VAR(DIALOG_PROC, gui_text_list_proc);
 
-AL_FUNCPTR(void, gui_menu_draw_menu, (int x, int y, int w, int h));
-AL_FUNCPTR(void, gui_menu_draw_menu_item, (MENU *m, int x, int y, int w, int h, int bar, int sel));
+AL_LEGACY_FUNCPTR(void, gui_menu_draw_menu, (int x, int y, int w, int h));
+AL_LEGACY_FUNCPTR(void, gui_menu_draw_menu_item, (MENU *m, int x, int y, int w, int h, int bar, int sel));
 
-AL_VAR(DIALOG *, active_dialog);
-AL_VAR(MENU *, active_menu);
+AL_LEGACY_VAR(DIALOG *, active_dialog);
+AL_LEGACY_VAR(MENU *, active_menu);
 
-AL_VAR(int, gui_mouse_focus);
+AL_LEGACY_VAR(int, gui_mouse_focus);
 
-AL_VAR(int, gui_fg_color);
-AL_VAR(int, gui_mg_color);
-AL_VAR(int, gui_bg_color);
+AL_LEGACY_VAR(int, gui_fg_color);
+AL_LEGACY_VAR(int, gui_mg_color);
+AL_LEGACY_VAR(int, gui_bg_color);
 
-AL_VAR(int, gui_font_baseline);
+AL_LEGACY_VAR(int, gui_font_baseline);
 
-AL_FUNCPTR(int, gui_mouse_x, (void));
-AL_FUNCPTR(int, gui_mouse_y, (void));
-AL_FUNCPTR(int, gui_mouse_z, (void));
-AL_FUNCPTR(int, gui_mouse_b, (void));
+AL_LEGACY_FUNCPTR(int, gui_mouse_x, (void));
+AL_LEGACY_FUNCPTR(int, gui_mouse_y, (void));
+AL_LEGACY_FUNCPTR(int, gui_mouse_z, (void));
+AL_LEGACY_FUNCPTR(int, gui_mouse_b, (void));
 
-AL_FUNC(void, gui_set_screen, (BITMAP *bmp));
-AL_FUNC(BITMAP *, gui_get_screen, (void));
-AL_FUNC(int, gui_textout_ex, (struct BITMAP *bmp, AL_CONST char *s, int x, int y, int color, int bg, int centre));
-AL_FUNC(int, gui_strlen, (AL_CONST char *s));
-AL_FUNC(void, position_dialog, (DIALOG *dialog, int x, int y));
-AL_FUNC(void, centre_dialog, (DIALOG *dialog));
-AL_FUNC(void, set_dialog_color, (DIALOG *dialog, int fg, int bg));
-AL_FUNC(int, find_dialog_focus, (DIALOG *dialog));
-AL_FUNC(int, offer_focus, (DIALOG *dialog, int obj, int *focus_obj, int force));
-AL_FUNC(int, object_message, (DIALOG *dialog, int msg, int c));
-AL_FUNC(int, dialog_message, (DIALOG *dialog, int msg, int c, int *obj));
-AL_FUNC(int, broadcast_dialog_message, (int msg, int c));
-AL_FUNC(int, do_dialog, (DIALOG *dialog, int focus_obj));
-AL_FUNC(int, popup_dialog, (DIALOG *dialog, int focus_obj));
-AL_FUNC(DIALOG_PLAYER *, init_dialog, (DIALOG *dialog, int focus_obj));
-AL_FUNC(int, update_dialog, (DIALOG_PLAYER *player));
-AL_FUNC(int, shutdown_dialog, (DIALOG_PLAYER *player));
-AL_FUNC(int, do_menu, (MENU *menu, int x, int y));
-AL_FUNC(MENU_PLAYER *, init_menu, (MENU *menu, int x, int y));
-AL_FUNC(int, update_menu, (MENU_PLAYER *player));
-AL_FUNC(int, shutdown_menu, (MENU_PLAYER *player));
-AL_FUNC(int, alert, (AL_CONST char *s1, AL_CONST char *s2, AL_CONST char *s3, AL_CONST char *b1, AL_CONST char *b2, int c1, int c2));
-AL_FUNC(int, alert3, (AL_CONST char *s1, AL_CONST char *s2, AL_CONST char *s3, AL_CONST char *b1, AL_CONST char *b2, AL_CONST char *b3, int c1, int c2, int c3));
-AL_FUNC(int, file_select_ex, (AL_CONST char *message, char *path, AL_CONST char *ext, int size, int w, int h));
+AL_LEGACY_FUNC(void, gui_set_screen, (BITMAP *bmp));
+AL_LEGACY_FUNC(BITMAP *, gui_get_screen, (void));
+AL_LEGACY_FUNC(int, gui_textout_ex, (struct BITMAP *bmp, AL_LEGACY_CONST char *s, int x, int y, int color, int bg, int centre));
+AL_LEGACY_FUNC(int, gui_strlen, (AL_LEGACY_CONST char *s));
+AL_LEGACY_FUNC(void, position_dialog, (DIALOG *dialog, int x, int y));
+AL_LEGACY_FUNC(void, centre_dialog, (DIALOG *dialog));
+AL_LEGACY_FUNC(void, set_dialog_color, (DIALOG *dialog, int fg, int bg));
+AL_LEGACY_FUNC(int, find_dialog_focus, (DIALOG *dialog));
+AL_LEGACY_FUNC(int, offer_focus, (DIALOG *dialog, int obj, int *focus_obj, int force));
+AL_LEGACY_FUNC(int, object_message, (DIALOG *dialog, int msg, int c));
+AL_LEGACY_FUNC(int, dialog_message, (DIALOG *dialog, int msg, int c, int *obj));
+AL_LEGACY_FUNC(int, broadcast_dialog_message, (int msg, int c));
+AL_LEGACY_FUNC(int, do_dialog, (DIALOG *dialog, int focus_obj));
+AL_LEGACY_FUNC(int, popup_dialog, (DIALOG *dialog, int focus_obj));
+AL_LEGACY_FUNC(DIALOG_PLAYER *, init_dialog, (DIALOG *dialog, int focus_obj));
+AL_LEGACY_FUNC(int, update_dialog, (DIALOG_PLAYER *player));
+AL_LEGACY_FUNC(int, shutdown_dialog, (DIALOG_PLAYER *player));
+AL_LEGACY_FUNC(int, do_menu, (MENU *menu, int x, int y));
+AL_LEGACY_FUNC(MENU_PLAYER *, init_menu, (MENU *menu, int x, int y));
+AL_LEGACY_FUNC(int, update_menu, (MENU_PLAYER *player));
+AL_LEGACY_FUNC(int, shutdown_menu, (MENU_PLAYER *player));
+AL_LEGACY_FUNC(int, alert, (AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2, AL_LEGACY_CONST char *s3, AL_LEGACY_CONST char *b1, AL_LEGACY_CONST char *b2, int c1, int c2));
+AL_LEGACY_FUNC(int, alert3, (AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2, AL_LEGACY_CONST char *s3, AL_LEGACY_CONST char *b1, AL_LEGACY_CONST char *b2, AL_LEGACY_CONST char *b3, int c1, int c2, int c3));
+AL_LEGACY_FUNC(int, file_select_ex, (AL_LEGACY_CONST char *message, char *path, AL_LEGACY_CONST char *ext, int size, int w, int h));
 
-AL_FUNC(int, gfx_mode_select, (int *card, int *w, int *h));
-AL_FUNC(int, gfx_mode_select_ex, (int *card, int *w, int *h, int *color_depth));
-AL_FUNC(int, gfx_mode_select_filter, (int *card, int *w, int *h, int *color_depth, int (*filter)(int, int, int, int)));
+AL_LEGACY_FUNC(int, gfx_mode_select, (int *card, int *w, int *h));
+AL_LEGACY_FUNC(int, gfx_mode_select_ex, (int *card, int *w, int *h, int *color_depth));
+AL_LEGACY_FUNC(int, gfx_mode_select_filter, (int *card, int *w, int *h, int *color_depth, int (*filter)(int, int, int, int)));
 
 #ifdef __cplusplus
    }

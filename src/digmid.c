@@ -29,7 +29,7 @@
 static int digmid_detect(int input);
 static int digmid_init(int input, int voices);
 static void digmid_exit(int input);
-static int digmid_load_patches(AL_CONST char *patches, AL_CONST char *drums);
+static int digmid_load_patches(AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums);
 static void digmid_key_on(int inst, int note, int bend, int vol, int pan);
 static void digmid_key_off(int voice);
 static void digmid_set_volume(int voice, int vol);
@@ -454,7 +454,7 @@ static PATCH *load_patch(PACKFILE *f, int drum)
 int _digmid_find_patches(char *dir, int dir_size, char *file, int file_size)
 {
    char filename[1024], tmp1[64], tmp2[64], tmp3[64], tmp4[64];
-   AL_CONST char *name;
+   AL_LEGACY_CONST char *name;
    char *datafile, *objectname, *envvar, *subdir, *s;
 
    name = get_config_string(uconvert_ascii("sound", tmp1), uconvert_ascii("patches", tmp2), NULL);
@@ -516,7 +516,7 @@ static int parse_string(char *buf, char *argv[])
 /* digmid_load_patches:
  *  Reads the patches that are required by a particular song.
  */
-static int digmid_load_patches(AL_CONST char *patches, AL_CONST char *drums)
+static int digmid_load_patches(AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums)
 {
    PACKFILE *f;
    char dir[1024], file[1024], buf[1024], filename[1024];

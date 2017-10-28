@@ -895,7 +895,7 @@ static int do_play_fli(BITMAP *bmp, int loop, int (*callback)(void))
  *  callback should return positive integers, since the FLI status values 
  *  are zero or negative.
  */
-int play_fli(AL_CONST char *filename, BITMAP *bmp, int loop, int (*callback)(void))
+int play_fli(AL_LEGACY_CONST char *filename, BITMAP *bmp, int loop, int (*callback)(void))
 {
    ASSERT(filename);
    ASSERT(bmp);
@@ -985,7 +985,7 @@ static int do_open_fli(void)
 /* open_fli:
  *  Opens an FLI file ready for playing.
  */
-int open_fli(AL_CONST char *filename)
+int open_fli(AL_LEGACY_CONST char *filename)
 {
    ASSERT(filename);
    

@@ -52,7 +52,7 @@ Changes from 4.4.1.1 to 4.4.2 (May 2011)
    (Hardi Stengelin).
 <li>
    Fix various compilation and build problems (scottmc, Cristian Morales Vega,
-   Tony Ylisirniö, Edgar Reynaldo).
+   Tony Ylisirniï¿½, Edgar Reynaldo).
 <li>
    Added WANT_OSS, WANT_ALSA, WANT_JACK, WANT_SGIAUDIO options
    (Samuli Suominen).
@@ -1811,7 +1811,7 @@ Changes from 4.1.9 to 4.1.10 (Jun 2003)
    Chris Jones let the MIDI player pass controller events to the raw player
    by default.
 <li>
-   Angelo Mottola added the platform-dependent AL_RAND() macro.
+   Angelo Mottola added the platform-dependent AL_LEGACY_RAND() macro.
 <li>
    Angelo Mottola added a HID joystick driver to the MacOS X port.
 <li>
@@ -1986,7 +1986,7 @@ Changes from 4.1.9 to 4.1.10 (Jun 2003)
 <li>
    EvilTypeGuy cleaned up and fixed the RPM spec file for RedHat 9.
 <li>
-   Ville Skyttä fixed a problem with make install libdir= and modules on
+   Ville Skyttï¿½ fixed a problem with make install libdir= and modules on
    Unix systems.
 <li>
    Peter Wang added a hack to not unload the SVGAlib module if SVGAlib

@@ -72,40 +72,40 @@ typedef struct DATAFILE_INDEX
 } DATAFILE_INDEX;
 
 
-AL_FUNC(DATAFILE *, load_datafile, (AL_CONST char *filename));
-AL_FUNC(DATAFILE *, load_datafile_callback, (AL_CONST char *filename, AL_METHOD(void, callback, (DATAFILE *))));
-AL_FUNC(DATAFILE_INDEX *, create_datafile_index, (AL_CONST char *filename));
-AL_FUNC(void, unload_datafile, (DATAFILE *dat));
-AL_FUNC(void, destroy_datafile_index, (DATAFILE_INDEX *index));
+AL_LEGACY_FUNC(DATAFILE *, load_datafile, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(DATAFILE *, load_datafile_callback, (AL_LEGACY_CONST char *filename, AL_LEGACY_METHOD(void, callback, (DATAFILE *))));
+AL_LEGACY_FUNC(DATAFILE_INDEX *, create_datafile_index, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(void, unload_datafile, (DATAFILE *dat));
+AL_LEGACY_FUNC(void, destroy_datafile_index, (DATAFILE_INDEX *index));
 
-AL_FUNC(DATAFILE *, load_datafile_object, (AL_CONST char *filename, AL_CONST char *objectname));
-AL_FUNC(DATAFILE *, load_datafile_object_indexed, (AL_CONST DATAFILE_INDEX *index, int item));
-AL_FUNC(void, unload_datafile_object, (DATAFILE *dat));
+AL_LEGACY_FUNC(DATAFILE *, load_datafile_object, (AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *objectname));
+AL_LEGACY_FUNC(DATAFILE *, load_datafile_object_indexed, (AL_LEGACY_CONST DATAFILE_INDEX *index, int item));
+AL_LEGACY_FUNC(void, unload_datafile_object, (DATAFILE *dat));
 
-AL_FUNC(DATAFILE *, find_datafile_object, (AL_CONST DATAFILE *dat, AL_CONST char *objectname));
-AL_FUNC(AL_CONST char *, get_datafile_property, (AL_CONST DATAFILE *dat, int type));
-AL_FUNC(void, register_datafile_object, (int id_, AL_METHOD(void *, load, (struct PACKFILE *f, long size)), AL_METHOD(void, destroy, (void *data))));
+AL_LEGACY_FUNC(DATAFILE *, find_datafile_object, (AL_LEGACY_CONST DATAFILE *dat, AL_LEGACY_CONST char *objectname));
+AL_LEGACY_FUNC(AL_LEGACY_CONST char *, get_datafile_property, (AL_LEGACY_CONST DATAFILE *dat, int type));
+AL_LEGACY_FUNC(void, register_datafile_object, (int id_, AL_LEGACY_METHOD(void *, load, (struct PACKFILE *f, long size)), AL_LEGACY_METHOD(void, destroy, (void *data))));
 
-AL_FUNC(void, fixup_datafile, (DATAFILE *data));
+AL_LEGACY_FUNC(void, fixup_datafile, (DATAFILE *data));
 
-AL_FUNC(struct BITMAP *, load_bitmap, (AL_CONST char *filename, struct RGB *pal));
-AL_FUNC(struct BITMAP *, load_bmp, (AL_CONST char *filename, struct RGB *pal));
-AL_FUNC(struct BITMAP *, load_bmp_pf, (PACKFILE *f, struct RGB *pal));
-AL_FUNC(struct BITMAP *, load_lbm, (AL_CONST char *filename, struct RGB *pal));
-AL_FUNC(struct BITMAP *, load_pcx, (AL_CONST char *filename, struct RGB *pal));
-AL_FUNC(struct BITMAP *, load_pcx_pf, (PACKFILE *f, struct RGB *pal));
-AL_FUNC(struct BITMAP *, load_tga, (AL_CONST char *filename, struct RGB *pal));
-AL_FUNC(struct BITMAP *, load_tga_pf, (PACKFILE *f, struct RGB *pal));
+AL_LEGACY_FUNC(struct BITMAP *, load_bitmap, (AL_LEGACY_CONST char *filename, struct RGB *pal));
+AL_LEGACY_FUNC(struct BITMAP *, load_bmp, (AL_LEGACY_CONST char *filename, struct RGB *pal));
+AL_LEGACY_FUNC(struct BITMAP *, load_bmp_pf, (PACKFILE *f, struct RGB *pal));
+AL_LEGACY_FUNC(struct BITMAP *, load_lbm, (AL_LEGACY_CONST char *filename, struct RGB *pal));
+AL_LEGACY_FUNC(struct BITMAP *, load_pcx, (AL_LEGACY_CONST char *filename, struct RGB *pal));
+AL_LEGACY_FUNC(struct BITMAP *, load_pcx_pf, (PACKFILE *f, struct RGB *pal));
+AL_LEGACY_FUNC(struct BITMAP *, load_tga, (AL_LEGACY_CONST char *filename, struct RGB *pal));
+AL_LEGACY_FUNC(struct BITMAP *, load_tga_pf, (PACKFILE *f, struct RGB *pal));
 
-AL_FUNC(int, save_bitmap, (AL_CONST char *filename, struct BITMAP *bmp, AL_CONST struct RGB *pal));
-AL_FUNC(int, save_bmp, (AL_CONST char *filename, struct BITMAP *bmp, AL_CONST struct RGB *pal));
-AL_FUNC(int, save_bmp_pf, (PACKFILE *f, struct BITMAP *bmp, AL_CONST struct RGB *pal));
-AL_FUNC(int, save_pcx, (AL_CONST char *filename, struct BITMAP *bmp, AL_CONST struct RGB *pal));
-AL_FUNC(int, save_pcx_pf, (PACKFILE *f, struct BITMAP *bmp, AL_CONST struct RGB *pal));
-AL_FUNC(int, save_tga, (AL_CONST char *filename, struct BITMAP *bmp, AL_CONST struct RGB *pal));
-AL_FUNC(int, save_tga_pf, (PACKFILE *f, struct BITMAP *bmp, AL_CONST struct RGB *pal));
+AL_LEGACY_FUNC(int, save_bitmap, (AL_LEGACY_CONST char *filename, struct BITMAP *bmp, AL_LEGACY_CONST struct RGB *pal));
+AL_LEGACY_FUNC(int, save_bmp, (AL_LEGACY_CONST char *filename, struct BITMAP *bmp, AL_LEGACY_CONST struct RGB *pal));
+AL_LEGACY_FUNC(int, save_bmp_pf, (PACKFILE *f, struct BITMAP *bmp, AL_LEGACY_CONST struct RGB *pal));
+AL_LEGACY_FUNC(int, save_pcx, (AL_LEGACY_CONST char *filename, struct BITMAP *bmp, AL_LEGACY_CONST struct RGB *pal));
+AL_LEGACY_FUNC(int, save_pcx_pf, (PACKFILE *f, struct BITMAP *bmp, AL_LEGACY_CONST struct RGB *pal));
+AL_LEGACY_FUNC(int, save_tga, (AL_LEGACY_CONST char *filename, struct BITMAP *bmp, AL_LEGACY_CONST struct RGB *pal));
+AL_LEGACY_FUNC(int, save_tga_pf, (PACKFILE *f, struct BITMAP *bmp, AL_LEGACY_CONST struct RGB *pal));
 
-AL_FUNC(void, register_bitmap_file_type, (AL_CONST char *ext, AL_METHOD(struct BITMAP *, load, (AL_CONST char *filename, struct RGB *pal)), AL_METHOD(int, save, (AL_CONST char *filename, struct BITMAP *bmp, AL_CONST struct RGB *pal))));
+AL_LEGACY_FUNC(void, register_bitmap_file_type, (AL_LEGACY_CONST char *ext, AL_LEGACY_METHOD(struct BITMAP *, load, (AL_LEGACY_CONST char *filename, struct RGB *pal)), AL_LEGACY_METHOD(int, save, (AL_LEGACY_CONST char *filename, struct BITMAP *bmp, AL_LEGACY_CONST struct RGB *pal))));
 
 #ifdef __cplusplus
    }

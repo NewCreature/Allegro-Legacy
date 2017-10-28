@@ -40,7 +40,7 @@ typedef struct JOYSTICK_AXIS_INFO
 {
    int pos;
    int d1, d2;
-   AL_CONST char *name;
+   AL_LEGACY_CONST char *name;
 } JOYSTICK_AXIS_INFO;
 
 
@@ -50,7 +50,7 @@ typedef struct JOYSTICK_STICK_INFO
    int flags;
    int num_axis;
    JOYSTICK_AXIS_INFO axis[MAX_JOYSTICK_AXIS];
-   AL_CONST char *name;
+   AL_LEGACY_CONST char *name;
 } JOYSTICK_STICK_INFO;
 
 
@@ -58,7 +58,7 @@ typedef struct JOYSTICK_STICK_INFO
 typedef struct JOYSTICK_BUTTON_INFO
 {
    int b;
-   AL_CONST char *name;
+   AL_LEGACY_CONST char *name;
 } JOYSTICK_BUTTON_INFO;
 
 
@@ -89,29 +89,29 @@ typedef struct JOYSTICK_INFO
 
 
 /* global joystick information */
-AL_ARRAY(JOYSTICK_INFO, joy);
-AL_VAR(int, num_joysticks);
+AL_LEGACY_ARRAY(JOYSTICK_INFO, joy);
+AL_LEGACY_VAR(int, num_joysticks);
 
 
 typedef struct JOYSTICK_DRIVER         /* driver for reading joystick input */
 {
    int  id;
-   AL_CONST char *name;
-   AL_CONST char *desc;
-   AL_CONST char *ascii_name;
-   AL_METHOD(int, init, (void));
-   AL_METHOD(void, exit, (void));
-   AL_METHOD(int, poll, (void));
-   AL_METHOD(int, save_data, (void));
-   AL_METHOD(int, load_data, (void));
-   AL_METHOD(AL_CONST char *, calibrate_name, (int n));
-   AL_METHOD(int, calibrate, (int n));
+   AL_LEGACY_CONST char *name;
+   AL_LEGACY_CONST char *desc;
+   AL_LEGACY_CONST char *ascii_name;
+   AL_LEGACY_METHOD(int, init, (void));
+   AL_LEGACY_METHOD(void, exit, (void));
+   AL_LEGACY_METHOD(int, poll, (void));
+   AL_LEGACY_METHOD(int, save_data, (void));
+   AL_LEGACY_METHOD(int, load_data, (void));
+   AL_LEGACY_METHOD(AL_LEGACY_CONST char *, calibrate_name, (int n));
+   AL_LEGACY_METHOD(int, calibrate, (int n));
 } JOYSTICK_DRIVER;
 
 
-AL_VAR(JOYSTICK_DRIVER, joystick_none);
-AL_VAR(JOYSTICK_DRIVER *, joystick_driver);
-AL_ARRAY(_DRIVER_INFO, _joystick_driver_list);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_none);
+AL_LEGACY_VAR(JOYSTICK_DRIVER *, joystick_driver);
+AL_LEGACY_ARRAY(_DRIVER_INFO, _joystick_driver_list);
 
 
 /* macros for constructing the driver list */
@@ -125,16 +125,16 @@ AL_ARRAY(_DRIVER_INFO, _joystick_driver_list);
    };
 
 
-AL_FUNC(int, install_joystick, (int type));
-AL_FUNC(void, remove_joystick, (void));
+AL_LEGACY_FUNC(int, install_joystick, (int type));
+AL_LEGACY_FUNC(void, remove_joystick, (void));
 
-AL_FUNC(int, poll_joystick, (void));
+AL_LEGACY_FUNC(int, poll_joystick, (void));
 
-AL_FUNC(int, save_joystick_data, (AL_CONST char *filename));
-AL_FUNC(int, load_joystick_data, (AL_CONST char *filename));
+AL_LEGACY_FUNC(int, save_joystick_data, (AL_LEGACY_CONST char *filename));
+AL_LEGACY_FUNC(int, load_joystick_data, (AL_LEGACY_CONST char *filename));
 
-AL_FUNC(AL_CONST char *, calibrate_joystick_name, (int n));
-AL_FUNC(int, calibrate_joystick, (int n));
+AL_LEGACY_FUNC(AL_LEGACY_CONST char *, calibrate_joystick_name, (int n));
+AL_LEGACY_FUNC(int, calibrate_joystick, (int n));
 
 #ifdef __cplusplus
    }

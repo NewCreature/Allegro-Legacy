@@ -25,7 +25,7 @@
  *  Loads a PC BIOS font from the file named filename. The palette and param
  *  parameters are ignored by this function.
  */
-FONT *load_bios_font(AL_CONST char *filename, RGB *pal, void *param)
+FONT *load_bios_font(AL_LEGACY_CONST char *filename, RGB *pal, void *param)
 {
     PACKFILE *pack;
     FONT *f;

@@ -26,30 +26,30 @@
 
 /* System driver */
 #define SYSTEM_PSP              AL_ID('P','S','P',' ')
-AL_VAR(SYSTEM_DRIVER, system_psp);
+AL_LEGACY_VAR(SYSTEM_DRIVER, system_psp);
 
 /* Timer driver */
 #define TIMER_PSP               AL_ID('P','S','P','T')
-AL_VAR(TIMER_DRIVER, timer_psp);
+AL_LEGACY_VAR(TIMER_DRIVER, timer_psp);
 
 /* Keyboard driver */
 #define KEYSIM_PSP              AL_ID('P','S','P','K')
-AL_VAR(KEYBOARD_DRIVER, keybd_simulator_psp);
+AL_LEGACY_VAR(KEYBOARD_DRIVER, keybd_simulator_psp);
 
 /* Mouse drivers */
 #define MOUSE_PSP               AL_ID('P','S','P','M')
-AL_VAR(MOUSE_DRIVER, mouse_psp);
+AL_LEGACY_VAR(MOUSE_DRIVER, mouse_psp);
 
 /* Gfx driver */
 #define GFX_PSP                 AL_ID('P','S','P','G')
-AL_VAR(GFX_DRIVER, gfx_psp);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_psp);
 
 /* Digital sound driver */
 #define DIGI_PSP                AL_ID('P','S','P','S')
-AL_VAR(DIGI_DRIVER, digi_psp);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_psp);
 
 /* Joystick drivers */
 #define JOYSTICK_PSP            AL_ID('P','S','P','J')
-AL_VAR(JOYSTICK_DRIVER, joystick_psp);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_psp);
 
 #endif

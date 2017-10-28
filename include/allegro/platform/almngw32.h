@@ -58,11 +58,11 @@
    #define _AL_LEGACY_DLL   __declspec(dllimport)
 #endif
 
-#define AL_VAR(type, name)                   extern _AL_LEGACY_DLL type name
-#define AL_ARRAY(type, name)                 extern _AL_LEGACY_DLL type name[]
-#define AL_FUNC(type, name, args)            extern type name args
-#define AL_METHOD(type, name, args)          type (*name) args
-#define AL_FUNCPTR(type, name, args)         extern _AL_LEGACY_DLL type (*name) args
+#define AL_LEGACY_VAR(type, name)                   extern _AL_LEGACY_DLL type name
+#define AL_LEGACY_ARRAY(type, name)                 extern _AL_LEGACY_DLL type name[]
+#define AL_LEGACY_FUNC(type, name, args)            extern type name args
+#define AL_LEGACY_METHOD(type, name, args)          type (*name) args
+#define AL_LEGACY_FUNCPTR(type, name, args)         extern _AL_LEGACY_DLL type (*name) args
 
 
 /* windows specific defines */

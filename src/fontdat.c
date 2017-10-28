@@ -28,7 +28,7 @@
  *  If param is NULL, the first font found in the datafile will be returned
  *  and the last palette found prior to the font will be returned.
  */
-FONT *load_dat_font(AL_CONST char *filename, RGB *pal, void *param)
+FONT *load_dat_font(AL_LEGACY_CONST char *filename, RGB *pal, void *param)
 {
    FONT *fnt;
    DATAFILE *df;

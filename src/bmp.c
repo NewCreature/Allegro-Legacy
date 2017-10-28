@@ -340,7 +340,7 @@ static void read_32bit_line(int length, PACKFILE *f, BITMAP *bmp, int line)
 /* read_bitfields_image:
  *  For reading the bitfield compressed BMP image format.
  */
-static void read_bitfields_image(PACKFILE *f, BITMAP *bmp, AL_CONST BITMAPINFOHEADER *infoheader)
+static void read_bitfields_image(PACKFILE *f, BITMAP *bmp, AL_LEGACY_CONST BITMAPINFOHEADER *infoheader)
 {
    int k, i, line, height, dir;
    int bpp;
@@ -402,7 +402,7 @@ static void read_bitfields_image(PACKFILE *f, BITMAP *bmp, AL_CONST BITMAPINFOHE
 /* read_image:
  *  For reading the noncompressed BMP image format.
  */
-static void read_image(PACKFILE *f, BITMAP *bmp, AL_CONST BITMAPINFOHEADER *infoheader)
+static void read_image(PACKFILE *f, BITMAP *bmp, AL_LEGACY_CONST BITMAPINFOHEADER *infoheader)
 {
    int i, line, height, dir;
 
@@ -446,7 +446,7 @@ static void read_image(PACKFILE *f, BITMAP *bmp, AL_CONST BITMAPINFOHEADER *info
 /* read_RLE8_compressed_image:
  *  For reading the 8 bit RLE compressed BMP image format.
  */
-static void read_RLE8_compressed_image(PACKFILE *f, BITMAP *bmp, AL_CONST BITMAPINFOHEADER *infoheader)
+static void read_RLE8_compressed_image(PACKFILE *f, BITMAP *bmp, AL_LEGACY_CONST BITMAPINFOHEADER *infoheader)
 {
    unsigned char count, val, val0;
    int j, pos, line;
@@ -516,7 +516,7 @@ static void read_RLE8_compressed_image(PACKFILE *f, BITMAP *bmp, AL_CONST BITMAP
 /* read_RLE4_compressed_image:
  *  For reading the 4 bit RLE compressed BMP image format.
  */
-static void read_RLE4_compressed_image(PACKFILE *f, BITMAP *bmp, AL_CONST BITMAPINFOHEADER *infoheader)
+static void read_RLE4_compressed_image(PACKFILE *f, BITMAP *bmp, AL_LEGACY_CONST BITMAPINFOHEADER *infoheader)
 {
    unsigned char b[8];
    unsigned char count;
@@ -598,7 +598,7 @@ static void read_RLE4_compressed_image(PACKFILE *f, BITMAP *bmp, AL_CONST BITMAP
  *
  *  Thanks to Seymour Shlien for contributing this function.
  */
-BITMAP *load_bmp(AL_CONST char *filename, RGB *pal)
+BITMAP *load_bmp(AL_LEGACY_CONST char *filename, RGB *pal)
 {
    PACKFILE *f;
    BITMAP *bmp;
@@ -749,7 +749,7 @@ BITMAP *load_bmp_pf(PACKFILE *f, RGB *pal)
  *  Writes a bitmap into a BMP file, using the specified palette (this
  *  should be an array of at least 256 RGB structures).
  */
-int save_bmp(AL_CONST char *filename, BITMAP *bmp, AL_CONST RGB *pal) 
+int save_bmp(AL_LEGACY_CONST char *filename, BITMAP *bmp, AL_LEGACY_CONST RGB *pal) 
 {
    PACKFILE *f;
    int ret;
@@ -774,7 +774,7 @@ int save_bmp(AL_CONST char *filename, BITMAP *bmp, AL_CONST RGB *pal)
  *  offset into the file is left after the TGA file just written. On failure
  *  the offset is left at the end of whatever incomplete data was written.
  */
-int save_bmp_pf(PACKFILE *f, BITMAP *bmp, AL_CONST RGB *pal) 
+int save_bmp_pf(PACKFILE *f, BITMAP *bmp, AL_LEGACY_CONST RGB *pal) 
 {
    PALETTE tmppal;
    int bfSize;

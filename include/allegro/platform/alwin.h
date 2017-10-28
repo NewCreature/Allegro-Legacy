@@ -29,7 +29,7 @@
 extern "C" {
 #endif
 
-AL_FUNC(int, _WinMain, (void *_main, void *hInst, void *hPrev, char *Cmd, int nShow));
+AL_LEGACY_FUNC(int, _WinMain, (void *_main, void *hInst, void *hPrev, char *Cmd, int nShow));
 
 #ifdef __cplusplus
 }
@@ -65,7 +65,7 @@ AL_FUNC(int, _WinMain, (void *_main, void *hInst, void *hPrev, char *Cmd, int nS
 /*******************************************/
 #define SYSTEM_DIRECTX           AL_ID('D','X',' ',' ')
 
-AL_VAR(SYSTEM_DRIVER, system_directx);
+AL_LEGACY_VAR(SYSTEM_DRIVER, system_directx);
 
 
 
@@ -102,12 +102,12 @@ AL_VAR(SYSTEM_DRIVER, system_directx);
 #define GFX_DIRECTX_OVL          AL_ID('D','X','O','V')
 #define GFX_GDI                  AL_ID('G','D','I','B')
 
-AL_VAR(GFX_DRIVER, gfx_directx_accel);
-AL_VAR(GFX_DRIVER, gfx_directx_safe);
-AL_VAR(GFX_DRIVER, gfx_directx_soft);
-AL_VAR(GFX_DRIVER, gfx_directx_win);
-AL_VAR(GFX_DRIVER, gfx_directx_ovl);
-AL_VAR(GFX_DRIVER, gfx_gdi);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_directx_accel);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_directx_safe);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_directx_soft);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_directx_win);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_directx_ovl);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_gdi);
 
 #define GFX_DRIVER_DIRECTX                                              \
    {  GFX_DIRECTX_ACCEL,   &gfx_directx_accel,     TRUE  },             \
@@ -137,8 +137,8 @@ AL_VAR(GFX_DRIVER, gfx_gdi);
 #define JOY_TYPE_DIRECTX         AL_ID('D','X',' ',' ')
 #define JOY_TYPE_WIN32           AL_ID('W','3','2',' ')
 
-AL_VAR(JOYSTICK_DRIVER, joystick_directx);
-AL_VAR(JOYSTICK_DRIVER, joystick_win32);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_directx);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_win32);
 
 #define JOYSTICK_DRIVER_DIRECTX                                   \
       { JOY_TYPE_DIRECTX,        &joystick_directx,  TRUE  },

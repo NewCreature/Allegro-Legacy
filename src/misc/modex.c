@@ -92,7 +92,7 @@ static GFX_VTABLE __modex_vtable =
    _x_masked_blit,
    _x_clear_to_color,
    _pivot_scaled_sprite_flip,
-   NULL,    /* AL_METHOD(void, do_stretch_blit, (struct BITMAP *source, struct BITMAP *dest, int source_x, int source_y, int source_width, int source_height, int dest_x, int dest_y, int dest_width, int dest_height, int masked)); */
+   NULL,    /* AL_LEGACY_METHOD(void, do_stretch_blit, (struct BITMAP *source, struct BITMAP *dest, int source_x, int source_y, int source_width, int source_height, int dest_x, int dest_y, int dest_width, int dest_height, int masked)); */
    _soft_draw_gouraud_sprite,
    _x_draw_sprite_end,
    _x_blit_from_memory_end,
@@ -145,7 +145,7 @@ GFX_DRIVER gfx_modex =
    NULL,                         /* no drawing mode hook */
    _save_vga_mode,
    _restore_vga_mode,
-   NULL,                         /* AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
+   NULL,                         /* AL_LEGACY_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
    modex_fetch_mode_list,
    0, 0,
    TRUE,
@@ -209,7 +209,7 @@ GFX_DRIVER gfx_xtended =
    NULL, NULL, NULL, NULL,       /* no hardware cursor */
    NULL,                         /* no drawing mode hook */
    NULL, NULL,                   /* no state saving */
-   NULL,                         /* AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
+   NULL,                         /* AL_LEGACY_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
    xtended_fetch_mode_list,
    640, 400,
    TRUE,
@@ -1197,9 +1197,9 @@ void _x_draw_lit_sprite(BITMAP *bmp, BITMAP *sprite, int x, int y, int color)
 /* _x_draw_rle_sprite:
  *  Draws an RLE sprite onto a mode-X screen.
  */
-void _x_draw_rle_sprite(BITMAP *bmp, AL_CONST RLE_SPRITE *sprite, int x, int y)
+void _x_draw_rle_sprite(BITMAP *bmp, AL_LEGACY_CONST RLE_SPRITE *sprite, int x, int y)
 {
-   AL_CONST signed char *p = sprite->dat;
+   AL_LEGACY_CONST signed char *p = sprite->dat;
    int c;
    int x_pos, y_pos;
    int lgap, width;
@@ -1301,9 +1301,9 @@ void _x_draw_rle_sprite(BITMAP *bmp, AL_CONST RLE_SPRITE *sprite, int x, int y)
 /* _x_draw_trans_rle_sprite:
  *  Draws an RLE sprite onto a mode-X screen.
  */
-void _x_draw_trans_rle_sprite(BITMAP *bmp, AL_CONST RLE_SPRITE *sprite, int x, int y)
+void _x_draw_trans_rle_sprite(BITMAP *bmp, AL_LEGACY_CONST RLE_SPRITE *sprite, int x, int y)
 {
-   AL_CONST signed char *p = sprite->dat;
+   AL_LEGACY_CONST signed char *p = sprite->dat;
    int c;
    int x_pos, y_pos;
    int lgap, width;
@@ -1407,9 +1407,9 @@ void _x_draw_trans_rle_sprite(BITMAP *bmp, AL_CONST RLE_SPRITE *sprite, int x, i
 /* _x_draw_lit_rle_sprite:
  *  Draws a tinted RLE sprite onto a mode-X screen.
  */
-void _x_draw_lit_rle_sprite(BITMAP *bmp, AL_CONST RLE_SPRITE *sprite, int x, int y, int color)
+void _x_draw_lit_rle_sprite(BITMAP *bmp, AL_LEGACY_CONST RLE_SPRITE *sprite, int x, int y, int color)
 {
-   AL_CONST signed char *p = sprite->dat;
+   AL_LEGACY_CONST signed char *p = sprite->dat;
    int c;
    int x_pos, y_pos;
    int lgap, width;
@@ -1534,10 +1534,10 @@ void _x_draw_character(BITMAP *bmp, BITMAP *sprite, int x, int y, int color, int
 /* _x_draw_glyph:
  *  Draws monochrome text onto a mode-X screen.
  */
-void _x_draw_glyph(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
+void _x_draw_glyph(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
 {
-   AL_CONST unsigned char *data = glyph->dat;
-   AL_CONST unsigned char *dat;
+   AL_LEGACY_CONST unsigned char *data = glyph->dat;
+   AL_LEGACY_CONST unsigned char *dat;
    unsigned long addr;
    int w = glyph->w;
    int h = glyph->h;

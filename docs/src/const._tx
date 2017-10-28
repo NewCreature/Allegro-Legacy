@@ -27,7 +27,7 @@ Library changes
 
 There are very few actual changes to the library code itself; only some
 symbol declarations and definitions have been altered to include
-AL_CONST. See below for a description of the AL_CONST preprocessor
+AL_LEGACY_CONST. See below for a description of the AL_LEGACY_CONST preprocessor
 define. In a few places, some string was changed that should not have
 been - in these cases, the string is simply duplicated and then the
 duplicate is erased on exiting the function.
@@ -37,11 +37,11 @@ In all, there were very few changes to the library code.
 
 
 @heading
-The AL_CONST preprocessor define
+The AL_LEGACY_CONST preprocessor define
 
 In order to support compilers which don't know about the `const'
 keyword, or perhaps use a different keyword, the preprocessor symbol
-AL_CONST is used wherever `const' would normally be used. Note that in
+AL_LEGACY_CONST is used wherever `const' would normally be used. Note that in
 the documentation, I have used `const' for readability.
 
 
@@ -78,14 +78,14 @@ should update your callback function to the new format (which will be
 listed in the main Allegro documentation).
 
 Also, when passing a pointer to a pointer to an Allegro function which
-is declared as taking an <code>AL_CONST type** ptr</code>, you will need
+is declared as taking an <code>AL_LEGACY_CONST type** ptr</code>, you will need
 to cast your pointer to be `const' if it is not already. For instance:
 <codeblock>
-   int some_allegro_function(AL_CONST char** p);
+   int some_allegro_function(AL_LEGACY_CONST char** p);
    
    void my_func(char** x)
    {
-       some_allegro_function((AL_CONST char**) x);
+       some_allegro_function((AL_LEGACY_CONST char**) x);
    }
 <endblock>
 I realise that this is a change to the Allegro API, and that we are

@@ -53,14 +53,14 @@ SCANLINE_FILLER _optim_alternative_drawer;
  *  rasterising code, using fixed point vertex structures. Returns 1 on
  *  success, or 0 if the edge is horizontal or clipped out of existence.
  */
-int _fill_3d_edge_structure(POLYGON_EDGE *edge, AL_CONST V3D *v1, AL_CONST V3D *v2, int flags, BITMAP *bmp)
+int _fill_3d_edge_structure(POLYGON_EDGE *edge, AL_LEGACY_CONST V3D *v1, AL_LEGACY_CONST V3D *v2, int flags, BITMAP *bmp)
 {
    int r1, r2, g1, g2, b1, b2;
    fixed h, step;
 
    /* swap vertices if they are the wrong way up */
    if (v2->y < v1->y) {
-      AL_CONST V3D *vt;
+      AL_LEGACY_CONST V3D *vt;
 
       vt = v1;
       v1 = v2;
@@ -132,7 +132,7 @@ int _fill_3d_edge_structure(POLYGON_EDGE *edge, AL_CONST V3D *v1, AL_CONST V3D *
    if (flags & INTERP_3COL) {
       /* RGB shading interpolation */
       if (flags & COLOR_TO_RGB) {
-         AL_CONST int coldepth = bitmap_color_depth(bmp);
+         AL_LEGACY_CONST int coldepth = bitmap_color_depth(bmp);
 	 r1 = getr_depth(coldepth, v1->c);
 	 r2 = getr_depth(coldepth, v2->c);
 	 g1 = getg_depth(coldepth, v1->c);
@@ -188,7 +188,7 @@ int _fill_3d_edge_structure(POLYGON_EDGE *edge, AL_CONST V3D *v1, AL_CONST V3D *
  *  rasterising code, using floating point vertex structures. Returns 1 on
  *  success, or 0 if the edge is horizontal or clipped out of existence.
  */
-int _fill_3d_edge_structure_f(POLYGON_EDGE *edge, AL_CONST V3D_f *v1, AL_CONST V3D_f *v2, int flags, BITMAP *bmp)
+int _fill_3d_edge_structure_f(POLYGON_EDGE *edge, AL_LEGACY_CONST V3D_f *v1, AL_LEGACY_CONST V3D_f *v2, int flags, BITMAP *bmp)
 {
    int r1, r2, g1, g2, b1, b2;
    fixed h, step;
@@ -196,7 +196,7 @@ int _fill_3d_edge_structure_f(POLYGON_EDGE *edge, AL_CONST V3D_f *v1, AL_CONST V
 
    /* swap vertices if they are the wrong way up */
    if (v2->y < v1->y) {
-      AL_CONST V3D_f *vt;
+      AL_LEGACY_CONST V3D_f *vt;
 
       vt = v1;
       v1 = v2;
@@ -268,7 +268,7 @@ int _fill_3d_edge_structure_f(POLYGON_EDGE *edge, AL_CONST V3D_f *v1, AL_CONST V
    if (flags & INTERP_3COL) {
       /* RGB shading interpolation */
       if (flags & COLOR_TO_RGB) {
-         AL_CONST int coldepth = bitmap_color_depth(bmp);
+         AL_LEGACY_CONST int coldepth = bitmap_color_depth(bmp);
 	 r1 = getr_depth(coldepth, v1->c);
 	 r2 = getr_depth(coldepth, v2->c);
 	 g1 = getg_depth(coldepth, v1->c);
@@ -941,7 +941,7 @@ static void draw_polygon_segment(BITMAP *bmp, int ytop, int ybottom, POLYGON_EDG
    int x, y, w, gap;
    fixed step, width;
    POLYGON_SEGMENT *s1, *s2;
-   AL_CONST SCANLINE_FILLER save_drawer = drawer;
+   AL_LEGACY_CONST SCANLINE_FILLER save_drawer = drawer;
 
    /* ensure that e1 is the left edge and e2 is the right edge */
    if ((e2->x < e1->x) || ((e1->x == e2->x) && (e2->dx < e1->dx))) {
@@ -1277,7 +1277,7 @@ static void draw_triangle_part(BITMAP *bmp, int ytop, int ybottom, POLYGON_EDGE 
 {
    int x, y, w;
    int gap;
-   AL_CONST int test_optim = (flags & OPT_FLOAT_UV_TO_FIX) && (info->dz == 0);
+   AL_LEGACY_CONST int test_optim = (flags & OPT_FLOAT_UV_TO_FIX) && (info->dz == 0);
    fixed step;
    POLYGON_SEGMENT *s1;
 
@@ -1386,7 +1386,7 @@ static void draw_triangle_part(BITMAP *bmp, int ytop, int ybottom, POLYGON_EDGE 
  *  Triangle3d helper function to calculate the deltas. (For triangles,
  *  deltas are constant over the whole triangle).
  */
-static void _triangle_deltas(BITMAP *bmp, fixed w, POLYGON_SEGMENT *s1, POLYGON_SEGMENT *info, AL_CONST V3D *v, int flags)
+static void _triangle_deltas(BITMAP *bmp, fixed w, POLYGON_SEGMENT *s1, POLYGON_SEGMENT *info, AL_LEGACY_CONST V3D *v, int flags)
 {
    if (flags & INTERP_1COL)
       info->dc = fixdiv(s1->c - itofix(v->c), w);
@@ -1395,7 +1395,7 @@ static void _triangle_deltas(BITMAP *bmp, fixed w, POLYGON_SEGMENT *s1, POLYGON_
       int r, g, b;
 
       if (flags & COLOR_TO_RGB) {
-      	 AL_CONST int coldepth = bitmap_color_depth(bmp);
+      	 AL_LEGACY_CONST int coldepth = bitmap_color_depth(bmp);
 	 r = getr_depth(coldepth, v->c);
 	 g = getg_depth(coldepth, v->c);
 	 b = getb_depth(coldepth, v->c);
@@ -1439,7 +1439,7 @@ static void _triangle_deltas(BITMAP *bmp, fixed w, POLYGON_SEGMENT *s1, POLYGON_
 /* _triangle_deltas_f:
  *  Floating point version of _triangle_deltas().
  */
-static void _triangle_deltas_f(BITMAP *bmp, fixed w, POLYGON_SEGMENT *s1, POLYGON_SEGMENT *info, AL_CONST V3D_f *v, int flags)
+static void _triangle_deltas_f(BITMAP *bmp, fixed w, POLYGON_SEGMENT *s1, POLYGON_SEGMENT *info, AL_LEGACY_CONST V3D_f *v, int flags)
 {
    if (flags & INTERP_1COL)
       info->dc = fixdiv(s1->c - itofix(v->c), w);
@@ -1448,7 +1448,7 @@ static void _triangle_deltas_f(BITMAP *bmp, fixed w, POLYGON_SEGMENT *s1, POLYGO
       int r, g, b;
 
       if (flags & COLOR_TO_RGB) {
-      	 AL_CONST int coldepth = bitmap_color_depth(bmp);
+      	 AL_LEGACY_CONST int coldepth = bitmap_color_depth(bmp);
 	 r = getr_depth(coldepth, v->c);
 	 g = getg_depth(coldepth, v->c);
 	 b = getb_depth(coldepth, v->c);

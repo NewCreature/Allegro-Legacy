@@ -191,7 +191,7 @@ static int fa_filename_proc(int msg, DIALOG *d, int c)
  *  ustricmp for filenames: makes sure that eg "foo.bar" comes before
  *  "foo-1.bar", and also that "foo9.bar" comes before "foo10.bar".
  */
-static int ustrfilecmp(AL_CONST char *s1, AL_CONST char *s2)
+static int ustrfilecmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
 {
    int c1, c2;
    int x1, x2;
@@ -308,7 +308,7 @@ static void put_size(char *buffer, uint64_t size)
 #ifdef USE_FINDFIRST
 static void fa_flist_putter(struct al_ffblk *info)
 #else
-static int fa_flist_putter(AL_CONST char *str, int attrib, void *param)
+static int fa_flist_putter(AL_LEGACY_CONST char *str, int attrib, void *param)
 #endif
 {
    char *s, *name;

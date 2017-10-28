@@ -89,7 +89,7 @@ static void vbeaf_restore(void);
 static GFX_MODE_LIST *vbeaf_fetch_mode_list(void);
 static void vbeaf_vsync(void);
 static int vbeaf_scroll(int x, int y);
-static void vbeaf_set_palette_range(AL_CONST PALETTE p, int from, int to, int vsync);
+static void vbeaf_set_palette_range(AL_LEGACY_CONST PALETTE p, int from, int to, int vsync);
 static int vbeaf_request_scroll(int x, int y);
 static int vbeaf_poll_scroll(void);
 static int vbeaf_set_mouse_sprite(BITMAP *sprite, int xfocus, int yfocus);
@@ -108,7 +108,7 @@ static void vbeaf_vline_b(BITMAP *bmp, int x, int y1, int y2, int color);
 static void vbeaf_line(BITMAP *bmp, int x1, int y1, int x2, int y2, int color);
 static void vbeaf_rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color);
 static void vbeaf_triangle(BITMAP *bmp, int x1, int y1, int x2, int y2, int x3, int y3, int color);
-static void vbeaf_draw_glyph(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg);
+static void vbeaf_draw_glyph(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg);
 static void vbeaf_draw_sprite(BITMAP *bmp, BITMAP *sprite, int x, int y);
 static void vbeaf_blit_from_memory(BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height);
 static void vbeaf_blit_to_self(BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height);
@@ -128,7 +128,7 @@ static void (*orig_vline)(BITMAP *bmp, int x, int y1, int y2, int color);
 static void (*orig_hline)(BITMAP *bmp, int x1, int y, int x2, int color);
 static void (*orig_line)(BITMAP *bmp, int x1, int y1, int x2, int y2, int color);
 static void (*orig_rectfill)(BITMAP *bmp, int x1, int y1, int x2, int y2, int color);
-static void (*orig_draw_glyph)(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg);
+static void (*orig_draw_glyph)(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg);
 static void (*orig_draw_sprite)(BITMAP *bmp, BITMAP *sprite, int x, int y);
 static void (*orig_masked_blit)(BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height);
 
@@ -158,7 +158,7 @@ GFX_DRIVER gfx_vbeaf =
    NULL,                         /* no drawing mode hook */
    vbeaf_save,
    vbeaf_restore,
-   NULL,                         /* AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
+   NULL,                         /* AL_LEGACY_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
    vbeaf_fetch_mode_list,        /* fetch mode hook */
    0, 0, FALSE, 0, 0, 0, 0, FALSE
 };
@@ -692,7 +692,7 @@ END_OF_STATIC_FUNCTION(vbeaf_no_wait);
  *  Tries to load the specified VBE/AF driver file, returning TRUE on 
  *  success. Allocates memory and reads the driver into it.
  */
-static int load_vbeaf_driver(AL_CONST char *filename)
+static int load_vbeaf_driver(AL_LEGACY_CONST char *filename)
 {
    long size;
    PACKFILE *f;
@@ -1030,7 +1030,7 @@ static int vbeaf_locate_driver(void)
    };
 
    char filename[1024], tmp1[1024], tmp2[128];
-   AL_CONST char *p;
+   AL_LEGACY_CONST char *p;
    int ret, i, attrib;
 
    /* look for driver in the config file location */
@@ -1764,7 +1764,7 @@ static int vbeaf_scroll(int x, int y)
 /* vbeaf_set_palette_range:
  *  Uses VBE/AF functions to set the palette.
  */
-static void vbeaf_set_palette_range(AL_CONST PALETTE p, int from, int to, int vsync)
+static void vbeaf_set_palette_range(AL_LEGACY_CONST PALETTE p, int from, int to, int vsync)
 {
    AF_PALETTE tmp[256];
    int c;
@@ -2666,9 +2666,9 @@ static void vbeaf_triangle(BITMAP *bmp, int x1, int y1, int x2, int y2, int x3, 
 /* vbeaf_draw_glyph:
  *  Monochrome text plotter.
  */
-static void vbeaf_draw_glyph(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
+static void vbeaf_draw_glyph(BITMAP *bmp, AL_LEGACY_CONST FONT_GLYPH *glyph, int x, int y, int color, int bg)
 {
-   AL_CONST unsigned char *data = glyph->dat;
+   AL_LEGACY_CONST unsigned char *data = glyph->dat;
    int w = glyph->w;
    int h = glyph->h;
    int stride = (w+7)/8;

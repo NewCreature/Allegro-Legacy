@@ -35,8 +35,8 @@ typedef struct RLE_SPRITE           /* a RLE compressed sprite */
 } RLE_SPRITE;
 
 
-AL_FUNC(RLE_SPRITE *, get_rle_sprite, (struct BITMAP *bitmap));
-AL_FUNC(void, destroy_rle_sprite, (RLE_SPRITE *sprite));
+AL_LEGACY_FUNC(RLE_SPRITE *, get_rle_sprite, (struct BITMAP *bitmap));
+AL_LEGACY_FUNC(void, destroy_rle_sprite, (RLE_SPRITE *sprite));
 
 #ifdef __cplusplus
    }

@@ -44,9 +44,9 @@ typedef struct CONFIG
 typedef struct CONFIG_HOOK
 {
    char *section;                   /* hooked config section info */
-   int (*intgetter)(AL_CONST char *name, int def);
-   AL_CONST char *(*stringgetter)(AL_CONST char *name, AL_CONST char *def);
-   void (*stringsetter)(AL_CONST char *name, AL_CONST char *value);
+   int (*intgetter)(AL_LEGACY_CONST char *name, int def);
+   AL_LEGACY_CONST char *(*stringgetter)(AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *def);
+   void (*stringsetter)(AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *value);
    struct CONFIG_HOOK *next;
 } CONFIG_HOOK;
 
@@ -276,7 +276,7 @@ static void init_config(int loaddata)
  *  NAME to NULL and returns a copy of the line through VAL if the line was
  *  blank or a comment. Returns -1 and set allegro_errno on failure.
  */
-static int get_line(AL_CONST char *data, int length, char **name, char **val)
+static int get_line(AL_LEGACY_CONST char *data, int length, char **name, char **val)
 {
    char *buf;
    int buf_size=256;
@@ -389,7 +389,7 @@ static int get_line(AL_CONST char *data, int length, char **name, char **val)
 /* set_config:
  *  Does the work of setting up a config structure.
  */
-static void set_config(CONFIG **config, AL_CONST char *data, int length, AL_CONST char *filename)
+static void set_config(CONFIG **config, AL_LEGACY_CONST char *data, int length, AL_LEGACY_CONST char *filename)
 {
    CONFIG_ENTRY **prev, *p;
    char *name, *val;
@@ -457,7 +457,7 @@ static void set_config(CONFIG **config, AL_CONST char *data, int length, AL_CONS
 /* load_config_file:
  *  Does the work of loading a config file.
  */
-static void load_config_file(CONFIG **config, AL_CONST char *filename, AL_CONST char *savefile)
+static void load_config_file(CONFIG **config, AL_LEGACY_CONST char *filename, AL_LEGACY_CONST char *savefile)
 {
    char *tmp, *tmp2;
    uint64_t length;
@@ -523,7 +523,7 @@ static void load_config_file(CONFIG **config, AL_CONST char *filename, AL_CONST 
 /* set_config_file:
  *  Sets the file to be used for all future configuration operations.
  */
-void set_config_file(AL_CONST char *filename)
+void set_config_file(AL_LEGACY_CONST char *filename)
 {
    ASSERT(filename);
    load_config_file(&config[0], filename, filename);
@@ -535,7 +535,7 @@ void set_config_file(AL_CONST char *filename)
  *  Sets the block of data to be used for all future configuration
  *  operations.
  */
-void set_config_data(AL_CONST char *data, int length)
+void set_config_data(AL_LEGACY_CONST char *data, int length)
 {
    ASSERT(data);
    set_config(&config[0], data, length, NULL);
@@ -546,7 +546,7 @@ void set_config_data(AL_CONST char *data, int length)
 /* override_config_file:
  *  Sets the file that will override all future configuration operations.
  */
-void override_config_file(AL_CONST char *filename)
+void override_config_file(AL_LEGACY_CONST char *filename)
 {
    /* load other configuration file to override settings */
    if (filename)
@@ -564,7 +564,7 @@ void override_config_file(AL_CONST char *filename)
  *  Sets the block of data that will override all future configuration
  *  operations.
  */
-void override_config_data(AL_CONST char *data, int length)
+void override_config_data(AL_LEGACY_CONST char *data, int length)
 {
    ASSERT(data);
    set_config(&config_override, data, length, NULL);
@@ -611,7 +611,7 @@ void pop_config_state(void)
 /* prettify_section_name:
  *  Helper for ensuring that a section name is enclosed by [ ] braces.
  */
-static void prettify_section_name(AL_CONST char *in, char *out, int out_size)
+static void prettify_section_name(AL_LEGACY_CONST char *in, char *out, int out_size)
 {
    int p;
 
@@ -644,7 +644,7 @@ static void prettify_section_name(AL_CONST char *in, char *out, int out_size)
  *  override the normal table of values, and give the provider of the hooks
  *  complete control over that section.
  */
-void hook_config_section(AL_CONST char *section, int (*intgetter)(AL_CONST char *, int), AL_CONST char *(*stringgetter)(AL_CONST char *, AL_CONST char *), void (*stringsetter)(AL_CONST char *, AL_CONST char *))
+void hook_config_section(AL_LEGACY_CONST char *section, int (*intgetter)(AL_LEGACY_CONST char *, int), AL_LEGACY_CONST char *(*stringgetter)(AL_LEGACY_CONST char *, AL_LEGACY_CONST char *), void (*stringsetter)(AL_LEGACY_CONST char *, AL_LEGACY_CONST char *))
 {
    CONFIG_HOOK *hook, **prev;
    char section_name[256];
@@ -702,7 +702,7 @@ void hook_config_section(AL_CONST char *section, int (*intgetter)(AL_CONST char 
 /* is_config_hooked:
  *  Checks whether a specific section is hooked in any way.
  */
-int config_is_hooked(AL_CONST char *section)
+int config_is_hooked(AL_LEGACY_CONST char *section)
 {
    CONFIG_HOOK *hook = config_hook;
    char section_name[256];
@@ -724,7 +724,7 @@ int config_is_hooked(AL_CONST char *section)
 /* find_config_string:
  *  Helper for finding an entry in the configuration file.
  */
-static CONFIG_ENTRY *find_config_string(CONFIG *config, AL_CONST char *section, AL_CONST char *name, CONFIG_ENTRY **prev)
+static CONFIG_ENTRY *find_config_string(CONFIG *config, AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, CONFIG_ENTRY **prev)
 {
    CONFIG_ENTRY *p;
    int in_section;
@@ -768,7 +768,7 @@ static CONFIG_ENTRY *find_config_string(CONFIG *config, AL_CONST char *section, 
 /* get_config_string:
  *  Reads a string from the configuration file.
  */
-AL_CONST char *get_config_string(AL_CONST char *section, AL_CONST char *name, AL_CONST char *def)
+AL_LEGACY_CONST char *get_config_string(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *def)
 {
    char section_name[256];
    CONFIG_HOOK *hook;
@@ -819,11 +819,11 @@ AL_CONST char *get_config_string(AL_CONST char *section, AL_CONST char *name, AL
 /* get_config_int:
  *  Reads an integer from the configuration file.
  */
-int get_config_int(AL_CONST char *section, AL_CONST char *name, int def)
+int get_config_int(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, int def)
 {
    CONFIG_HOOK *hook;
    char section_name[256];
-   AL_CONST char *s;
+   AL_LEGACY_CONST char *s;
 
    prettify_section_name(section, section_name, sizeof(section_name));
 
@@ -862,9 +862,9 @@ int get_config_int(AL_CONST char *section, AL_CONST char *name, int def)
 /* get_config_hex:
  *  Reads a hexadecimal integer from the configuration file.
  */
-int get_config_hex(AL_CONST char *section, AL_CONST char *name, int def)
+int get_config_hex(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, int def)
 {
-   AL_CONST char *s = get_config_string(section, name, NULL);
+   AL_LEGACY_CONST char *s = get_config_string(section, name, NULL);
    char tmp[64];
    int i;
 
@@ -883,9 +883,9 @@ int get_config_hex(AL_CONST char *section, AL_CONST char *name, int def)
 /* get_config_float:
  *  Reads a float from the configuration file.
  */
-float get_config_float(AL_CONST char *section, AL_CONST char *name, float def)
+float get_config_float(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, float def)
 {
-   AL_CONST char* s = get_config_string(section, name, NULL);
+   AL_LEGACY_CONST char* s = get_config_string(section, name, NULL);
 
    if ((s) && (ugetc(s)))
       return uatof(s);
@@ -898,9 +898,9 @@ float get_config_float(AL_CONST char *section, AL_CONST char *name, float def)
 /* get_config_id:
  *  Reads a driver ID number from the configuration file.
  */
-int get_config_id(AL_CONST char *section, AL_CONST char *name, int def)
+int get_config_id(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, int def)
 {
-   AL_CONST char *s = get_config_string(section, name, NULL);
+   AL_LEGACY_CONST char *s = get_config_string(section, name, NULL);
    char tmp[4];
    char* endp;
    int val, i;
@@ -930,13 +930,13 @@ int get_config_id(AL_CONST char *section, AL_CONST char *name, int def)
 /* get_config_argv:
  *  Reads an argc/argv style token list from the configuration file.
  */
-char **get_config_argv(AL_CONST char *section, AL_CONST char *name, int *argc)
+char **get_config_argv(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, int *argc)
 {
    int pos, ac, q, c;
    int s_size;
    int i;
 
-   AL_CONST char *s = get_config_string(section, name, NULL);
+   AL_LEGACY_CONST char *s = get_config_string(section, name, NULL);
 
    if (!s) {
       *argc = 0;
@@ -1041,7 +1041,7 @@ char **get_config_argv(AL_CONST char *section, AL_CONST char *name, int *argc)
 /* insert_variable:
  *  Helper for inserting a new variable into a configuration file.
  */
-static CONFIG_ENTRY *insert_variable(CONFIG *the_config, CONFIG_ENTRY *p, AL_CONST char *name, AL_CONST char *data)
+static CONFIG_ENTRY *insert_variable(CONFIG *the_config, CONFIG_ENTRY *p, AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *data)
 {
    CONFIG_ENTRY *n = _AL_LEGACY_MALLOC(sizeof(CONFIG_ENTRY));
 
@@ -1075,7 +1075,7 @@ static CONFIG_ENTRY *insert_variable(CONFIG *the_config, CONFIG_ENTRY *p, AL_CON
 /* set_config_string:
  *  Writes a string to the configuration file.
  */
-void set_config_string(AL_CONST char *section, AL_CONST char *name, AL_CONST char *val)
+void set_config_string(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *val)
 {
    CONFIG *the_config;
    CONFIG_HOOK *hook;
@@ -1177,7 +1177,7 @@ void set_config_string(AL_CONST char *section, AL_CONST char *name, AL_CONST cha
 /* set_config_int:
  *  Writes an integer to the configuration file.
  */
-void set_config_int(AL_CONST char *section, AL_CONST char *name, int val)
+void set_config_int(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, int val)
 {
    char buf[32], tmp[32];
    uszprintf(buf, sizeof(buf), uconvert_ascii("%d", tmp), val);
@@ -1189,7 +1189,7 @@ void set_config_int(AL_CONST char *section, AL_CONST char *name, int val)
 /* set_config_hex:
  *  Writes a hexadecimal integer to the configuration file.
  */
-void set_config_hex(AL_CONST char *section, AL_CONST char *name, int val)
+void set_config_hex(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, int val)
 {
    char buf[32], tmp[32];
 
@@ -1206,7 +1206,7 @@ void set_config_hex(AL_CONST char *section, AL_CONST char *name, int val)
 /* set_config_float:
  *  Writes a float to the configuration file.
  */
-void set_config_float(AL_CONST char *section, AL_CONST char *name, float val)
+void set_config_float(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, float val)
 {
    char buf[32], tmp[32];
    uszprintf(buf, sizeof(buf), uconvert_ascii("%f", tmp), val);
@@ -1218,7 +1218,7 @@ void set_config_float(AL_CONST char *section, AL_CONST char *name, float val)
 /* set_config_id:
  *  Writes a driver ID to the configuration file.
  */
-void set_config_id(AL_CONST char *section, AL_CONST char *name, int val)
+void set_config_id(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char *name, int val)
 {
    char buf[32], tmp[32];
    int v[4];
@@ -1267,10 +1267,10 @@ void _reload_config(void)
  *  variable will be set to new_language before reloading the
  *  configuration files.
  */
-void reload_config_texts(AL_CONST char *new_language)
+void reload_config_texts(AL_LEGACY_CONST char *new_language)
 {
    char filename[1024], tmp1[128], tmp2[128];
-   AL_CONST char *name, *ext, *datafile;
+   AL_LEGACY_CONST char *name, *ext, *datafile;
    char *namecpy;
 
    printf("config 1\n");
@@ -1328,13 +1328,13 @@ void reload_config_texts(AL_CONST char *new_language)
  *  returning a suitable message in the current language if one is
  *  available, or a copy of the parameter if no translation can be found.
  */
-AL_CONST char *get_config_text(AL_CONST char *msg)
+AL_LEGACY_CONST char *get_config_text(AL_LEGACY_CONST char *msg)
 {
    char tmp1[256];
-   AL_CONST char *section;
-   AL_CONST char *umsg;
-   AL_CONST char *s;
-   AL_CONST char *ret = NULL;
+   AL_LEGACY_CONST char *section;
+   AL_LEGACY_CONST char *umsg;
+   AL_LEGACY_CONST char *s;
+   AL_LEGACY_CONST char *ret = NULL;
    char *name;
    CONFIG_HOOK *hook;
    CONFIG_ENTRY *p;
@@ -1444,7 +1444,7 @@ AL_CONST char *get_config_text(AL_CONST char *msg)
 /* add_unique_name
  *  Helper to add a name to a list of names.
  */
-static int add_unique_name(AL_CONST char ***names, int n, char const *name)
+static int add_unique_name(AL_LEGACY_CONST char ***names, int n, char const *name)
 {
    int i;
    /* FIXME: use better search algorithm */
@@ -1462,8 +1462,8 @@ static int add_unique_name(AL_CONST char ***names, int n, char const *name)
 /* attach_config_entries
  *  Helper function to attach key or section names to a list of strings.
  */
-static int attach_config_entries(CONFIG *conf, AL_CONST char *section,
-   int n, AL_CONST char ***names, int list_sections)
+static int attach_config_entries(CONFIG *conf, AL_LEGACY_CONST char *section,
+   int n, AL_LEGACY_CONST char ***names, int list_sections)
 {
    CONFIG_ENTRY *p;
    char section_name[256];
@@ -1508,7 +1508,7 @@ static int attach_config_entries(CONFIG *conf, AL_CONST char *section,
  *  return value tells how many valid string pointers it contains after the
  *  function returns.
  */
-int list_config_entries(AL_CONST char *section, AL_CONST char ***names)
+int list_config_entries(AL_LEGACY_CONST char *section, AL_LEGACY_CONST char ***names)
 {
    int n = 0;
    n = attach_config_entries(config_override, section, n, names, 0);
@@ -1522,7 +1522,7 @@ int list_config_entries(AL_CONST char *section, AL_CONST char ***names)
  *  Returns the names of all current config sections, enclodes in []. The names
  *  parameter and return value is like in list_config_entires above.
  */
-int list_config_sections(AL_CONST char ***names)
+int list_config_sections(AL_LEGACY_CONST char ***names)
 {
    int n = 0;
    n = attach_config_entries(config_override, NULL, n, names, 1);
@@ -1536,7 +1536,7 @@ int list_config_sections(AL_CONST char ***names)
  *  Frees the entries list returned by list_config_entires or
  *  list_config_sections again.
  */
-void free_config_entries(AL_CONST char ***names)
+void free_config_entries(AL_LEGACY_CONST char ***names)
 {
     _AL_LEGACY_FREE(*names);
     *names = NULL;

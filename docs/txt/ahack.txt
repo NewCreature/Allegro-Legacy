@@ -231,11 +231,11 @@ header, they are writing non-portable code.
 ============ Definitions ============
 =====================================
 
-All header function prototypes should use the macro AL_FUNC(). Inline 
-routines use the macro AL_INLINE(). Global variables use AL_VAR() or 
-AL_ARRAY(). Global pointers to functions use AL_FUNCPTR(). Pointers to 
+All header function prototypes should use the macro AL_LEGACY_FUNC(). Inline 
+routines use the macro AL_LEGACY_INLINE(). Global variables use AL_LEGACY_VAR() or 
+AL_LEGACY_ARRAY(). Global pointers to functions use AL_LEGACY_FUNCPTR(). Pointers to 
 functions which are passed as parameters to other routines or stored in a 
-structure typedef use AL_METHOD(). This may seem like something of an 
+structure typedef use AL_LEGACY_METHOD(). This may seem like something of an 
 overkill, but it gives us a lot of flexibility to add DLL import/export 
 specifiers, calling convention markers like __cdecl, and even to mangle 
 symbol names on some compilers. If you forget to use these macros, your code 

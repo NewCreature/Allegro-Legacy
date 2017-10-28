@@ -29,7 +29,7 @@
 
 
 /* ftofix and fixtof are used in generic C versions of fixmul and fixdiv */
-AL_INLINE(fixed, ftofix, (double x),
+AL_LEGACY_INLINE(fixed, ftofix, (double x),
 {
    if (x > 32767.0) {
       *allegro_errno = ERANGE;
@@ -45,7 +45,7 @@ AL_INLINE(fixed, ftofix, (double x),
 })
 
 
-AL_INLINE(double, fixtof, (fixed x),
+AL_LEGACY_INLINE(double, fixtof, (fixed x),
 {
    return (double)x / 65536.0;
 })
@@ -55,7 +55,7 @@ AL_INLINE(double, fixtof, (fixed x),
 
 /* use generic C versions */
 
-AL_INLINE(fixed, fixadd, (fixed x, fixed y),
+AL_LEGACY_INLINE(fixed, fixadd, (fixed x, fixed y),
 {
    fixed result = x + y;
 
@@ -78,7 +78,7 @@ AL_INLINE(fixed, fixadd, (fixed x, fixed y),
 })
 
 
-AL_INLINE(fixed, fixsub, (fixed x, fixed y),
+AL_LEGACY_INLINE(fixed, fixsub, (fixed x, fixed y),
 {
    fixed result = x - y;
 
@@ -114,15 +114,15 @@ AL_INLINE(fixed, fixsub, (fixed x, fixed y),
  * If you don't need overflow detection then previous versions in the
  * CVS tree might be worth looking at.
  *
- * PS. Don't move the #ifs inside the AL_INLINE; BCC doesn't like it.
+ * PS. Don't move the #ifs inside the AL_LEGACY_INLINE; BCC doesn't like it.
  */
 #if (defined ALLEGRO_LEGACY_I386) || (!defined LONG_LONG)
-   AL_INLINE(fixed, fixmul, (fixed x, fixed y),
+   AL_LEGACY_INLINE(fixed, fixmul, (fixed x, fixed y),
    {
       return ftofix(fixtof(x) * fixtof(y));
    })
 #else
-   AL_INLINE(fixed, fixmul, (fixed x, fixed y),
+   AL_LEGACY_INLINE(fixed, fixmul, (fixed x, fixed y),
    {
       LONG_LONG lx = x;
       LONG_LONG ly = y;
@@ -144,7 +144,7 @@ AL_INLINE(fixed, fixsub, (fixed x, fixed y),
 #endif	    /* fixmul() C implementations */
 
 
-AL_INLINE(fixed, fixdiv, (fixed x, fixed y),
+AL_LEGACY_INLINE(fixed, fixdiv, (fixed x, fixed y),
 {
    if (y == 0) {
       *allegro_errno = ERANGE;
@@ -155,7 +155,7 @@ AL_INLINE(fixed, fixdiv, (fixed x, fixed y),
 })
 
 
-AL_INLINE(int, fixfloor, (fixed x),
+AL_LEGACY_INLINE(int, fixfloor, (fixed x),
 {
    /* (x >> 16) is not portable */
    if (x >= 0)
@@ -165,7 +165,7 @@ AL_INLINE(int, fixfloor, (fixed x),
 })
 
 
-AL_INLINE(int, fixceil, (fixed x),
+AL_LEGACY_INLINE(int, fixceil, (fixed x),
 {
    if (x > 0x7FFF0000) {
       *allegro_errno = ERANGE;
@@ -178,37 +178,37 @@ AL_INLINE(int, fixceil, (fixed x),
 #endif      /* C vs. inline asm */
 
 
-AL_INLINE(fixed, itofix, (int x),
+AL_LEGACY_INLINE(fixed, itofix, (int x),
 {
    return x << 16;
 })
 
 
-AL_INLINE(int, fixtoi, (fixed x),
+AL_LEGACY_INLINE(int, fixtoi, (fixed x),
 {
    return fixfloor(x) + ((x & 0x8000) >> 15);
 })
 
 
-AL_INLINE(fixed, fixcos, (fixed x),
+AL_LEGACY_INLINE(fixed, fixcos, (fixed x),
 {
    return _cos_tbl[((x + 0x4000) >> 15) & 0x1FF];
 })
 
 
-AL_INLINE(fixed, fixsin, (fixed x),
+AL_LEGACY_INLINE(fixed, fixsin, (fixed x),
 {
    return _cos_tbl[((x - 0x400000 + 0x4000) >> 15) & 0x1FF];
 })
 
 
-AL_INLINE(fixed, fixtan, (fixed x),
+AL_LEGACY_INLINE(fixed, fixtan, (fixed x),
 {
    return _tan_tbl[((x + 0x4000) >> 15) & 0xFF];
 })
 
 
-AL_INLINE(fixed, fixacos, (fixed x),
+AL_LEGACY_INLINE(fixed, fixacos, (fixed x),
 {
    if ((x < -65536) || (x > 65536)) {
       *allegro_errno = EDOM;
@@ -219,7 +219,7 @@ AL_INLINE(fixed, fixacos, (fixed x),
 })
 
 
-AL_INLINE(fixed, fixasin, (fixed x),
+AL_LEGACY_INLINE(fixed, fixasin, (fixed x),
 {
    if ((x < -65536) || (x > 65536)) {
       *allegro_errno = EDOM;

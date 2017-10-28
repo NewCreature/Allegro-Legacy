@@ -113,7 +113,7 @@ static void insert_node(int color)
 
 
 /* helper function for builtin qsort function */
-static int qsort_helper_ITEM(AL_CONST void *e1, AL_CONST void *e2)
+static int qsort_helper_ITEM(AL_LEGACY_CONST void *e1, AL_LEGACY_CONST void *e2)
 {
    return ((ITEM *)e2)->key - ((ITEM *)e1)->key;
 }
@@ -246,7 +246,7 @@ static INLINE void copy_color(RGB *rgb, int color)
  *  filled with 'different colors', maxswaps gives upper boundary for
  *  number of swaps and mindiff chooses when to stop replacing values
  */
-static int generate_optimized_palette_ex(BITMAP *image, PALETTE pal, AL_CONST signed char *rsvdcols, int bitsperrgb, int fraction, int maxswaps, int mindiff)
+static int generate_optimized_palette_ex(BITMAP *image, PALETTE pal, AL_LEGACY_CONST signed char *rsvdcols, int bitsperrgb, int fraction, int maxswaps, int mindiff)
 {
    int i, j, x, y, imgdepth, numcols, palsize, rsvdcnt=0, rsvduse=0;
    unsigned int prec_mask, prec_mask2, bitmask15, bitmask16, bitmask24;
@@ -514,7 +514,7 @@ static int generate_optimized_palette_ex(BITMAP *image, PALETTE pal, AL_CONST si
 
 
 
-int generate_optimized_palette(BITMAP *image, PALETTE pal, AL_CONST signed char rsvdcols[PAL_SIZE])
+int generate_optimized_palette(BITMAP *image, PALETTE pal, AL_LEGACY_CONST signed char rsvdcols[PAL_SIZE])
 {
    ASSERT(image);
    return generate_optimized_palette_ex(image, pal, rsvdcols, DEFAULT_PREC, DEFAULT_FRACTION, DEFAULT_MAXSWAPS, DEFAULT_MINDIFF);

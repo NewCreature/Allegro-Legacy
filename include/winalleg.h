@@ -71,43 +71,43 @@
 /* external graphics driver support */
 typedef struct WIN_GFX_DRIVER {
    int has_backing_store;
-   AL_METHOD(void, switch_in, (void));
-   AL_METHOD(void, switch_out, (void));
-   AL_METHOD(void, enter_sysmode, (void));
-   AL_METHOD(void, exit_sysmode, (void));
-   AL_METHOD(void, move, (int x, int y, int w, int h));
-   AL_METHOD(void, iconify, (void));
-   AL_METHOD(void, paint, (RECT *rect));
+   AL_LEGACY_METHOD(void, switch_in, (void));
+   AL_LEGACY_METHOD(void, switch_out, (void));
+   AL_LEGACY_METHOD(void, enter_sysmode, (void));
+   AL_LEGACY_METHOD(void, exit_sysmode, (void));
+   AL_LEGACY_METHOD(void, move, (int x, int y, int w, int h));
+   AL_LEGACY_METHOD(void, iconify, (void));
+   AL_LEGACY_METHOD(void, paint, (RECT *rect));
 } WIN_GFX_DRIVER;
 
-AL_VAR(WIN_GFX_DRIVER *, win_gfx_driver);
+AL_LEGACY_VAR(WIN_GFX_DRIVER *, win_gfx_driver);
 
-AL_FUNC(void, win_grab_input, (void));
+AL_LEGACY_FUNC(void, win_grab_input, (void));
 
 
 /* external window support */
-AL_FUNC(HWND, win_get_window, (void));
-AL_FUNC(void, win_set_window, (HWND wnd));
-AL_FUNC(void, win_set_wnd_create_proc, (AL_METHOD(HWND, proc, (WNDPROC))));
-AL_FUNC(void, win_set_msg_pre_proc, (AL_METHOD(int, proc, (HWND, UINT, WPARAM, LPARAM, int *))));
+AL_LEGACY_FUNC(HWND, win_get_window, (void));
+AL_LEGACY_FUNC(void, win_set_window, (HWND wnd));
+AL_LEGACY_FUNC(void, win_set_wnd_create_proc, (AL_LEGACY_METHOD(HWND, proc, (WNDPROC))));
+AL_LEGACY_FUNC(void, win_set_msg_pre_proc, (AL_LEGACY_METHOD(int, proc, (HWND, UINT, WPARAM, LPARAM, int *))));
 
 /* GDI to DirectDraw routines */
-AL_FUNC(HDC, win_get_dc, (BITMAP *bmp));
-AL_FUNC(void, win_release_dc, (BITMAP *bmp, HDC dc));
+AL_LEGACY_FUNC(HDC, win_get_dc, (BITMAP *bmp));
+AL_LEGACY_FUNC(void, win_release_dc, (BITMAP *bmp, HDC dc));
 
 
 /* GDI routines */
-AL_FUNC(void, set_gdi_color_format, (void));
-AL_FUNC(void, set_palette_to_hdc, (HDC dc, PALETTE pal));
-AL_FUNC(HPALETTE, convert_palette_to_hpalette, (PALETTE pal));
-AL_FUNC(void, convert_hpalette_to_palette, (HPALETTE hpal, PALETTE pal));
-AL_FUNC(HBITMAP, convert_bitmap_to_hbitmap, (BITMAP *bitmap));
-AL_FUNC(BITMAP *, convert_hbitmap_to_bitmap, (HBITMAP bitmap));
-AL_FUNC(void, draw_to_hdc, (HDC dc, BITMAP *bitmap, int x, int y));
-AL_FUNC(void, blit_to_hdc, (BITMAP *bitmap, HDC dc, int src_x, int src_y, int dest_x, int dest_y, int w, int h));
-AL_FUNC(void, stretch_blit_to_hdc, (BITMAP *bitmap, HDC dc, int src_x, int src_y, int src_w, int src_h, int dest_x, int dest_y, int dest_w, int dest_h));
-AL_FUNC(void, blit_from_hdc, (HDC dc, BITMAP *bitmap, int src_x, int src_y, int dest_x, int dest_y, int w, int h));
-AL_FUNC(void, stretch_blit_from_hdc, (HDC hdc, BITMAP *bitmap, int src_x, int src_y, int src_w, int src_h, int dest_x, int dest_y, int dest_w, int dest_h));
+AL_LEGACY_FUNC(void, set_gdi_color_format, (void));
+AL_LEGACY_FUNC(void, set_palette_to_hdc, (HDC dc, PALETTE pal));
+AL_LEGACY_FUNC(HPALETTE, convert_palette_to_hpalette, (PALETTE pal));
+AL_LEGACY_FUNC(void, convert_hpalette_to_palette, (HPALETTE hpal, PALETTE pal));
+AL_LEGACY_FUNC(HBITMAP, convert_bitmap_to_hbitmap, (BITMAP *bitmap));
+AL_LEGACY_FUNC(BITMAP *, convert_hbitmap_to_bitmap, (HBITMAP bitmap));
+AL_LEGACY_FUNC(void, draw_to_hdc, (HDC dc, BITMAP *bitmap, int x, int y));
+AL_LEGACY_FUNC(void, blit_to_hdc, (BITMAP *bitmap, HDC dc, int src_x, int src_y, int dest_x, int dest_y, int w, int h));
+AL_LEGACY_FUNC(void, stretch_blit_to_hdc, (BITMAP *bitmap, HDC dc, int src_x, int src_y, int src_w, int src_h, int dest_x, int dest_y, int dest_w, int dest_h));
+AL_LEGACY_FUNC(void, blit_from_hdc, (HDC dc, BITMAP *bitmap, int src_x, int src_y, int dest_x, int dest_y, int w, int h));
+AL_LEGACY_FUNC(void, stretch_blit_from_hdc, (HDC hdc, BITMAP *bitmap, int src_x, int src_y, int src_w, int src_h, int dest_x, int dest_y, int dest_w, int dest_h));
 
 
 #ifdef __cplusplus

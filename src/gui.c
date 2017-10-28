@@ -559,7 +559,7 @@ enum axis { X_AXIS, Y_AXIS };
 /* obj_list_cmp:
  *  Callback function for qsort().
  */
-static int obj_list_cmp(AL_CONST void *e1, AL_CONST void *e2)
+static int obj_list_cmp(AL_LEGACY_CONST void *e1, AL_LEGACY_CONST void *e2)
 {
    return (((OBJ_LIST *)e1)->diff - ((OBJ_LIST *)e2)->diff);
 }
@@ -569,9 +569,9 @@ static int obj_list_cmp(AL_CONST void *e1, AL_CONST void *e2)
 /* cmp_tab:
  *  Comparison function for tab key movement.
  */
-static int cmp_tab(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
+static int cmp_tab(AL_LEGACY_CONST DIALOG *d1, AL_LEGACY_CONST DIALOG *d2)
 {
-   int ret = (int)((AL_CONST unsigned long)d2 - (AL_CONST unsigned long)d1);
+   int ret = (int)((AL_LEGACY_CONST unsigned long)d2 - (AL_LEGACY_CONST unsigned long)d1);
 
    /* Wrap around if d2 is before d1 in the dialog array. */
    if (ret < 0)
@@ -585,9 +585,9 @@ static int cmp_tab(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
 /* cmp_shift_tab:
  *  Comparison function for shift+tab key movement.
  */
-static int cmp_shift_tab(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
+static int cmp_shift_tab(AL_LEGACY_CONST DIALOG *d1, AL_LEGACY_CONST DIALOG *d2)
 {
-   int ret = (int)((AL_CONST unsigned long)d1 - (AL_CONST unsigned long)d2);
+   int ret = (int)((AL_LEGACY_CONST unsigned long)d1 - (AL_LEGACY_CONST unsigned long)d2);
 
    /* Wrap around if d2 is after d1 in the dialog array. */
    if (ret < 0)
@@ -604,7 +604,7 @@ static int cmp_shift_tab(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
  *  formula, as well as to shift the actual position of 'd2' along the axis
  *  by the amount specified by 'bias'.
  */
-static int min_dist(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2, enum axis main_axis, int bias)
+static int min_dist(AL_LEGACY_CONST DIALOG *d1, AL_LEGACY_CONST DIALOG *d2, enum axis main_axis, int bias)
 {
    int x_left = d1->x - d2->x - d2->w + 1;
    int x_right = d2->x - d1->x - d1->w + 1;
@@ -654,7 +654,7 @@ static int min_dist(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2, enum axis main_axi
 /* cmp_right:
  *  Comparison function for right arrow key movement.
  */
-static int cmp_right(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
+static int cmp_right(AL_LEGACY_CONST DIALOG *d1, AL_LEGACY_CONST DIALOG *d2)
 {
    int bias;
 
@@ -673,7 +673,7 @@ static int cmp_right(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
 /* cmp_left:
  *  Comparison function for left arrow key movement.
  */
-static int cmp_left(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
+static int cmp_left(AL_LEGACY_CONST DIALOG *d1, AL_LEGACY_CONST DIALOG *d2)
 {
    int bias;
 
@@ -692,7 +692,7 @@ static int cmp_left(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
 /* cmp_down:
  *  Comparison function for down arrow key movement.
  */
-static int cmp_down(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
+static int cmp_down(AL_LEGACY_CONST DIALOG *d1, AL_LEGACY_CONST DIALOG *d2)
 {
    int bias;
 
@@ -711,7 +711,7 @@ static int cmp_down(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
 /* cmp_up:
  *  Comparison function for up arrow key movement.
  */
-static int cmp_up(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
+static int cmp_up(AL_LEGACY_CONST DIALOG *d1, AL_LEGACY_CONST DIALOG *d2)
 {
    int bias;
 
@@ -733,7 +733,7 @@ static int cmp_up(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2)
  */
 static int move_focus(DIALOG *d, int ascii, int scan, int *focus_obj)
 {
-   int (*cmp)(AL_CONST DIALOG *d1, AL_CONST DIALOG *d2);
+   int (*cmp)(AL_LEGACY_CONST DIALOG *d1, AL_LEGACY_CONST DIALOG *d2);
    OBJ_LIST obj[MAX_OBJECTS];
    int obj_count = 0;
    int fobj, c;
@@ -1677,7 +1677,7 @@ static void layout_menu(MENU_PLAYER *m, MENU *menu, int bar, int x, int y, int m
  *  Returns true if c is indicated as a keyboard shortcut by a '&' character
  *  in the specified string.
  */
-static int menu_key_shortcut(int c, AL_CONST char *s)
+static int menu_key_shortcut(int c, AL_LEGACY_CONST char *s)
 {
    int d;
 
@@ -1707,7 +1707,7 @@ static int menu_alt_key(int k, MENU *m)
       KEY_S, KEY_T, KEY_U, KEY_V, KEY_W, KEY_X, KEY_Y, KEY_Z
    };
 
-   AL_CONST char *s;
+   AL_LEGACY_CONST char *s;
    int c, d;
 
    if (k & 0xFF)
@@ -2306,7 +2306,7 @@ static DIALOG alert_dialog[] =
  *  the keyboard shortcuts in c1 and c2. Returns 1, 2, or 3 depending on
  *  which button was selected.
  */
-int alert3(AL_CONST char *s1, AL_CONST char *s2, AL_CONST char *s3, AL_CONST char *b1, AL_CONST char *b2, AL_CONST char *b3, int c1, int c2, int c3)
+int alert3(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2, AL_LEGACY_CONST char *s3, AL_LEGACY_CONST char *b1, AL_LEGACY_CONST char *b2, AL_LEGACY_CONST char *b3, int c1, int c2, int c3)
 {
    char tmp[16];
    int avg_w, avg_h;
@@ -2422,7 +2422,7 @@ int alert3(AL_CONST char *s1, AL_CONST char *s2, AL_CONST char *s3, AL_CONST cha
  *  in b1 and b2 (b2 may be null), and the keyboard shortcuts in c1 and c2.
  *  Returns 1 or 2 depending on which button was selected.
  */
-int alert(AL_CONST char *s1, AL_CONST char *s2, AL_CONST char *s3, AL_CONST char *b1, AL_CONST char *b2, int c1, int c2)
+int alert(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2, AL_LEGACY_CONST char *s3, AL_LEGACY_CONST char *b1, AL_LEGACY_CONST char *b2, int c1, int c2)
 {
    int ret;
 

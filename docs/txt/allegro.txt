@@ -10408,7 +10408,7 @@ transformation pipeline of a point from world space to the screen.
       0, 0, 0,  /* Viewer position, in this case, 0/0/0. */
       0, 0, -1, /* Viewer direction, in this case along negative z. */
       0, 1, 0,  /* Up vector, in this case positive y. */
-      32,       /* The FOV, here 45°. */
+      32,       /* The FOV, here 45ï¿½. */
       (float)SCREEN_W / (float)SCREEN_H)); /* Aspect ratio. */
   
    /* Applying the matrix transforms the point 100/200/-300
@@ -10559,7 +10559,7 @@ void get_camera_matrix(MATRIX *m, fixed x, y, z, xfront, yfront, zfront,
    The fov parameter specifies the field of view (ie. width of the camera
    focus) in binary, 256 degrees to the circle format. For typical
    projections, a field of view in the region 32-48 will work well. 64
-   (90°) applies no extra scaling - so something which is one unit away
+   (90ï¿½) applies no extra scaling - so something which is one unit away
    from the viewer will be directly scaled to the viewport. A bigger FOV
    moves you closer to the viewing plane, so more objects will appear. A
    smaller FOV moves you away from the viewing plane, which means you see a
@@ -12889,11 +12889,11 @@ ZERO_SIZE_ARRAY(type, name)
    structures, like in the BITMAP structure. These arrays are effectively 
    equivalent to the flexible array members of ISO C99.
 
-AL_CONST
+AL_LEGACY_CONST
    Use this in place of the regular "const" object modifier keyword, and 
    your code will work correctly on any of the supported compilers.
 
-AL_RAND()
+AL_LEGACY_RAND()
    On platforms that require it, this macro does a simple shift 
    transformation of the libc rand() function, in order to improve the 
    perceived randomness of the output series in the lower 16 bits.

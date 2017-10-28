@@ -34,13 +34,13 @@
 
 #define INLINE
 #define ZERO_SIZE_ARRAY(type, name)             type name[64]
-#define AL_CONST								const
-#define AL_VAR(type, name)                      extern type name
-#define AL_ARRAY(type, name)                    extern type name[]
-#define AL_FUNC(type, name, args)               type name args
-#define AL_PRINTFUNC(type, name, args, a, b)    AL_FUNC(type, name, args)
-#define AL_METHOD(type, name, args)             type (*name) args
-#define AL_FUNCPTR(type, name, args)            extern type (*name) args
+#define AL_LEGACY_CONST								const
+#define AL_LEGACY_VAR(type, name)                      extern type name
+#define AL_LEGACY_ARRAY(type, name)                    extern type name[]
+#define AL_LEGACY_FUNC(type, name, args)               type name args
+#define AL_LEGACY_PRINTFUNC(type, name, args, a, b)    AL_LEGACY_FUNC(type, name, args)
+#define AL_LEGACY_METHOD(type, name, args)             type (*name) args
+#define AL_LEGACY_FUNCPTR(type, name, args)            extern type (*name) args
 
 #define END_OF_MAIN()				void x##_end(void) { }
 
@@ -65,8 +65,8 @@ extern "C"
 #endif
 char *strdup(const char *);
 
-#ifndef AL_INLINE
-   #define AL_INLINE(type, name, args, code)    static type name args code
+#ifndef AL_LEGACY_INLINE
+   #define AL_LEGACY_INLINE(type, name, args, code)    static type name args code
 #endif
 
 

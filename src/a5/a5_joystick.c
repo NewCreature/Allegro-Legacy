@@ -174,14 +174,14 @@ static int a5_joystick_poll(void)
 JOYSTICK_DRIVER joystick_allegro_5 =
 {
    JOYSTICK_ALLEGRO_5,        // int  id;
-   empty_string,         // AL_CONST char *name;
-   empty_string,         // AL_CONST char *desc;
-   "Allegro 5 Joystick",      // AL_CONST char *ascii_name;
-   a5_joystick_init, //be_joy_init,          // AL_METHOD(int, init, (void));
-   a5_joystick_exit, //be_joy_exit,          // AL_METHOD(void, exit, (void));
-   a5_joystick_poll, //be_joy_poll,          // AL_METHOD(int, poll, (void));
-   NULL,                 // AL_METHOD(int, save_data, (void));
-   NULL,                 // AL_METHOD(int, load_data, (void));
-   NULL,                 // AL_METHOD(AL_CONST char *, calibrate_name, (int n));
-   NULL                  // AL_METHOD(int, calibrate, (int n));
+   empty_string,         // AL_LEGACY_CONST char *name;
+   empty_string,         // AL_LEGACY_CONST char *desc;
+   "Allegro 5 Joystick",      // AL_LEGACY_CONST char *ascii_name;
+   a5_joystick_init, //be_joy_init,          // AL_LEGACY_METHOD(int, init, (void));
+   a5_joystick_exit, //be_joy_exit,          // AL_LEGACY_METHOD(void, exit, (void));
+   a5_joystick_poll, //be_joy_poll,          // AL_LEGACY_METHOD(int, poll, (void));
+   NULL,                 // AL_LEGACY_METHOD(int, save_data, (void));
+   NULL,                 // AL_LEGACY_METHOD(int, load_data, (void));
+   NULL,                 // AL_LEGACY_METHOD(AL_LEGACY_CONST char *, calibrate_name, (int n));
+   NULL                  // AL_LEGACY_METHOD(int, calibrate, (int n));
 };

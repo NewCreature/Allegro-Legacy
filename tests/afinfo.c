@@ -486,7 +486,7 @@ int get_af_info(void)
    };
 
    char filename[256];
-   AL_CONST char *p;
+   AL_LEGACY_CONST char *p;
    int c, attrib;
 
    p = get_config_string(NULL, "vbeaf_driver", NULL);

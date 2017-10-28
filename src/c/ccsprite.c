@@ -46,7 +46,7 @@ void destroy_compiled_sprite(COMPILED_SPRITE *sprite)
  *  Draws a compiled sprite onto the specified bitmap at the specified
  *  position.
  */
-void draw_compiled_sprite(BITMAP *dst, AL_CONST COMPILED_SPRITE *src, int x, int y)
+void draw_compiled_sprite(BITMAP *dst, AL_LEGACY_CONST COMPILED_SPRITE *src, int x, int y)
 {
    ASSERT(dst);
    ASSERT(src);

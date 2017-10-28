@@ -25,7 +25,7 @@
  *  Loads a GRX font from the file named filename. The palette and param
  *  parameters are ignored by this function.
  */
-FONT *load_grx_font(AL_CONST char *filename, RGB *pal, void *param)
+FONT *load_grx_font(AL_LEGACY_CONST char *filename, RGB *pal, void *param)
 {
    PACKFILE *pack;
    FONT *f;
@@ -94,7 +94,7 @@ FONT *load_grx_font(AL_CONST char *filename, RGB *pal, void *param)
 /* load_grx_or_bios_font:
  *  Loads a GRX or bios font from the file named filename.
  */
-FONT *load_grx_or_bios_font(AL_CONST char *filename, RGB *pal, void *param)
+FONT *load_grx_or_bios_font(AL_LEGACY_CONST char *filename, RGB *pal, void *param)
 {
    PACKFILE *f;
    FONT *font = NULL;

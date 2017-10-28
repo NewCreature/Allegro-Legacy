@@ -26,7 +26,7 @@
 typedef struct FONT_TYPE_INFO
 {
    char *ext;
-   FONT *(*load)(AL_CONST char *filename, RGB *pal, void *param);
+   FONT *(*load)(AL_LEGACY_CONST char *filename, RGB *pal, void *param);
    struct FONT_TYPE_INFO *next;
 } FONT_TYPE_INFO;
 
@@ -38,7 +38,7 @@ static FONT_TYPE_INFO *font_type_list = NULL;
  *  Informs Allegro of a new font file type, telling it how to load files of 
  *  this format.
  */
-void register_font_file_type(AL_CONST char *ext, FONT *(*load)(AL_CONST char *filename, RGB *pal, void *param))
+void register_font_file_type(AL_LEGACY_CONST char *ext, FONT *(*load)(AL_LEGACY_CONST char *filename, RGB *pal, void *param))
 {
    char tmp[32], *aext;
    FONT_TYPE_INFO *iter = font_type_list;
@@ -66,7 +66,7 @@ void register_font_file_type(AL_CONST char *ext, FONT *(*load)(AL_CONST char *fi
  *  Loads a font from disk. Will try to load a font from a bitmap if all else
  *  fails.
  */
-FONT *load_font(AL_CONST char *filename, RGB *pal, void *param)
+FONT *load_font(AL_LEGACY_CONST char *filename, RGB *pal, void *param)
 {
    char tmp[32], *aext;
    FONT_TYPE_INFO *iter;

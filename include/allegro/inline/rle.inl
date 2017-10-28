@@ -26,7 +26,7 @@
 #endif
 
 
-AL_INLINE(void, draw_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y),
+AL_LEGACY_INLINE(void, draw_rle_sprite, (struct BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y),
 {
    ASSERT(bmp);
    ASSERT(sprite);
@@ -36,7 +36,7 @@ AL_INLINE(void, draw_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SPRITE
 })
 
 
-AL_INLINE(void, draw_trans_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y),
+AL_LEGACY_INLINE(void, draw_trans_rle_sprite, (struct BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y),
 {
    ASSERT(bmp);
    ASSERT(sprite);
@@ -52,7 +52,7 @@ AL_INLINE(void, draw_trans_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_
 })
 
 
-AL_INLINE(void, draw_lit_rle_sprite, (struct BITMAP *bmp, AL_CONST struct RLE_SPRITE *sprite, int x, int y, int color),
+AL_LEGACY_INLINE(void, draw_lit_rle_sprite, (struct BITMAP *bmp, AL_LEGACY_CONST struct RLE_SPRITE *sprite, int x, int y, int color),
 {
    ASSERT(bmp);
    ASSERT(sprite);

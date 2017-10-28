@@ -112,10 +112,10 @@ typedef struct mac_voice{
 	}mac_voice;
 
 
-AL_VAR(QDGlobals , qd);
-AL_VAR(GFX_VTABLE,__mac_sys_vtable8);
-AL_VAR(GFX_VTABLE,__mac_sys_vtable15);
-AL_VAR(GFX_VTABLE,__mac_sys_vtable24);
+AL_LEGACY_VAR(QDGlobals , qd);
+AL_LEGACY_VAR(GFX_VTABLE,__mac_sys_vtable8);
+AL_LEGACY_VAR(GFX_VTABLE,__mac_sys_vtable15);
+AL_LEGACY_VAR(GFX_VTABLE,__mac_sys_vtable24);
 
 extern void _mac_lock(void *address, unsigned long size);
 extern void _mac_unlock(void *address, unsigned long size);

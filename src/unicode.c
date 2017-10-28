@@ -41,7 +41,7 @@ char empty_string[] = EMPTY_STRING;
 /* ascii_getc:
  *  Reads a character from an ASCII string.
  */
-static int ascii_getc(AL_CONST char *s)
+static int ascii_getc(AL_LEGACY_CONST char *s)
 {
    return *((unsigned char *)s);
 }
@@ -72,7 +72,7 @@ static int ascii_setc(char *s, int c)
 /* ascii_width:
  *  Returns the width of an ASCII character.
  */
-static int ascii_width(AL_CONST char *s)
+static int ascii_width(AL_LEGACY_CONST char *s)
 {
    return 1;
 }
@@ -168,15 +168,15 @@ static unsigned short _codepage_extras[] =
 
 
 /* access via pointers so they can be changed by the user */
-static AL_CONST unsigned short *codepage_table = _codepage_table;
-static AL_CONST unsigned short *codepage_extras = _codepage_extras;
+static AL_LEGACY_CONST unsigned short *codepage_table = _codepage_table;
+static AL_LEGACY_CONST unsigned short *codepage_extras = _codepage_extras;
 
 
 
 /* ascii_cp_getc:
  *  Reads a character from an ASCII codepage string.
  */
-static int ascii_cp_getc(AL_CONST char *s)
+static int ascii_cp_getc(AL_LEGACY_CONST char *s)
 {
    return codepage_table[*((unsigned char *)s)];
 }
@@ -249,7 +249,7 @@ static int ascii_cp_isok(int c)
 /* unicode_getc:
  *  Reads a character from a Unicode string.
  */
-static int unicode_getc(AL_CONST char *s)
+static int unicode_getc(AL_LEGACY_CONST char *s)
 {
    return *((unsigned short *)s);
 }
@@ -282,7 +282,7 @@ static int unicode_setc(char *s, int c)
 /* unicode_width:
  *  Returns the width of a Unicode character.
  */
-static int unicode_width(AL_CONST char *s)
+static int unicode_width(AL_LEGACY_CONST char *s)
 {
    return sizeof(unsigned short);
 }
@@ -312,7 +312,7 @@ static int unicode_isok(int c)
 /* utf8_getc:
  *  Reads a character from a UTF-8 string.
  */
-static int utf8_getc(AL_CONST char *s)
+static int utf8_getc(AL_LEGACY_CONST char *s)
 {
    int c = *((unsigned char *)(s++));
    int n, t;
@@ -414,7 +414,7 @@ static int utf8_setc(char *s, int c)
 /* utf8_width:
  *  Returns the width of a UTF-8 character.
  */
-static int utf8_width(AL_CONST char *s)
+static int utf8_width(AL_LEGACY_CONST char *s)
 {
    int c = *((unsigned char *)s);
    int n = 1;
@@ -485,15 +485,15 @@ static UTYPE_INFO utypes[] =
 static int utype = U_UTF8;
 
 /* ugetc: */
-int (*ugetc)(AL_CONST char *s) = utf8_getc;
+int (*ugetc)(AL_LEGACY_CONST char *s) = utf8_getc;
 /* ugetxc: */
 int (*ugetx)(char **s) = utf8_getx;
 /* ugetxc: */
-int (*ugetxc)(AL_CONST char** s) = (int (*)(AL_CONST char**)) utf8_getx;
+int (*ugetxc)(AL_LEGACY_CONST char** s) = (int (*)(AL_LEGACY_CONST char**)) utf8_getx;
 /* usetc: */
 int (*usetc)(char *s, int c) = utf8_setc;
 /* uwidth: */
-int (*uwidth)(AL_CONST char *s) = utf8_width;
+int (*uwidth)(AL_LEGACY_CONST char *s) = utf8_width;
 /* ucwidth: */
 int (*ucwidth)(int c) = utf8_cwidth;
 /* uisok: */
@@ -531,7 +531,7 @@ void set_uformat(int type)
       utype = info->id;
       ugetc = info->u_getc;
       ugetx = (int (*)(char **)) info->u_getx;
-      ugetxc = (int (*)(AL_CONST char **)) info->u_getx;
+      ugetxc = (int (*)(AL_LEGACY_CONST char **)) info->u_getx;
       usetc = info->u_setc;
       uwidth = info->u_width;
       ucwidth = info->u_cwidth;
@@ -555,7 +555,7 @@ int get_uformat(void)
  *  Allows the user to hook in custom routines for supporting a new string
  *  encoding format.
  */
-void register_uformat(int type, int (*ugetc)(AL_CONST char *s), int (*ugetx)(char **s), int (*usetc)(char *s, int c), int (*uwidth)(AL_CONST char *s), int (*ucwidth)(int c), int (*uisok)(int c), int uwidth_max)
+void register_uformat(int type, int (*ugetc)(AL_LEGACY_CONST char *s), int (*ugetx)(char **s), int (*usetc)(char *s, int c), int (*uwidth)(AL_LEGACY_CONST char *s), int (*ucwidth)(int c), int (*uisok)(int c), int uwidth_max)
 {
    UTYPE_INFO *info = _find_utype(type);
 
@@ -579,7 +579,7 @@ void register_uformat(int type, int (*ugetc)(AL_CONST char *s), int (*ugetx)(cha
 /* set_ucodepage:
  *  Sets lookup table data for the codepage conversion functions.
  */
-void set_ucodepage(AL_CONST unsigned short *table, AL_CONST unsigned short *extras)
+void set_ucodepage(AL_LEGACY_CONST unsigned short *table, AL_LEGACY_CONST unsigned short *extras)
 {
    ASSERT(table);
    codepage_table = table;
@@ -593,7 +593,7 @@ void set_ucodepage(AL_CONST unsigned short *table, AL_CONST unsigned short *extr
  *  new type. No conversion will be needed if both types are the same, or
  *  when going from ASCII <-> UTF8 where the data is 7-bit clean.
  */
-int need_uconvert(AL_CONST char *s, int type, int newtype)
+int need_uconvert(AL_LEGACY_CONST char *s, int type, int newtype)
 {
    int c;
    ASSERT(s);
@@ -624,7 +624,7 @@ int need_uconvert(AL_CONST char *s, int type, int newtype)
  *  Returns the number of bytes this string will occupy when converted to
  *  the specified type.
  */
-int uconvert_size(AL_CONST char *s, int type, int newtype)
+int uconvert_size(AL_LEGACY_CONST char *s, int type, int newtype)
 {
    UTYPE_INFO *info, *outfo;
    int size = 0;
@@ -652,7 +652,7 @@ int uconvert_size(AL_CONST char *s, int type, int newtype)
 /* do_uconvert:
  *  Converts a string from one format to another.
  */
-void do_uconvert(AL_CONST char *s, int type, char *buf, int newtype, int size)
+void do_uconvert(AL_LEGACY_CONST char *s, int type, char *buf, int newtype, int size)
 {
    UTYPE_INFO *info, *outfo;
    int pos = 0;
@@ -694,7 +694,7 @@ void do_uconvert(AL_CONST char *s, int type, char *buf, int newtype, int size)
  *  is required, and to use an internal static buffer if no user buffer
  *  is provided.
  */
-char *uconvert(AL_CONST char *s, int type, char *buf, int newtype, int size)
+char *uconvert(AL_LEGACY_CONST char *s, int type, char *buf, int newtype, int size)
 {
    static char static_buf[1024];
    ASSERT(s);
@@ -720,10 +720,10 @@ char *uconvert(AL_CONST char *s, int type, char *buf, int newtype, int size)
  *  backward from the end of the string (-1 returns an offset to the
  *  last character).
  */
-int uoffset(AL_CONST char *s, int index)
+int uoffset(AL_LEGACY_CONST char *s, int index)
 {
-   AL_CONST char *orig = s;
-   AL_CONST char *last;
+   AL_LEGACY_CONST char *orig = s;
+   AL_LEGACY_CONST char *last;
    ASSERT(s);
 
    if (index < 0)
@@ -745,7 +745,7 @@ int uoffset(AL_CONST char *s, int index)
 /* ugetat:
  *  Returns the character from the specified index within the string.
  */
-int ugetat(AL_CONST char *s, int index)
+int ugetat(AL_LEGACY_CONST char *s, int index)
 {
    ASSERT(s);
    return ugetc(s + uoffset(s, index));
@@ -1727,7 +1727,7 @@ int uisdigit(int c)
  *  freed by the caller.  This function is for external use by Allegro
  *  clients only.  Internal code should use _al_ustrdup().
  */
-char *_ustrdup(AL_CONST char *src, AL_METHOD(void *, malloc_func, (size_t)))
+char *_ustrdup(AL_LEGACY_CONST char *src, AL_LEGACY_METHOD(void *, malloc_func, (size_t)))
 {
    char *s;
    int size;
@@ -1752,7 +1752,7 @@ char *_ustrdup(AL_CONST char *src, AL_METHOD(void *, malloc_func, (size_t)))
  *  freed by the caller using _AL_LEGACY_FREE().  This function is for internal use
  *  by Allegro clients only.  External code should use ustrdup().
  */
-char *_al_ustrdup(AL_CONST char *src)
+char *_al_ustrdup(AL_LEGACY_CONST char *src)
 {
    int size;
    char *newstring;
@@ -1773,10 +1773,10 @@ char *_al_ustrdup(AL_CONST char *src)
  *  Returns the size of the specified string in bytes, not including the
  *  trailing zero.
  */
-int ustrsize(AL_CONST char *s)
+int ustrsize(AL_LEGACY_CONST char *s)
 {
-   AL_CONST char *orig = s;
-   AL_CONST char *last;
+   AL_LEGACY_CONST char *orig = s;
+   AL_LEGACY_CONST char *last;
    ASSERT(s);
 
    do {
@@ -1792,9 +1792,9 @@ int ustrsize(AL_CONST char *s)
  *  Returns the size of the specified string in bytes, including the
  *  trailing zero.
  */
-int ustrsizez(AL_CONST char *s)
+int ustrsizez(AL_LEGACY_CONST char *s)
 {
-   AL_CONST char *orig = s;
+   AL_LEGACY_CONST char *orig = s;
    ASSERT(s);
 
    do {
@@ -1811,7 +1811,7 @@ int ustrsizez(AL_CONST char *s)
  *  The raw Unicode-aware version of ANSI strcpy() is defined as:
  *   #define ustrcpy(dest, src) ustrzcpy(dest, INT_MAX, src)
  */
-char *ustrzcpy(char *dest, int size, AL_CONST char *src)
+char *ustrzcpy(char *dest, int size, AL_LEGACY_CONST char *src)
 {
    int pos = 0;
    int c;
@@ -1843,7 +1843,7 @@ char *ustrzcpy(char *dest, int size, AL_CONST char *src)
  *  The raw Unicode-aware version of ANSI strcat() is defined as:
  *   #define ustrcat(dest, src) ustrzcat(dest, INT_MAX, src)
  */
-char *ustrzcat(char *dest, int size, AL_CONST char *src)
+char *ustrzcat(char *dest, int size, AL_LEGACY_CONST char *src)
 {
    int pos;
    int c;
@@ -1873,7 +1873,7 @@ char *ustrzcat(char *dest, int size, AL_CONST char *src)
 /* ustrlen:
  *  Unicode-aware version of the ANSI strlen() function.
  */
-int ustrlen(AL_CONST char *s)
+int ustrlen(AL_LEGACY_CONST char *s)
 {
    int c = 0;
    ASSERT(s);
@@ -1889,7 +1889,7 @@ int ustrlen(AL_CONST char *s)
 /* ustrcmp:
  *  Unicode-aware version of the ANSI strcmp() function.
  */
-int ustrcmp(AL_CONST char *s1, AL_CONST char *s2)
+int ustrcmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
 {
    int c1, c2;
    ASSERT(s1);
@@ -1915,7 +1915,7 @@ int ustrcmp(AL_CONST char *s1, AL_CONST char *s2)
  *  The raw Unicode-aware version of ANSI strncpy() is defined as:
  *   #define ustrncpy(dest, src, n) ustrzncpy(dest, INT_MAX, src, n)
  */
-char *ustrzncpy(char *dest, int size, AL_CONST char *src, int n)
+char *ustrzncpy(char *dest, int size, AL_LEGACY_CONST char *src, int n)
 {
    int pos = 0, len = 0;
    int ansi_oddness = FALSE;
@@ -1967,7 +1967,7 @@ char *ustrzncpy(char *dest, int size, AL_CONST char *src, int n)
  *  The raw Unicode-aware version of ANSI strncat() is defined as:
  *   #define ustrncat(dest, src, n) ustrzncat(dest, INT_MAX, src, n)
  */
-char *ustrzncat(char *dest, int size, AL_CONST char *src, int n)
+char *ustrzncat(char *dest, int size, AL_LEGACY_CONST char *src, int n)
 {
    int pos, len = 0;
    int c;
@@ -1998,7 +1998,7 @@ char *ustrzncat(char *dest, int size, AL_CONST char *src, int n)
 /* ustrncmp:
  *  Unicode-aware version of the ANSI strncmp() function.
  */
-int ustrncmp(AL_CONST char *s1, AL_CONST char *s2, int n)
+int ustrncmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2, int n)
 {
    int c1, c2;
    ASSERT(s1);
@@ -2024,7 +2024,7 @@ int ustrncmp(AL_CONST char *s1, AL_CONST char *s2, int n)
 /* ustricmp:
  *  Unicode-aware version of the DJGPP stricmp() function.
  */
-int ustricmp(AL_CONST char *s1, AL_CONST char *s2)
+int ustricmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
 {
    int c1, c2;
    ASSERT(s1);
@@ -2047,7 +2047,7 @@ int ustricmp(AL_CONST char *s1, AL_CONST char *s2)
 /* ustrnicmp:
  *  Unicode-aware version of the DJGPP strnicmp() function.
  */
-int ustrnicmp(AL_CONST char *s1, AL_CONST char *s2, int n)
+int ustrnicmp(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2, int n)
 {
    int c1, c2;
    ASSERT(s1);
@@ -2119,7 +2119,7 @@ char *ustrupr(char *s)
 /* ustrchr:
  *  Unicode-aware version of the ANSI strchr() function.
  */
-char *ustrchr(AL_CONST char *s, int c)
+char *ustrchr(AL_LEGACY_CONST char *s, int c)
 {
    int d;
    ASSERT(s);
@@ -2142,9 +2142,9 @@ char *ustrchr(AL_CONST char *s, int c)
 /* ustrrchr:
  *  Unicode-aware version of the ANSI strrchr() function.
  */
-char *ustrrchr(AL_CONST char *s, int c)
+char *ustrrchr(AL_LEGACY_CONST char *s, int c)
 {
-   AL_CONST char *last_match = NULL;
+   AL_LEGACY_CONST char *last_match = NULL;
    int c1, pos = 0;
    ASSERT(s);
 
@@ -2163,7 +2163,7 @@ char *ustrrchr(AL_CONST char *s, int c)
 /* ustrstr:
  *  Unicode-aware version of the ANSI strstr() function.
  */
-char *ustrstr(AL_CONST char *s1, AL_CONST char *s2)
+char *ustrstr(AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2)
 {
    int len;
    ASSERT(s1);
@@ -2185,9 +2185,9 @@ char *ustrstr(AL_CONST char *s1, AL_CONST char *s2)
 /* ustrpbrk:
  *  Unicode-aware version of the ANSI strpbrk() function.
  */
-char *ustrpbrk(AL_CONST char *s, AL_CONST char *set)
+char *ustrpbrk(AL_LEGACY_CONST char *s, AL_LEGACY_CONST char *set)
 {
-   AL_CONST char *setp;
+   AL_LEGACY_CONST char *setp;
    int c, d;
    ASSERT(s);
    ASSERT(set);
@@ -2211,7 +2211,7 @@ char *ustrpbrk(AL_CONST char *s, AL_CONST char *set)
 /* ustrtok:
  *  Unicode-aware version of the ANSI strtok() function.
  */
-char *ustrtok(char *s, AL_CONST char *set)
+char *ustrtok(char *s, AL_LEGACY_CONST char *set)
 {
    static char *last = NULL;
 
@@ -2223,10 +2223,10 @@ char *ustrtok(char *s, AL_CONST char *set)
 /* ustrtok_r:
  *  Unicode-aware version of the strtok_r() function.
  */
-char *ustrtok_r(char *s, AL_CONST char *set, char **last)
+char *ustrtok_r(char *s, AL_LEGACY_CONST char *set, char **last)
 {
    char *prev_str, *tok;
-   AL_CONST char *setp;
+   AL_LEGACY_CONST char *setp;
    int c, sc;
 
    ASSERT(last);
@@ -2287,7 +2287,7 @@ char *ustrtok_r(char *s, AL_CONST char *set, char **last)
  *  implementing this ourselves, since all floating point numbers are
  *  valid ASCII in any case.
  */
-double uatof(AL_CONST char *s)
+double uatof(AL_LEGACY_CONST char *s)
 {
    char tmp[64];
    ASSERT(s);
@@ -2300,7 +2300,7 @@ double uatof(AL_CONST char *s)
  *  Unicode-aware version of the ANSI strtol() function. Note the
  *  nicely bodged implementation :-)
  */
-long ustrtol(AL_CONST char *s, char **endp, int base)
+long ustrtol(AL_LEGACY_CONST char *s, char **endp, int base)
 {
    char tmp[64];
    char *myendp;
@@ -2324,7 +2324,7 @@ long ustrtol(AL_CONST char *s, char **endp, int base)
  *  Unicode-aware version of the ANSI strtod() function. Note the
  *  nicely bodged implementation :-)
  */
-double ustrtod(AL_CONST char *s, char **endp)
+double ustrtod(AL_LEGACY_CONST char *s, char **endp)
 {
    char tmp[64];
    char *myendp;
@@ -2347,9 +2347,9 @@ double ustrtod(AL_CONST char *s, char **endp)
 /* ustrerror:
  *  Fetch the error description from the OS and convert to Unicode.
  */
-AL_CONST char *ustrerror(int err)
+AL_LEGACY_CONST char *ustrerror(int err)
 {
-   AL_CONST char *s = strerror(err);
+   AL_LEGACY_CONST char *s = strerror(err);
    static char tmp[1024];
    return uconvert_ascii(s, tmp);
 }
@@ -2732,7 +2732,7 @@ static int sprint_float(STRING_ARG *string_arg, SPRINT_INFO *info, double val, i
 /* sprint_string:
  *  Helper for formatting a string.
  */
-static int sprint_string(STRING_ARG *string_arg, SPRINT_INFO *info, AL_CONST char *s)
+static int sprint_string(STRING_ARG *string_arg, SPRINT_INFO *info, AL_LEGACY_CONST char *s)
 {
    int pos = 0, len = 0;
    int c;
@@ -2759,7 +2759,7 @@ static int sprint_string(STRING_ARG *string_arg, SPRINT_INFO *info, AL_CONST cha
 /* decode_format_string:
  *  Worker function for decoding the format string (with those pretty '%' characters)
  */
-static int decode_format_string(char *buf, STRING_ARG *string_arg, AL_CONST char *format, va_list args)
+static int decode_format_string(char *buf, STRING_ARG *string_arg, AL_LEGACY_CONST char *format, va_list args)
 {
    SPRINT_INFO info;
    int *pstr_pos;
@@ -3055,7 +3055,7 @@ static int decode_format_string(char *buf, STRING_ARG *string_arg, AL_CONST char
  *  The raw Unicode-aware version of ANSI vsprintf() is defined as:
  *   #define uvsprintf(buf, format, args) uvszprintf(buf, INT_MAX, format, args)
  */
-int uvszprintf(char *buf, int size, AL_CONST char *format, va_list args)
+int uvszprintf(char *buf, int size, AL_LEGACY_CONST char *format, va_list args)
 {
    char *decoded_format, *df;
    STRING_ARG *string_args, *iter_arg;
@@ -3129,7 +3129,7 @@ int uvszprintf(char *buf, int size, AL_CONST char *format, va_list args)
 /* usprintf:
  *  Unicode-aware version of the ANSI sprintf() function.
  */
-int usprintf(char *buf, AL_CONST char *format, ...)
+int usprintf(char *buf, AL_LEGACY_CONST char *format, ...)
 {
    int ret;
    va_list ap;
@@ -3149,7 +3149,7 @@ int usprintf(char *buf, AL_CONST char *format, ...)
  *  Enhanced Unicode-aware version of the ANSI sprintf() function
  *  that can handle the size (in bytes) of the destination buffer.
  */
-int uszprintf(char *buf, int size, AL_CONST char *format, ...)
+int uszprintf(char *buf, int size, AL_LEGACY_CONST char *format, ...)
 {
    int ret;
    va_list ap;

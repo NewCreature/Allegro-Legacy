@@ -45,7 +45,7 @@
    (Hardi Stengelin).
 
    Fix various compilation and build problems (scottmc, Cristian Morales Vega,
-   Tony Ylisirniö, Edgar Reynaldo).
+   Tony Ylisirniï¿½, Edgar Reynaldo).
 
    Added WANT_OSS, WANT_ALSA, WANT_JACK, WANT_SGIAUDIO options
    (Samuli Suominen).
@@ -1833,7 +1833,7 @@
    Chris Jones let the MIDI player pass controller events to the raw player
    by default.
 
-   Angelo Mottola added the platform-dependent AL_RAND() macro.
+   Angelo Mottola added the platform-dependent AL_LEGACY_RAND() macro.
 
    Angelo Mottola added a HID joystick driver to the MacOS X port.
 
@@ -2008,7 +2008,7 @@
 
    EvilTypeGuy cleaned up and fixed the RPM spec file for RedHat 9.
 
-   Ville Skyttä fixed a problem with make install libdir= and modules on
+   Ville Skyttï¿½ fixed a problem with make install libdir= and modules on
    Unix systems.
 
    Peter Wang added a hack to not unload the SVGAlib module if SVGAlib

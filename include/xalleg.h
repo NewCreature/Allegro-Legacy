@@ -72,7 +72,7 @@ extern struct _xwin_type
    int hw_cursor_ok;
 
    void (*screen_to_buffer)(int sx, int sy, int sw, int sh);
-   void (*set_colors)(AL_CONST PALETTE p, int from, int to);
+   void (*set_colors)(AL_LEGACY_CONST PALETTE p, int from, int to);
 
    unsigned char *screen_data;
    unsigned char **screen_line;
@@ -157,14 +157,14 @@ extern struct _xwin_type
 
 
 
-AL_FUNCPTR (int, _xwin_window_creator, (void));
-AL_FUNCPTR (void, _xwin_window_defaultor, (void));
-AL_FUNCPTR (void, _xwin_window_redrawer, (int, int, int, int));
-AL_FUNCPTR (void, _xwin_input_handler, (void));
+AL_LEGACY_FUNCPTR (int, _xwin_window_creator, (void));
+AL_LEGACY_FUNCPTR (void, _xwin_window_defaultor, (void));
+AL_LEGACY_FUNCPTR (void, _xwin_window_redrawer, (int, int, int, int));
+AL_LEGACY_FUNCPTR (void, _xwin_input_handler, (void));
 
-AL_FUNCPTR (void, _xwin_keyboard_callback, (int, int));
+AL_LEGACY_FUNCPTR (void, _xwin_keyboard_callback, (int, int));
 
-AL_FUNC(void, xwin_set_window_name, (AL_CONST char *name, AL_CONST char *group));
+AL_LEGACY_FUNC(void, xwin_set_window_name, (AL_LEGACY_CONST char *name, AL_LEGACY_CONST char *group));
 
 
 

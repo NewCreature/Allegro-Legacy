@@ -26,14 +26,14 @@
    extern "C" {
 #endif
 
-AL_FUNC(fixed, fixsqrt, (fixed x));
-AL_FUNC(fixed, fixhypot, (fixed x, fixed y));
-AL_FUNC(fixed, fixatan, (fixed x));
-AL_FUNC(fixed, fixatan2, (fixed y, fixed x));
+AL_LEGACY_FUNC(fixed, fixsqrt, (fixed x));
+AL_LEGACY_FUNC(fixed, fixhypot, (fixed x, fixed y));
+AL_LEGACY_FUNC(fixed, fixatan, (fixed x));
+AL_LEGACY_FUNC(fixed, fixatan2, (fixed y, fixed x));
 
-AL_ARRAY(fixed, _cos_tbl);
-AL_ARRAY(fixed, _tan_tbl);
-AL_ARRAY(fixed, _acos_tbl);
+AL_LEGACY_ARRAY(fixed, _cos_tbl);
+AL_LEGACY_ARRAY(fixed, _tan_tbl);
+AL_LEGACY_ARRAY(fixed, _acos_tbl);
 
 #ifdef __cplusplus
    }

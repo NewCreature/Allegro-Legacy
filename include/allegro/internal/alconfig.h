@@ -80,9 +80,9 @@
 #ifdef __GNUC__
    #define ALLEGRO_LEGACY_GCC
 
-   #ifndef AL_INLINE
+   #ifndef AL_LEGACY_INLINE
       #ifdef __cplusplus
-         #define AL_INLINE(type, name, args, code)    \
+         #define AL_LEGACY_INLINE(type, name, args, code)    \
             static inline type name args;             \
             static inline type name args code
       /* Needed if this header is included by C99 user code, as
@@ -90,17 +90,17 @@
        * a new global function symbol).
        */
       #elif __GNUC_STDC_INLINE__
-         #define AL_INLINE(type, name, args, code)    \
+         #define AL_LEGACY_INLINE(type, name, args, code)    \
             extern __inline__ __attribute__((__gnu_inline__)) type name args;         \
             extern __inline__ __attribute__((__gnu_inline__)) type name args code
       #else
-         #define AL_INLINE(type, name, args, code)    \
+         #define AL_LEGACY_INLINE(type, name, args, code)    \
             extern __inline__ type name args;         \
             extern __inline__ type name args code
       #endif
    #endif
 
-   #define AL_PRINTFUNC(type, name, args, a, b)    AL_FUNC(type, name, args) __attribute__ ((format (printf, a, b)))
+   #define AL_LEGACY_PRINTFUNC(type, name, args, a, b)    AL_LEGACY_FUNC(type, name, args) __attribute__ ((format (printf, a, b)))
 
    #ifndef INLINE
       #define INLINE          __inline__
@@ -151,28 +151,28 @@
       #define ALLEGRO_LEGACY_ARM
    #endif
 
-   #ifndef AL_CONST
-      #define AL_CONST     const
+   #ifndef AL_LEGACY_CONST
+      #define AL_LEGACY_CONST     const
    #endif
 
-   #ifndef AL_FUNC_DEPRECATED
+   #ifndef AL_LEGACY_FUNC_DEPRECATED
       #if (__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1))
-         #define AL_FUNC_DEPRECATED(type, name, args)              AL_FUNC(__attribute__ ((deprecated)) type, name, args)
-         #define AL_PRINTFUNC_DEPRECATED(type, name, args, a, b)   AL_PRINTFUNC(__attribute__ ((deprecated)) type, name, args, a, b)
-         #define AL_INLINE_DEPRECATED(type, name, args, code)      AL_INLINE(__attribute__ ((deprecated)) type, name, args, code)
+         #define AL_LEGACY_FUNC_DEPRECATED(type, name, args)              AL_LEGACY_FUNC(__attribute__ ((deprecated)) type, name, args)
+         #define AL_LEGACY_PRINTFUNC_DEPRECATED(type, name, args, a, b)   AL_LEGACY_PRINTFUNC(__attribute__ ((deprecated)) type, name, args, a, b)
+         #define AL_LEGACY_INLINE_DEPRECATED(type, name, args, code)      AL_LEGACY_INLINE(__attribute__ ((deprecated)) type, name, args, code)
       #endif
    #endif
 
-   #ifndef AL_ALIAS
-      #define AL_ALIAS(DECL, CALL)                      \
+   #ifndef AL_LEGACY_ALIAS
+      #define AL_LEGACY_ALIAS(DECL, CALL)                      \
       static __attribute__((unused)) __inline__ DECL    \
       {                                                 \
          return CALL;                                   \
       }
    #endif
 
-   #ifndef AL_ALIAS_VOID_RET
-      #define AL_ALIAS_VOID_RET(DECL, CALL)                  \
+   #ifndef AL_LEGACY_ALIAS_VOID_RET
+      #define AL_LEGACY_ALIAS_VOID_RET(DECL, CALL)                  \
       static __attribute__((unused)) __inline__ void DECL    \
       {                                                      \
          CALL;                                               \
@@ -209,58 +209,58 @@
    #define ZERO_SIZE_ARRAY(type, name)             type name[]
 #endif
 
-#ifndef AL_CONST
-   #define AL_CONST
+#ifndef AL_LEGACY_CONST
+   #define AL_LEGACY_CONST
 #endif
 
-#ifndef AL_VAR
-   #define AL_VAR(type, name)                      extern type name
+#ifndef AL_LEGACY_VAR
+   #define AL_LEGACY_VAR(type, name)                      extern type name
 #endif
 
-#ifndef AL_ARRAY
-   #define AL_ARRAY(type, name)                    extern type name[]
+#ifndef AL_LEGACY_ARRAY
+   #define AL_LEGACY_ARRAY(type, name)                    extern type name[]
 #endif
 
-#ifndef AL_FUNC
-   #define AL_FUNC(type, name, args)               type name args
+#ifndef AL_LEGACY_FUNC
+   #define AL_LEGACY_FUNC(type, name, args)               type name args
 #endif
 
-#ifndef AL_PRINTFUNC
-   #define AL_PRINTFUNC(type, name, args, a, b)    AL_FUNC(type, name, args)
+#ifndef AL_LEGACY_PRINTFUNC
+   #define AL_LEGACY_PRINTFUNC(type, name, args, a, b)    AL_LEGACY_FUNC(type, name, args)
 #endif
 
-#ifndef AL_METHOD
-   #define AL_METHOD(type, name, args)             type (*name) args
+#ifndef AL_LEGACY_METHOD
+   #define AL_LEGACY_METHOD(type, name, args)             type (*name) args
 #endif
 
-#ifndef AL_FUNCPTR
-   #define AL_FUNCPTR(type, name, args)            extern type (*name) args
+#ifndef AL_LEGACY_FUNCPTR
+   #define AL_LEGACY_FUNCPTR(type, name, args)            extern type (*name) args
 #endif
 
-#ifndef AL_FUNCPTRARRAY
-   #define AL_FUNCPTRARRAY(type, name, args)       extern type (*name[]) args
+#ifndef AL_LEGACY_FUNCPTRARRAY
+   #define AL_LEGACY_FUNCPTRARRAY(type, name, args)       extern type (*name[]) args
 #endif
 
-#ifndef AL_INLINE
-   #define AL_INLINE(type, name, args, code)       type name args;
+#ifndef AL_LEGACY_INLINE
+   #define AL_LEGACY_INLINE(type, name, args, code)       type name args;
 #endif
 
-#ifndef AL_FUNC_DEPRECATED
-   #define AL_FUNC_DEPRECATED(type, name, args)              AL_FUNC(type, name, args)
-   #define AL_PRINTFUNC_DEPRECATED(type, name, args, a, b)   AL_PRINTFUNC(type, name, args, a, b)
-   #define AL_INLINE_DEPRECATED(type, name, args, code)      AL_INLINE(type, name, args, code)
+#ifndef AL_LEGACY_FUNC_DEPRECATED
+   #define AL_LEGACY_FUNC_DEPRECATED(type, name, args)              AL_LEGACY_FUNC(type, name, args)
+   #define AL_LEGACY_PRINTFUNC_DEPRECATED(type, name, args, a, b)   AL_LEGACY_PRINTFUNC(type, name, args, a, b)
+   #define AL_LEGACY_INLINE_DEPRECATED(type, name, args, code)      AL_LEGACY_INLINE(type, name, args, code)
 #endif
 
-#ifndef AL_ALIAS
-   #define AL_ALIAS(DECL, CALL)              \
+#ifndef AL_LEGACY_ALIAS
+   #define AL_LEGACY_ALIAS(DECL, CALL)              \
    static INLINE DECL                        \
    {                                         \
       return CALL;                           \
    }
 #endif
 
-#ifndef AL_ALIAS_VOID_RET
-   #define AL_ALIAS_VOID_RET(DECL, CALL)     \
+#ifndef AL_LEGACY_ALIAS_VOID_RET
+   #define AL_LEGACY_ALIAS_VOID_RET(DECL, CALL)     \
    static INLINE void DECL                   \
    {                                         \
       CALL;                                  \
@@ -317,22 +317,22 @@
 
 /* emulate missing library functions */
 #ifdef ALLEGRO_LEGACY_NO_STRICMP
-   AL_FUNC(int, _alemu_stricmp, (AL_CONST char *s1, AL_CONST char *s2));
+   AL_LEGACY_FUNC(int, _alemu_stricmp, (AL_LEGACY_CONST char *s1, AL_LEGACY_CONST char *s2));
    #define stricmp _alemu_stricmp
 #endif
 
 #ifdef ALLEGRO_LEGACY_NO_STRLWR
-   AL_FUNC(char *, _alemu_strlwr, (char *string));
+   AL_LEGACY_FUNC(char *, _alemu_strlwr, (char *string));
    #define strlwr _alemu_strlwr
 #endif
 
 #ifdef ALLEGRO_LEGACY_NO_STRUPR
-   AL_FUNC(char *, _alemu_strupr, (char *string));
+   AL_LEGACY_FUNC(char *, _alemu_strupr, (char *string));
    #define strupr _alemu_strupr
 #endif
 
 #ifdef ALLEGRO_LEGACY_NO_MEMCMP
-   AL_FUNC(int, _alemu_memcmp, (AL_CONST void *s1, AL_CONST void *s2, size_t num));
+   AL_LEGACY_FUNC(int, _alemu_memcmp, (AL_LEGACY_CONST void *s1, AL_LEGACY_CONST void *s2, size_t num));
    #define memcmp _alemu_memcmp
 #endif
 
@@ -402,7 +402,7 @@
    #define bmp_read16(addr)            (*((uint16_t *)(addr)))
    #define bmp_read32(addr)            (*((uint32_t *)(addr)))
 
-   AL_INLINE(int, bmp_read24, (uintptr_t addr),
+   AL_LEGACY_INLINE(int, bmp_read24, (uintptr_t addr),
    {
       unsigned char *p = (unsigned char *)addr;
       int c;
@@ -412,7 +412,7 @@
       return c;
    })
 
-   AL_INLINE(void, bmp_write24, (uintptr_t addr, int c),
+   AL_LEGACY_INLINE(void, bmp_write24, (uintptr_t addr, int c),
    {
       unsigned char *p = (unsigned char *)addr;
 

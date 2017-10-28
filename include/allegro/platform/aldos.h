@@ -27,21 +27,21 @@
 
 #define SYSTEM_DOS               AL_ID('D','O','S',' ')
 
-AL_VAR(SYSTEM_DRIVER, system_dos);
+AL_LEGACY_VAR(SYSTEM_DRIVER, system_dos);
 
-AL_VAR(int, i_love_bill);
+AL_LEGACY_VAR(int, i_love_bill);
 
 
 #define KEYDRV_PCDOS             AL_ID('P','C','K','B')
 
-AL_VAR(KEYBOARD_DRIVER, keydrv_pcdos);
+AL_LEGACY_VAR(KEYBOARD_DRIVER, keydrv_pcdos);
 
 
 #define TIMEDRV_FIXED_RATE       AL_ID('F','I','X','T')
 #define TIMEDRV_VARIABLE_RATE    AL_ID('V','A','R','T')
 
-AL_VAR(TIMER_DRIVER, timedrv_fixed_rate);
-AL_VAR(TIMER_DRIVER, timedrv_variable_rate);
+AL_LEGACY_VAR(TIMER_DRIVER, timedrv_fixed_rate);
+AL_LEGACY_VAR(TIMER_DRIVER, timedrv_variable_rate);
 
 
 #define MOUSEDRV_MICKEYS         AL_ID('M','I','C','K')
@@ -50,11 +50,11 @@ AL_VAR(TIMER_DRIVER, timedrv_variable_rate);
 #define MOUSEDRV_WINNT           AL_ID('W','N','T',' ')
 #define MOUSEDRV_WIN2K           AL_ID('W','2','K',' ')
 
-AL_VAR(MOUSE_DRIVER, mousedrv_mickeys);
-AL_VAR(MOUSE_DRIVER, mousedrv_int33);
-AL_VAR(MOUSE_DRIVER, mousedrv_polling);
-AL_VAR(MOUSE_DRIVER, mousedrv_winnt);
-AL_VAR(MOUSE_DRIVER, mousedrv_win2k);
+AL_LEGACY_VAR(MOUSE_DRIVER, mousedrv_mickeys);
+AL_LEGACY_VAR(MOUSE_DRIVER, mousedrv_int33);
+AL_LEGACY_VAR(MOUSE_DRIVER, mousedrv_polling);
+AL_LEGACY_VAR(MOUSE_DRIVER, mousedrv_winnt);
+AL_LEGACY_VAR(MOUSE_DRIVER, mousedrv_win2k);
 
 
 
@@ -96,38 +96,38 @@ AL_VAR(MOUSE_DRIVER, mousedrv_win2k);
 #define JOY_TYPE_WINGWARRIOR     AL_ID('W','W','A','R')
 
 
-AL_VAR(JOYSTICK_DRIVER, joystick_standard);
-AL_VAR(JOYSTICK_DRIVER, joystick_2pads);
-AL_VAR(JOYSTICK_DRIVER, joystick_4button);
-AL_VAR(JOYSTICK_DRIVER, joystick_6button);
-AL_VAR(JOYSTICK_DRIVER, joystick_8button);
-AL_VAR(JOYSTICK_DRIVER, joystick_fspro);
-AL_VAR(JOYSTICK_DRIVER, joystick_wingex);
-AL_VAR(JOYSTICK_DRIVER, joystick_sw);
-AL_VAR(JOYSTICK_DRIVER, joystick_sw_ag);
-AL_VAR(JOYSTICK_DRIVER, joystick_sw_pp);
-AL_VAR(JOYSTICK_DRIVER, joystick_gpro);
-AL_VAR(JOYSTICK_DRIVER, joystick_grip);
-AL_VAR(JOYSTICK_DRIVER, joystick_grip4);
-AL_VAR(JOYSTICK_DRIVER, joystick_sp1);
-AL_VAR(JOYSTICK_DRIVER, joystick_sp2);
-AL_VAR(JOYSTICK_DRIVER, joystick_sp3);
-AL_VAR(JOYSTICK_DRIVER, joystick_psx1);
-AL_VAR(JOYSTICK_DRIVER, joystick_psx2);
-AL_VAR(JOYSTICK_DRIVER, joystick_psx3);
-AL_VAR(JOYSTICK_DRIVER, joystick_n641);
-AL_VAR(JOYSTICK_DRIVER, joystick_n642);
-AL_VAR(JOYSTICK_DRIVER, joystick_n643);
-AL_VAR(JOYSTICK_DRIVER, joystick_db91);
-AL_VAR(JOYSTICK_DRIVER, joystick_db92);
-AL_VAR(JOYSTICK_DRIVER, joystick_db93);
-AL_VAR(JOYSTICK_DRIVER, joystick_tgx1);
-AL_VAR(JOYSTICK_DRIVER, joystick_tgx2);
-AL_VAR(JOYSTICK_DRIVER, joystick_tgx3);
-AL_VAR(JOYSTICK_DRIVER, joystick_sg1);
-AL_VAR(JOYSTICK_DRIVER, joystick_sg2);
-AL_VAR(JOYSTICK_DRIVER, joystick_sg2f);
-AL_VAR(JOYSTICK_DRIVER, joystick_ww);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_standard);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_2pads);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_4button);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_6button);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_8button);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_fspro);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_wingex);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sw);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sw_ag);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sw_pp);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_gpro);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_grip);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_grip4);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sp1);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sp2);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sp3);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_psx1);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_psx2);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_psx3);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_n641);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_n642);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_n643);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_db91);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_db92);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_db93);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_tgx1);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_tgx2);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_tgx3);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sg1);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sg2);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_sg2f);
+AL_LEGACY_VAR(JOYSTICK_DRIVER, joystick_ww);
 
 
 #define JOYSTICK_DRIVER_STANDARD                                  \
@@ -200,11 +200,11 @@ AL_VAR(JOYSTICK_DRIVER, joystick_ww);
 #define joy_WINGEX_butmiddle  joy_b4
 
 
-AL_FUNC(int, calibrate_joystick_tl, (void));
-AL_FUNC(int, calibrate_joystick_br, (void));
-AL_FUNC(int, calibrate_joystick_throttle_min, (void));
-AL_FUNC(int, calibrate_joystick_throttle_max, (void));
-AL_FUNC(int, calibrate_joystick_hat, (int direction));
+AL_LEGACY_FUNC(int, calibrate_joystick_tl, (void));
+AL_LEGACY_FUNC(int, calibrate_joystick_br, (void));
+AL_LEGACY_FUNC(int, calibrate_joystick_throttle_min, (void));
+AL_LEGACY_FUNC(int, calibrate_joystick_throttle_max, (void));
+AL_LEGACY_FUNC(int, calibrate_joystick_hat, (int direction));
 
 
 
@@ -224,14 +224,14 @@ AL_FUNC(int, calibrate_joystick_hat, (int direction));
 #define GFX_VBEAF                AL_ID('V','B','A','F')
 #define GFX_XTENDED              AL_ID('X','T','N','D')
 
-AL_VAR(GFX_DRIVER, gfx_vga);
-AL_VAR(GFX_DRIVER, gfx_modex);
-AL_VAR(GFX_DRIVER, gfx_vesa_1);
-AL_VAR(GFX_DRIVER, gfx_vesa_2b);
-AL_VAR(GFX_DRIVER, gfx_vesa_2l);
-AL_VAR(GFX_DRIVER, gfx_vesa_3);
-AL_VAR(GFX_DRIVER, gfx_vbeaf);
-AL_VAR(GFX_DRIVER, gfx_xtended);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_vga);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_modex);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_vesa_1);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_vesa_2b);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_vesa_2l);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_vesa_3);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_vbeaf);
+AL_LEGACY_VAR(GFX_DRIVER, gfx_xtended);
 
 
 #define GFX_DRIVER_VGA                                            \
@@ -259,10 +259,10 @@ AL_VAR(GFX_DRIVER, gfx_xtended);
    {  GFX_VESA1,        &gfx_vesa_1,         TRUE   },
 
 
-AL_FUNC_DEPRECATED(void, split_modex_screen, (int lyne));
+AL_LEGACY_FUNC_DEPRECATED(void, split_modex_screen, (int lyne));
 
 
-AL_INLINE(void, _set_color, (int index, AL_CONST RGB *p),
+AL_LEGACY_INLINE(void, _set_color, (int index, AL_LEGACY_CONST RGB *p),
 {
    outportb(0x3C8, index);
    outportb(0x3C9, p->r);
@@ -295,21 +295,21 @@ AL_INLINE(void, _set_color, (int index, AL_CONST RGB *p),
 #define MIDI_AWE32            AL_ID('A','W','E',' ')
 
 
-AL_VAR(DIGI_DRIVER, digi_sb10);
-AL_VAR(DIGI_DRIVER, digi_sb15);
-AL_VAR(DIGI_DRIVER, digi_sb20);
-AL_VAR(DIGI_DRIVER, digi_sbpro);
-AL_VAR(DIGI_DRIVER, digi_sb16);
-AL_VAR(DIGI_DRIVER, digi_audiodrive);
-AL_VAR(DIGI_DRIVER, digi_soundscape);
-AL_VAR(DIGI_DRIVER, digi_wss);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_sb10);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_sb15);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_sb20);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_sbpro);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_sb16);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_audiodrive);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_soundscape);
+AL_LEGACY_VAR(DIGI_DRIVER, digi_wss);
 
-AL_VAR(MIDI_DRIVER, midi_opl2);
-AL_VAR(MIDI_DRIVER, midi_2xopl2);
-AL_VAR(MIDI_DRIVER, midi_opl3);
-AL_VAR(MIDI_DRIVER, midi_sb_out);
-AL_VAR(MIDI_DRIVER, midi_mpu401);
-AL_VAR(MIDI_DRIVER, midi_awe32);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_opl2);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_2xopl2);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_opl3);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_sb_out);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_mpu401);
+AL_LEGACY_VAR(MIDI_DRIVER, midi_awe32);
 
 
 #define DIGI_DRIVER_WINSOUNDSYS                                   \
@@ -347,7 +347,7 @@ AL_VAR(MIDI_DRIVER, midi_awe32);
 extern "C" {
 #endif
 
-AL_FUNC(int, load_ibk, (AL_CONST char *filename, int drums));
+AL_LEGACY_FUNC(int, load_ibk, (AL_LEGACY_CONST char *filename, int drums));
 
 #ifdef __cplusplus
 }

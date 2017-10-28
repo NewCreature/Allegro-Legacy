@@ -32,9 +32,9 @@
 #include "allegro/internal/aintern.h"
 
 
-static AL_CONST char *gfx_mode_getter(int index, int *list_size);
-static AL_CONST char *gfx_card_getter(int index, int *list_size);
-static AL_CONST char *gfx_depth_getter(int index, int *list_size);
+static AL_LEGACY_CONST char *gfx_mode_getter(int index, int *list_size);
+static AL_LEGACY_CONST char *gfx_card_getter(int index, int *list_size);
+static AL_LEGACY_CONST char *gfx_depth_getter(int index, int *list_size);
 
 static int change_proc(int msg, DIALOG *d, int c);
 
@@ -522,7 +522,7 @@ static void destroy_driver_list(void)
 /* gfx_card_getter:
  *  Listbox data getter routine for the graphics card list.
  */
-static AL_CONST char *gfx_card_getter(int index, int *list_size)
+static AL_LEGACY_CONST char *gfx_card_getter(int index, int *list_size)
 {
    if (index < 0) {
       if (list_size)
@@ -538,7 +538,7 @@ static AL_CONST char *gfx_card_getter(int index, int *list_size)
 /* gfx_mode_getter:
  *  Listbox data getter routine for the graphics mode list.
  */
-static AL_CONST char *gfx_mode_getter(int index, int *list_size)
+static AL_LEGACY_CONST char *gfx_mode_getter(int index, int *list_size)
 {
    int entry;
    char tmp[32];
@@ -563,7 +563,7 @@ static AL_CONST char *gfx_mode_getter(int index, int *list_size)
 /* gfx_depth_getter:
  *  Listbox data getter routine for the color depth list.
  */
-static AL_CONST char *gfx_depth_getter(int index, int *list_size)
+static AL_LEGACY_CONST char *gfx_depth_getter(int index, int *list_size)
 {
    static char *bpp_string_list[N_COLOR_DEPTH] = {"256", "32K", "64K", "16M", "16M"};
    MODE_LIST *mode;

@@ -29,7 +29,7 @@
                          fixmul(z, m->v[n][2]) +      \
                          m->t[n])
 
-AL_INLINE(void, apply_matrix, (MATRIX *m, fixed x, fixed y, fixed z, fixed *xout, fixed *yout, fixed *zout),
+AL_LEGACY_INLINE(void, apply_matrix, (MATRIX *m, fixed x, fixed y, fixed z, fixed *xout, fixed *yout, fixed *zout),
 {
    *xout = CALC_ROW(0);
    *yout = CALC_ROW(1);

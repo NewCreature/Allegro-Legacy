@@ -31,18 +31,18 @@ MIDI_DRIVER midi_allegro_5 =
    28,                      /* maximum voices we can support */
    0,                       /* default number of voices to use */
    10, 10,                  /* reserved voice range */
-   NULL, //be_midi_detect,          /* AL_METHOD(int,  detect, (int input)); */
-   NULL, //be_midi_init,            /* AL_METHOD(int,  init, (int input, int voices)); */
-   NULL, //be_midi_exit,            /* AL_METHOD(void, exit, (int input)); */
-   NULL, //be_midi_set_mixer_volume,/* AL_METHOD(int,  set_mixer_volume, (int volume)); */
-   NULL, //be_midi_get_mixer_volume,/* AL_METHOD(int,  get_mixer_volume, (void)); */
-   NULL,                    /* AL_METHOD(void, raw_midi, (int data)); */
-   NULL, //_dummy_load_patches,     /* AL_METHOD(int,  load_patches, (AL_CONST char *patches, AL_CONST char *drums)); */
-   NULL, //_dummy_adjust_patches,   /* AL_METHOD(void, adjust_patches, (AL_CONST char *patches, AL_CONST char *drums)); */
-   NULL, //be_midi_key_on,          /* AL_METHOD(void, key_on, (int inst, int note, int bend, int vol, int pan)); */
-   NULL, //be_midi_key_off,         /* AL_METHOD(void, key_off, (int voice)); */
-   NULL, //be_midi_set_volume,      /* AL_METHOD(void, set_volume, (int voice, int vol)); */
-   NULL, //be_midi_set_pitch,       /* AL_METHOD(void, set_pitch, (int voice, int note, int bend)); */
-   NULL, //be_midi_set_pan,         /* AL_METHOD(void, set_pan, (int voice, int pan)); */
-   NULL, //_dummy_noop2,            /* AL_METHOD(void, set_vibrato, (int voice, int amount)); */
+   NULL, //be_midi_detect,          /* AL_LEGACY_METHOD(int,  detect, (int input)); */
+   NULL, //be_midi_init,            /* AL_LEGACY_METHOD(int,  init, (int input, int voices)); */
+   NULL, //be_midi_exit,            /* AL_LEGACY_METHOD(void, exit, (int input)); */
+   NULL, //be_midi_set_mixer_volume,/* AL_LEGACY_METHOD(int,  set_mixer_volume, (int volume)); */
+   NULL, //be_midi_get_mixer_volume,/* AL_LEGACY_METHOD(int,  get_mixer_volume, (void)); */
+   NULL,                    /* AL_LEGACY_METHOD(void, raw_midi, (int data)); */
+   NULL, //_dummy_load_patches,     /* AL_LEGACY_METHOD(int,  load_patches, (AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums)); */
+   NULL, //_dummy_adjust_patches,   /* AL_LEGACY_METHOD(void, adjust_patches, (AL_LEGACY_CONST char *patches, AL_LEGACY_CONST char *drums)); */
+   NULL, //be_midi_key_on,          /* AL_LEGACY_METHOD(void, key_on, (int inst, int note, int bend, int vol, int pan)); */
+   NULL, //be_midi_key_off,         /* AL_LEGACY_METHOD(void, key_off, (int voice)); */
+   NULL, //be_midi_set_volume,      /* AL_LEGACY_METHOD(void, set_volume, (int voice, int vol)); */
+   NULL, //be_midi_set_pitch,       /* AL_LEGACY_METHOD(void, set_pitch, (int voice, int note, int bend)); */
+   NULL, //be_midi_set_pan,         /* AL_LEGACY_METHOD(void, set_pan, (int voice, int pan)); */
+   NULL, //_dummy_noop2,            /* AL_LEGACY_METHOD(void, set_vibrato, (int voice, int amount)); */
 };

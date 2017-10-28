@@ -49,9 +49,9 @@ typedef struct RLE_SPRITE COMPILED_SPRITE;
 
 #endif
 
-AL_FUNC(COMPILED_SPRITE *, get_compiled_sprite, (struct BITMAP *bitmap, int planar));
-AL_FUNC(void, destroy_compiled_sprite, (COMPILED_SPRITE *sprite));
-AL_FUNC(void, draw_compiled_sprite, (struct BITMAP *bmp, AL_CONST COMPILED_SPRITE *sprite, int x, int y));
+AL_LEGACY_FUNC(COMPILED_SPRITE *, get_compiled_sprite, (struct BITMAP *bitmap, int planar));
+AL_LEGACY_FUNC(void, destroy_compiled_sprite, (COMPILED_SPRITE *sprite));
+AL_LEGACY_FUNC(void, draw_compiled_sprite, (struct BITMAP *bmp, AL_LEGACY_CONST COMPILED_SPRITE *sprite, int x, int y));
 
 #ifdef __cplusplus
    }

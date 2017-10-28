@@ -245,30 +245,30 @@ class BeAllegroApp
 
 
 
-AL_VAR(BeAllegroApp, *_be_allegro_app);
-AL_VAR(BeAllegroWindow, *_be_allegro_window);
-AL_VAR(BeAllegroDirectWindow, *_be_allegro_direct_window);
-AL_VAR(BeAllegroView, *_be_allegro_view);
-AL_VAR(BeAllegroScreen, *_be_allegro_screen);
-AL_VAR(BeAllegroOverlay, *_be_allegro_overlay);
-AL_VAR(BWindow, *_be_window);
-AL_VAR(BMidiSynth, *_be_midisynth);
-AL_VAR(sem_id, _be_sound_stream_lock);
-AL_VAR(sem_id, _be_fullscreen_lock);
-AL_VAR(sem_id, _be_window_lock);
-AL_VAR(sem_id, _be_mouse_view_attached);
-AL_VAR(BWindow, *_be_mouse_window);
-AL_VAR(BView, *_be_mouse_view);
-AL_VAR(int, _be_mouse_z);
-AL_VAR(bool, _be_mouse_window_mode);
-AL_VAR(HOOKS, _be_hooks);
-AL_VAR(int, _be_switch_mode);
-AL_VAR(volatile int, _be_lock_count);
-AL_VAR(volatile int, _be_focus_count);
-AL_VAR(volatile bool, _be_gfx_initialized);
-AL_VAR(int, *_be_dirty_lines);
+AL_LEGACY_VAR(BeAllegroApp, *_be_allegro_app);
+AL_LEGACY_VAR(BeAllegroWindow, *_be_allegro_window);
+AL_LEGACY_VAR(BeAllegroDirectWindow, *_be_allegro_direct_window);
+AL_LEGACY_VAR(BeAllegroView, *_be_allegro_view);
+AL_LEGACY_VAR(BeAllegroScreen, *_be_allegro_screen);
+AL_LEGACY_VAR(BeAllegroOverlay, *_be_allegro_overlay);
+AL_LEGACY_VAR(BWindow, *_be_window);
+AL_LEGACY_VAR(BMidiSynth, *_be_midisynth);
+AL_LEGACY_VAR(sem_id, _be_sound_stream_lock);
+AL_LEGACY_VAR(sem_id, _be_fullscreen_lock);
+AL_LEGACY_VAR(sem_id, _be_window_lock);
+AL_LEGACY_VAR(sem_id, _be_mouse_view_attached);
+AL_LEGACY_VAR(BWindow, *_be_mouse_window);
+AL_LEGACY_VAR(BView, *_be_mouse_view);
+AL_LEGACY_VAR(int, _be_mouse_z);
+AL_LEGACY_VAR(bool, _be_mouse_window_mode);
+AL_LEGACY_VAR(HOOKS, _be_hooks);
+AL_LEGACY_VAR(int, _be_switch_mode);
+AL_LEGACY_VAR(volatile int, _be_lock_count);
+AL_LEGACY_VAR(volatile int, _be_focus_count);
+AL_LEGACY_VAR(volatile bool, _be_gfx_initialized);
+AL_LEGACY_VAR(int, *_be_dirty_lines);
 
-AL_ARRAY(AL_CONST BE_MODE_TABLE, _be_mode_table);
+AL_LEGACY_ARRAY(AL_LEGACY_CONST BE_MODE_TABLE, _be_mode_table);
 
 
 extern int32 (*_be_sync_func)();

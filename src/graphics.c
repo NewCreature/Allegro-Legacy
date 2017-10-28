@@ -273,7 +273,7 @@ GFX_MODE_LIST *get_gfx_mode_list(int card)
 
    /* sort the list and finish */
    qsort(gfx_mode_list->mode, gfx_mode_list->num_modes, sizeof(GFX_MODE),
-         (int (*) (AL_CONST void *, AL_CONST void *))sort_gfx_mode_list);
+         (int (*) (AL_LEGACY_CONST void *, AL_LEGACY_CONST void *))sort_gfx_mode_list);
 
    return gfx_mode_list;
 }
@@ -629,7 +629,7 @@ static int _set_gfx_mode(int card, int w, int h, int v_w, int v_h, int allow_con
    _DRIVER_INFO *driver_list;
    GFX_DRIVER *drv;
    char tmp1[64], tmp2[64];
-   AL_CONST char *dv;
+   AL_LEGACY_CONST char *dv;
    int flags = 0;
    int c;
    ASSERT(system_driver);

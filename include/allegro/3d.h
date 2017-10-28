@@ -62,19 +62,19 @@ typedef struct V3D_f                /* a 3d point (floating point version) */
 #define POLYTYPE_MAX                15
 #define POLYTYPE_ZBUF               16
 
-AL_VAR(float, scene_gap);
+AL_LEGACY_VAR(float, scene_gap);
 
-AL_FUNC(void, _soft_polygon3d, (struct BITMAP *bmp, int type, struct BITMAP *texture, int vc, V3D *vtx[]));
-AL_FUNC(void, _soft_polygon3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, int vc, V3D_f *vtx[]));
-AL_FUNC(void, _soft_triangle3d, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D *v1, V3D *v2, V3D *v3));
-AL_FUNC(void, _soft_triangle3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3));
-AL_FUNC(void, _soft_quad3d, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D *v1, V3D *v2, V3D *v3, V3D *v4));
-AL_FUNC(void, _soft_quad3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3, V3D_f *v4));
-AL_FUNC(int, clip3d, (int type, fixed min_z, fixed max_z, int vc, AL_CONST V3D *vtx[], V3D *vout[], V3D *vtmp[], int out[]));
-AL_FUNC(int, clip3d_f, (int type, float min_z, float max_z, int vc, AL_CONST V3D_f *vtx[], V3D_f *vout[], V3D_f *vtmp[], int out[]));
+AL_LEGACY_FUNC(void, _soft_polygon3d, (struct BITMAP *bmp, int type, struct BITMAP *texture, int vc, V3D *vtx[]));
+AL_LEGACY_FUNC(void, _soft_polygon3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, int vc, V3D_f *vtx[]));
+AL_LEGACY_FUNC(void, _soft_triangle3d, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D *v1, V3D *v2, V3D *v3));
+AL_LEGACY_FUNC(void, _soft_triangle3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3));
+AL_LEGACY_FUNC(void, _soft_quad3d, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D *v1, V3D *v2, V3D *v3, V3D *v4));
+AL_LEGACY_FUNC(void, _soft_quad3d_f, (struct BITMAP *bmp, int type, struct BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3, V3D_f *v4));
+AL_LEGACY_FUNC(int, clip3d, (int type, fixed min_z, fixed max_z, int vc, AL_LEGACY_CONST V3D *vtx[], V3D *vout[], V3D *vtmp[], int out[]));
+AL_LEGACY_FUNC(int, clip3d_f, (int type, float min_z, float max_z, int vc, AL_LEGACY_CONST V3D_f *vtx[], V3D_f *vout[], V3D_f *vtmp[], int out[]));
 
-AL_FUNC(fixed, polygon_z_normal, (AL_CONST V3D *v1, AL_CONST V3D *v2, AL_CONST V3D *v3));
-AL_FUNC(float, polygon_z_normal_f, (AL_CONST V3D_f *v1, AL_CONST V3D_f *v2, AL_CONST V3D_f *v3));
+AL_LEGACY_FUNC(fixed, polygon_z_normal, (AL_LEGACY_CONST V3D *v1, AL_LEGACY_CONST V3D *v2, AL_LEGACY_CONST V3D *v3));
+AL_LEGACY_FUNC(float, polygon_z_normal_f, (AL_LEGACY_CONST V3D_f *v1, AL_LEGACY_CONST V3D_f *v2, AL_LEGACY_CONST V3D_f *v3));
 
 /* Note: You are not supposed to mix ZBUFFER with BITMAP even though it is
  * currently possible. This is just the internal representation, and it may
@@ -82,18 +82,18 @@ AL_FUNC(float, polygon_z_normal_f, (AL_CONST V3D_f *v1, AL_CONST V3D_f *v2, AL_C
  */
 typedef struct BITMAP ZBUFFER;
 
-AL_FUNC(ZBUFFER *, create_zbuffer, (struct BITMAP *bmp));
-AL_FUNC(ZBUFFER *, create_sub_zbuffer, (ZBUFFER *parent, int x, int y, int width, int height));
-AL_FUNC(void, set_zbuffer, (ZBUFFER *zbuf));
-AL_FUNC(void, clear_zbuffer, (ZBUFFER *zbuf, float z));
-AL_FUNC(void, destroy_zbuffer, (ZBUFFER *zbuf));
+AL_LEGACY_FUNC(ZBUFFER *, create_zbuffer, (struct BITMAP *bmp));
+AL_LEGACY_FUNC(ZBUFFER *, create_sub_zbuffer, (ZBUFFER *parent, int x, int y, int width, int height));
+AL_LEGACY_FUNC(void, set_zbuffer, (ZBUFFER *zbuf));
+AL_LEGACY_FUNC(void, clear_zbuffer, (ZBUFFER *zbuf, float z));
+AL_LEGACY_FUNC(void, destroy_zbuffer, (ZBUFFER *zbuf));
 
-AL_FUNC(int, create_scene, (int nedge, int npoly));
-AL_FUNC(void, clear_scene, (struct BITMAP* bmp));
-AL_FUNC(void, destroy_scene, (void));
-AL_FUNC(int, scene_polygon3d, (int type, struct BITMAP *texture, int vx, V3D *vtx[]));
-AL_FUNC(int, scene_polygon3d_f, (int type, struct BITMAP *texture, int vx, V3D_f *vtx[]));
-AL_FUNC(void, render_scene, (void));
+AL_LEGACY_FUNC(int, create_scene, (int nedge, int npoly));
+AL_LEGACY_FUNC(void, clear_scene, (struct BITMAP* bmp));
+AL_LEGACY_FUNC(void, destroy_scene, (void));
+AL_LEGACY_FUNC(int, scene_polygon3d, (int type, struct BITMAP *texture, int vx, V3D *vtx[]));
+AL_LEGACY_FUNC(int, scene_polygon3d_f, (int type, struct BITMAP *texture, int vx, V3D_f *vtx[]));
+AL_LEGACY_FUNC(void, render_scene, (void));
 
 #ifdef __cplusplus
    }

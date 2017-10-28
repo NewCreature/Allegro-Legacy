@@ -38,10 +38,10 @@ typedef struct AUDIOSTREAM
    void *locked;                       /* the locked buffer */
 } AUDIOSTREAM;
 
-AL_FUNC(AUDIOSTREAM *, play_audio_stream, (int len, int bits, int stereo, int freq, int vol, int pan));
-AL_FUNC(void, stop_audio_stream, (AUDIOSTREAM *stream));
-AL_FUNC(void *, get_audio_stream_buffer, (AUDIOSTREAM *stream));
-AL_FUNC(void, free_audio_stream_buffer, (AUDIOSTREAM *stream));
+AL_LEGACY_FUNC(AUDIOSTREAM *, play_audio_stream, (int len, int bits, int stereo, int freq, int vol, int pan));
+AL_LEGACY_FUNC(void, stop_audio_stream, (AUDIOSTREAM *stream));
+AL_LEGACY_FUNC(void *, get_audio_stream_buffer, (AUDIOSTREAM *stream));
+AL_LEGACY_FUNC(void, free_audio_stream_buffer, (AUDIOSTREAM *stream));
 
 #ifdef __cplusplus
    }
