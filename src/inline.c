@@ -22,6 +22,6 @@
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
 
-#ifdef ALLEGRO_LEGACY_INTERNAL_HEADER
+/*#ifdef ALLEGRO_LEGACY_INTERNAL_HEADER
    #include ALLEGRO_LEGACY_INTERNAL_HEADER
-#endif
+#endif */
