@@ -52,6 +52,19 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
     return NULL;
 }
 
+static void a5_display_exit(BITMAP * bp)
+{
+    al_destroy_bitmap(_a5_screen);
+    _a5_screen = NULL;
+    al_destroy_display(_a5_display);
+    _a5_display = NULL;
+}
+
+void a5_display_vsync(void)
+{
+    al_wait_for_vsync();
+}
+
 static void a5_display_set_palette(const struct RGB * palette, int from, int to, int vsync)
 {
     printf("palette set\n");
@@ -179,9 +192,9 @@ GFX_DRIVER display_allegro_5 = {
    empty_string,                      // char *desc;
    "Allegro 5 Display",               // char *ascii_name;
    a5_display_init,   // AL_METHOD(struct BITMAP *, init, (int w, int h, int v_w, int v_h, int color_depth));
-   NULL, //be_gfx_bwindowscreen_exit,         // AL_METHOD(void, exit, (struct BITMAP *b));
+   a5_display_exit, //be_gfx_bwindowscreen_exit,         // AL_METHOD(void, exit, (struct BITMAP *b));
    NULL, //be_gfx_bwindowscreen_scroll,       // AL_METHOD(int, scroll, (int x, int y));
-   NULL, //be_gfx_vsync,                      // AL_METHOD(void, vsync, (void));
+   a5_display_vsync, //be_gfx_vsync,                      // AL_METHOD(void, vsync, (void));
    a5_display_set_palette,  // AL_METHOD(void, set_palette, (struct RGB *p, int from, int to, int vsync));
    NULL, //be_gfx_bwindowscreen_request_scroll,// AL_METHOD(int, request_scroll, (int x, int y));
    NULL, //be_gfx_bwindowscreen_poll_scroll,  // AL_METHOD(int, poll_scroll, (void));
