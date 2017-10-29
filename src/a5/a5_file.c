@@ -267,6 +267,7 @@ int al_findfirst(const char * pattern, struct al_ffblk * info, int attrib)
 {
     FF_DATA * ff_data;
     int actual_attrib;
+    int a5_attrib = 0;
     char tmp[1024];
     char * p;
     ALLEGRO_FS_ENTRY * entry;
@@ -293,9 +294,20 @@ int al_findfirst(const char * pattern, struct al_ffblk * info, int attrib)
         if(entry)
         {
             /* does it match ? */
-            if((al_get_fs_entry_mode(entry) & ~attrib) == 0)
+            if(al_get_fs_entry_mode(entry) == ALLEGRO_FILEMODE_ISDIR)
             {
-                info->attrib = al_get_fs_entry_mode(entry);
+                a5_attrib |= FA_DIREC;
+            }
+            if((a5_attrib & ~attrib) == 0)
+            {
+                if(al_get_fs_entry_mode(entry) == ALLEGRO_FILEMODE_ISDIR)
+                {
+                    info->attrib = FA_DIREC;
+                }
+                else
+                {
+                    info->attrib = 0;
+                }
                 info->time = al_get_fs_entry_mtime(entry);
                 info->size = al_get_fs_entry_size(entry); /* overflows at 2GB */
                 ff_data->size = al_get_fs_entry_size(entry);
@@ -410,7 +422,14 @@ int al_findnext(struct al_ffblk * info)
         }
     }
 
-    info->attrib = al_get_fs_entry_mode(entry);
+    if(al_get_fs_entry_mode(entry) == ALLEGRO_FILEMODE_ISDIR)
+    {
+        info->attrib = FA_DIREC;
+    }
+    else
+    {
+        info->attrib = 0;
+    }
     info->time = al_get_fs_entry_mtime(entry);
     info->size = al_get_fs_entry_size(entry); /* overflows at 2GB */
     ff_data->size = al_get_fs_entry_size(entry);
