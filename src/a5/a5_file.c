@@ -509,3 +509,47 @@ void _al_detect_filename_encoding(void)
         /* TODO: detect other encodings, and support them in Allegro */
     }
 }
+
+#ifdef ALLEGRO_LEGACY_WINDOWS
+
+    /* _al_getdrive:
+     *  Returns the current drive number (0=A, 1=B, etc).
+     */
+    int _al_getdrive(void)
+    {
+       return _getdrive() - 1;
+    }
+
+
+
+    /* _al_win_open:
+     *  Open a file with open() or _wopen() depending on whether Unicode filenames
+     *  are supported by this version of Windows and compiler.
+     */
+    int _al_win_open(const char *filename, int mode, int perm)
+    {
+       if (get_filename_encoding() != U_UNICODE) {
+          return open(filename, mode, perm);
+       }
+       else {
+          return _wopen((wchar_t*)filename, mode, perm);
+       }
+    }
+
+
+
+    /* _al_win_unlink:
+     *  Remove a file with unlink() or _wunlink() depending on whether Unicode
+     *  filenames are supported by this version of Windows and compiler.
+     */
+    int _al_win_unlink(const char *pathname)
+    {
+       if (get_filename_encoding() != U_UNICODE) {
+          return unlink(pathname);
+       }
+       else {
+          return _wunlink((wchar_t*)pathname);
+       }
+    }
+
+#endif
