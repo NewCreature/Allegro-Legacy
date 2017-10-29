@@ -25,6 +25,7 @@ static ALLEGRO_BITMAP * _a5_screen = NULL;
 static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
 {
     BITMAP * bp;
+    ALLEGRO_STATE old_state;
 
     bp = create_bitmap(w, h);
     if(bp)
@@ -32,7 +33,10 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
         _a5_display = al_create_display(w, h);
         if(_a5_display)
         {
+            al_store_state(&old_state, ALLEGRO_STATE_NEW_BITMAP_PARAMETERS);
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             _a5_screen = al_create_bitmap(w, h);
+            al_restore_state(&old_state);
             if(_a5_screen)
             {
                 display_allegro_5.w = w;
