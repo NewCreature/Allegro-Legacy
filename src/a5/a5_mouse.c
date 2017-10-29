@@ -35,7 +35,6 @@ static void * a5_mouse_thread_proc(ALLEGRO_THREAD * thread, void * data)
     {
         return NULL;
     }
-    printf("mouse thread\n");
     al_register_event_source(queue, al_get_mouse_event_source());
     while(!al_get_thread_should_stop(thread))
     {
@@ -70,7 +69,6 @@ static void * a5_mouse_thread_proc(ALLEGRO_THREAD * thread, void * data)
 
 static int a5_mouse_init(void)
 {
-    printf("mouse init\n");
     if(!al_install_mouse())
     {
         return -1;

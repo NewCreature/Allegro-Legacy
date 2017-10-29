@@ -230,31 +230,23 @@ static void init_config(int loaddata)
 {
    char filename[1024], tmp[128], *cfg_name;
 
-   printf("init config 1\n");
    if (!config_installed) {
       _add_exit_func(config_cleanup, "config_cleanup");
       config_installed = TRUE;
    }
-   printf("init config 2\n");
 
    if ((loaddata) && (!config[0])) {
       cfg_name = uconvert_ascii("allegro.cfg", tmp);
 
-      printf("init config 2.1\n");
       if (find_allegro_resource(filename, cfg_name, NULL, NULL, NULL, NULL, NULL, sizeof(filename)) != 0) {
-          printf("init config 2.2\n");
 	 get_executable_name(filename, sizeof(filename));
-     printf("init config 2.3\n");
 	 usetc(get_filename(filename), 0);
-     printf("init config 2.4\n");
 	 ustrzcat(filename, sizeof(filename), cfg_name);
-     printf("init config 2.5\n");
       }
 
       set_config_file(filename);
    }
 
-   printf("init config 3\n");
    if (!system_config) {
       system_config = _AL_LEGACY_MALLOC(sizeof(CONFIG));
       if (system_config) {
@@ -263,7 +255,6 @@ static void init_config(int loaddata)
 	 system_config->dirty = FALSE;
       }
    }
-   printf("init config 4\n");
 }
 
 
@@ -774,17 +765,13 @@ AL_CONST char *get_config_string(AL_CONST char *section, AL_CONST char *name, AL
    CONFIG_HOOK *hook;
    CONFIG_ENTRY *p;
 
-   printf("get config 1\n");
    init_config(TRUE);
-   printf("get config 2\n");
 
    prettify_section_name(section, section_name, sizeof(section_name));
 
-   printf("get config 3\n");
    /* check for hooked sections */
    hook = config_hook;
 
-   printf("get config 4\n");
    while (hook) {
       if (ustricmp(section_name, hook->section) == 0) {
 	 if (hook->stringgetter)
@@ -794,12 +781,10 @@ AL_CONST char *get_config_string(AL_CONST char *section, AL_CONST char *name, AL
       }
       hook = hook->next;
    }
-   printf("get config 5\n");
 
    /* find the string */
    p = find_config_string(config_override, section_name, name, NULL);
 
-   printf("get config 6\n");
    if (!p) {
       if ((ugetc(name) == '#') || ((ugetc(section_name) == '[') && (ugetat(section_name, 1) == '#')))
 	 p = find_config_string(system_config, section_name, name, NULL);
@@ -807,7 +792,6 @@ AL_CONST char *get_config_string(AL_CONST char *section, AL_CONST char *name, AL
 	 p = find_config_string(config[0], section_name, name, NULL);
    }
 
-   printf("get config 7\n");
    if (p && p->data && (ustrlen(p->data) != 0))
       return p->data;
    else
@@ -1273,24 +1257,18 @@ void reload_config_texts(AL_CONST char *new_language)
    AL_CONST char *name, *ext, *datafile;
    char *namecpy;
 
-   printf("config 1\n");
    if (config_language) {
       destroy_config(config_language);
       config_language = NULL;
    }
 
-   printf("config 2\n");
    if (new_language)
       set_config_string("system", "language", new_language);
 
-      printf("config 2.1\n");
       uconvert_ascii("system", tmp1);
-      printf("config 2.2\n");
       uconvert_ascii("language", tmp2);
-      printf("config 2.3\n");
    name = get_config_string(uconvert_ascii("system", tmp1), uconvert_ascii("language", tmp2), NULL);
 
-   printf("config 3\n");
    if ((name) && (ugetc(name))) {
       namecpy = _al_ustrdup(name);
       ustrlwr (namecpy);
@@ -1310,15 +1288,12 @@ void reload_config_texts(AL_CONST char *new_language)
       _AL_LEGACY_FREE(namecpy);
    }
 
-   printf("config 4\n");
-
    config_language = _AL_LEGACY_MALLOC(sizeof(CONFIG));
    if (config_language ) {
       config_language ->head = NULL;
       config_language ->filename = NULL;
       config_language ->dirty = FALSE;
    }
-   printf("config 5\n");
 }
 
 

@@ -48,7 +48,6 @@ static void * a5_joystick_thread_proc(ALLEGRO_THREAD * thread, void * data)
     {
         return NULL;
     }
-    printf("joystick thread\n");
     al_register_event_source(queue, al_get_joystick_event_source());
     while(!al_get_thread_should_stop(thread))
     {
@@ -59,7 +58,6 @@ static void * a5_joystick_thread_proc(ALLEGRO_THREAD * thread, void * data)
             {
                 case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
                 {
-                    printf("button down\n");
                     i = a5_get_joystick(event.joystick.id);
                     if(i >= 0)
                     {
@@ -69,7 +67,6 @@ static void * a5_joystick_thread_proc(ALLEGRO_THREAD * thread, void * data)
                 }
                 case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
                 {
-                    printf("button up\n");
                     i = a5_get_joystick(event.joystick.id);
                     if(i >= 0)
                     {
@@ -79,7 +76,6 @@ static void * a5_joystick_thread_proc(ALLEGRO_THREAD * thread, void * data)
                 }
                 case ALLEGRO_EVENT_JOYSTICK_AXIS:
                 {
-                    printf("axis\n");
                     i = a5_get_joystick(event.joystick.id);
                     if(i >= 0)
                     {
@@ -113,10 +109,8 @@ static int a5_joystick_init(void)
     ALLEGRO_JOYSTICK * joystick;
     int i, j, k;
 
-    printf("joystick init\n");
     if(!al_install_joystick())
     {
-        printf("joystick init failed\n");
         return -1;
     }
     a5_joystick_thread = al_create_thread(a5_joystick_thread_proc, NULL);

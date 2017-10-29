@@ -39,31 +39,22 @@ static void * a5_sound_thread_proc(ALLEGRO_THREAD * thread, void * data)
     bool fragments_done = false;
     int i;
 
-    printf("sound thread\n");
     a5_sound_stream = al_create_audio_stream(_A5_SOUND_BUFFERS, _A5_SOUND_BUFFER_SIZE, _A5_SOUND_FREQUENCY, _A5_SOUND_DEPTH, _A5_SOUND_CHANNELS);
-    printf("sound thread 1\n");
     if(!a5_sound_stream)
     {
-        printf("sound thread 2\n");
         return NULL;
     }
-    printf("sound thread 3\n");
     if(!al_attach_audio_stream_to_mixer(a5_sound_stream, al_get_default_mixer()))
     {
-        printf("sound thread 4\n");
         al_destroy_audio_stream(a5_sound_stream);
-        printf("sound thread 5\n");
         return NULL;
     }
-    printf("sound thread 6\n");
     queue = al_create_event_queue();
     if(!queue)
     {
-        printf("sound thread 7\n");
         al_destroy_audio_stream(a5_sound_stream);
         return NULL;
     }
-    printf("sound thread 8\n");
     al_set_audio_stream_playing(a5_sound_stream, true);
     al_register_event_source(queue, al_get_audio_stream_event_source(a5_sound_stream));
     while(!al_get_thread_should_stop(thread))
@@ -94,7 +85,6 @@ static void * a5_sound_thread_proc(ALLEGRO_THREAD * thread, void * data)
             }
         }
     }
-    printf("sound thread done! %d\n", al_get_thread_should_stop(thread));
     return NULL;
 }
 
@@ -114,44 +104,33 @@ static int a5_sound_init(int input, int voices)
     {
         return -1;
     }
-    printf("sound init 1\n");
     if(!al_install_audio())
     {
-        printf("sound init 2\n");
         return -1;
     }
-    printf("sound init 3\n");
     if(!al_reserve_samples(4))
     {
-        printf("sound init 4\n");
         al_uninstall_audio();
         return -1;
     }
-    printf("sound init 5\n");
     a5_sound_mutex = al_create_mutex();
     if(!a5_sound_mutex)
     {
-        printf("sound init 6\n");
         al_uninstall_audio();
         return -1;
     }
-    printf("sound init 7\n");
     a5_sound_thread = al_create_thread(a5_sound_thread_proc, NULL);
     if(!a5_sound_thread)
     {
-        printf("sound init 8\n");
         al_uninstall_audio();
         return -1;
     }
-    printf("sound init 9\n");
     al_start_thread(a5_sound_thread);
-    printf("sound init 10\n");
     return 0;
 }
 
 static void a5_sound_exit(int input)
 {
-    printf("sound exit\n");
     al_destroy_thread(a5_sound_thread);
     a5_sound_thread = NULL;
     al_uninstall_audio();
@@ -178,17 +157,13 @@ static int a5_sound_buffer_size(void)
 
 static void * a5_sound_lock_voice(int voice, int start, int end)
 {
-    printf("lock 1\n");
     al_lock_mutex(a5_sound_mutex);
-    printf("lock 2\n");
     return NULL;
 }
 
 static void a5_sound_unlock_voice(int voice)
 {
-    printf("unlock 1\n");
     al_unlock_mutex(a5_sound_mutex);
-    printf("unlock 2\n");
 }
 
 DIGI_DRIVER digi_allegro_5 =

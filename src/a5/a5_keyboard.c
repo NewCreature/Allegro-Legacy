@@ -37,7 +37,6 @@ static void * a5_keyboard_thread_proc(ALLEGRO_THREAD * thread, void * data)
     {
         return NULL;
     }
-    printf("keyboard thread\n");
     al_register_event_source(queue, al_get_keyboard_event_source());
     while(!al_get_thread_should_stop(thread))
     {

@@ -1160,23 +1160,19 @@ int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ex
 
    ASSERT(dest);
 
-   printf("find 1\n");
    /* if the resource is a path with no filename, look in that location */
    if ((resource) && (ugetc(resource)) && (!ugetc(get_filename(resource))))
       return find_resource(dest, resource, empty_string, datafile, objectname, subdir, size);
 
-      printf("find 2\n");
    /* if we have a path+filename, just use it directly */
    if ((resource) && (ustrpbrk(resource, uconvert_ascii("\\/#", tmp)))) {
       if (file_exists(resource, FA_RDONLY | FA_ARCH, NULL)) {
 	 ustrzcpy(dest, size, resource);
 
-     printf("find 3\n");
 	 /* if the resource is a datafile, try looking inside it */
 	 if ((ustricmp(get_extension(dest), uconvert_ascii("dat", tmp)) == 0) && (objectname)) {
 	    ustrzcat(dest, size, uconvert_ascii("#", tmp));
 
-        printf("find 4\n");
 	    for (i=0; i<ustrlen(objectname); i++) {
 	       c = ugetat(objectname, i);
 	       if (c == '.')
@@ -1185,24 +1181,20 @@ int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ex
 		  uinsert(dest, ustrlen(dest), c);
 	    }
 
-        printf("find 5\n");
 	    if (!file_exists(dest, FA_RDONLY | FA_ARCH, NULL))
 	       return -1;
 	 }
 
-     printf("find 6\n");
 	 return 0;
       }
       else
 	 return -1;
    }
 
-   printf("find 7\n");
    /* clean up the resource name, adding any default extension */
    if (resource) {
       ustrzcpy(rname, sizeof(rname), resource);
 
-      printf("find 8\n");
       if (ext) {
 	 s = get_extension(rname);
 	 if (!ugetc(s))
@@ -1212,7 +1204,6 @@ int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ex
    else
       usetc(rname, 0);
 
-      printf("find 9\n");
    /* try resource path list */
    while (rp_list_node) {
       if (find_resource(dest, rp_list_node->path, rname, datafile, objectname,
@@ -1221,20 +1212,16 @@ int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ex
       rp_list_node = rp_list_node->next;
    }
 
-   printf("find 10\n");
    /* try looking in the same directory as the program */
    get_executable_name(path, sizeof(path));
-   printf("find 10.1\n");
    usetc(get_filename(path), 0);
 
-   printf("find 11\n");
    if (find_resource(dest, path, rname, datafile, objectname, subdir, size) == 0)
       return 0;
 
    /* try the ALLEGRO environment variable */
    s = getenv("ALLEGRO");
 
-   printf("find 12\n");
    if (s) {
       do_uconvert(s, U_ASCII, path, U_CURRENT, sizeof(path)-ucwidth(OTHER_PATH_SEPARATOR));
       put_backslash(path);
@@ -1243,7 +1230,6 @@ int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ex
 	 return 0;
    }
 
-   printf("find 13\n");
    /* try any extra environment variable that the parameters say to use */
    if (envvar) {
       s = getenv(uconvert_tofilename(envvar, tmp));
@@ -1257,7 +1243,6 @@ int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ex
       }
    }
 
-   printf("find 14\n");
    /* ask the system driver */
    if (system_driver)
       sys_find_resource = system_driver->find_resource;
@@ -1276,12 +1261,10 @@ int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ex
 	    if (ugetat(rname, i) == '.')
 	       usetat(rname, i, '_');
 	 }
-     printf("find 15\n");
 
 	 ustrzcat(path, sizeof(path), uconvert_ascii("#", tmp));
 	 ustrzcat(path, sizeof(path), rname);
 
-     printf("find 16\n");
 	 if (file_exists(path, FA_RDONLY | FA_ARCH, NULL)) {
 	    ustrzcpy(dest, size, path);
 	    return 0;
@@ -1289,7 +1272,6 @@ int find_allegro_resource(char *dest, AL_CONST char *resource, AL_CONST char *ex
       }
    }
 
-   printf("find 17\n");
    /* argh, all that work, and still no biscuit */
    return -1;
 }

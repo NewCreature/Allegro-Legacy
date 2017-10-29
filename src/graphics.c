@@ -425,7 +425,6 @@ GFX_VTABLE *_get_vtable(int color_depth)
 
    ASSERT(system_driver);
 
-   printf("vtable 1 %d\n", color_depth);
    if (system_driver->get_vtable) {
       vt = system_driver->get_vtable(color_depth);
 
@@ -436,20 +435,16 @@ GFX_VTABLE *_get_vtable(int color_depth)
 	 return vt;
       }
    }
-   printf("vtable 2\n");
 
    for (i=0; _vtable_list[i].vtable; i++) {
-       printf("%d: %d\n", i, _vtable_list[i].color_depth);
       if (_vtable_list[i].color_depth == color_depth) {
 	 LOCK_DATA(_vtable_list[i].vtable, sizeof(GFX_VTABLE));
 	 LOCK_CODE(_vtable_list[i].vtable->draw_sprite, (long)_vtable_list[i].vtable->draw_sprite_end - (long)_vtable_list[i].vtable->draw_sprite);
 	 LOCK_CODE(_vtable_list[i].vtable->blit_from_memory, (long)_vtable_list[i].vtable->blit_end - (long)_vtable_list[i].vtable->blit_from_memory);
-     printf("vtable 3\n");
 	 return _vtable_list[i].vtable;
       }
    }
 
-   printf("vtable 4\n");
    return NULL;
 }
 
@@ -635,30 +630,23 @@ static int _set_gfx_mode(int card, int w, int h, int v_w, int v_h, int allow_con
    ASSERT(system_driver);
    ASSERT(card != GFX_SAFE);
 
-   printf("set_gfx 1\n");
    /* remember the current console state */
    if (gfx_virgin) {
-       printf("set_gfx 1.1\n");
       TRACE(PREFIX_I "First call, remembering console state.\n");
       LOCK_FUNCTION(_stub_bank_switch);
       LOCK_FUNCTION(blit);
 
-      printf("set_gfx 1.2 %lu\n", system_driver);
       if (system_driver->save_console_state)
 	 system_driver->save_console_state();
 
-     printf("set_gfx 1.3\n");
       _add_exit_func(shutdown_gfx, "shutdown_gfx");
 
-      printf("set_gfx 1.4\n");
       gfx_virgin = FALSE;
    }
 
-   printf("set_gfx 2\n");
    timer_simulate_retrace(FALSE);
    _screen_split_position = 0;
 
-   printf("set_gfx 3\n");
    /* close down any existing graphics driver */
    if (gfx_driver) {
       TRACE(PREFIX_I "Closing graphics driver (%p) ", gfx_driver);
@@ -666,33 +654,26 @@ static int _set_gfx_mode(int card, int w, int h, int v_w, int v_h, int allow_con
       if (_al_linker_mouse)
          _al_linker_mouse->show_mouse(NULL);
 
-         printf("set_gfx 4\n");
       while (vram_bitmap_list)
 	 destroy_bitmap(vram_bitmap_list->bmp);
 
-     printf("set_gfx 5\n");
       bmp_read_line(screen, 0);
       bmp_write_line(screen, 0);
       bmp_unwrite_line(screen);
-      printf("set_gfx 6\n");
 
       if (gfx_driver->scroll)
 	 gfx_driver->scroll(0, 0);
 
-     printf("set_gfx 7\n");
       if (gfx_driver->exit)
 	 gfx_driver->exit(screen);
 
-     printf("set_gfx 8\n");
       destroy_bitmap(screen);
 
-      printf("set_gfx 9\n");
       gfx_driver = NULL;
       screen = NULL;
       gfx_capabilities = 0;
    }
 
-   printf("set_gfx 10\n");
    /* We probably don't want to do this because it makes
     * Allegro "forget" the color layout of previously set
     * graphics modes. But it should be retained if bitmaps
@@ -715,12 +696,10 @@ static int _set_gfx_mode(int card, int w, int h, int v_w, int v_h, int allow_con
    _rgb_a_shift_32 = 24;
 #endif
 
-printf("set_gfx 11\n");
    gfx_capabilities = 0;
 
    _set_current_refresh_rate(0);
 
-   printf("set_gfx 12\n");
    /* return to text mode? */
    if (card == GFX_TEXT) {
       TRACE(PREFIX_I "Closing, restoring original console state.\n");
@@ -736,7 +715,6 @@ printf("set_gfx 11\n");
       return 0;
    }
 
-   printf("set_gfx 13\n");
    /* now to the interesting part: let's try to find a graphics driver */
    usetc(allegro_error, 0);
 
@@ -746,7 +724,6 @@ printf("set_gfx 11\n");
    else
       driver_list = _gfx_driver_list;
 
-      printf("set_gfx 14\n");
    /* filter specific fullscreen/windowed driver requests */
    if (card == GFX_AUTODETECT_FULLSCREEN) {
       flags |= GFX_DRIVER_FULLSCREEN_FLAG;
@@ -757,27 +734,23 @@ printf("set_gfx 11\n");
       card = GFX_AUTODETECT;
    }
 
-   printf("set_gfx 15\n");
    if (card == GFX_AUTODETECT) {
       /* autodetect the driver */
       int found = FALSE;
 
       tmp1[0] = '\0';
 
-      printf("set_gfx 16\n");
       /* first try the config variables */
       if (allow_config) {
 	 /* try the gfx_card variable if GFX_AUTODETECT or GFX_AUTODETECT_FULLSCREEN was selected */
 	 if (!(flags & GFX_DRIVER_WINDOWED_FLAG))
 	    found = get_config_gfx_driver(uconvert_ascii("gfx_card", tmp1), w, h, v_w, v_h, flags, driver_list);
 
-        printf("set_gfx 17\n");
 	 /* try the gfx_cardw variable if GFX_AUTODETECT or GFX_AUTODETECT_WINDOWED was selected */
 	 if (!(flags & GFX_DRIVER_FULLSCREEN_FLAG) && !found)
 	    found = get_config_gfx_driver(uconvert_ascii("gfx_cardw", tmp1), w, h, v_w, v_h, flags, driver_list);
       }
 
-      printf("set_gfx 18\n");
       /* go through the list of autodetected drivers if none was previously found */
       if (!found) {
 	 TRACE(PREFIX_I "Autodetecting graphic driver.\n");
@@ -785,11 +758,9 @@ printf("set_gfx 11\n");
 	    if (driver_list[c].autodetect) {
 	       drv = driver_list[c].driver;
 
-           printf("set_gfx 19\n");
 	       if (gfx_driver_is_valid(drv, flags)) {
 		  screen = init_gfx_driver(drv, w, h, v_w, v_h);
 
-          printf("set_gfx 20\n");
 		  if (screen)
 		     break;
 	       }
@@ -809,7 +780,6 @@ printf("set_gfx 11\n");
 	 screen = init_gfx_driver(drv, w, h, v_w, v_h);
    }
 
-   printf("set_gfx 21\n");
    /* gracefully handle failure */
    if (!screen) {
       gfx_driver = NULL;  /* set by init_gfx_driver() */
@@ -821,7 +791,6 @@ printf("set_gfx 11\n");
       return -1;
    }
 
-   printf("set_gfx 22\n");
    /* set the basic capabilities of the driver */
    if ((VIRTUAL_W > SCREEN_W) || (VIRTUAL_H > SCREEN_H)) {
       if (gfx_driver->scroll)
@@ -831,7 +800,6 @@ printf("set_gfx 11\n");
 	 gfx_capabilities |= GFX_CAN_TRIPLE_BUFFER;
    }
 
-   printf("set_gfx 23\n");
    /* check whether we are instructed to disable vsync */
    dv = get_config_string(uconvert_ascii("graphics", tmp1),
                           uconvert_ascii("disable_vsync", tmp2),
@@ -842,7 +810,6 @@ printf("set_gfx 11\n");
    else
       _wait_for_vsync = TRUE;
 
-      printf("set_gfx 24\n");
    TRACE(PREFIX_I "The driver %s wait for vsync.\n",
 	 (_wait_for_vsync) ? "will" : "won't");
 
@@ -850,18 +817,14 @@ printf("set_gfx 11\n");
    if ((gfx_driver->drawing_mode) && (!_dispsw_status))
       gfx_driver->drawing_mode();
 
-      printf("set_gfx 25\n");
    clear_bitmap(screen);
 
-   printf("set_gfx 26\n");
    /* set up the default colors */
    for (c=0; c<256; c++)
       _palette_color8[c] = c;
 
-      printf("set_gfx 27\n");
    set_palette(default_palette);
 
-   printf("set_gfx 28\n");
    if (_color_depth == 8) {
       gui_fg_color = 255;
       gui_mg_color = 8;
@@ -873,7 +836,6 @@ printf("set_gfx 11\n");
       gui_bg_color = makecol(255, 255, 255);
    }
 
-   printf("set_gfx 29\n");
    if (_al_linker_mouse)
       _al_linker_mouse->set_mouse_etc();
 
@@ -881,7 +843,6 @@ printf("set_gfx 11\n");
 
    _register_switch_bitmap(screen, NULL);
 
-   printf("set_gfx 30\n");
    TRACE(PREFIX_I "set_gfx_card success for %dx%dx%d.\n",
 	 screen->w, screen->h, bitmap_color_depth(screen));
    return 0;
@@ -1078,16 +1039,13 @@ BITMAP *create_bitmap_ex(int color_depth, int width, int height)
    ASSERT(height > 0);
    ASSERT(system_driver);
 
-   printf("create 1\n");
    if (system_driver->create_bitmap)
       return system_driver->create_bitmap(color_depth, width, height);
 
-      printf("create 2\n");
    vtable = _get_vtable(color_depth);
    if (!vtable)
       return NULL;
 
-      printf("create 3\n");
    /* We need at least two pointers when drawing, otherwise we get crashes with
     * Electric Fence.  We think some of the assembly code assumes a second line
     * pointer is always available.
@@ -1097,20 +1055,17 @@ BITMAP *create_bitmap_ex(int color_depth, int width, int height)
    if (!bitmap)
       return NULL;
 
-      printf("create 4\n");
    /* This avoids a crash for assembler code accessing the last pixel, as it
     * read 4 bytes instead of 3.
     */
    padding = (color_depth == 24) ? 1 : 0;
 
-   printf("create 5\n");
    bitmap->dat = _AL_LEGACY_MALLOC_ATOMIC(width * height * BYTES_PER_PIXEL(color_depth) + padding);
    if (!bitmap->dat) {
       _AL_LEGACY_FREE(bitmap);
       return NULL;
    }
 
-   printf("create 6\n");
    bitmap->w = bitmap->cr = width;
    bitmap->h = bitmap->cb = height;
    bitmap->clip = TRUE;
@@ -1123,18 +1078,15 @@ BITMAP *create_bitmap_ex(int color_depth, int width, int height)
    bitmap->y_ofs = 0;
    bitmap->seg = _default_ds();
 
-   printf("create 7\n");
    if (height > 0) {
       bitmap->line[0] = bitmap->dat;
       for (i=1; i<height; i++)
          bitmap->line[i] = bitmap->line[i-1] + width * BYTES_PER_PIXEL(color_depth);
    }
 
-   printf("create 8\n");
    if (system_driver->created_bitmap)
       system_driver->created_bitmap(bitmap);
 
-      printf("create 9\n");
    return bitmap;
 }
 

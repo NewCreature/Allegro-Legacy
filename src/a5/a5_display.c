@@ -26,13 +26,10 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
 {
     BITMAP * bp;
 
-    printf("display 1\n");
     bp = create_bitmap(w, h);
     if(bp)
     {
-        printf("display 2\n");
         _a5_display = al_create_display(w, h);
-        printf("display 3\n");
         if(_a5_display)
         {
             _a5_screen = al_create_bitmap(w, h);
@@ -43,12 +40,9 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
                 return bp;
             }
         }
-        printf("display 5\n");
         al_destroy_display(_a5_display);
-        printf("display 6\n");
         _a5_display = NULL;
     }
-    printf("display 7\n");
     return NULL;
 }
 
@@ -60,14 +54,13 @@ static void a5_display_exit(BITMAP * bp)
     _a5_display = NULL;
 }
 
-void a5_display_vsync(void)
+static void a5_display_vsync(void)
 {
     al_wait_for_vsync();
 }
 
 static void a5_display_set_palette(const struct RGB * palette, int from, int to, int vsync)
 {
-    printf("palette set\n");
 }
 
 static ALLEGRO_COLOR a5_get_color(PALETTE palette, int depth, int color)

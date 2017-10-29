@@ -28,9 +28,7 @@ void (*_a5_close_button_proc)(void) = NULL;
 
 static int a5_sys_init(void)
 {
-    printf("a5 init\n");
     int ret = al_init();
-    printf("a5 init done\n");
     return !ret;
 }
 
@@ -46,7 +44,6 @@ static void a5_sys_get_executable_name(char *output, int size)
     bool already_initialized = al_is_system_installed();
     int i;
 
-    printf("sys exe 1\n");
     if(!already_initialized)
     {
         al_init();
@@ -54,15 +51,12 @@ static void a5_sys_get_executable_name(char *output, int size)
     path = al_get_standard_path(ALLEGRO_EXENAME_PATH);
     if(path)
     {
-        printf("sys exe 2\n");
         strcpy(output, al_path_cstr(path, '/'));
-        printf("sys exe 3\n");
         al_destroy_path(path);
         if(!already_initialized)
         {
             al_uninstall_system();
         }
-        printf("sys exe 4\n");
     }
 }
 

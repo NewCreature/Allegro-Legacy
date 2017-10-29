@@ -93,11 +93,8 @@ static int a5_timer_init(void)
     a5_timer_thread = al_create_thread(a5_timer_thread_proc, NULL);
     if(a5_timer_thread)
     {
-        printf("timer 1\n");
         al_start_thread(a5_timer_thread);
-        printf("timer 2\n");
         while(!a5_timer_thread_ready);
-        printf("timer 3\n");
         return 0;
     }
     return -1;

@@ -305,29 +305,20 @@ static int _install_allegro(int system_id, int *errno_ptr, int (*atexit_ptr)(voi
    char tmp1[64], tmp2[64];
    int i;
 
-   printf("install 1\n");
    #ifndef ALLEGRO_LEGACY_USE_CONSTRUCTOR
       /* call constructor functions manually */
       extern void _initialize_datafile_types();
       extern void _midi_constructor();
       extern void _mouse_constructor();
 
-      printf("install 2\n");
       _initialize_datafile_types();
-      printf("install 3\n");
       _midi_constructor();
-      printf("install 4\n");
       _mouse_constructor();
-      printf("install 5\n");
       _register_bitmap_file_type_init();
-      printf("install 6\n");
       _register_sample_file_type_init();
-      printf("install 7\n");
       _register_font_file_type_init();
-      printf("install 8\n");
    #endif
 
-   printf("install 9\n");
    if (errno_ptr)
       allegro_errno = errno_ptr;
    else
@@ -340,7 +331,6 @@ static int _install_allegro(int system_id, int *errno_ptr, int (*atexit_ptr)(voi
    for (i=16; i<256; i++)
       desktop_palette[i] = desktop_palette[i & 15];
 
-      printf("install 10\n");
    /* lock some important variables */
    LOCK_VARIABLE(screen);
    LOCK_VARIABLE(gfx_driver);
@@ -357,27 +347,22 @@ static int _install_allegro(int system_id, int *errno_ptr, int (*atexit_ptr)(voi
    LOCK_VARIABLE(_current_palette);
    LOCK_VARIABLE(os_type);
 
-   printf("install 11\n");
    /* nasty stuff to set up the config system before the system driver */
    system_driver = _system_driver_list[0].driver;
 
    /* needed in case set_config_file was called before allegro_init */
    _reload_config();
 
-   printf("install 12\n");
    reload_config_texts(NULL);
 
-   printf("install 13\n");
    if (system_id == SYSTEM_AUTODETECT)
       system_id = get_config_id(uconvert_ascii("system", tmp1), uconvert_ascii("system", tmp2), SYSTEM_AUTODETECT);
 
-      printf("install 14\n");
    system_driver = NULL;
 
    /* initialise the system driver */
    usetc(allegro_error, 0);
 
-   printf("install 15\n");
    for (i=0; _system_driver_list[i].driver; i++) {
       if ((_system_driver_list[i].id == system_id) ||
 	  ((_system_driver_list[i].autodetect) && (system_id == SYSTEM_AUTODETECT))) {
@@ -393,18 +378,15 @@ static int _install_allegro(int system_id, int *errno_ptr, int (*atexit_ptr)(voi
       }
    }
 
-   printf("install 16\n");
    if (!system_driver)
       return -1;
 
    /* disable close button */
    set_close_button_callback(NULL);
 
-   printf("install 17\n");
    /* detect CPU type */
    check_cpu();
 
-   printf("install 18\n");
 #if defined(ALLEGRO_LEGACY_UNIX) || defined(ALLEGRO_LEGACY_WINDOWS)
    /* detect filename encoding used by libc */
    /* XXX This should be done for all platforms but I'm not set up to check
@@ -414,20 +396,17 @@ static int _install_allegro(int system_id, int *errno_ptr, int (*atexit_ptr)(voi
    _al_detect_filename_encoding();
 #endif
 
-printf("install 19\n");
    /* set up screensaver policy */
    _screensaver_policy = get_config_int(uconvert_ascii("system", tmp1),
                                         uconvert_ascii("disable_screensaver", tmp2),
                                         FULLSCREEN_DISABLED);
 
-                                        printf("install 20\n");
    /* install shutdown handler */
    if (_allegro_count == 0) {
       if (atexit_ptr)
 	 atexit_ptr(allegro_exit_stub);
    }
 
-   printf("install 21\n");
    _allegro_count++;
 
    TRACE(PREFIX_I "Allegro initialised (instance %d)\n", _allegro_count);
@@ -443,23 +422,18 @@ printf("install 19\n");
 int _install_allegro_version_check(int system_id, int *errno_ptr,
    int (*atexit_ptr)(void (*func)(void)), int version)
 {
-   printf("init 1\n");
    int r = _install_allegro(system_id, errno_ptr, atexit_ptr);
 
-   printf("init 2\n");
    int build_wip = version & 255;
    int build_ver = version & ~255;
-   printf("init 3\n");
 
    int version_ok;
-   printf("init 4\n");
 
    if (r != 0) {
       /* failed */
       return r;
    }
 
-   printf("init 5\n");
 #if ALLEGRO_LEGACY_SUB_VERSION & 1
    /* This is a WIP runtime, so enforce strict compatibility. */
    version_ok = version == MAKE_VERSION(ALLEGRO_LEGACY_VERSION, ALLEGRO_LEGACY_SUB_VERSION, ALLEGRO_LEGACY_WIP_VERSION);
@@ -468,22 +442,18 @@ int _install_allegro_version_check(int system_id, int *errno_ptr,
     * as the build headers (otherwise we may get a crash, since some
     * functions may have been used which aren't available in this runtime).
     */
-    printf("init 6\n");
    version_ok = (MAKE_VERSION(ALLEGRO_LEGACY_VERSION, ALLEGRO_LEGACY_SUB_VERSION, 0) == build_ver) &&
       (ALLEGRO_LEGACY_WIP_VERSION >= build_wip);
 #endif
 
-printf("init 7\n");
    if (!version_ok) {
       uszprintf(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text(
          "The detected dynamic Allegro library (%d.%d.%d) is "
          "not compatible with this program (%d.%d.%d)."),
          ALLEGRO_LEGACY_VERSION, ALLEGRO_LEGACY_SUB_VERSION, ALLEGRO_LEGACY_WIP_VERSION,
          build_ver >> 16, (build_ver >> 8) & 255, build_wip);
-         printf("init 8\n");
       return -1;
    }
-   printf("init 9\n");
    return 0;
 }
 
@@ -547,9 +517,7 @@ void get_executable_name(char *output, int size)
    ASSERT(output);
 
    if (system_driver->get_executable_name) {
-       printf("get exe 1\n");
       system_driver->get_executable_name(output, size);
-      printf("get exe 2\n");
    }
    else {
       output += usetc(output, '.');
