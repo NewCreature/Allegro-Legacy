@@ -21,6 +21,7 @@
 #include "allegro/platform/ala5.h"
 
 static ALLEGRO_BITMAP * _a5_screen = NULL;
+static ALLEGRO_COLOR _a5_screen_palette[256];
 
 static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
 {
@@ -63,8 +64,22 @@ static void a5_display_vsync(void)
     al_wait_for_vsync();
 }
 
+static void a5_palette_from_a4_palette(const PALETTE a4_palette, ALLEGRO_COLOR * a5_palette, int from, int to)
+{
+    int i;
+
+    if(a4_palette)
+    {
+        for(i = from; i <= to; i++)
+        {
+            a5_palette[i] = al_map_rgba_f((float)a4_palette[i].r / 63.0, (float)a4_palette[i].g / 63.0, (float)a4_palette[i].b / 63.0, 1.0);
+        }
+    }
+}
+
 static void a5_display_set_palette(const struct RGB * palette, int from, int to, int vsync)
 {
+    a5_palette_from_a4_palette(palette, _a5_screen_palette, from, to);
 }
 
 static ALLEGRO_COLOR a5_get_color(PALETTE palette, int depth, int color)
@@ -141,7 +156,7 @@ void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
             {
                 case 8:
                 {
-                    al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, bp->line[i][j]));
+                    al_put_pixel(j, i, _a5_screen_palette[bp->line[i][j]]);
                     break;
                 }
                 case 15:
