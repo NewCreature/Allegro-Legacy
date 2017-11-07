@@ -232,5 +232,5 @@ GFX_DRIVER display_allegro_5 = {
    0,                                 // long bank_gran;  /* bank granularity, in bytes */
    0,                                 // long vid_mem;  /* video memory size, in bytes */
    0,                                 // long vid_phys_base;  /* physical address of video memory */
-   FALSE                              // int windowed;  /* true if driver runs windowed */
+   TRUE                              // int windowed;  /* true if driver runs windowed */
 };
