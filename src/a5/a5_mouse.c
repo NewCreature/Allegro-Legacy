@@ -64,6 +64,7 @@ static void * a5_mouse_thread_proc(ALLEGRO_THREAD * thread, void * data)
             _handle_mouse_input();
         }
     }
+    al_destroy_event_queue(queue);
     return NULL;
 }
 

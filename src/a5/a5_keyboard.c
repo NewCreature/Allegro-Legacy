@@ -69,6 +69,7 @@ static void * a5_keyboard_thread_proc(ALLEGRO_THREAD * thread, void * data)
             }
         }
     }
+    al_destroy_event_queue(queue);
     return NULL;
 }
 

@@ -85,6 +85,8 @@ static void * a5_sound_thread_proc(ALLEGRO_THREAD * thread, void * data)
             }
         }
     }
+    al_destroy_event_queue(queue);
+    al_destroy_audio_stream(a5_sound_stream);
     return NULL;
 }
 

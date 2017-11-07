@@ -85,6 +85,7 @@ static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
             _handle_timer_tick(MSEC_TO_TIMER(diff_time * 1000.0));
         }
     }
+    al_destroy_event_queue(queue);
     return NULL;
 }
 
