@@ -38,6 +38,7 @@ static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
 {
     ALLEGRO_EVENT_QUEUE * queue;
     ALLEGRO_EVENT event;
+    ALLEGRO_TIMEOUT timeout;
     double cur_time, prev_time = 0.0, diff_time;
     int i;
 
@@ -51,38 +52,41 @@ static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
     a5_timer_thread_ready = true;
     while(!al_get_thread_should_stop(thread))
     {
-        al_wait_for_event(queue, &event);
-        if(event.any.source == &a5_timer_event_source)
+        al_init_timeout(&timeout, 1.0);
+        if(al_wait_for_event_until(queue, &event, &timeout))
         {
-            for(i = 0; i < a5_timers; i++)
+            if(event.any.source == &a5_timer_event_source)
             {
-                al_register_event_source(queue, al_get_timer_event_source(a5_timer[i]));
-            }
-            for(i = 0; i < a5_param_timers; i++)
-            {
-                al_register_event_source(queue, al_get_timer_event_source(a5_param_timer[i]));
-            }
-        }
-        else
-        {
-            cur_time = al_get_time();
-            diff_time = cur_time - prev_time;
-            prev_time = al_get_time();
-            for(i = 0; i < a5_timers; i++)
-            {
-                if(al_get_timer_event_source(a5_timer[i]) == event.any.source)
+                for(i = 0; i < a5_timers; i++)
                 {
-                    a5_timer_proc[i]();
+                    al_register_event_source(queue, al_get_timer_event_source(a5_timer[i]));
+                }
+                for(i = 0; i < a5_param_timers; i++)
+                {
+                    al_register_event_source(queue, al_get_timer_event_source(a5_param_timer[i]));
                 }
             }
-            for(i = 0; i < a5_param_timers; i++)
+            else
             {
-                if(al_get_timer_event_source(a5_param_timer[i]) == event.any.source)
+                cur_time = al_get_time();
+                diff_time = cur_time - prev_time;
+                prev_time = al_get_time();
+                for(i = 0; i < a5_timers; i++)
                 {
-                    a5_param_timer_proc[i](a5_param_timer_data[i]);
+                    if(al_get_timer_event_source(a5_timer[i]) == event.any.source)
+                    {
+                        a5_timer_proc[i]();
+                    }
                 }
+                for(i = 0; i < a5_param_timers; i++)
+                {
+                    if(al_get_timer_event_source(a5_param_timer[i]) == event.any.source)
+                    {
+                        a5_param_timer_proc[i](a5_param_timer_data[i]);
+                    }
+                }
+                _handle_timer_tick(MSEC_TO_TIMER(diff_time * 1000.0));
             }
-            _handle_timer_tick(MSEC_TO_TIMER(diff_time * 1000.0));
         }
     }
     al_destroy_event_queue(queue);
