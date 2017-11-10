@@ -139,6 +139,9 @@ void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
     PALETTE palette;
     int depth;
     int i, j;
+    uint8_t * line_8;
+    uint16_t * line_16;
+    uint32_t  * line_32;
 
     depth = bitmap_color_depth(bp);
     if(depth == 8)
@@ -156,19 +159,26 @@ void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
             {
                 case 8:
                 {
-                    al_put_pixel(j, i, _a5_screen_palette[bp->line[i][j]]);
+                    line_8 = (uint8_t *)(bp->line[i]);
+                    al_put_pixel(j, i, _a5_screen_palette[line_8[j]]);
                     break;
                 }
                 case 15:
                 case 16:
                 {
-                    al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, ((short *)bp->line[i])[j]));
+                    line_16 = (uint16_t *)(bp->line[i]);
+                    al_put_pixel(j, i, a5_get_color(NULL, depth, line_16[j]));
                     break;
                 }
                 case 24:
+                {
+                    al_put_pixel(j, i, a5_get_color(NULL, depth, _getpixel24(bp, j, i)));
+                    break;
+                }
                 case 32:
                 {
-                    al_put_pixel(j, i, a5_get_color(depth == 8 ? palette : NULL, depth, ((long *)bp->line[i])[j]));
+                    line_32 = (uint32_t *)(bp->line[i]);
+                    al_put_pixel(j, i, a5_get_color(NULL, depth, line_32[j]));
                     break;
                 }
             }
