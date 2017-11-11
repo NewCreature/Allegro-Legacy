@@ -1,6 +1,6 @@
-/*         ______   ___    ___ 
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+/*         ______   ___    ___
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -26,6 +26,7 @@
 
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
+#include "a5alleg.h"
 
 
 #ifdef ALLEGRO_LEGACY_WINDOWS
@@ -162,7 +163,7 @@ int d_clear_proc(int msg, DIALOG *d, int c)
    if (msg == MSG_DRAW) {
       BITMAP *gui_bmp = gui_get_screen();
       int w, h;
-    
+
       /* Get width and height of target bitmap. We can't use SCREEN_W and
        * SCREEN_H because the target might not be the screen, but we cannot use
        * bmp->w and bmp->h either because if it is the screen these are actually
@@ -312,8 +313,8 @@ int d_rtext_proc(int msg, DIALOG *d, int c)
 
 /* d_button_proc:
  *  A button object (the dp field points to the text string). This object
- *  can be selected by clicking on it with the mouse or by pressing its 
- *  keyboard shortcut. If the D_EXIT flag is set, selecting it will close 
+ *  can be selected by clicking on it with the mouse or by pressing its
+ *  keyboard shortcut. If the D_EXIT flag is set, selecting it will close
  *  the dialog, otherwise it will toggle on and off.
  */
 int d_button_proc(int msg, DIALOG *d, int c)
@@ -324,7 +325,7 @@ int d_button_proc(int msg, DIALOG *d, int c)
    int swap;
    int g;
    ASSERT(d);
-   
+
    gui_bmp = gui_get_screen();
 
    switch (msg) {
@@ -354,7 +355,7 @@ int d_button_proc(int msg, DIALOG *d, int c)
 	    vline(gui_bmp, d->x+d->w-1, d->y+1, d->y+d->h-2, black);
 	    hline(gui_bmp, d->x+1, d->y+d->h-1, d->x+d->w-1, black);
 	 }
-	 if ((d->flags & D_GOTFOCUS) && 
+	 if ((d->flags & D_GOTFOCUS) &&
 	     (!(d->flags & D_SELECTED) || !(d->flags & D_EXIT)))
 	    dotted_rect(d->x+1+g, d->y+1+g, d->x+d->w-3+g, d->y+d->h-3+g, state1, state2);
 	 break;
@@ -393,6 +394,7 @@ int d_button_proc(int msg, DIALOG *d, int c)
 	       d->flags ^= D_SELECTED;
 	       state1 = d->flags & D_SELECTED;
 	       object_message(d, MSG_DRAW, 0);
+           allegro_render_screen();
 	    }
 
 	    /* let other objects continue to animate */
@@ -404,7 +406,7 @@ int d_button_proc(int msg, DIALOG *d, int c)
 	    d->flags ^= D_SELECTED;
 	    return D_CLOSE;
 	 }
-	 break; 
+	 break;
    }
 
    return D_O_K;
@@ -413,7 +415,7 @@ int d_button_proc(int msg, DIALOG *d, int c)
 
 
 /* d_check_proc:
- *  Who needs C++ after all? This is derived from d_button_proc, 
+ *  Who needs C++ after all? This is derived from d_button_proc,
  *  but overrides the drawing routine to provide a check box.
  */
 int d_check_proc(int msg, DIALOG *d, int c)
@@ -445,7 +447,7 @@ int d_check_proc(int msg, DIALOG *d, int c)
       }
 
       return D_O_K;
-   } 
+   }
 
    return d_button_proc(msg, d, 0);
 }
@@ -533,7 +535,7 @@ int d_radio_proc(int msg, DIALOG *d, int c)
 
 /* d_icon_proc:
  *  Allows graphic icons to be used as buttons.
- * 
+ *
  *  Parameters:
  *    fg = color dotted line showing focus will be drawn in
  *    bg = shadow color used to fill in top and left sides of
@@ -579,7 +581,7 @@ int d_icon_proc(int msg, DIALOG *d, int c)
       /* put the graphic on screen, scaled as needed */
       butx = butimage->w;
       buty = butimage->h;
-      stretch_blit(butimage, gui_bmp, 0, 0, butx-depth, buty-depth, 
+      stretch_blit(butimage, gui_bmp, 0, 0, butx-depth, buty-depth,
 		   d->x+depth, d->y+depth, d->w-depth, d->h-depth);
 
       if ((d->flags & D_GOTFOCUS) &&
@@ -650,7 +652,7 @@ int d_keyboard_proc(int msg, DIALOG *d, int c)
  *  An editable text object (the dp field points to the string). When it
  *  has the input focus (obtained by clicking on it with the mouse), text
  *  can be typed into this object. The d1 field specifies the maximum
- *  number of characters that it will accept, and d2 is the text cursor 
+ *  number of characters that it will accept, and d2 is the text cursor
  *  position within the string.
  */
 int d_edit_proc(int msg, DIALOG *d, int c)
@@ -662,12 +664,12 @@ int d_edit_proc(int msg, DIALOG *d, int c)
    char buf[16];
    char *s, *t;
    ASSERT(d);
-   
+
    gui_bmp = gui_get_screen();
 
    s = d->dp;
    l = ustrlen(s);
-   if (d->d2 > l) 
+   if (d->d2 > l)
       d->d2 = l;
 
    /* calculate maximal number of displayable characters */
@@ -684,16 +686,16 @@ int d_edit_proc(int msg, DIALOG *d, int c)
       usetc(buf+usetc(buf, ugetat(s, p)), 0);
       x += text_length(font, buf);
       b++;
-      if (x > d->w) 
+      if (x > d->w)
 	 break;
    }
 
    if (x <= d->w) {
-      b = l; 
+      b = l;
       scroll = FALSE;
    }
    else {
-      b--; 
+      b--;
       scroll = TRUE;
    }
 
@@ -708,11 +710,11 @@ int d_edit_proc(int msg, DIALOG *d, int c)
 	 x = 0;
 
 	 if (scroll) {
-	    p = d->d2-b+1; 
-	    b = d->d2; 
+	    p = d->d2-b+1;
+	    b = d->d2;
 	 }
-	 else 
-	    p = 0; 
+	 else
+	    p = 0;
 
 	 for (; p<=b; p++) {
 	    f = ugetat(s, p);
@@ -732,16 +734,16 @@ int d_edit_proc(int msg, DIALOG *d, int c)
 	 x = d->x;
 
 	 if (scroll) {
-	    p = d->d2-b+1; 
-	    b = d->d2; 
+	    p = d->d2-b+1;
+	    b = d->d2;
 	 }
 	 else
-	    p = 0; 
+	    p = 0;
 
 	 for (; p<b; p++) {
 	    usetc(buf+usetc(buf, ugetat(s, p)), 0);
 	    x += text_length(font, buf);
-	    if (x > gui_mouse_x()) 
+	    if (x > gui_mouse_x())
 	       break;
 	 }
 	 d->d2 = CLAMP(0, p, l);
@@ -859,15 +861,16 @@ void _handle_scrollable_scroll_click(DIALOG *d, int listsize, int *offset, int h
 	 xx = gui_mouse_y() - len + 2;
 	 while (gui_mouse_b()) {
 	    yy = (listsize * (gui_mouse_y() - xx) + hh/2) / hh;
-	    if (yy > listsize-height) 
+	    if (yy > listsize-height)
 	       yy = listsize-height;
 
-	    if (yy < 0) 
+	    if (yy < 0)
 	       yy = 0;
 
 	    if (yy != *offset) {
 	       *offset = yy;
 	       object_message(d, MSG_DRAW, 0);
+           allegro_render_screen();
 	    }
 
 	    /* let other objects continue to animate */
@@ -875,15 +878,15 @@ void _handle_scrollable_scroll_click(DIALOG *d, int listsize, int *offset, int h
 	 }
       }
       else {
-	 if (gui_mouse_y() <= d->y+len) 
+	 if (gui_mouse_y() <= d->y+len)
 	    yy = *offset - height;
-	 else 
+	 else
 	    yy = *offset + height;
 
-	 if (yy > listsize-height) 
+	 if (yy > listsize-height)
 	    yy = listsize-height;
 
-	 if (yy < 0) 
+	 if (yy < 0)
 	    yy = 0;
 
 	 if (yy != *offset) {
@@ -912,7 +915,7 @@ void _handle_scrollable_scroll(DIALOG *d, int listsize, int *index, int *offset)
    }
 
    /* check selected item */
-   if (*index < 0) 
+   if (*index < 0)
       *index = 0;
    else if (*index >= listsize)
       *index = listsize - 1;
@@ -922,7 +925,7 @@ void _handle_scrollable_scroll(DIALOG *d, int listsize, int *index, int *offset)
       (*offset)--;
 
    if (*offset >= *index) {
-      if (*index < 0) 
+      if (*index < 0)
 	 *offset = 0;
       else
 	 *offset = *index;
@@ -961,7 +964,7 @@ void _handle_listbox_click(DIALOG *d)
 
    height = (d->h-4) / text_height(font);
 
-   i = CLAMP(0, ((gui_mouse_y() - d->y - 2) / text_height(font)), 
+   i = CLAMP(0, ((gui_mouse_y() - d->y - 2) / text_height(font)),
 	      ((d->h-4) / text_height(font) - 1));
    i += d->d2;
    if (i < d->d2)
@@ -1034,7 +1037,7 @@ void _draw_scrollable_frame(DIALOG *d, int listsize, int offset, int height, int
    if (listsize > height) {
       vline(gui_bmp, d->x+d->w-13, d->y+1, d->y+d->h-2, fg_color);
 
-      /* scrollbar with focus */ 
+      /* scrollbar with focus */
       if (d->flags & D_GOTFOCUS) {
 	 dotted_rect(d->x+1, d->y+1, d->x+d->w-14, d->y+d->h-2, fg_color, bg);
 	 dotted_rect(d->x+d->w-12, d->y+1, d->x+d->w-2, d->y+d->h-2, fg_color, bg);
@@ -1105,7 +1108,7 @@ void _draw_listbox(DIALOG *d)
    /* draw box contents */
    for (i=0; i<height; i++) {
       if (d->d2+i < listsize) {
-	 if (sel) { 
+	 if (sel) {
 	    if ((sel[d->d2+i]) && (d->d2+i == d->d1)) {
 	       fg = d->bg;
 	       bg = fg_color;
@@ -1139,20 +1142,20 @@ void _draw_listbox(DIALOG *d)
 	 }
 	 textout_ex(gui_bmp, font, s, x, y, fg, bg);
 	 x += text_length(font, s);
-	 if (x <= d->x+w) 
+	 if (x <= d->x+w)
 	    rectfill(gui_bmp, x, y, d->x+w, y+text_height(font)-1, bg);
 	 if (d->d2+i == d->d1)
 	    dotted_rect(d->x+2, y, d->x+d->w-(bar ? 15 : 3),
 	       y+text_height(font)-1,d->fg, d->bg);
       }
       else {
-	 rectfill(gui_bmp, d->x+2,  d->y+2+i*text_height(font), 
+	 rectfill(gui_bmp, d->x+2,  d->y+2+i*text_height(font),
 		  d->x+w, d->y+1+(i+1)*text_height(font), d->bg);
       }
    }
 
    if (d->y+2+i*text_height(font) <= d->y+d->h-3)
-      rectfill(gui_bmp, d->x+2, d->y+2+i*text_height(font), 
+      rectfill(gui_bmp, d->x+2, d->y+2+i*text_height(font),
 				       d->x+w, d->y+d->h-3, d->bg);
 
    /* draw frame, maybe with scrollbar */
@@ -1170,9 +1173,9 @@ void _draw_listbox(DIALOG *d)
  *  index is  negative, it should return null and list_size should be set
  *  to the number of items in the list. The list box object will allow the
  *  user to scroll through the list and to select items list by clicking
- *  on them, and if it has the input focus also by using the arrow keys. If 
- *  the D_EXIT flag is set, double clicking on a list item will cause it to 
- *  close the dialog. The index of the selected item is held in the d1 
+ *  on them, and if it has the input focus also by using the arrow keys. If
+ *  the D_EXIT flag is set, double clicking on a list item will cause it to
+ *  close the dialog. The index of the selected item is held in the d1
  *  field, and d2 is used to store how far it has scrolled through the list.
  */
 int d_list_proc(int msg, DIALOG *d, int c)
@@ -1214,6 +1217,7 @@ int d_list_proc(int msg, DIALOG *d, int c)
 	       d->flags |= D_INTERNAL;
 	       _handle_listbox_click(d);
 	       d->flags &= ~D_INTERNAL;
+           allegro_render_screen();
 	    }
 	 }
 	 else {
@@ -1230,7 +1234,7 @@ int d_list_proc(int msg, DIALOG *d, int c)
 	       if (listsize) {
 		  i = d->d1;
 		  object_message(d, MSG_CLICK, 0);
-		  if (i == d->d1) 
+		  if (i == d->d1)
 		     return D_CLOSE;
 	       }
 	    }
@@ -1242,7 +1246,7 @@ int d_list_proc(int msg, DIALOG *d, int c)
 	 height = (d->h-4) / text_height(font);
 	 if (height < listsize) {
 	    int delta = (height > 3) ? 3 : 1;
-	    if (c > 0) 
+	    if (c > 0)
 	       i = MAX(0, d->d2-delta);
 	    else
 	       i = MIN(listsize-height, d->d2+delta);
@@ -1293,8 +1297,8 @@ int d_list_proc(int msg, DIALOG *d, int c)
 		  d->d1 = bottom;
 	       else
 		  d->d1 += (bottom - d->d2) ? bottom - d->d2 : 1;
-	    } 
-	    else 
+	    }
+	    else
 	       return D_O_K;
 
 	    if (sel) {
@@ -1312,7 +1316,7 @@ int d_list_proc(int msg, DIALOG *d, int c)
 	       }
 	    }
 
-	    /* if we changed something, better redraw... */ 
+	    /* if we changed something, better redraw... */
 	    _handle_scrollable_scroll(d, listsize, &d->d1, &d->d2);
 	    d->flags |= D_DIRTY;
 	    return D_USED_CHAR;
@@ -1473,7 +1477,7 @@ void _draw_textbox(char *thetext, int *listsize, int draw, int offset,
 	 len = text_length(font, s);
 
 	 /* modify length if its a tab */
-	 if (ugetc(s) == '\t') 
+	 if (ugetc(s) == '\t')
 	    len = tabsize * text_length(font, space);
 
 	 /* check for the end of a line by excess width of next char */
@@ -1515,7 +1519,7 @@ void _draw_textbox(char *thetext, int *listsize, int draw, int offset,
 		  ignore = NULL;
 
 	       /* check for endline at the convenient place */
-	       if (ugetc(scanned) == '\n') 
+	       if (ugetc(scanned) == '\n')
 		  scanned += uwidth(scanned);
 	    }
 	    /* we are done parsing the line end */
@@ -1566,7 +1570,7 @@ void _draw_textbox(char *thetext, int *listsize, int draw, int offset,
 	    printed += uwidth(printed);
 	 }
 	 /* the last blank bit */
-	 if (x1 <= x+w-3) 
+	 if (x1 <= x+w-3)
 	    rectfill(gui_bmp, x1, y1, x+w-3, y1+text_height(font)-1, deselect);
 
 	 /* print the line end */
@@ -1619,7 +1623,7 @@ int d_textbox_proc(int msg, DIALOG *d, int c)
 
       case MSG_START:
 	 /* measure how many lines of text we contain */
-	 _draw_textbox(d->dp, &d->d1, 
+	 _draw_textbox(d->dp, &d->d1,
 		       0, /* DONT DRAW anything */
 		       d->d2, !(d->flags & D_SELECTED), 8,
 		       d->x, d->y, d->w, d->h,
@@ -1629,7 +1633,7 @@ int d_textbox_proc(int msg, DIALOG *d, int c)
 
       case MSG_DRAW:
 	 /* tell the object to sort of draw, but only calculate the listsize */
-	 _draw_textbox(d->dp, &d->d1, 
+	 _draw_textbox(d->dp, &d->d1,
 		       0, /* DONT DRAW anything */
 		       d->d2, !(d->flags & D_SELECTED), 8,
 		       d->x, d->y, d->w, d->h,
@@ -1674,41 +1678,41 @@ int d_textbox_proc(int msg, DIALOG *d, int c)
 	 used = D_USED_CHAR;
 
 	 if (d->d1 > 0) {
-	    if (d->d2 > 0) 
+	    if (d->d2 > 0)
 	       top = d->d2+1;
-	    else 
+	    else
 	       top = 0;
 
 	    l = (d->h-8)/text_height(font);
 
 	    bottom = d->d2 + l - 1;
-	    if (bottom >= d->d1-1) 
+	    if (bottom >= d->d1-1)
 	       bottom = d->d1-1;
-	    else 
+	    else
 	       bottom--;
 
-	    if ((c>>8) == KEY_UP) 
+	    if ((c>>8) == KEY_UP)
 	       d->d2--;
-	    else if ((c>>8) == KEY_DOWN) 
+	    else if ((c>>8) == KEY_DOWN)
 	       d->d2++;
-	    else if ((c>>8) == KEY_HOME) 
+	    else if ((c>>8) == KEY_HOME)
 	       d->d2 = 0;
-	    else if ((c>>8) == KEY_END) 
+	    else if ((c>>8) == KEY_END)
 	       d->d2 = d->d1-l;
-	    else if ((c>>8) == KEY_PGUP) 
+	    else if ((c>>8) == KEY_PGUP)
 	       d->d2 -= (bottom-top) ? bottom-top : 1;
-	    else if ((c>>8) == KEY_PGDN) 
+	    else if ((c>>8) == KEY_PGDN)
 	       d->d2 += (bottom-top) ? bottom-top : 1;
-	    else 
+	    else
 	       used = D_O_K;
 
 	    /* make sure that the list stays in bounds */
-	    if (d->d2 > d->d1-l) 
+	    if (d->d2 > d->d1-l)
 	       d->d2 = d->d1-l;
-	    if (d->d2 < 0) 
+	    if (d->d2 < 0)
 	       d->d2 = 0;
 	 }
-	 else 
+	 else
 	    used = D_O_K;
 
 	 /* if we changed something, better redraw... */
@@ -1717,7 +1721,7 @@ int d_textbox_proc(int msg, DIALOG *d, int c)
 
 	 ret = used;
 	 break;
-      
+
       case MSG_WHEEL:
 	 l = (d->h-8)/text_height(font);
 	 delta = (l > 3) ? 3 : 1;
@@ -1735,7 +1739,7 @@ int d_textbox_proc(int msg, DIALOG *d, int c)
 
       case MSG_WANTFOCUS:
 	 /* if we don't have a scrollbar we can't do anything with the focus */
-	 if (d->d1 > height) 
+	 if (d->d1 > height)
 	    ret = D_WANTFOCUS;
 	 break;
 
@@ -1752,8 +1756,8 @@ int d_textbox_proc(int msg, DIALOG *d, int c)
  *  A slider control object. This object returns a value in d2, in the
  *  range from 0 to d1. It will display as a vertical slider if h is
  *  greater than or equal to w; otherwise, it will display as a horizontal
- *  slider. dp can contain an optional bitmap to use for the slider handle; 
- *  dp2 can contain an optional callback function, which is called each 
+ *  slider. dp can contain an optional bitmap to use for the slider handle;
+ *  dp2 can contain an optional callback function, which is called each
  *  time d2 changes. The callback function should have the following
  *  prototype:
  *
@@ -1826,13 +1830,13 @@ int d_slider_proc(int msg, DIALOG *d, int c)
 	    if (vert) {
 	       slx = d->x+(d->w/2)-(slhan->w/2);
 	       sly = d->y+(d->h-1)-(hh+slp);
-	    } 
+	    }
 	    else {
 	       slx = d->x+slp;
 	       sly = d->y+(d->h/2)-(slhan->h/2);
 	    }
 	    draw_sprite(gui_bmp, slhan, slx, sly);
-	 } 
+	 }
 	 else {
 	    /* draw default handle */
 	    if (vert) {
@@ -1884,7 +1888,7 @@ int d_slider_proc(int msg, DIALOG *d, int c)
 	    pgdnkey = KEY_PGDN;
 	    homekey = KEY_END;
 	    endkey = KEY_HOME;
-	 } 
+	 }
 	 else {
 	    upkey = KEY_RIGHT;
 	    downkey = KEY_LEFT;
@@ -1939,8 +1943,8 @@ int d_slider_proc(int msg, DIALOG *d, int c)
 	    }
 	 }
 	 break;
-      
-      case MSG_WHEEL: 
+
+      case MSG_WHEEL:
 	 oldval = d->d2;
 	 d->d2 = CLAMP(0, d->d2+c, d->d1);
 	 if (d->d2 != oldval) {
@@ -1983,6 +1987,7 @@ int d_slider_proc(int msg, DIALOG *d, int c)
 	       }
 
 	       object_message(d, MSG_DRAW, 0);
+           allegro_render_screen();
 	    }
 
 	    /* let other objects continue to animate */
