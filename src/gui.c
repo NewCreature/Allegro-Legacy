@@ -2026,10 +2026,10 @@ int update_menu(MENU_PLAYER *player)
       release_bitmap(gui_bmp);
       if (scare)
 	 unscare_mouse();
-     if(!gui_screen || gui_screen == screen)
-     {
-         allegro_render_screen();
-     }
+   }
+   if(!gui_screen || gui_screen == screen)
+   {
+       allegro_render_screen();
    }
 
    if (player->auto_open && (gui_menu_opening_delay >= 0)) {  /* menu auto-opening on? */
