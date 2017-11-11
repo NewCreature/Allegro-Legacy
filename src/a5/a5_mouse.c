@@ -23,6 +23,7 @@
 static ALLEGRO_THREAD * a5_mouse_thread = NULL;
 static int a5_last_mouse_x = -1;
 static int a5_last_mouse_y = -1;
+static bool mouse_hidden = false;
 
 static void * a5_mouse_thread_proc(ALLEGRO_THREAD * thread, void * data)
 {
@@ -113,6 +114,83 @@ static void a5_mouse_get_mickeys(int * x, int * y)
     }
 }
 
+static void a5_mouse_enable_hardware_cursor(int mode)
+{
+    if(mode)
+    {
+        if(_a5_display)
+        {
+            al_show_mouse_cursor(_a5_display);
+        }
+    }
+    else
+    {
+        if(_a5_display)
+        {
+            al_hide_mouse_cursor(_a5_display);
+        }
+    }
+}
+
+static int a5_mouse_select_system_cursor(const int cursor)
+{
+    if(!_a5_display)
+    {
+        return 1;
+    }
+    switch(cursor)
+    {
+        case MOUSE_CURSOR_NONE:
+        {
+            a5_mouse_enable_hardware_cursor(0);
+            mouse_hidden = true;
+            break;
+        }
+        case MOUSE_CURSOR_ALLEGRO:
+        case MOUSE_CURSOR_ARROW:
+        {
+            al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
+            if(mouse_hidden)
+            {
+                a5_mouse_enable_hardware_cursor(1);
+                mouse_hidden = false;
+            }
+            break;
+        }
+        case MOUSE_CURSOR_BUSY:
+        {
+            al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_BUSY);
+            if(mouse_hidden)
+            {
+                a5_mouse_enable_hardware_cursor(1);
+                mouse_hidden = false;
+            }
+            break;
+        }
+        case MOUSE_CURSOR_EDIT:
+        {
+            al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_EDIT);
+            if(mouse_hidden)
+            {
+                a5_mouse_enable_hardware_cursor(1);
+                mouse_hidden = false;
+            }
+            break;
+        }
+        case MOUSE_CURSOR_QUESTION:
+        {
+            al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_QUESTION);
+            if(mouse_hidden)
+            {
+                a5_mouse_enable_hardware_cursor(1);
+                mouse_hidden = false;
+            }
+            break;
+        }
+    }
+    return 1;
+}
+
 MOUSE_DRIVER mouse_allegro_5 = {
    MOUSE_ALLEGRO_5,		// int id;
    empty_string,	// char *name;
@@ -127,6 +205,6 @@ MOUSE_DRIVER mouse_allegro_5 = {
    NULL, //be_mouse_set_speed,	// AL_LEGACY_METHOD(void, set_speed, (int xspeed, int yspeed));
    a5_mouse_get_mickeys, //be_mouse_get_mickeys,// AL_LEGACY_METHOD(void, get_mickeys, (int *mickeyx, int *mickeyy));
    NULL,                // AL_LEGACY_METHOD(int,  analyse_data, (const char *buffer, int size));
-   NULL,                // AL_LEGACY_METHOD(void,  enable_hardware_cursor, (AL_CONST int mode));
-   NULL                 // AL_LEGACY_METHOD(int,  select_system_cursor, (AL_CONST int cursor));
+   a5_mouse_enable_hardware_cursor,                // AL_LEGACY_METHOD(void,  enable_hardware_cursor, (AL_CONST int mode));
+   a5_mouse_select_system_cursor                 // AL_LEGACY_METHOD(int,  select_system_cursor, (AL_CONST int cursor));
 };
