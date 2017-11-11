@@ -34,6 +34,8 @@ static void (*a5_param_timer_proc[_A5_MAX_TIMERS])(void * data) = {NULL};
 static void * a5_param_timer_data[_A5_MAX_TIMERS] = {NULL};
 static int a5_param_timers = 0;
 
+static ALLEGRO_MUTEX * a5_timer_mutex = NULL;
+
 static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
 {
     ALLEGRO_EVENT_QUEUE * queue;
@@ -55,6 +57,7 @@ static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
         al_init_timeout(&timeout, 0.1);
         if(al_wait_for_event_until(queue, &event, &timeout))
         {
+            al_lock_mutex(a5_timer_mutex);
             if(event.any.source == &a5_timer_event_source)
             {
                 for(i = 0; i < a5_timers; i++)
@@ -87,6 +90,7 @@ static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
                 }
                 _handle_timer_tick(MSEC_TO_TIMER(diff_time * 1000.0));
             }
+            al_unlock_mutex(a5_timer_mutex);
         }
     }
     al_destroy_event_queue(queue);
@@ -98,6 +102,12 @@ static int a5_timer_init(void)
     a5_timer_thread = al_create_thread(a5_timer_thread_proc, NULL);
     if(a5_timer_thread)
     {
+        a5_timer_mutex = al_create_mutex();
+        if(!a5_timer_mutex)
+        {
+            al_destroy_thread(a5_timer_thread);
+            a5_timer_thread = NULL;
+        }
         al_start_thread(a5_timer_thread);
         while(!a5_timer_thread_ready);
         return 0;
@@ -110,6 +120,8 @@ static void a5_timer_exit(void)
     al_destroy_thread(a5_timer_thread);
     a5_timer_thread = NULL;
     a5_timer_thread_ready = false;
+    al_destroy_mutex(a5_timer_mutex);
+    a5_timer_mutex = NULL;
 }
 
 static double a5_get_timer_speed(long speed)
@@ -124,11 +136,13 @@ static int a5_timer_install_int(void (*proc)(void), long speed)
 
     if(a5_timers < _A5_MAX_TIMERS)
     {
+        al_lock_mutex(a5_timer_mutex);
         for(i = 0; i < a5_timers; i++)
         {
             if(proc == a5_timer_proc[i])
             {
                 al_set_timer_speed(a5_timer[i], a5_get_timer_speed(speed));
+                al_unlock_mutex(a5_timer_mutex);
                 return 0;
             }
         }
@@ -140,6 +154,7 @@ static int a5_timer_install_int(void (*proc)(void), long speed)
             a5_timer_proc[a5_timers] = proc;
             a5_timers++;
             al_emit_user_event(&a5_timer_event_source, &event, NULL);
+            al_unlock_mutex(a5_timer_mutex);
             return 0;
         }
     }
@@ -151,6 +166,7 @@ static void a5_timer_remove_int(void (*proc)(void))
     ALLEGRO_EVENT event;
     int i, j;
 
+    al_lock_mutex(a5_timer_mutex);
     for(i = 0; i < a5_timers; i++)
     {
         if(proc == a5_timer_proc[i])
@@ -166,6 +182,7 @@ static void a5_timer_remove_int(void (*proc)(void))
             break;
         }
     }
+    al_unlock_mutex(a5_timer_mutex);
 }
 
 static int a5_timer_install_param_int(void (*proc)(void * data), void * param, long speed)
@@ -175,11 +192,13 @@ static int a5_timer_install_param_int(void (*proc)(void * data), void * param, l
 
     if(a5_param_timers < _A5_MAX_TIMERS)
     {
+        al_lock_mutex(a5_timer_mutex);
         for(i = 0; i < a5_param_timers; i++)
         {
             if(proc == a5_param_timer_proc[i])
             {
                 al_set_timer_speed(a5_param_timer[i], a5_get_timer_speed(speed));
+                al_unlock_mutex(a5_timer_mutex);
                 return 0;
             }
         }
@@ -192,6 +211,7 @@ static int a5_timer_install_param_int(void (*proc)(void * data), void * param, l
             a5_param_timer_data[a5_param_timers] = param;
             a5_param_timers++;
             al_emit_user_event(&a5_timer_event_source, &event, NULL);
+            al_unlock_mutex(a5_timer_mutex);
             return 0;
         }
     }
@@ -203,6 +223,7 @@ static void a5_timer_remove_param_int(void (*proc)(void * data), void * param)
     ALLEGRO_EVENT event;
     int i, j;
 
+    al_lock_mutex(a5_timer_mutex);
     for(i = 0; i < a5_param_timers; i++)
     {
         if(param == a5_param_timer_data[i])
@@ -218,6 +239,7 @@ static void a5_timer_remove_param_int(void (*proc)(void * data), void * param)
             break;
         }
     }
+    al_unlock_mutex(a5_timer_mutex);
 }
 
 static void a5_timer_rest(unsigned int time, void (*callback)(void))
