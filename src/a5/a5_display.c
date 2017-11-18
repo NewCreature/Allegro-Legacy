@@ -20,13 +20,19 @@
 #include "allegro/platform/ainta5.h"
 #include "allegro/platform/ala5.h"
 
+#define ALLEGRO_LEGACY_PIXEL_FORMAT_8888  0
+#define ALLEGRO_LEGACY_PIXEL_FORMAT_OTHER 1
+
 static ALLEGRO_BITMAP * _a5_screen = NULL;
 static ALLEGRO_COLOR _a5_screen_palette[256];
+static uint32_t _a5_screen_palette_a5[256];
+static int _a5_screen_format = ALLEGRO_LEGACY_PIXEL_FORMAT_OTHER;
 
 static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
 {
     BITMAP * bp;
     ALLEGRO_STATE old_state;
+    int pixel_format;
 
     bp = create_bitmap(w, h);
     if(bp)
@@ -40,6 +46,11 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
             al_restore_state(&old_state);
             if(_a5_screen)
             {
+                pixel_format = al_get_bitmap_format(_a5_screen);
+                if(pixel_format == ALLEGRO_PIXEL_FORMAT_ARGB_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_ABGR_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_RGBA_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE)
+                {
+                    _a5_screen_format = ALLEGRO_LEGACY_PIXEL_FORMAT_8888;
+                }
                 display_allegro_5.w = w;
                 display_allegro_5.h = h;
                 return bp;
@@ -67,12 +78,32 @@ static void a5_display_vsync(void)
 static void a5_palette_from_a4_palette(const PALETTE a4_palette, ALLEGRO_COLOR * a5_palette, int from, int to)
 {
     int i;
+    unsigned char r, g, b;
 
     if(a4_palette)
     {
         for(i = from; i <= to; i++)
         {
             a5_palette[i] = al_map_rgba_f((float)a4_palette[i].r / 63.0, (float)a4_palette[i].g / 63.0, (float)a4_palette[i].b / 63.0, 1.0);
+
+            /* create palette of pre-packed pixels for various pixel formats */
+            al_unmap_rgb(a5_palette[i], &r, &g, &b);
+            if(al_get_bitmap_format(_a5_screen) == ALLEGRO_PIXEL_FORMAT_ABGR_8888)
+            {
+                _a5_screen_palette_a5[i] = r | (g << 8) | (b << 16) | (255 << 24);
+            }
+            else if(al_get_bitmap_format(_a5_screen) == ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE)
+            {
+                _a5_screen_palette_a5[i] = r | (g << 8) | (b << 16) | (255 << 24);
+            }
+            else if(al_get_bitmap_format(_a5_screen) == ALLEGRO_PIXEL_FORMAT_ARGB_8888)
+            {
+                _a5_screen_palette_a5[i] = b | (g << 8) | (r << 16) | (255 << 24);
+            }
+            else if(al_get_bitmap_format(_a5_screen) == ALLEGRO_PIXEL_FORMAT_RGBA_8888)
+            {
+                _a5_screen_palette_a5[i] = 255 | (b << 8) | (g << 16) | (r << 24);
+            }
         }
     }
 }
@@ -82,110 +113,204 @@ static void a5_display_set_palette(const struct RGB * palette, int from, int to,
     a5_palette_from_a4_palette(palette, _a5_screen_palette, from, to);
 }
 
-static ALLEGRO_COLOR a5_get_color(PALETTE palette, int depth, int color)
+static ALLEGRO_COLOR a5_get_color(int depth, int color)
 {
     int r, g, b, a;
 
-    if(palette)
+    switch(depth)
     {
-        return al_map_rgba_f((float)palette[color].r / 63.0, (float)palette[color].g / 63.0, (float)palette[color].b / 63.0, 1.0);
-    }
-    else
-    {
-        switch(depth)
+        case 15:
         {
-            case 15:
-            {
-                r = getr15(color);
-                g = getg15(color);
-                b = getb15(color);
-                a = 0xFF;
-                break;
-            }
-            case 16:
-            {
-                r = getr16(color);
-                g = getg16(color);
-                b = getb16(color);
-                a = 0xFF;
-                break;
-            }
-            case 24:
-            {
-                r = getr24(color);
-                g = getg24(color);
-                b = getb24(color);
-                a = 0xFF;
-                break;
-            }
-            case 32:
-            {
-                r = getr32(color);
-                g = getg32(color);
-                b = getb32(color);
-                a = geta32(color);
-                a = 0xFF;
-                break;
-            }
+            r = getr15(color);
+            g = getg15(color);
+            b = getb15(color);
+            a = 0xFF;
+            break;
+        }
+        case 16:
+        {
+            r = getr16(color);
+            g = getg16(color);
+            b = getb16(color);
+            a = 0xFF;
+            break;
+        }
+        case 24:
+        {
+            r = getr24(color);
+            g = getg24(color);
+            b = getb24(color);
+            a = 0xFF;
+            break;
+        }
+        case 32:
+        {
+            r = getr32(color);
+            g = getg32(color);
+            b = getb32(color);
+            a = geta32(color);
+            a = 0xFF;
+            break;
         }
     }
 
     return al_map_rgba(r, g, b, a);
 }
 
-void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
+/* render 8-bit BITMAP to 32-bit ALLEGRO_BITMAP (8888 formats) */
+static void render_8_8888(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
 {
-    ALLEGRO_STATE old_state;
-    PALETTE palette;
-    int depth;
-    int i, j;
+    ALLEGRO_LOCKED_REGION * lr;
     uint8_t * line_8;
-    uint16_t * line_16;
-    uint32_t  * line_32;
+    uint32_t * line_32;
+    int i, j;
 
-    depth = bitmap_color_depth(bp);
-    if(depth == 8)
+    lr = al_lock_bitmap(a5bp, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
+    if(lr)
     {
-        get_palette(palette);
+        line_8 = lr->data;
+        line_32 = lr->data;
+        for(i = 0; i < bp->h; i++)
+        {
+            for(j = 0; j < bp->w; j++)
+            {
+                line_32[j] = _a5_screen_palette_a5[bp->line[i][j]];
+            }
+            line_8 += lr->pitch;
+            line_32 = (uint32_t *)line_8;
+        }
+        al_unlock_bitmap(a5bp);
     }
-    al_store_state(&old_state, ALLEGRO_STATE_TARGET_BITMAP);
-    al_set_target_bitmap(a5bp);
-    al_lock_bitmap(a5bp, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
+}
+
+static void render_other_8(BITMAP * bp)
+{
+    uint8_t * line_8;
+    int i, j;
+
     for(i = 0; i < bp->h; i++)
     {
         for(j = 0; j < bp->w; j++)
         {
-            switch(depth)
-            {
-                case 8:
-                {
-                    line_8 = (uint8_t *)(bp->line[i]);
-                    al_put_pixel(j, i, _a5_screen_palette[line_8[j]]);
-                    break;
-                }
-                case 15:
-                case 16:
-                {
-                    line_16 = (uint16_t *)(bp->line[i]);
-                    al_put_pixel(j, i, a5_get_color(NULL, depth, line_16[j]));
-                    break;
-                }
-                case 24:
-                {
-                    al_put_pixel(j, i, a5_get_color(NULL, depth, _getpixel24(bp, j, i)));
-                    break;
-                }
-                case 32:
-                {
-                    line_32 = (uint32_t *)(bp->line[i]);
-                    al_put_pixel(j, i, a5_get_color(NULL, depth, line_32[j]));
-                    break;
-                }
-            }
+            line_8 = (uint8_t *)(bp->line[i]);
+            al_put_pixel(j, i, _a5_screen_palette[line_8[j]]);
+        }
+    }
+}
+
+static void render_other_15(BITMAP * bp)
+{
+    uint16_t * line_16;
+    int i, j;
+
+    for(i = 0; i < bp->h; i++)
+    {
+        for(j = 0; j < bp->w; j++)
+        {
+            line_16 = (uint16_t *)(bp->line[i]);
+            al_put_pixel(j, i, a5_get_color(15, line_16[j]));
+        }
+    }
+}
+
+static void render_other_16(BITMAP * bp)
+{
+    uint16_t * line_16;
+    int i, j;
+
+    for(i = 0; i < bp->h; i++)
+    {
+        for(j = 0; j < bp->w; j++)
+        {
+            line_16 = (uint16_t *)(bp->line[i]);
+            al_put_pixel(j, i, a5_get_color(16, line_16[j]));
+        }
+    }
+}
+
+static void render_other_24(BITMAP * bp)
+{
+    int i, j;
+
+    for(i = 0; i < bp->h; i++)
+    {
+        for(j = 0; j < bp->w; j++)
+        {
+            al_put_pixel(j, i, a5_get_color(24, _getpixel24(bp, j, i)));
+        }
+    }
+}
+
+static void render_other_32(BITMAP * bp)
+{
+    uint32_t * line_32;
+    int i, j;
+
+    for(i = 0; i < bp->h; i++)
+    {
+        for(j = 0; j < bp->w; j++)
+        {
+            line_32 = (uint32_t *)(bp->line[i]);
+            al_put_pixel(j, i, a5_get_color(32, line_32[j]));
+        }
+    }
+}
+
+static void render_other(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
+{
+    ALLEGRO_STATE old_state;
+    int depth;
+    int i, j;
+
+    depth = bitmap_color_depth(bp);
+    al_store_state(&old_state, ALLEGRO_STATE_TARGET_BITMAP);
+    al_set_target_bitmap(a5bp);
+    al_lock_bitmap(a5bp, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
+    switch(depth)
+    {
+        case 8:
+        {
+            render_other_8(bp);
+            break;
+        }
+        case 15:
+        {
+            render_other_15(bp);
+            break;
+        }
+        case 16:
+        {
+            render_other_16(bp);
+            break;
+        }
+        case 24:
+        {
+            render_other_24(bp);
+            break;
+        }
+        case 32:
+        {
+            render_other_32(bp);
+            break;
         }
     }
     al_unlock_bitmap(a5bp);
     al_restore_state(&old_state);
+}
+
+void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
+{
+    int depth;
+
+    depth = bitmap_color_depth(bp);
+    if(depth == 8 && _a5_screen_format == ALLEGRO_LEGACY_PIXEL_FORMAT_8888)
+    {
+        render_8_8888(bp, a5bp);
+    }
+    else
+    {
+        render_other(bp, a5bp);
+    }
 }
 
 ALLEGRO_BITMAP * allegro_get_a5_bitmap(BITMAP * bp)
