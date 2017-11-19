@@ -40,6 +40,12 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
         _a5_display = al_create_display(w, h);
         if(_a5_display)
         {
+            /* see if we need to hide the mouse cursor */
+            if(al_is_mouse_installed())
+            {
+                al_hide_mouse_cursor(_a5_display);
+            }
+
             al_store_state(&old_state, ALLEGRO_STATE_NEW_BITMAP_PARAMETERS);
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             _a5_screen = al_create_bitmap(w, h);

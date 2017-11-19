@@ -75,6 +75,10 @@ static int a5_mouse_init(void)
     {
         return -1;
     }
+    if(_a5_display)
+    {
+        al_hide_mouse_cursor(_a5_display);
+    }
     a5_mouse_thread = al_create_thread(a5_mouse_thread_proc, NULL);
     al_start_thread(a5_mouse_thread);
     return 0;
