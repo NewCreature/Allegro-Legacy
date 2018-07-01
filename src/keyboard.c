@@ -134,6 +134,7 @@ typedef struct KEY_BUFFER
 static volatile KEY_BUFFER key_buffer;
 static volatile KEY_BUFFER _key_buffer;
 
+static void *key_mutex;
 
 
 /* add_key:
@@ -163,12 +164,7 @@ static INLINE void add_key(volatile KEY_BUFFER *buffer, int key, int scancode)
       }
    }
 
-   buffer->lock++;
-
-   if (buffer->lock != 1) {
-      buffer->lock--;
-      return;
-   }
+   system_driver->lock_mutex(key_mutex);
 
    if ((waiting_for_input) && (keyboard_driver) && (keyboard_driver->stop_waiting_for_input))
       keyboard_driver->stop_waiting_for_input();
@@ -184,7 +180,7 @@ static INLINE void add_key(volatile KEY_BUFFER *buffer, int key, int scancode)
       buffer->end = c;
    }
 
-   buffer->lock--;
+   system_driver->unlock_mutex(key_mutex);
 }
 
 
@@ -197,14 +193,12 @@ void clear_keybuf(void)
    if (keyboard_polled)
       poll_keyboard();
 
-   key_buffer.lock++;
-   _key_buffer.lock++;
+   system_driver->lock_mutex(key_mutex);
 
    key_buffer.start = key_buffer.end = 0;
    _key_buffer.start = _key_buffer.end = 0;
 
-   key_buffer.lock--;
-   _key_buffer.lock--;
+   system_driver->unlock_mutex(key_mutex);
 
    if ((keypressed_hook) && (readkey_hook))
       while (keypressed_hook())
@@ -400,6 +394,12 @@ void install_keyboard_hooks(int (*keypressed)(void), int (*readkey)(void))
 {
    key_buffer.lock = _key_buffer.lock = 0;
 
+   // since this mode of using the keyboard handler does not have a removal
+   // function, it leaks memory---but at least we can limit the leak to only
+   // a single mutex even if the user calls this function a bunch of times
+   // for some reason.
+   if (!key_mutex)
+      key_mutex = system_driver->create_mutex();
    clear_keybuf();
    clear_key();
 
@@ -652,9 +652,16 @@ int install_keyboard(void)
 
    key_buffer.lock = _key_buffer.lock = 0;
 
+   if (!key_mutex)
+      key_mutex = system_driver->create_mutex();
+
    clear_keybuf();
    clear_key();
 
+   if (key_mutex) {
+      system_driver->destroy_mutex(key_mutex);
+	  key_mutex = NULL;
+   }
    if (system_driver->keyboard_drivers)
       driver_list = system_driver->keyboard_drivers();
    else
