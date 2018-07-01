@@ -134,7 +134,7 @@ typedef struct KEY_BUFFER
 static volatile KEY_BUFFER key_buffer;
 static volatile KEY_BUFFER _key_buffer;
 
-static void *key_mutex;
+static void *key_mutex = NULL;
 
 
 /* add_key:
@@ -164,7 +164,9 @@ static INLINE void add_key(volatile KEY_BUFFER *buffer, int key, int scancode)
       }
    }
 
+   printf("al 1\n");
    system_driver->lock_mutex(key_mutex);
+   printf("al 2\n");
 
    if ((waiting_for_input) && (keyboard_driver) && (keyboard_driver->stop_waiting_for_input))
       keyboard_driver->stop_waiting_for_input();
@@ -654,14 +656,12 @@ int install_keyboard(void)
 
    if (!key_mutex)
       key_mutex = system_driver->create_mutex();
+   if (!key_mutex)
+      printf("no mutex!\n");
 
    clear_keybuf();
    clear_key();
 
-   if (key_mutex) {
-      system_driver->destroy_mutex(key_mutex);
-	  key_mutex = NULL;
-   }
    if (system_driver->keyboard_drivers)
       driver_list = system_driver->keyboard_drivers();
    else
@@ -727,6 +727,11 @@ void remove_keyboard(void)
 
    clear_keybuf();
    clear_key();
+
+   if (key_mutex) {
+      system_driver->destroy_mutex(key_mutex);
+	  key_mutex = NULL;
+   }
 
    key_shifts = _key_shifts = 0;
 
