@@ -1,19 +1,19 @@
-#Allegro Legacy
+# Allegro Legacy
 
 Port your Allegro 4 programs to modern systems using Allegro 5.
 
-##Introduction
+## Introduction
 
 Allegro Legacy is a library that you can use in place of Allegro 4 to compile
 your programs and run them on modern systems. It utilizes Allegro 5 to access
 the system hardware, so it should theoretically run anywhere Allegro 5 can run.
 
-##Features
+## Features
 
 * Full Allegro 4 API compatibility
 * Additional functions to take advantage of Allegro 5 features
 
-##How to Use
+## How to Use
 
 You will need to have Allegro 5 installed before you can build Allegro Legacy.
 Your Allegro 5 build needs to have the audio add-on enabled. Once you have that
@@ -33,7 +33,7 @@ your project's code to get anything to appear on the screen. The simplest way
 to do this is to add a call to `allegro_render_screen()` immediately after you
 have finished rendering your graphics to `screen`.
 
-##API
+## API
 
 Allegro Legacy exposes the entire Allegro 4 API and adds a few functions to
 make it easier to upgrade your old projects. Below are all the additional
@@ -52,7 +52,7 @@ variables and functions that Allegro Legacy exposes:
 * `void allegro_render_screen(void)`
   Render the contents of `screen` to `_a5_display`.
 
-##Advanced Usage
+## Advanced Usage
 
 Once you have your program up and running with Allegro Legacy, you may wish to
 upgrade some aspects of it to take advantage of some of the enhancements that
@@ -70,7 +70,7 @@ rendering directly to `screen` using the following code:
 	allegro_render_a5_bitmap(a4_buffer, a5_backbuffer);
 	al_flip_display();
 
-##License
+## License
 
 Allegro Legacy is licensed under the gift-ware license (see a4_readme.txt for
 details). This means it can be used in any way that Allegro 4 can be used.
