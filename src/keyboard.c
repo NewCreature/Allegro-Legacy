@@ -164,9 +164,7 @@ static INLINE void add_key(volatile KEY_BUFFER *buffer, int key, int scancode)
       }
    }
 
-   printf("al 1\n");
    system_driver->lock_mutex(key_mutex);
-   printf("al 2\n");
 
    if ((waiting_for_input) && (keyboard_driver) && (keyboard_driver->stop_waiting_for_input))
       keyboard_driver->stop_waiting_for_input();
@@ -656,8 +654,6 @@ int install_keyboard(void)
 
    if (!key_mutex)
       key_mutex = system_driver->create_mutex();
-   if (!key_mutex)
-      printf("no mutex!\n");
 
    clear_keybuf();
    clear_key();
