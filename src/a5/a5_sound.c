@@ -154,7 +154,7 @@ static int a5_sound_get_mixer_volume(void)
 
 static int a5_sound_buffer_size(void)
 {
-    return _A5_SOUND_BUFFER_SIZE * al_get_audio_depth_size(_A5_SOUND_DEPTH) * _A5_SOUND_CHANNELS;
+    return _A5_SOUND_BUFFER_SIZE * al_get_audio_depth_size(_A5_SOUND_DEPTH) * 2;
 }
 
 static void * a5_sound_lock_voice(int voice, int start, int end)
