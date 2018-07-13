@@ -120,6 +120,22 @@ set(ALLEGRO_LEGACY_SRC_A5_FILES
         src/a5/a5_system_driver.c
         )
 
+set(ALLEGRO_LEGACY_SRC_MIDIA5_FILES
+        src/a5/midia5/midia5.c
+        )
+
+set(ALLEGRO_LEGACY_SRC_MIDIA5_UNIX_FILES
+        src/a5/midia5/unix/alsa.c
+        )
+
+set(ALLEGRO_LEGACY_SRC_MIDIA5_MACOS_FILES
+        src/a5/midia5/macos/coremidi.m
+        )
+
+set(ALLEGRO_LEGACY_SRC_MIDIA5_WINDOWS_FILES
+        src/a5/midia5/macos/midiout.c
+        )
+
 set(ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_FILES
         include/allegro/3d.h
         include/allegro/3dmaths.h
