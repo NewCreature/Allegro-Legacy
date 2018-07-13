@@ -425,13 +425,6 @@ set(PLATFORM_LIBS)              # always link with these libraries
 set(PLATFORM_LIBS_NON_MODULES)  # only link with these if modules disabled
 set(PLATFORM_LIBS_MODULES)      # only link with these if modules enabled
 
-# -- Unix --
-
-option(WANT_OSS "Build OSS support" on)
-option(WANT_ALSA "Build ALSA support" on)
-option(WANT_JACK "Build JACK support" on)
-option(WANT_SGIAUDIO "Build SGI audio support" on)
-
 list(APPEND PLATFORM_SOURCES ${ALLEGRO_LEGACY_SRC_A5_FILES})
 
 #-----------------------------------------------------------------------------#
