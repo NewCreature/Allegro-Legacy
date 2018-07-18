@@ -21,107 +21,100 @@
 
 #define _A5_MAX_TIMERS 32
 
-static ALLEGRO_THREAD * a5_timer_thread = NULL;
-static ALLEGRO_EVENT_SOURCE a5_timer_event_source;
-static volatile bool a5_timer_thread_ready = false;
+typedef struct
+{
 
-static ALLEGRO_TIMER * a5_timer[_A5_MAX_TIMERS] = {NULL};
-static void (*a5_timer_proc[_A5_MAX_TIMERS])(void) = {NULL};
-static int a5_timers = 0;
+    ALLEGRO_THREAD * thread;
+    ALLEGRO_TIMER * timer;
+    void (*timer_proc)(void);
+    void (*param_timer_proc)(void * data);
+    void * data;
 
-static ALLEGRO_TIMER * a5_param_timer[_A5_MAX_TIMERS] = {NULL};
-static void (*a5_param_timer_proc[_A5_MAX_TIMERS])(void * data) = {NULL};
-static void * a5_param_timer_data[_A5_MAX_TIMERS] = {NULL};
-static int a5_param_timers = 0;
+} _A5_TIMER_DATA;
 
-static ALLEGRO_MUTEX * a5_timer_mutex = NULL;
+static _A5_TIMER_DATA * a5_timer_data[_A5_MAX_TIMERS];
+static int a5_timer_count = 0;
 
-static void * a5_timer_thread_proc(ALLEGRO_THREAD * thread, void * data)
+static _A5_TIMER_DATA * a5_create_timer_data(void)
+{
+    _A5_TIMER_DATA * timer_data;
+
+    timer_data = malloc(sizeof(_A5_TIMER_DATA));
+    if(timer_data)
+    {
+        memset(timer_data, 0, sizeof(_A5_TIMER_DATA));
+    }
+    return timer_data;
+}
+
+static void a5_destroy_timer_data(_A5_TIMER_DATA * timer_data)
+{
+    if(timer_data->thread)
+    {
+        al_destroy_thread(timer_data->thread);
+    }
+    if(timer_data->timer)
+    {
+        al_destroy_timer(timer_data->timer);
+    }
+    free(timer_data);
+}
+
+static void * a5_timer_proc(ALLEGRO_THREAD * thread, void * data)
 {
     ALLEGRO_EVENT_QUEUE * queue;
     ALLEGRO_EVENT event;
     ALLEGRO_TIMEOUT timeout;
     double cur_time, prev_time = 0.0, diff_time;
-    int i;
+    _A5_TIMER_DATA * timer_data = (_A5_TIMER_DATA *)data;
 
     queue = al_create_event_queue();
     if(!queue)
     {
         return NULL;
     }
-    al_init_user_event_source(&a5_timer_event_source);
-    al_register_event_source(queue, &a5_timer_event_source);
-    a5_timer_thread_ready = true;
+    al_register_event_source(queue, al_get_timer_event_source(timer_data->timer));
+    al_start_timer(timer_data->timer);
     while(!al_get_thread_should_stop(thread))
     {
         al_init_timeout(&timeout, 0.1);
         if(al_wait_for_event_until(queue, &event, &timeout))
         {
-            al_lock_mutex(a5_timer_mutex);
-            if(event.any.source == &a5_timer_event_source)
+            cur_time = al_get_time();
+            diff_time = cur_time - prev_time;
+            prev_time = al_get_time();
+            if(timer_data->param_timer_proc)
             {
-                for(i = 0; i < a5_timers; i++)
-                {
-                    al_register_event_source(queue, al_get_timer_event_source(a5_timer[i]));
-                }
-                for(i = 0; i < a5_param_timers; i++)
-                {
-                    al_register_event_source(queue, al_get_timer_event_source(a5_param_timer[i]));
-                }
+                timer_data->param_timer_proc(timer_data->data);
             }
-            else
+            else if(timer_data->timer_proc)
             {
-                cur_time = al_get_time();
-                diff_time = cur_time - prev_time;
-                prev_time = al_get_time();
-                for(i = 0; i < a5_timers; i++)
-                {
-                    if(al_get_timer_event_source(a5_timer[i]) == event.any.source)
-                    {
-                        a5_timer_proc[i]();
-                    }
-                }
-                for(i = 0; i < a5_param_timers; i++)
-                {
-                    if(al_get_timer_event_source(a5_param_timer[i]) == event.any.source)
-                    {
-                        a5_param_timer_proc[i](a5_param_timer_data[i]);
-                    }
-                }
-                _handle_timer_tick(MSEC_TO_TIMER(diff_time * 1000.0));
+                timer_data->timer_proc();
             }
-            al_unlock_mutex(a5_timer_mutex);
+            _handle_timer_tick(MSEC_TO_TIMER(diff_time * 1000.0));
         }
     }
-    al_destroy_event_queue(queue);
+    al_stop_timer(timer_data->timer);
     return NULL;
 }
 
 static int a5_timer_init(void)
 {
-    a5_timer_thread = al_create_thread(a5_timer_thread_proc, NULL);
-    if(a5_timer_thread)
-    {
-        a5_timer_mutex = al_create_mutex();
-        if(!a5_timer_mutex)
-        {
-            al_destroy_thread(a5_timer_thread);
-            a5_timer_thread = NULL;
-        }
-        al_start_thread(a5_timer_thread);
-        while(!a5_timer_thread_ready);
-        return 0;
-    }
-    return -1;
+    return 0;
 }
 
 static void a5_timer_exit(void)
 {
-    al_destroy_thread(a5_timer_thread);
-    a5_timer_thread = NULL;
-    a5_timer_thread_ready = false;
-    al_destroy_mutex(a5_timer_mutex);
-    a5_timer_mutex = NULL;
+    int i;
+
+    for(i = 0; i < a5_timer_count; i++)
+    {
+        if(a5_timer_data[i])
+        {
+            a5_destroy_timer_data(a5_timer_data[i]);
+        }
+    }
+    a5_timer_count = 0;
 }
 
 static double a5_get_timer_speed(long speed)
@@ -134,28 +127,33 @@ static int a5_timer_install_int(void (*proc)(void), long speed)
     ALLEGRO_EVENT event;
     int i;
 
-    if(a5_timers < _A5_MAX_TIMERS)
+    if(a5_timer_count < _A5_MAX_TIMERS)
     {
-        al_lock_mutex(a5_timer_mutex);
-        for(i = 0; i < a5_timers; i++)
+        for(i = 0; i < a5_timer_count; i++)
         {
-            if(proc == a5_timer_proc[i])
+            if(proc == a5_timer_data[i]->timer_proc)
             {
-                al_set_timer_speed(a5_timer[i], a5_get_timer_speed(speed));
-                al_unlock_mutex(a5_timer_mutex);
+                al_set_timer_speed(a5_timer_data[i]->timer, a5_get_timer_speed(speed));
                 return 0;
             }
         }
 
-        a5_timer[a5_timers] = al_create_timer(a5_get_timer_speed(speed));
-        if(a5_timer[a5_timers])
+        a5_timer_data[a5_timer_count] = a5_create_timer_data();
+        if(a5_timer_data[a5_timer_count])
         {
-            al_start_timer(a5_timer[a5_timers]);
-            a5_timer_proc[a5_timers] = proc;
-            a5_timers++;
-            al_emit_user_event(&a5_timer_event_source, &event, NULL);
-            al_unlock_mutex(a5_timer_mutex);
-            return 0;
+            a5_timer_data[a5_timer_count]->thread = al_create_thread(a5_timer_proc, a5_timer_data[a5_timer_count]);
+            if(a5_timer_data[a5_timer_count]->thread)
+            {
+                a5_timer_data[a5_timer_count]->timer = al_create_timer(a5_get_timer_speed(speed));
+                if(a5_timer_data[a5_timer_count]->timer)
+                {
+                    a5_timer_data[a5_timer_count]->timer_proc = proc;
+                    al_start_thread(a5_timer_data[a5_timer_count]->thread);
+                    a5_timer_count++;
+                    return 0;
+                }
+            }
+            a5_destroy_timer_data(a5_timer_data[a5_timer_count]);
         }
     }
     return -1;
@@ -166,23 +164,19 @@ static void a5_timer_remove_int(void (*proc)(void))
     ALLEGRO_EVENT event;
     int i, j;
 
-    al_lock_mutex(a5_timer_mutex);
-    for(i = 0; i < a5_timers; i++)
+    for(i = 0; i < a5_timer_count; i++)
     {
-        if(proc == a5_timer_proc[i])
+        if(proc == a5_timer_data[i]->timer_proc)
         {
-            al_destroy_timer(a5_timer[i]);
-            for(j = i; j < a5_timers - 1; j++)
+            a5_destroy_timer_data(a5_timer_data[i]);
+            for(j = i; j < a5_timer_count - 1; j++)
             {
-                a5_timer[j] = a5_timer[j + 1];
-                a5_timer_proc[j] = a5_timer_proc[j + 1];
+                a5_timer_data[j] = a5_timer_data[j + 1];
             }
-            a5_timers--;
-            al_emit_user_event(&a5_timer_event_source, &event, NULL);
+            a5_timer_count--;
             break;
         }
     }
-    al_unlock_mutex(a5_timer_mutex);
 }
 
 static int a5_timer_install_param_int(void (*proc)(void * data), void * param, long speed)
@@ -190,29 +184,34 @@ static int a5_timer_install_param_int(void (*proc)(void * data), void * param, l
     ALLEGRO_EVENT event;
     int i;
 
-    if(a5_param_timers < _A5_MAX_TIMERS)
+    if(a5_timer_count < _A5_MAX_TIMERS)
     {
-        al_lock_mutex(a5_timer_mutex);
-        for(i = 0; i < a5_param_timers; i++)
+        for(i = 0; i < a5_timer_count; i++)
         {
-            if(proc == a5_param_timer_proc[i])
+            if(proc == a5_timer_data[i]->param_timer_proc)
             {
-                al_set_timer_speed(a5_param_timer[i], a5_get_timer_speed(speed));
-                al_unlock_mutex(a5_timer_mutex);
+                al_set_timer_speed(a5_timer_data[i]->timer, a5_get_timer_speed(speed));
                 return 0;
             }
         }
 
-        a5_param_timer[a5_param_timers] = al_create_timer(a5_get_timer_speed(speed));
-        if(a5_param_timer[a5_param_timers])
+        a5_timer_data[a5_timer_count] = a5_create_timer_data();
+        if(a5_timer_data[a5_timer_count])
         {
-            al_start_timer(a5_param_timer[a5_param_timers]);
-            a5_param_timer_proc[a5_param_timers] = proc;
-            a5_param_timer_data[a5_param_timers] = param;
-            a5_param_timers++;
-            al_emit_user_event(&a5_timer_event_source, &event, NULL);
-            al_unlock_mutex(a5_timer_mutex);
-            return 0;
+            a5_timer_data[a5_timer_count]->data = param;
+            a5_timer_data[a5_timer_count]->thread = al_create_thread(a5_timer_proc, a5_timer_data[a5_timer_count]);
+            if(a5_timer_data[a5_timer_count]->thread)
+            {
+                a5_timer_data[a5_timer_count]->timer = al_create_timer(a5_get_timer_speed(speed));
+                if(a5_timer_data[a5_timer_count]->timer)
+                {
+                    a5_timer_data[a5_timer_count]->param_timer_proc = proc;
+                    al_start_thread(a5_timer_data[a5_timer_count]->thread);
+                    a5_timer_count++;
+                    return 0;
+                }
+            }
+            a5_destroy_timer_data(a5_timer_data[a5_timer_count]);
         }
     }
     return -1;
@@ -223,23 +222,19 @@ static void a5_timer_remove_param_int(void (*proc)(void * data), void * param)
     ALLEGRO_EVENT event;
     int i, j;
 
-    al_lock_mutex(a5_timer_mutex);
-    for(i = 0; i < a5_param_timers; i++)
+    for(i = 0; i < a5_timer_count; i++)
     {
-        if(param == a5_param_timer_data[i])
+        if(proc == a5_timer_data[i]->param_timer_proc)
         {
-            al_destroy_timer(a5_param_timer[i]);
-            for(j = i; j < a5_param_timers - 1; j++)
+            a5_destroy_timer_data(a5_timer_data[i]);
+            for(j = i; j < a5_timer_count - 1; j++)
             {
-                a5_param_timer[j] = a5_param_timer[j + 1];
-                a5_param_timer_proc[j] = a5_param_timer_proc[j + 1];
+                a5_timer_data[j] = a5_timer_data[j + 1];
             }
-            a5_param_timers--;
-            al_emit_user_event(&a5_timer_event_source, &event, NULL);
+            a5_timer_count--;
             break;
         }
     }
-    al_unlock_mutex(a5_timer_mutex);
 }
 
 static void a5_timer_rest(unsigned int time, void (*callback)(void))
