@@ -95,6 +95,7 @@ static void * a5_timer_proc(ALLEGRO_THREAD * thread, void * data)
         }
     }
     al_stop_timer(timer_data->timer);
+    al_destroy_event_queue(queue);
     return NULL;
 }
 
