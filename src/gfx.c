@@ -440,40 +440,35 @@ void fade_interpolate(AL_CONST PALETTE source, AL_CONST PALETTE dest, PALETTE ou
  */
 void fade_from_range(AL_CONST PALETTE source, AL_CONST PALETTE dest, int speed, int from, int to)
 {
-   PALETTE temp;
-   int c, start, last;
+    PALETTE temp;
+    int c, last;
+    float start_time = al_get_time();
+    float cur_time = start_time;
 
-   ASSERT(speed > 0 && speed <= 64);
-   ASSERT(from >= 0 && from < PAL_SIZE);
-   ASSERT(to >= 0 && to < PAL_SIZE);
+    ASSERT(speed > 0 && speed <= 64);
+    ASSERT(from >= 0 && from < PAL_SIZE);
+    ASSERT(to >= 0 && to < PAL_SIZE);
 
-   for (c=0; c<PAL_SIZE; c++)
-      temp[c] = source[c];
+    for(c = 0; c < PAL_SIZE; c++)
+    {
+        temp[c] = source[c];
+    }
 
-   if (_timer_installed) {
-      start = retrace_count;
-      last = -1;
+    last = -1;
 
-      while ((c = (retrace_count-start)*speed/2) < 64) {
-	 if (c != last) {
-	    fade_interpolate(source, dest, temp, c, from, to);
-	    set_palette_range(temp, from, to, TRUE);
-        allegro_render_screen();
-	    last = c;
-	 }
-      }
-   }
-   else {
-      for (c=0; c<64; c+=speed) {
-	 fade_interpolate(source, dest, temp, c, from, to);
-	 set_palette_range(temp, from, to, TRUE);
-	 set_palette_range(temp, from, to, TRUE);
-     allegro_render_screen();
-      }
-   }
-
-   set_palette_range(dest, from, to, TRUE);
-   allegro_render_screen();
+    while((c = ((cur_time - start_time) * 60.0) * speed / 2) < 64)
+    {
+        cur_time = al_get_time();
+        if(c != last)
+        {
+            fade_interpolate(source, dest, temp, c, from, to);
+            set_palette_range(temp, from, to, TRUE);
+            allegro_render_screen();
+            last = c;
+        }
+    }
+    set_palette_range(dest, from, to, TRUE);
+    allegro_render_screen();
 }
 
 
