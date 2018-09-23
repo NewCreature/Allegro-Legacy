@@ -120,7 +120,7 @@ static void a5_timer_exit(void)
 
 static double a5_get_timer_speed(long speed)
 {
-    return (double)speed / 1193181.0;
+    return (double)speed / (float)TIMERS_PER_SECOND;
 }
 
 static int a5_timer_install_int(void (*proc)(void), long speed)
@@ -185,6 +185,7 @@ static int a5_timer_install_param_int(void (*proc)(void * data), void * param, l
     ALLEGRO_EVENT event;
     int i;
 
+    printf("install 2\n");
     if(a5_timer_count < _A5_MAX_TIMERS)
     {
         for(i = 0; i < a5_timer_count; i++)
