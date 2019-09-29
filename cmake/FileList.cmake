@@ -133,7 +133,7 @@ set(ALLEGRO_LEGACY_SRC_MIDIA5_MACOS_FILES
         )
 
 set(ALLEGRO_LEGACY_SRC_MIDIA5_WINDOWS_FILES
-        src/a5/midia5/macos/midiout.c
+        src/a5/midia5/windows/midiout.c
         )
 
 set(ALLEGRO_LEGACY_INCLUDE_ALLEGRO_LEGACY_FILES
