@@ -1,6 +1,6 @@
-/*         ______   ___    ___ 
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+/*         ______   ___    ___
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -12,7 +12,7 @@
  *
  *      By Shawn Hargreaves.
  *
- *      Guilherme Silveira and Theuzifan Sumachingun both independently 
+ *      Guilherme Silveira and Theuzifan Sumachingun both independently
  *      modified it to only list valid drive letters.
  *
  *      Peter Pavlovic modified it not to list the logical drives, such
@@ -33,6 +33,7 @@
 
 
 #include <string.h>
+#include <stdio.h>
 
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
@@ -58,8 +59,8 @@ static char *fs_dlist_getter(int, int *);
 /* Number of entries is limited by available memory
  * Initial capacity is given by FLIST_START_CAPACITY, structure can grow beyond
  * this. Normally keeps the structure in memory between invocations, but it
- * attempts to free memory after processing a directory with more than 
- * FLIST_UPPER_CAPACITY 
+ * attempts to free memory after processing a directory with more than
+ * FLIST_UPPER_CAPACITY
  */
 #define FLIST_START_CAPACITY 128
 #define FLIST_UPPER_CAPACITY 2048
@@ -142,6 +143,14 @@ static DIALOG file_selector[] =
 #define FS_YIELD        7
 
 
+
+int _al_drive_exists(int i)
+{
+    char buf[16];
+
+    sprintf(buf, "%c:\\", 'A' + i);
+    return al_filename_exists(buf);
+}
 
 /* count_disks:
  *  Counts the number of valid drives.
@@ -352,7 +361,7 @@ static int fs_edit_proc(int msg, DIALOG *d, int c)
       }
    }
 
-   return _gui_edit_proc(msg, d, c); 
+   return _gui_edit_proc(msg, d, c);
 }
 
 
@@ -512,7 +521,7 @@ static int build_attrb_flag(attrb_state_t state)
       if (attrb_state[i] == state)
 	 flag |= attrb_flag[i];
    }
-  
+
    return flag;
 }
 
@@ -537,7 +546,7 @@ static int fs_flist_proc(int msg, DIALOG *d, int c)
 
 	 if (!flist) {
 	    *allegro_errno = ENOMEM;
-	    return D_CLOSE; 
+	    return D_CLOSE;
 	 }
 	 flist->capacity = FLIST_START_CAPACITY;
 	 flist->name = _AL_LEGACY_MALLOC(flist->capacity * sizeof(char *));
@@ -715,10 +724,10 @@ static void parse_extension_string(AL_CONST char *ext)
 	 }
       }
    }
-}    
+}
 
 
-     
+
 /* stretch_dialog:
  *  Stretch the dialog horizontally and vertically to the specified
  *   size and the font in use.
@@ -728,7 +737,7 @@ static void stretch_dialog(DIALOG *d, int width, int height)
 {
    int font_w, font_h, hpad, vpad;
    char tmp[16];
-    
+
    #ifdef FSEL_HAVE_DIR_LIST
 
       /* horizontal settings */
@@ -738,7 +747,7 @@ static void stretch_dialog(DIALOG *d, int width, int height)
           width = 0.95*SCREEN_W + 1;
 
       hpad = 0.05*width + 1;
-    
+
       d[FS_FRAME].w   = width;
       d[FS_FRAME].x   = 0;
       d[FS_MESSAGE].w = width - 2;
@@ -746,7 +755,7 @@ static void stretch_dialog(DIALOG *d, int width, int height)
       d[FS_EDIT].w    = d[FS_FRAME].w - 2*hpad - 1;
       d[FS_EDIT].x    = hpad;
       d[FS_CANCEL].w  = 10*font_w + 1;
-      d[FS_CANCEL].x  = d[FS_FRAME].w - hpad - d[FS_CANCEL].w; 
+      d[FS_CANCEL].x  = d[FS_FRAME].w - hpad - d[FS_CANCEL].w;
       d[FS_OK].w      = d[FS_CANCEL].w;
       d[FS_OK].x      = d[FS_CANCEL].x;
       d[FS_DISKS].w   = d[FS_OK].w;
@@ -755,7 +764,7 @@ static void stretch_dialog(DIALOG *d, int width, int height)
       d[FS_FILES].w   = d[FS_CANCEL].x - d[FS_FILES].x - hpad + 1;
       d[FS_YIELD].x   = 0;
 
-      /* vertical settings */     
+      /* vertical settings */
       font_h = text_height(font);
 
       if (height == 0)
@@ -772,9 +781,9 @@ static void stretch_dialog(DIALOG *d, int width, int height)
       d[FS_CANCEL].h  = font_h + 9;
       d[FS_CANCEL].y  = d[FS_FRAME].h - 2*vpad - d[FS_CANCEL].h + 1;
       d[FS_OK].h      = d[FS_CANCEL].h;
-      d[FS_OK].y      = d[FS_CANCEL].y - vpad/2 - d[FS_OK].h - 1; 
+      d[FS_OK].y      = d[FS_CANCEL].y - vpad/2 - d[FS_OK].h - 1;
       d[FS_DISKS].y   = d[FS_EDIT].y + d[FS_EDIT].h + vpad + 2;
-      d[FS_DISKS].h   = d[FS_OK].y - d[FS_DISKS].y - vpad - 1;    
+      d[FS_DISKS].h   = d[FS_OK].y - d[FS_DISKS].y - vpad - 1;
       d[FS_FILES].y   = d[FS_DISKS].y;
       d[FS_FILES].h   = d[FS_FRAME].h - d[FS_FILES].y - 2*vpad + 1;
       d[FS_YIELD].y   = 0;
@@ -788,7 +797,7 @@ static void stretch_dialog(DIALOG *d, int width, int height)
           width = 0.95*SCREEN_W + 1;
 
       hpad = 0.05*width + 1;
-    
+
       d[FS_FRAME].w   = width;
       d[FS_FRAME].x   = 0;
       d[FS_MESSAGE].w = width - 2;
@@ -798,12 +807,12 @@ static void stretch_dialog(DIALOG *d, int width, int height)
       d[FS_FILES].w   = d[FS_FRAME].w - 2*hpad;
       d[FS_FILES].x   = hpad;
       d[FS_OK].w      = 10*font_w + 1;
-      d[FS_OK].x      = (d[FS_FRAME].w - 2*d[FS_OK].w - hpad + 1)/2; 
+      d[FS_OK].x      = (d[FS_FRAME].w - 2*d[FS_OK].w - hpad + 1)/2;
       d[FS_CANCEL].w  = d[FS_OK].w;
       d[FS_CANCEL].x  = d[FS_FRAME].w - d[FS_OK].x - d[FS_CANCEL].w;
       d[FS_YIELD].x   = 0;
-      
-      /* vertical settings */     
+
+      /* vertical settings */
       font_h = text_height(font);
 
       if (height == 0)
@@ -831,12 +840,12 @@ static void stretch_dialog(DIALOG *d, int width, int height)
 
 
 /* file_select_ex:
- *  Displays the Allegro file selector, with the message as caption. 
- *  Allows the user to select a file, and stores the selection in the 
- *  path buffer, whose length in bytes is given by size and should have 
- *  room for at least 80 characters. The files are filtered according to 
- *  the file extensions in ext. Passing NULL includes all files, "PCX;BMP" 
- *  includes only files with .PCX or .BMP extensions. Returns zero if it 
+ *  Displays the Allegro file selector, with the message as caption.
+ *  Allows the user to select a file, and stores the selection in the
+ *  path buffer, whose length in bytes is given by size and should have
+ *  room for at least 80 characters. The files are filtered according to
+ *  the file extensions in ext. Passing NULL includes all files, "PCX;BMP"
+ *  includes only files with .PCX or .BMP extensions. Returns zero if it
  *  was closed with the Cancel button or non-zero if it was OK'd.
  */
 int file_select_ex(AL_CONST char *message, char *path, AL_CONST char *ext, int size, int width, int height)
@@ -943,4 +952,3 @@ int file_select_ex(AL_CONST char *message, char *path, AL_CONST char *ext, int s
 
    return TRUE;
 }
-
