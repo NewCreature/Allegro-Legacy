@@ -293,6 +293,11 @@ int al_findfirst(const char * pattern, struct al_ffblk * info, int attrib)
 
         if(entry)
         {
+            if(!al_fs_entry_exists(entry))
+            {
+                al_destroy_fs_entry(entry);
+                return -1;
+            }
             /* does it match ? */
             if(al_get_fs_entry_mode(entry) == ALLEGRO_FILEMODE_ISDIR)
             {
