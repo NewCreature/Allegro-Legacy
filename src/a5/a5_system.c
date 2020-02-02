@@ -42,6 +42,7 @@ static void a5_sys_get_executable_name(char *output, int size)
     ALLEGRO_PATH * path;
     const char * path_str;
     bool already_initialized = al_is_system_installed();
+    char * mod_output = NULL;
     int i;
 
     if(!already_initialized)
@@ -53,6 +54,11 @@ static void a5_sys_get_executable_name(char *output, int size)
     {
         strcpy(output, al_path_cstr(path, '/'));
         al_destroy_path(path);
+        mod_output = ustrstr(output, ".app/");
+        if(mod_output)
+        {
+            strcpy(mod_output, ".app");
+        }
         if(!already_initialized)
         {
             al_uninstall_system();
