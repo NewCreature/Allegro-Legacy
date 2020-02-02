@@ -299,13 +299,13 @@ int al_findfirst(const char * pattern, struct al_ffblk * info, int attrib)
                 return -1;
             }
             /* does it match ? */
-            if(al_get_fs_entry_mode(entry) == ALLEGRO_FILEMODE_ISDIR)
+            if(al_get_fs_entry_mode(entry) & ALLEGRO_FILEMODE_ISDIR)
             {
                 a5_attrib |= FA_DIREC;
             }
             if((a5_attrib & ~attrib) == 0)
             {
-                if(al_get_fs_entry_mode(entry) == ALLEGRO_FILEMODE_ISDIR)
+                if(al_get_fs_entry_mode(entry) & ALLEGRO_FILEMODE_ISDIR)
                 {
                     info->attrib = FA_DIREC;
                 }
