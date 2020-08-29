@@ -33,7 +33,7 @@ static void* makenew_font(long* size)
     FONT *f;
     FONT_MONO_DATA* mf = 0, * mfread = font->data;
 
-    f = _AL_LEGACY_MALLOC(sizeof(FONT));
+    f = _AL_MALLOC(sizeof(FONT));
 
     f->height = font->height;
     f->vtable = font->vtable;
@@ -42,20 +42,20 @@ static void* makenew_font(long* size)
         int i;
 
         if(mf) {
-            mf->next = _AL_LEGACY_MALLOC(sizeof(FONT_MONO_DATA));
+            mf->next = _AL_MALLOC(sizeof(FONT_MONO_DATA));
             mf = mf->next;
-        } else f->data = mf = _AL_LEGACY_MALLOC(sizeof(FONT_MONO_DATA));
+        } else f->data = mf = _AL_MALLOC(sizeof(FONT_MONO_DATA));
 
         mf->begin = mfread->begin;
         mf->end = mfread->end;
         mf->next = 0;
-        mf->glyphs = _AL_LEGACY_MALLOC(sizeof(FONT_GLYPH*) * (mf->end - mf->begin));
+        mf->glyphs = _AL_MALLOC(sizeof(FONT_GLYPH*) * (mf->end - mf->begin));
 
         for(i = mf->begin; i < mf->end; i++) {
             FONT_GLYPH *gsrc = mfread->glyphs[i - mf->begin], *gdest;
             int sz = ((gsrc->w + 7) / 8) * gsrc->h;
 
-            gdest = _AL_LEGACY_MALLOC(sizeof(FONT_GLYPH) + sz);
+            gdest = _AL_MALLOC(sizeof(FONT_GLYPH) + sz);
             gdest->w = gsrc->w;
             gdest->h = gsrc->h;
             memcpy(gdest->dat, gsrc->dat, sz);
@@ -361,8 +361,8 @@ static void import_grx_message(AL_CONST char* filename)
  */
 static FONT_COLOR_DATA* upgrade_to_color_data(FONT_MONO_DATA* mf)
 {
-    FONT_COLOR_DATA* cf = _AL_LEGACY_MALLOC(sizeof(FONT_COLOR_DATA));
-    BITMAP** bits = _AL_LEGACY_MALLOC(sizeof(BITMAP*) * (mf->end - mf->begin));
+    FONT_COLOR_DATA* cf = _AL_MALLOC(sizeof(FONT_COLOR_DATA));
+    BITMAP** bits = _AL_MALLOC(sizeof(BITMAP*) * (mf->end - mf->begin));
     int i;
 
     cf->begin = mf->begin;

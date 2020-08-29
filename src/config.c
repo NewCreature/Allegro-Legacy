@@ -137,7 +137,7 @@ static void destroy_config(CONFIG *cfg)
       flush_config(cfg);
 
       if (cfg->filename)
-	 _AL_LEGACY_FREE(cfg->filename);
+	 _AL_FREE(cfg->filename);
 
       /* destroy the variable list */
       pos = cfg->head;
@@ -147,15 +147,15 @@ static void destroy_config(CONFIG *cfg)
 	 pos = pos->next;
 
 	 if (prev->name)
-	    _AL_LEGACY_FREE(prev->name);
+	    _AL_FREE(prev->name);
 
 	 if (prev->data)
-	    _AL_LEGACY_FREE(prev->data);
+	    _AL_FREE(prev->data);
 
-	 _AL_LEGACY_FREE(prev);
+	 _AL_FREE(prev);
       }
 
-      _AL_LEGACY_FREE(cfg);
+      _AL_FREE(cfg);
    }
 }
 
@@ -197,20 +197,20 @@ static void config_cleanup(void)
 
       while (hook) {
 	 if (hook->section)
-	    _AL_LEGACY_FREE(hook->section);
+	    _AL_FREE(hook->section);
 
 	 nexthook = hook->next;
-	 _AL_LEGACY_FREE(hook);
+	 _AL_FREE(hook);
 	 hook = nexthook;
       }
 
       config_hook = NULL;
    }
 
-   _AL_LEGACY_FREE(config_argv);
+   _AL_FREE(config_argv);
    config_argv = NULL;
 
-   _AL_LEGACY_FREE(argv_buf);
+   _AL_FREE(argv_buf);
    argv_buf = NULL;
 
    argv_buf_size = 0;
@@ -248,7 +248,7 @@ static void init_config(int loaddata)
    }
 
    if (!system_config) {
-      system_config = _AL_LEGACY_MALLOC(sizeof(CONFIG));
+      system_config = _AL_MALLOC(sizeof(CONFIG));
       if (system_config) {
 	 system_config->head = NULL;
 	 system_config->filename = NULL;
@@ -278,7 +278,7 @@ static int get_line(AL_CONST char *data, int length, char **name, char **val)
    outpos = 0;
    w0 = ucwidth(0);
 
-   buf = _AL_LEGACY_MALLOC_ATOMIC(buf_size);
+   buf = _AL_MALLOC_ATOMIC(buf_size);
    if (!buf) {
      *allegro_errno = ENOMEM;
      return -1;
@@ -334,10 +334,10 @@ static int get_line(AL_CONST char *data, int length, char **name, char **val)
 
    if (j) {
       /* got a variable */
-      *name = _AL_LEGACY_MALLOC_ATOMIC(j+w0);
+      *name = _AL_MALLOC_ATOMIC(j+w0);
       if (!(*name)) {
 	 *allegro_errno = ENOMEM;
-	 _AL_LEGACY_FREE(buf);
+	 _AL_FREE(buf);
 	 return -1;
       }
 
@@ -350,8 +350,8 @@ static int get_line(AL_CONST char *data, int length, char **name, char **val)
 
       *val = _al_ustrdup(buf+i);
       if (!(*val)) {
-	 _AL_LEGACY_FREE(name);
-	 _AL_LEGACY_FREE(buf);
+	 _AL_FREE(name);
+	 _AL_FREE(buf);
 	 return -1;
       }
 
@@ -365,12 +365,12 @@ static int get_line(AL_CONST char *data, int length, char **name, char **val)
       *name = NULL;
       *val = _al_ustrdup(buf);
       if (!(*val)) {
-	 _AL_LEGACY_FREE(buf);
+	 _AL_FREE(buf);
 	 return -1;
       }
    }
 
-   _AL_LEGACY_FREE(buf);
+   _AL_FREE(buf);
 
    return inpos;
 }
@@ -393,7 +393,7 @@ static void set_config(CONFIG **config, AL_CONST char *data, int length, AL_CONS
       *config = NULL;
    }
 
-   *config = _AL_LEGACY_MALLOC(sizeof(CONFIG));
+   *config = _AL_MALLOC(sizeof(CONFIG));
    if (!(*config)) {
       *allegro_errno = ENOMEM;
       return;
@@ -405,7 +405,7 @@ static void set_config(CONFIG **config, AL_CONST char *data, int length, AL_CONS
    if (filename) {
       (*config)->filename = _al_ustrdup(filename);
       if (!(*config)->filename) {
-	 _AL_LEGACY_FREE(*config);
+	 _AL_FREE(*config);
 	 *config = NULL;
 	 return;
       }
@@ -419,17 +419,17 @@ static void set_config(CONFIG **config, AL_CONST char *data, int length, AL_CONS
    while (pos < length) {
       ret = get_line(data+pos, length-pos, &name, &val);
       if (ret<0) {
-	 _AL_LEGACY_FREE(*config);
+	 _AL_FREE(*config);
 	 *config = NULL;
 	 return;
       }
 
       pos += ret;
 
-      p = _AL_LEGACY_MALLOC(sizeof(CONFIG_ENTRY));
+      p = _AL_MALLOC(sizeof(CONFIG_ENTRY));
       if (!p) {
 	 *allegro_errno = ENOMEM;
-	 _AL_LEGACY_FREE(*config);
+	 _AL_FREE(*config);
 	 *config = NULL;
 	 return;
       }
@@ -470,7 +470,7 @@ static void load_config_file(CONFIG **config, AL_CONST char *filename, AL_CONST 
       PACKFILE *f = pack_fopen(filename, F_READ);
 
       if (f) {
-	 tmp = _AL_LEGACY_MALLOC_ATOMIC(length+1);
+	 tmp = _AL_MALLOC_ATOMIC(length+1);
 
 	 if (tmp) {
 	    pack_fread(tmp, length, f);
@@ -478,7 +478,7 @@ static void load_config_file(CONFIG **config, AL_CONST char *filename, AL_CONST 
 
 	    if (need_uconvert(tmp, U_UTF8, U_CURRENT)) {
 	       length = uconvert_size(tmp, U_UTF8, U_CURRENT);
-	       tmp2 = _AL_LEGACY_MALLOC_ATOMIC(length);
+	       tmp2 = _AL_MALLOC_ATOMIC(length);
 
 	       if (tmp2)
 		  do_uconvert(tmp, U_UTF8, tmp2, U_CURRENT, length);
@@ -492,10 +492,10 @@ static void load_config_file(CONFIG **config, AL_CONST char *filename, AL_CONST 
 	       set_config(config, tmp2, length, savefile);
 
 	       if (tmp2 != tmp)
-		  _AL_LEGACY_FREE(tmp2);
+		  _AL_FREE(tmp2);
 	    }
 
-	    _AL_LEGACY_FREE(tmp);
+	    _AL_FREE(tmp);
 	 }
 	 else
 	    set_config(config, NULL, 0, savefile);
@@ -658,8 +658,8 @@ void hook_config_section(AL_CONST char *section, int (*intgetter)(AL_CONST char 
 	 else {
 	    /* remove a hook */
 	    *prev = hook->next;
-	    _AL_LEGACY_FREE(hook->section);
-	    _AL_LEGACY_FREE(hook);
+	    _AL_FREE(hook->section);
+	    _AL_FREE(hook);
 	 }
 
 	 return;
@@ -670,13 +670,13 @@ void hook_config_section(AL_CONST char *section, int (*intgetter)(AL_CONST char 
    }
 
    /* add a new hook */
-   hook = _AL_LEGACY_MALLOC(sizeof(CONFIG_HOOK));
+   hook = _AL_MALLOC(sizeof(CONFIG_HOOK));
    if (!hook)
       return;
 
    hook->section = _al_ustrdup(section_name);
    if (!(hook->section)) {
-      _AL_LEGACY_FREE(hook);
+      _AL_FREE(hook);
       return;
    }
 
@@ -930,7 +930,7 @@ char **get_config_argv(AL_CONST char *section, AL_CONST char *name, int *argc)
    /* clean up the old argv that was allocated the last time this function was
     * called.
     */
-   _AL_LEGACY_FREE(config_argv);
+   _AL_FREE(config_argv);
    config_argv = NULL;
 
    /* increase the buffer size if needed */
@@ -989,7 +989,7 @@ char **get_config_argv(AL_CONST char *section, AL_CONST char *name, int *argc)
     * space for a list of pointers to them, or return 0 if there are no words
     */
    if (ac > 0) {
-      config_argv = _AL_LEGACY_MALLOC(ac*sizeof *config_argv);
+      config_argv = _AL_MALLOC(ac*sizeof *config_argv);
    }
    else {
       *argc = 0;
@@ -1027,7 +1027,7 @@ char **get_config_argv(AL_CONST char *section, AL_CONST char *name, int *argc)
  */
 static CONFIG_ENTRY *insert_variable(CONFIG *the_config, CONFIG_ENTRY *p, AL_CONST char *name, AL_CONST char *data)
 {
-   CONFIG_ENTRY *n = _AL_LEGACY_MALLOC(sizeof(CONFIG_ENTRY));
+   CONFIG_ENTRY *n = _AL_MALLOC(sizeof(CONFIG_ENTRY));
 
    if (!n)
       return NULL;
@@ -1097,24 +1097,24 @@ void set_config_string(AL_CONST char *section, AL_CONST char *name, AL_CONST cha
 	 if ((val) && (ugetc(val))) {
 	    /* modify existing variable */
 	    if (p->data)
-	       _AL_LEGACY_FREE(p->data);
+	       _AL_FREE(p->data);
 
 	    p->data = _al_ustrdup(val);
 	 }
 	 else {
 	    /* delete variable */
 	    if (p->name)
-	       _AL_LEGACY_FREE(p->name);
+	       _AL_FREE(p->name);
 
 	    if (p->data)
-	       _AL_LEGACY_FREE(p->data);
+	       _AL_FREE(p->data);
 
 	    if (prev)
 	       prev->next = p->next;
 	    else
 	       the_config->head = p->next;
 
-	    _AL_LEGACY_FREE(p);
+	    _AL_FREE(p);
 	 }
       }
       else {
@@ -1238,7 +1238,7 @@ void _reload_config(void)
    if (config[0]) {
       char *name = _al_ustrdup(config[0]->filename);
       set_config_file(name);
-      _AL_LEGACY_FREE(name);
+      _AL_FREE(name);
    }
 }
 
@@ -1280,15 +1280,15 @@ void reload_config_texts(AL_CONST char *new_language)
       datafile = uconvert_ascii("language.dat", tmp2);
 
       if (find_allegro_resource(filename, namecpy, ext, datafile, NULL, NULL, NULL, sizeof(filename)) == 0) {
-	 _AL_LEGACY_FREE(namecpy);
+	 _AL_FREE(namecpy);
 	 load_config_file(&config_language, filename, NULL);
 	 return;
       }
 
-      _AL_LEGACY_FREE(namecpy);
+      _AL_FREE(namecpy);
    }
 
-   config_language = _AL_LEGACY_MALLOC(sizeof(CONFIG));
+   config_language = _AL_MALLOC(sizeof(CONFIG));
    if (config_language ) {
       config_language ->head = NULL;
       config_language ->filename = NULL;
@@ -1332,15 +1332,15 @@ AL_CONST char *get_config_text(AL_CONST char *msg)
    /* allocate memory and convert message to current encoding format */
    if (need_uconvert(msg, U_ASCII, U_CURRENT)) {
       size = uconvert_size(msg, U_ASCII, U_CURRENT);
-      umsg = _AL_LEGACY_MALLOC_ATOMIC(size);
+      umsg = _AL_MALLOC_ATOMIC(size);
       if (!umsg) {
 	 *allegro_errno = ENOMEM;
 	 return empty_string;
       }
 
-      name = _AL_LEGACY_MALLOC_ATOMIC(size);
+      name = _AL_MALLOC_ATOMIC(size);
       if (!name) {
-	 _AL_LEGACY_FREE((char *)umsg);  /* remove constness */
+	 _AL_FREE((char *)umsg);  /* remove constness */
 	 *allegro_errno = ENOMEM;
 	 return empty_string;
       }
@@ -1349,7 +1349,7 @@ AL_CONST char *get_config_text(AL_CONST char *msg)
    }
    else {
       umsg = msg;
-      name = _AL_LEGACY_MALLOC_ATOMIC(ustrsizez(msg));
+      name = _AL_MALLOC_ATOMIC(ustrsizez(msg));
       if (!name) {
 	 *allegro_errno = ENOMEM;
 	 return empty_string;
@@ -1407,9 +1407,9 @@ AL_CONST char *get_config_text(AL_CONST char *msg)
 
    /* free memory */
    if (umsg!=msg)
-      _AL_LEGACY_FREE((char*) umsg);  /* remove constness */
+      _AL_FREE((char*) umsg);  /* remove constness */
 
-   _AL_LEGACY_FREE(name);
+   _AL_FREE(name);
 
    return ret;
 }
@@ -1513,6 +1513,6 @@ int list_config_sections(AL_CONST char ***names)
  */
 void free_config_entries(AL_CONST char ***names)
 {
-    _AL_LEGACY_FREE(*names);
+    _AL_FREE(*names);
     *names = NULL;
 }

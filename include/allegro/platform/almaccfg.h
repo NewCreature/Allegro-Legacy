@@ -53,7 +53,7 @@
 #define LOCK_FUNCTION(x)			LOCK_CODE((void *)x, (intptr_t)x##_end - (intptr_t)x)
 
 /* long filename status */
-#define ALLEGRO_LEGACY_LFN  0
+#define ALLEGRO_LFN  0
 
 #define ALLEGRO_LEGACY_NO_STRICMP 1
 

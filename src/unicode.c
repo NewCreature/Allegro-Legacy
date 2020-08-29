@@ -1749,7 +1749,7 @@ char *_ustrdup(AL_CONST char *src, AL_LEGACY_METHOD(void *, malloc_func, (size_t
 
 /* _al_ustrdup:
  *  Returns a newly allocated copy of the src string, which must later be
- *  freed by the caller using _AL_LEGACY_FREE().  This function is for internal use
+ *  freed by the caller using _AL_FREE().  This function is for internal use
  *  by Allegro clients only.  External code should use ustrdup().
  */
 char *_al_ustrdup(AL_CONST char *src)
@@ -1759,7 +1759,7 @@ char *_al_ustrdup(AL_CONST char *src)
    ASSERT(src);
 
    size = ustrsizez(src);
-   newstring = _AL_LEGACY_MALLOC(size);
+   newstring = _AL_MALLOC(size);
 
    if (newstring)
       ustrzcpy(newstring, size, src);
@@ -2485,7 +2485,7 @@ static int sprint_char(STRING_ARG *string_arg, SPRINT_INFO *info, long val)
    int pos = 0;
 
    /* 1 character max for... a character */
-   string_arg->data = _AL_LEGACY_MALLOC((MAX(1, info->field_width) * uwidth_max(U_CURRENT)
+   string_arg->data = _AL_MALLOC((MAX(1, info->field_width) * uwidth_max(U_CURRENT)
                                                    + ucwidth(0)) * sizeof(char));
 
    pos += usetc(string_arg->data, val);
@@ -2551,7 +2551,7 @@ static int sprint_int(STRING_ARG *string_arg, SPRINT_INFO *info, LONGEST val)
    int pos = 0, len = 0;
 
    /* 24 characters max for a 64-bit integer */
-   string_arg->data = _AL_LEGACY_MALLOC((MAX(24, info->field_width) * uwidth_max(U_CURRENT)
+   string_arg->data = _AL_MALLOC((MAX(24, info->field_width) * uwidth_max(U_CURRENT)
                                                     + ucwidth(0)) * sizeof(char));
 
    if (val < 0) {
@@ -2579,7 +2579,7 @@ static int sprint_unsigned(STRING_ARG *string_arg, SPRINT_INFO *info, unsigned L
    int pos = 0;
 
    /* 24 characters max for a 64-bit integer */
-   string_arg->data = _AL_LEGACY_MALLOC((MAX(24, info->field_width) * uwidth_max(U_CURRENT)
+   string_arg->data = _AL_MALLOC((MAX(24, info->field_width) * uwidth_max(U_CURRENT)
                                                     + ucwidth(0)) * sizeof(char));
 
    sprint_plus_sign(info->num_special);
@@ -2605,7 +2605,7 @@ static int sprint_hex(STRING_ARG *string_arg, SPRINT_INFO *info, int caps, unsig
    int len;
 
    /* 24 characters max for a 64-bit integer */
-   string_arg->data = _AL_LEGACY_MALLOC((MAX(24, info->field_width) * uwidth_max(U_CURRENT)
+   string_arg->data = _AL_MALLOC((MAX(24, info->field_width) * uwidth_max(U_CURRENT)
                                                     + ucwidth(0)) * sizeof(char));
 
    sprint_plus_sign(info->num_special);
@@ -2650,7 +2650,7 @@ static int sprint_octal(STRING_ARG *string_arg, SPRINT_INFO *info, unsigned LONG
    int len;
 
    /* 24 characters max for a 64-bit integer */
-   string_arg->data = _AL_LEGACY_MALLOC((MAX(24, info->field_width) * uwidth_max(U_CURRENT)
+   string_arg->data = _AL_MALLOC((MAX(24, info->field_width) * uwidth_max(U_CURRENT)
                                                     + ucwidth(0)) * sizeof(char));
 
    sprint_plus_sign(info->num_special);
@@ -2716,7 +2716,7 @@ static int sprint_float(STRING_ARG *string_arg, SPRINT_INFO *info, double val, i
    len = sprintf(tmp, format, val);
    size = len * uwidth_max(U_CURRENT) + ucwidth(0);
 
-   string_arg->data = _AL_LEGACY_MALLOC(size * sizeof(char));
+   string_arg->data = _AL_MALLOC(size * sizeof(char));
 
    do_uconvert(tmp, U_ASCII, string_arg->data, U_CURRENT, size);
 
@@ -2737,7 +2737,7 @@ static int sprint_string(STRING_ARG *string_arg, SPRINT_INFO *info, AL_CONST cha
    int pos = 0, len = 0;
    int c;
 
-   string_arg->data = _AL_LEGACY_MALLOC((MAX(ustrlen(s), info->field_width) * uwidth_max(U_CURRENT)
+   string_arg->data = _AL_MALLOC((MAX(ustrlen(s), info->field_width) * uwidth_max(U_CURRENT)
                                                             + ucwidth(0)) * sizeof(char));
 
    while ((c = ugetxc(&s)) != 0) {
@@ -3029,7 +3029,7 @@ static int decode_format_string(char *buf, STRING_ARG *string_arg, AL_CONST char
                len += slen;
 
                /* allocate next item */
-               string_arg->next = _AL_LEGACY_MALLOC(sizeof(STRING_ARG));
+               string_arg->next = _AL_MALLOC(sizeof(STRING_ARG));
                string_arg = string_arg->next;
                string_arg->next = NULL;
             }
@@ -3065,10 +3065,10 @@ int uvszprintf(char *buf, int size, AL_CONST char *format, va_list args)
    ASSERT(format);
 
    /* decoding can only lower the length of the format string */
-   df = decoded_format = _AL_LEGACY_MALLOC_ATOMIC(ustrsizez(format) * sizeof(char));
+   df = decoded_format = _AL_MALLOC_ATOMIC(ustrsizez(format) * sizeof(char));
 
    /* allocate first item */
-   string_args = _AL_LEGACY_MALLOC(sizeof(STRING_ARG));
+   string_args = _AL_MALLOC(sizeof(STRING_ARG));
    string_args->next = NULL;
 
    /* 1st pass: decode */
@@ -3113,13 +3113,13 @@ int uvszprintf(char *buf, int size, AL_CONST char *format, va_list args)
 
    /* free allocated resources */
    while (string_args->next) {
-      _AL_LEGACY_FREE(string_args->data);
+      _AL_FREE(string_args->data);
       iter_arg = string_args;
       string_args = string_args->next;
-      _AL_LEGACY_FREE(iter_arg);
+      _AL_FREE(iter_arg);
    }
-   _AL_LEGACY_FREE(string_args);
-   _AL_LEGACY_FREE(df);  /* alias for decoded_format */
+   _AL_FREE(string_args);
+   _AL_FREE(df);  /* alias for decoded_format */
 
    return len;
 }

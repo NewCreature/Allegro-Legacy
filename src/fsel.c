@@ -343,13 +343,13 @@ static int fs_edit_proc(int msg, DIALOG *d, int c)
 
    if (msg == MSG_UCHAR) {
       if ((c >= 'a') && (c <= 'z')) {
-	 if (!ALLEGRO_LEGACY_LFN)
+	 if (!ALLEGRO_LFN)
 	    c = utoupper(c);
       }
       else if (c == '/') {
 	 c = OTHER_PATH_SEPARATOR;
       }
-      else if (ALLEGRO_LEGACY_LFN) {
+      else if (ALLEGRO_LFN) {
 	 if ((c > 127) || (c < 32))
 	    return D_O_K;
       }
@@ -445,7 +445,7 @@ static int fs_flist_putter(AL_CONST char *str, int attrib, void *check_attrib)
 
    if (((ugetc(s) != '.') || (ugetat(s, 1)))) {
       int size = ustrsizez(s) + ((attrib & FA_DIREC) ? ucwidth(OTHER_PATH_SEPARATOR) : 0);
-      name = _AL_LEGACY_MALLOC_ATOMIC(size);
+      name = _AL_MALLOC_ATOMIC(size);
       if (!name)
 	 return -1;
 
@@ -542,14 +542,14 @@ static int fs_flist_proc(int msg, DIALOG *d, int c)
 
    if (msg == MSG_START) {
       if (!flist) {
-	 flist = _AL_LEGACY_MALLOC(sizeof(FLIST));
+	 flist = _AL_MALLOC(sizeof(FLIST));
 
 	 if (!flist) {
 	    *allegro_errno = ENOMEM;
 	    return D_CLOSE;
 	 }
 	 flist->capacity = FLIST_START_CAPACITY;
-	 flist->name = _AL_LEGACY_MALLOC(flist->capacity * sizeof(char *));
+	 flist->name = _AL_MALLOC(flist->capacity * sizeof(char *));
 	 if (!flist->name) {
 	    *allegro_errno = ENOMEM;
 	    return D_CLOSE;
@@ -558,7 +558,7 @@ static int fs_flist_proc(int msg, DIALOG *d, int c)
       else {
 	 for (i=0; i<flist->size; i++) {
 	    if (flist->name[i]) {
-	       _AL_LEGACY_FREE(flist->name[i]);
+	       _AL_FREE(flist->name[i]);
 	       /* PH add: maybe avoid multiple frees */
 	       flist->name[i] = NULL;
 	    }
@@ -600,9 +600,9 @@ static int fs_flist_proc(int msg, DIALOG *d, int c)
       if (flist) {
 	 for (i=0; i<flist->size; i++)
 	    if (flist->name[i])
-	       _AL_LEGACY_FREE(flist->name[i]);
-	 _AL_LEGACY_FREE(flist->name);
-	 _AL_LEGACY_FREE(flist);
+	       _AL_FREE(flist->name[i]);
+	 _AL_FREE(flist->name);
+	 _AL_FREE(flist);
 	 flist = NULL;
       }
    }
@@ -922,22 +922,22 @@ int file_select_ex(AL_CONST char *message, char *path, AL_CONST char *ext, int s
    ret = popup_dialog(file_selector, FS_EDIT);
 
    if (fext) {
-      _AL_LEGACY_FREE(fext);
+      _AL_FREE(fext);
       fext = NULL;
    }
 
    if (fext_p) {
-      _AL_LEGACY_FREE(fext_p);
+      _AL_FREE(fext_p);
       fext_p = NULL;
    }
 
    if (ret == FS_CANCEL) {
       ustrcpy(path, backup);
-      _AL_LEGACY_FREE(backup);
+      _AL_FREE(backup);
       return FALSE;
    }
 
-   _AL_LEGACY_FREE(backup);
+   _AL_FREE(backup);
 
    if (ugetc(get_filename(path))) {
       p = get_extension(path);

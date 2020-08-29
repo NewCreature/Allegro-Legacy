@@ -285,8 +285,8 @@
 
 
 /* fill in default filename behaviour */
-#ifndef ALLEGRO_LEGACY_LFN
-   #define ALLEGRO_LEGACY_LFN  1
+#ifndef ALLEGRO_LFN
+   #define ALLEGRO_LFN  1
 #endif
 
 #if (defined ALLEGRO_LEGACY_DOS) || (defined ALLEGRO_LEGACY_WINDOWS)

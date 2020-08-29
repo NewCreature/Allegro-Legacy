@@ -82,7 +82,7 @@ static void *read_block(PACKFILE *f, int size, int alloc_size)
 {
    void *p;
 
-   p = _AL_LEGACY_MALLOC_ATOMIC(MAX(size, alloc_size));
+   p = _AL_MALLOC_ATOMIC(MAX(size, alloc_size));
    if (!p) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -91,7 +91,7 @@ static void *read_block(PACKFILE *f, int size, int alloc_size)
    pack_fread(p, size, f);
 
    if (pack_ferror(f)) {
-      _AL_LEGACY_FREE(p);
+      _AL_FREE(p);
       return NULL;
    }
 
@@ -241,14 +241,14 @@ static FONT *read_font_fixed(PACKFILE *pack, int height, int maxchars)
    
    int i = 0;
    
-   f = _AL_LEGACY_MALLOC(sizeof(FONT));
-   mf = _AL_LEGACY_MALLOC(sizeof(FONT_MONO_DATA));
-   gl = _AL_LEGACY_MALLOC(sizeof(FONT_GLYPH *) * maxchars);
+   f = _AL_MALLOC(sizeof(FONT));
+   mf = _AL_MALLOC(sizeof(FONT_MONO_DATA));
+   gl = _AL_MALLOC(sizeof(FONT_GLYPH *) * maxchars);
    
    if (!f || !mf || !gl) {
-      _AL_LEGACY_FREE(f);
-      _AL_LEGACY_FREE(mf);
-      _AL_LEGACY_FREE(gl);
+      _AL_FREE(f);
+      _AL_FREE(mf);
+      _AL_FREE(gl);
       *allegro_errno = ENOMEM;
       return NULL;
    }
@@ -265,7 +265,7 @@ static FONT *read_font_fixed(PACKFILE *pack, int height, int maxchars)
    memset(gl, 0, sizeof(FONT_GLYPH *) * maxchars);
    
    for (i = 0; i < maxchars; i++) {
-      FONT_GLYPH *g = _AL_LEGACY_MALLOC(sizeof(FONT_GLYPH) + height);
+      FONT_GLYPH *g = _AL_MALLOC(sizeof(FONT_GLYPH) + height);
       
       if (!g) {
 	 destroy_font(f);
@@ -295,14 +295,14 @@ static FONT *read_font_prop(PACKFILE *pack, int maxchars)
    BITMAP **bits = NULL;
    int i = 0, h = 0;
    
-   f = _AL_LEGACY_MALLOC(sizeof(FONT));
-   cf = _AL_LEGACY_MALLOC(sizeof(FONT_COLOR_DATA));
-   bits = _AL_LEGACY_MALLOC(sizeof(BITMAP *) * maxchars);
+   f = _AL_MALLOC(sizeof(FONT));
+   cf = _AL_MALLOC(sizeof(FONT_COLOR_DATA));
+   bits = _AL_MALLOC(sizeof(BITMAP *) * maxchars);
    
    if (!f || !cf || !bits) {
-      _AL_LEGACY_FREE(f);
-      _AL_LEGACY_FREE(cf);
-      _AL_LEGACY_FREE(bits);
+      _AL_FREE(f);
+      _AL_FREE(cf);
+      _AL_FREE(bits);
       *allegro_errno = ENOMEM;
       return NULL;
    }
@@ -357,7 +357,7 @@ static FONT_MONO_DATA *read_font_mono(PACKFILE *f, int *hmax)
    int max = 0, i = 0;
    FONT_GLYPH **gl = NULL;
    
-   mf = _AL_LEGACY_MALLOC(sizeof(FONT_MONO_DATA));
+   mf = _AL_MALLOC(sizeof(FONT_MONO_DATA));
    if (!mf) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -368,9 +368,9 @@ static FONT_MONO_DATA *read_font_mono(PACKFILE *f, int *hmax)
    mf->next = NULL;
    max = mf->end - mf->begin;
    
-   mf->glyphs = gl = _AL_LEGACY_MALLOC(sizeof(FONT_GLYPH *) * max);
+   mf->glyphs = gl = _AL_MALLOC(sizeof(FONT_GLYPH *) * max);
    if (!gl) {
-      _AL_LEGACY_FREE(mf);
+      _AL_FREE(mf);
       *allegro_errno = ENOMEM;
       return NULL;
    }
@@ -384,14 +384,14 @@ static FONT_MONO_DATA *read_font_mono(PACKFILE *f, int *hmax)
       
       if (h > *hmax) *hmax = h;
       
-      gl[i] = _AL_LEGACY_MALLOC(sizeof(FONT_GLYPH) + sz);
+      gl[i] = _AL_MALLOC(sizeof(FONT_GLYPH) + sz);
       if (!gl[i]) {
 	 while (i) {
 	    i--;
-	    _AL_LEGACY_FREE(mf->glyphs[i]);
+	    _AL_FREE(mf->glyphs[i]);
 	 }
-	 _AL_LEGACY_FREE(mf);
-	 _AL_LEGACY_FREE(mf->glyphs);
+	 _AL_FREE(mf);
+	 _AL_FREE(mf->glyphs);
 	 *allegro_errno = ENOMEM;
 	 return NULL;
       }
@@ -415,7 +415,7 @@ static FONT_COLOR_DATA *read_font_color(PACKFILE *pack, int *hmax, int depth)
    int max = 0, i = 0;
    BITMAP **bits = NULL;
    
-   cf = _AL_LEGACY_MALLOC(sizeof(FONT_COLOR_DATA));
+   cf = _AL_MALLOC(sizeof(FONT_COLOR_DATA));
    if (!cf) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -426,9 +426,9 @@ static FONT_COLOR_DATA *read_font_color(PACKFILE *pack, int *hmax, int depth)
    cf->next = NULL;
    max = cf->end - cf->begin;
 
-   cf->bitmaps = bits = _AL_LEGACY_MALLOC(sizeof(BITMAP *) * max);
+   cf->bitmaps = bits = _AL_MALLOC(sizeof(BITMAP *) * max);
    if (!bits) {
-      _AL_LEGACY_FREE(cf);
+      _AL_FREE(cf);
       *allegro_errno = ENOMEM;
       return NULL;
    }
@@ -443,8 +443,8 @@ static FONT_COLOR_DATA *read_font_color(PACKFILE *pack, int *hmax, int depth)
 	    i--;
 	    destroy_bitmap(bits[i]);
 	 }
-	 _AL_LEGACY_FREE(bits);
-	 _AL_LEGACY_FREE(cf);
+	 _AL_FREE(bits);
+	 _AL_FREE(cf);
 	 *allegro_errno = ENOMEM;
 	 return 0;
       }
@@ -468,7 +468,7 @@ static FONT *read_font(PACKFILE *pack)
    int height = 0;
    int depth;
 
-   f = _AL_LEGACY_MALLOC(sizeof(FONT));
+   f = _AL_MALLOC(sizeof(FONT));
    if (!f) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -535,7 +535,7 @@ static RGB *read_palette(PACKFILE *f, int size)
    RGB *p;
    int c, x;
 
-   p = _AL_LEGACY_MALLOC_ATOMIC(sizeof(PALETTE));
+   p = _AL_MALLOC_ATOMIC(sizeof(PALETTE));
    if (!p) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -569,7 +569,7 @@ static SAMPLE *read_sample(PACKFILE *f)
    signed short bits;
    SAMPLE *s;
 
-   s = _AL_LEGACY_MALLOC(sizeof(SAMPLE));
+   s = _AL_MALLOC(sizeof(SAMPLE));
    if (!s) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -597,7 +597,7 @@ static SAMPLE *read_sample(PACKFILE *f)
       s->data = read_block(f, s->len * ((s->stereo) ? 2 : 1), 0);
    }
    else {
-      s->data = _AL_LEGACY_MALLOC_ATOMIC(s->len * sizeof(short) * ((s->stereo) ? 2 : 1));
+      s->data = _AL_MALLOC_ATOMIC(s->len * sizeof(short) * ((s->stereo) ? 2 : 1));
       if (s->data) {
 	 int i;
 
@@ -606,13 +606,13 @@ static SAMPLE *read_sample(PACKFILE *f)
 	 }
 
 	 if (pack_ferror(f)) {
-	    _AL_LEGACY_FREE(s->data);
+	    _AL_FREE(s->data);
 	    s->data = NULL;
 	 }
       }
    }
    if (!s->data) {
-      _AL_LEGACY_FREE(s);
+      _AL_FREE(s);
       return NULL;
    }
 
@@ -633,7 +633,7 @@ static MIDI *read_midi(PACKFILE *f)
    MIDI *m;
    int c;
 
-   m = _AL_LEGACY_MALLOC(sizeof(MIDI));
+   m = _AL_MALLOC(sizeof(MIDI));
    if (!m) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -695,7 +695,7 @@ static RLE_SPRITE *read_rle_sprite(PACKFILE *f, int bits)
    h = pack_mgetw(f);
    size = pack_mgetl(f);
 
-   s = _AL_LEGACY_MALLOC(sizeof(RLE_SPRITE) + size);
+   s = _AL_MALLOC(sizeof(RLE_SPRITE) + size);
    if (!s) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -878,7 +878,7 @@ static DATAFILE *read_old_datafile(PACKFILE *f, void (*callback)(DATAFILE *))
       return NULL;
    }
 
-   dat = _AL_LEGACY_MALLOC(sizeof(DATAFILE)*(size+1));
+   dat = _AL_MALLOC(sizeof(DATAFILE)*(size+1));
    if (!dat) {
       pack_fclose(f);
       *allegro_errno = ENOMEM;
@@ -1116,11 +1116,11 @@ static void unload_sample(SAMPLE *s)
    if (s) {
       if (s->data) {
 	 UNLOCK_DATA(s->data, s->len * ((s->bits==8) ? 1 : sizeof(short)) * ((s->stereo) ? 2 : 1));
-	 _AL_LEGACY_FREE(s->data);
+	 _AL_FREE(s->data);
       }
 
       UNLOCK_DATA(s, sizeof(SAMPLE));
-      _AL_LEGACY_FREE(s);
+      _AL_FREE(s);
    }
 }
 
@@ -1137,12 +1137,12 @@ static void unload_midi(MIDI *m)
       for (c=0; c<MIDI_TRACKS; c++) {
 	 if (m->track[c].data) {
 	    UNLOCK_DATA(m->track[c].data, m->track[c].len);
-	    _AL_LEGACY_FREE(m->track[c].data);
+	    _AL_FREE(m->track[c].data);
 	 }
       }
 
       UNLOCK_DATA(m, sizeof(MIDI));
-      _AL_LEGACY_FREE(m);
+      _AL_FREE(m);
    }
 }
 
@@ -1203,7 +1203,7 @@ int _load_property(DATAFILE_PROPERTY *prop, PACKFILE *f)
    size = pack_mgetl(f);
 
    prop->type = type;
-   prop->dat = _AL_LEGACY_MALLOC_ATOMIC(size+1); /* '1' for end-of-string delimiter */
+   prop->dat = _AL_MALLOC_ATOMIC(size+1); /* '1' for end-of-string delimiter */
    if (!prop->dat) {
       *allegro_errno = ENOMEM;
       pack_fseek(f, size);
@@ -1217,14 +1217,14 @@ int _load_property(DATAFILE_PROPERTY *prop, PACKFILE *f)
    /* convert to current encoding format if needed */
    if (need_uconvert(prop->dat, U_UTF8, U_CURRENT)) {
       int length = uconvert_size(prop->dat, U_UTF8, U_CURRENT);
-      p = _AL_LEGACY_MALLOC_ATOMIC(length);
+      p = _AL_MALLOC_ATOMIC(length);
       if (!p) {
 	 *allegro_errno = ENOMEM;
 	 return -1;
       }
 
       do_uconvert(prop->dat, U_UTF8, p, U_CURRENT, length);
-      _AL_LEGACY_FREE(prop->dat);
+      _AL_FREE(prop->dat);
       prop->dat = p;
    }
 
@@ -1282,10 +1282,10 @@ void _destroy_property_list(DATAFILE_PROPERTY *list)
 
    for (c=0; list[c].type != DAT_END; c++) {
       if (list[c].dat)
-	 _AL_LEGACY_FREE(list[c].dat);
+	 _AL_FREE(list[c].dat);
    }
 
-   _AL_LEGACY_FREE(list);
+   _AL_FREE(list);
 }
 
 
@@ -1301,7 +1301,7 @@ static void *load_file_object(PACKFILE *f, long size)
 
    count = pack_mgetl(f);
 
-   dat = _AL_LEGACY_MALLOC(sizeof(DATAFILE)*(count+1));
+   dat = _AL_MALLOC(sizeof(DATAFILE)*(count+1));
    if (!dat) {
       *allegro_errno = ENOMEM;
       return NULL;
@@ -1348,7 +1348,7 @@ static void *load_file_object(PACKFILE *f, long size)
    /* gracefully handle failure */
    if (failed) {
       unload_datafile(dat);
-      _AL_LEGACY_FREE(dat);
+      _AL_FREE(dat);
       dat = NULL;
    }
 
@@ -1435,7 +1435,7 @@ DATAFILE_INDEX *create_datafile_index(AL_CONST char *filename)
 
    count = pack_mgetl(f);     pos += 4;
 
-   index = _AL_LEGACY_MALLOC(sizeof(DATAFILE_INDEX));
+   index = _AL_MALLOC(sizeof(DATAFILE_INDEX));
    if (!index) {
       pack_fclose(f);
       *allegro_errno = ENOMEM;
@@ -1445,16 +1445,16 @@ DATAFILE_INDEX *create_datafile_index(AL_CONST char *filename)
    index->filename = _al_ustrdup(filename);
    if (!index->filename) {
       pack_fclose(f);
-      _AL_LEGACY_FREE(index);
+      _AL_FREE(index);
       *allegro_errno = ENOMEM;
       return NULL;
    }
 
-   index->offset = _AL_LEGACY_MALLOC(sizeof(long) * count);
+   index->offset = _AL_MALLOC(sizeof(long) * count);
    if (!index->offset) {
       pack_fclose(f);
-      _AL_LEGACY_FREE(index->filename);
-      _AL_LEGACY_FREE(index);
+      _AL_FREE(index->filename);
+      _AL_FREE(index);
       *allegro_errno = ENOMEM;
       return NULL;
    }
@@ -1560,14 +1560,14 @@ DATAFILE *load_datafile_object(AL_CONST char *filename, AL_CONST char *objectnam
       else {
 	 if (found) {
 	    /* we have found the object, load it */
-	    dat = _AL_LEGACY_MALLOC(sizeof(DATAFILE));
+	    dat = _AL_MALLOC(sizeof(DATAFILE));
 	    if (!dat) {
 	       *allegro_errno = ENOMEM;
 	       break;
 	    }
 
 	    if (load_object(dat, f, type) != 0) {
-	       _AL_LEGACY_FREE(dat);
+	       _AL_FREE(dat);
 	       dat = NULL;
 	       break;
 	    }
@@ -1621,7 +1621,7 @@ DATAFILE *load_datafile_object_indexed(AL_CONST DATAFILE_INDEX *index, int item)
    if (!f)
       return NULL;
 
-   dat = _AL_LEGACY_MALLOC(sizeof(DATAFILE));
+   dat = _AL_MALLOC(sizeof(DATAFILE));
    if (!dat) {
       pack_fclose(f);
       *allegro_errno = ENOMEM;
@@ -1639,7 +1639,7 @@ DATAFILE *load_datafile_object_indexed(AL_CONST DATAFILE_INDEX *index, int item)
 
    if (load_object(dat, f, type) != 0) {
       pack_fclose(f);
-      _AL_LEGACY_FREE(dat);
+      _AL_FREE(dat);
       _destroy_property_list(list);
       return NULL;
    }
@@ -1671,7 +1671,7 @@ void _unload_datafile_object(DATAFILE *dat)
 	    if (_datafile_type[i].destroy)
 	       _datafile_type[i].destroy(dat->dat);
 	    else
-	       _AL_LEGACY_FREE(dat->dat);
+	       _AL_FREE(dat->dat);
 	 }
 	 return;
       }
@@ -1679,7 +1679,7 @@ void _unload_datafile_object(DATAFILE *dat)
 
    /* if not found, just free the data */
    if (dat->dat)
-      _AL_LEGACY_FREE(dat->dat);
+      _AL_FREE(dat->dat);
 }
 
 
@@ -1695,7 +1695,7 @@ void unload_datafile(DATAFILE *dat)
       for (i=0; dat[i].type != DAT_END; i++)
 	 _unload_datafile_object(dat+i);
 
-      _AL_LEGACY_FREE(dat);
+      _AL_FREE(dat);
    }
 }
 
@@ -1707,9 +1707,9 @@ void unload_datafile(DATAFILE *dat)
 void destroy_datafile_index(DATAFILE_INDEX *index)
 {
    if (index) {
-      _AL_LEGACY_FREE(index->filename);
-      _AL_LEGACY_FREE(index->offset);
-      _AL_LEGACY_FREE(index);
+      _AL_FREE(index->filename);
+      _AL_FREE(index->offset);
+      _AL_FREE(index);
    }
 }
 
@@ -1722,7 +1722,7 @@ void unload_datafile_object(DATAFILE *dat)
 {
    if (dat) {
       _unload_datafile_object(dat);
-      _AL_LEGACY_FREE(dat);
+      _AL_FREE(dat);
    }
 }
 

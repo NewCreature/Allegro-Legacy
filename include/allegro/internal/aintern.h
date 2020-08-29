@@ -58,10 +58,10 @@ AL_LEGACY_FUNCPTR(int, _al_trace_handler, (AL_CONST char *msg));
  * the memory management routines.  We don't have that feature in 4.2, but we
  * use the same macros names in order to reduce divergence of the codebases.
  */
-#define _AL_LEGACY_MALLOC(SIZE)         (_al_malloc(SIZE))
-#define _AL_LEGACY_MALLOC_ATOMIC(SIZE)  (_al_malloc(SIZE))
-#define _AL_LEGACY_FREE(PTR)            (_al_free(PTR))
-#define _AL_LEGACY_REALLOC(PTR, SIZE)   (_al_realloc(PTR, SIZE))
+#define _AL_MALLOC(SIZE)         (_al_malloc(SIZE))
+#define _AL_MALLOC_ATOMIC(SIZE)  (_al_malloc(SIZE))
+#define _AL_FREE(PTR)            (_al_free(PTR))
+#define _AL_REALLOC(PTR, SIZE)   (_al_realloc(PTR, SIZE))
 
 AL_LEGACY_FUNC(void *, _al_malloc, (size_t size));
 AL_LEGACY_FUNC(void, _al_free, (void *mem));
@@ -80,7 +80,7 @@ AL_LEGACY_INLINE(void, _grow_scratch_mem, (int size),
 {
    if (size > _scratch_mem_size) {
       size = (size+1023) & 0xFFFFFC00;
-      _scratch_mem = _AL_LEGACY_REALLOC(_scratch_mem, size);
+      _scratch_mem = _AL_REALLOC(_scratch_mem, size);
       _scratch_mem_size = size;
    }
 })
@@ -297,7 +297,7 @@ AL_LEGACY_VAR(FONT_VTABLE *, font_vtable_trans);
 AL_LEGACY_FUNC(FONT_GLYPH *, _mono_find_glyph, (AL_CONST FONT *f, int ch));
 AL_LEGACY_FUNC(BITMAP *, _color_find_glyph, (AL_CONST FONT *f, int ch));
 
-typedef struct FONT_MONO_DATA 
+typedef struct FONT_MONO_DATA
 {
    int begin, end;                  /* first char and one-past-the-end char */
    FONT_GLYPH **glyphs;             /* our glyphs */
@@ -314,7 +314,7 @@ typedef struct FONT_COLOR_DATA
 
 /* caches and tables for svga bank switching */
 AL_LEGACY_VAR(int, _last_bank_1);
-AL_LEGACY_VAR(int, _last_bank_2); 
+AL_LEGACY_VAR(int, _last_bank_2);
 
 AL_LEGACY_VAR(int *, _gfx_bank);
 
@@ -375,7 +375,7 @@ AL_LEGACY_VAR(int, _safe_gfx_mode_change);
 #ifdef ALLEGRO_LEGACY_I386
    #define BYTES_PER_PIXEL(bpp)     (((int)(bpp) + 7) / 8)
 #else
-   #ifdef ALLEGRO_LEGACY_MPW 
+   #ifdef ALLEGRO_LEGACY_MPW
       /* in Mac 24 bit is a unsigned long */
       #define BYTES_PER_PIXEL(bpp)  (((bpp) <= 8) ? 1					\
 				     : (((bpp) <= 16) ? 2		\
@@ -808,7 +808,7 @@ typedef AL_LEGACY_METHOD(void, SCANLINE_FILLER, (uintptr_t addr, int w, POLYGON_
 
 
 /* an active polygon edge */
-typedef struct POLYGON_EDGE 
+typedef struct POLYGON_EDGE
 {
    int top;                         /* top y position */
    int bottom;                      /* bottom y position */
@@ -835,7 +835,7 @@ typedef struct POLYGON_INFO         /* a polygon waiting rendering */
    int b15, b16, b24, b32;          /* blender colors */
    COLOR_MAP *cmap;                 /* trans color map */
    SCANLINE_FILLER drawer;	    /* scanline drawing functions */
-   SCANLINE_FILLER alt_drawer; 
+   SCANLINE_FILLER alt_drawer;
    POLYGON_EDGE *left_edge;	    /* true edges used in interpolation */
    POLYGON_EDGE *right_edge;
    POLYGON_SEGMENT info;            /* base information for scanline functions */
@@ -1071,7 +1071,7 @@ AL_LEGACY_FUNC(void, _poly_zbuf_ptex_mask_trans32, (uintptr_t addr, int w, POLYG
 AL_LEGACY_VAR(MIDI_DRIVER, _midi_none);
 AL_LEGACY_VAR(int, _digi_volume);
 AL_LEGACY_VAR(int, _midi_volume);
-AL_LEGACY_VAR(int, _sound_flip_pan); 
+AL_LEGACY_VAR(int, _sound_flip_pan);
 AL_LEGACY_VAR(int, _sound_hq);
 AL_LEGACY_VAR(int, _sound_stereo);
 AL_LEGACY_VAR(int, _sound_bits);
@@ -1162,7 +1162,7 @@ AL_LEGACY_FUNC(void, _dummy_key_on, (int inst, int note, int bend, int vol, int 
 
 #define V1_DAT_DATA              0
 #define V1_DAT_FONT              1
-#define V1_DAT_BITMAP_16         2 
+#define V1_DAT_BITMAP_16         2
 #define V1_DAT_BITMAP_256        3
 #define V1_DAT_SPRITE_16         4
 #define V1_DAT_SPRITE_256        5

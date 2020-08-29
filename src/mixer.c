@@ -279,7 +279,7 @@ int _mixer_init(int bufsize, int freq, int stereo, int is16bit, int *voices)
    }
 
    /* temporary buffer for sample mixing */
-   mix_buffer = _AL_LEGACY_MALLOC_ATOMIC(mix_size*mix_channels * sizeof(*mix_buffer));
+   mix_buffer = _AL_MALLOC_ATOMIC(mix_size*mix_channels * sizeof(*mix_buffer));
    if (!mix_buffer) {
       mix_size = 0;
       mix_freq = 0;
@@ -300,7 +300,7 @@ int _mixer_init(int bufsize, int freq, int stereo, int is16bit, int *voices)
    /* Woops. Forgot to clean up incase this fails. :) */
    mixer_mutex = system_driver->create_mutex();
    if (!mixer_mutex) {
-      _AL_LEGACY_FREE(mix_buffer);
+      _AL_FREE(mix_buffer);
       mix_buffer = NULL;
       mix_size = 0;
       mix_freq = 0;
@@ -326,7 +326,7 @@ void _mixer_exit(void)
 #endif
 
    if (mix_buffer)
-      _AL_LEGACY_FREE(mix_buffer);
+      _AL_FREE(mix_buffer);
    mix_buffer = NULL;
 
    mix_size = 0;

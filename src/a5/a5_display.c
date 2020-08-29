@@ -41,7 +41,7 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
         if(_a5_display)
         {
             /* see if we need to hide the mouse cursor */
-            if(al_is_mouse_installed())
+            if(al_is_mouse_installed() && !(gfx_capabilities & GFX_SYSTEM_CURSOR))
             {
                 al_hide_mouse_cursor(_a5_display);
             }

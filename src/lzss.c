@@ -95,7 +95,7 @@ LZSS_PACK_DATA *create_lzss_pack_data(void)
    LZSS_PACK_DATA *dat;
    int c;
 
-   if ((dat = _AL_LEGACY_MALLOC_ATOMIC(sizeof(LZSS_PACK_DATA))) == NULL) {
+   if ((dat = _AL_MALLOC_ATOMIC(sizeof(LZSS_PACK_DATA))) == NULL) {
       *allegro_errno = ENOMEM;
       return NULL;
    }
@@ -117,7 +117,7 @@ void free_lzss_pack_data(LZSS_PACK_DATA *dat)
 {
    ASSERT(dat);
 
-   _AL_LEGACY_FREE(dat);
+   _AL_FREE(dat);
 }
 
 
@@ -432,7 +432,7 @@ LZSS_UNPACK_DATA *create_lzss_unpack_data(void)
    LZSS_UNPACK_DATA *dat;
    int c;
 
-   if ((dat = _AL_LEGACY_MALLOC_ATOMIC(sizeof(LZSS_UNPACK_DATA))) == NULL) {
+   if ((dat = _AL_MALLOC_ATOMIC(sizeof(LZSS_UNPACK_DATA))) == NULL) {
       *allegro_errno = ENOMEM;
       return NULL;
    }
@@ -454,7 +454,7 @@ void free_lzss_unpack_data(LZSS_UNPACK_DATA *dat)
 {
    ASSERT(dat);
 
-   _AL_LEGACY_FREE(dat);
+   _AL_FREE(dat);
 }
 
 

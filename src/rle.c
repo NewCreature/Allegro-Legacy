@@ -141,7 +141,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
       #endif
    }
 
-   s = _AL_LEGACY_MALLOC(sizeof(RLE_SPRITE) + c);
+   s = _AL_MALLOC(sizeof(RLE_SPRITE) + c);
 
    if (s) {
       s->w = bitmap->w;
@@ -162,7 +162,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
 void destroy_rle_sprite(RLE_SPRITE *sprite)
 {
    if (sprite)
-      _AL_LEGACY_FREE(sprite);
+      _AL_FREE(sprite);
 }
 
 

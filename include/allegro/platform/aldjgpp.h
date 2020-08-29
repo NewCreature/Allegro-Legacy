@@ -57,9 +57,9 @@ void _unlock_dpmi_data(void *addr, int size);
 
 /* long filename status */
 #ifdef _USE_LFN
-   #define ALLEGRO_LEGACY_LFN  _USE_LFN
+   #define ALLEGRO_LFN  _USE_LFN
 #else
-   #define ALLEGRO_LEGACY_LFN  0
+   #define ALLEGRO_LFN  0
 #endif
 
 
