@@ -23,7 +23,6 @@
 #define _A5_KEYBOARD_BUFFER_SIZE 256
 
 static ALLEGRO_THREAD * a5_keyboard_thread = NULL;
-static ALLEGRO_MUTEX * a5_keyboard_mutex = NULL;
 static int a5_keyboard_keycode_map[256];
 
 static void * a5_keyboard_thread_proc(ALLEGRO_THREAD * thread, void * data)
