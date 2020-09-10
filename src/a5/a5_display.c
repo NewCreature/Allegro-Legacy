@@ -266,7 +266,6 @@ static void render_other(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
 {
     ALLEGRO_STATE old_state;
     int depth;
-    int i, j;
 
     depth = bitmap_color_depth(bp);
     al_store_state(&old_state, ALLEGRO_STATE_TARGET_BITMAP);
