@@ -37,7 +37,6 @@ static void * a5_sound_thread_proc(ALLEGRO_THREAD * thread, void * data)
     ALLEGRO_TIMEOUT timeout;
     void * fragment;
     bool fragments_done = false;
-    int i;
 
     a5_sound_stream = al_create_audio_stream(_A5_SOUND_BUFFERS, _A5_SOUND_BUFFER_SIZE, _A5_SOUND_FREQUENCY, _A5_SOUND_DEPTH, _A5_SOUND_CHANNELS);
     if(!a5_sound_stream)
