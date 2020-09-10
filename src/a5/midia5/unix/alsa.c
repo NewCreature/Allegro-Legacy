@@ -287,7 +287,6 @@ void _midia5_platform_send_data(MIDIA5_OUTPUT_HANDLE * hp, int data)
 
 void _midia5_platform_reset_output_device(MIDIA5_OUTPUT_HANDLE * hp)
 {
-	MIDIA5_ALSA_DATA * cm_data = (MIDIA5_ALSA_DATA *)hp->platform_data;
 	int i, j;
 
 	for(i = 0; i < 0xF; i++)
@@ -303,7 +302,5 @@ void _midia5_platform_reset_output_device(MIDIA5_OUTPUT_HANDLE * hp)
 
 bool _midia5_platform_set_output_gain(MIDIA5_OUTPUT_HANDLE * hp, float gain)
 {
-	MIDIA5_ALSA_DATA * cm_data = (MIDIA5_ALSA_DATA *)hp->platform_data;
-
 	return false;
 }
