@@ -125,7 +125,6 @@ static double a5_get_timer_speed(long speed)
 
 static int a5_timer_install_int(void (*proc)(void), long speed)
 {
-    ALLEGRO_EVENT event;
     int i;
 
     if(a5_timer_count < _A5_MAX_TIMERS)
@@ -162,7 +161,6 @@ static int a5_timer_install_int(void (*proc)(void), long speed)
 
 static void a5_timer_remove_int(void (*proc)(void))
 {
-    ALLEGRO_EVENT event;
     int i, j;
 
     for(i = 0; i < a5_timer_count; i++)
@@ -182,10 +180,8 @@ static void a5_timer_remove_int(void (*proc)(void))
 
 static int a5_timer_install_param_int(void (*proc)(void * data), void * param, long speed)
 {
-    ALLEGRO_EVENT event;
     int i;
 
-    printf("install 2\n");
     if(a5_timer_count < _A5_MAX_TIMERS)
     {
         for(i = 0; i < a5_timer_count; i++)
@@ -221,7 +217,6 @@ static int a5_timer_install_param_int(void (*proc)(void * data), void * param, l
 
 static void a5_timer_remove_param_int(void (*proc)(void * data), void * param)
 {
-    ALLEGRO_EVENT event;
     int i, j;
 
     for(i = 0; i < a5_timer_count; i++)
