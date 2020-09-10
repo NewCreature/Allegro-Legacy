@@ -15,6 +15,7 @@
  *      See readme.txt for copyright information.
  */
 
+#include <stdio.h>
 #include "allegro.h"
 #include "allegro/internal/aintern.h"
 #include "allegro/platform/ainta5.h"
@@ -40,10 +41,8 @@ static void a5_sys_exit(void)
 static void a5_sys_get_executable_name(char *output, int size)
 {
     ALLEGRO_PATH * path;
-    const char * path_str;
     bool already_initialized = al_is_system_installed();
     char * mod_output = NULL;
-    int i;
 
     if(!already_initialized)
     {
