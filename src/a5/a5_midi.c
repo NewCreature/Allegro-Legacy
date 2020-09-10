@@ -42,8 +42,6 @@ static int a5_midi_detect(int input)
 
 static int get_midi_device(void)
 {
-	const char * val;
-	int val_i;
 	int device_count;
 	int i;
 
