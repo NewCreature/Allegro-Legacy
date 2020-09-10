@@ -266,7 +266,6 @@ typedef struct
 int al_findfirst(const char * pattern, struct al_ffblk * info, int attrib)
 {
     FF_DATA * ff_data;
-    int actual_attrib;
     int a5_attrib = 0;
     char tmp[1024];
     char * p;
@@ -386,7 +385,6 @@ int al_findnext(struct al_ffblk * info)
 {
     char tempname[FF_MAXPATHLEN];
     char filename[FF_MAXPATHLEN];
-    int attrib;
     ALLEGRO_FS_ENTRY * entry;
     FF_DATA * ff_data = (FF_DATA *)info->ff_data;
 
@@ -510,7 +508,6 @@ uint64_t al_ffblk_get_size(struct al_ffblk * info)
  */
 void _al_detect_filename_encoding(void)
 {
-    char const * encoding = "unknown";
     char * locale = getenv("LC_ALL");
 
     if(!locale || !locale[0])
@@ -528,7 +525,6 @@ void _al_detect_filename_encoding(void)
         {
             /* Note: UTF8 is default anyway. */
             set_filename_encoding(U_UTF8);
-            encoding = "UTF8";
         }
         /* TODO: detect other encodings, and support them in Allegro */
     }
