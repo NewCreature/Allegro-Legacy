@@ -102,11 +102,11 @@ const char * _midia5_get_platform_output_device_name(int device)
 
 void * _midia5_init_output_platform_data(MIDIA5_OUTPUT_HANDLE * hp, int device)
 {
-    MIDIA5_ALSA_DATA * cm_data;
+	MIDIA5_ALSA_DATA * cm_data;
 
-    cm_data = malloc(sizeof(MIDIA5_ALSA_DATA));
-    if(cm_data)
-    {
+	cm_data = malloc(sizeof(MIDIA5_ALSA_DATA));
+	if(cm_data)
+	{
 		cm_data->command_step = 0;
 		if(snd_seq_open(&cm_data->sequencer, "default", SND_SEQ_OPEN_OUTPUT, 0) < 0)
 		{
@@ -134,18 +134,18 @@ void * _midia5_init_output_platform_data(MIDIA5_OUTPUT_HANDLE * hp, int device)
 			printf("Failed to open MIDI device!\n");
 			return NULL;
 		}
-    }
-    return cm_data;
+	}
+	return cm_data;
 }
 
 void _midia5_free_output_platform_data(MIDIA5_OUTPUT_HANDLE * hp)
 {
-    MIDIA5_ALSA_DATA * cm_data = (MIDIA5_ALSA_DATA *)hp->platform_data;
+	MIDIA5_ALSA_DATA * cm_data = (MIDIA5_ALSA_DATA *)hp->platform_data;
 
 	snd_seq_disconnect_from(cm_data->sequencer, 0, cm_data->addr.client, cm_data->addr.port);
 	snd_seq_delete_simple_port(cm_data->sequencer, cm_data->port);
 	snd_seq_close(cm_data->sequencer);
-    free(cm_data);
+	free(cm_data);
 }
 
 static int get_alsa_pitch_bend_value(int d1, int d2)
@@ -155,7 +155,7 @@ static int get_alsa_pitch_bend_value(int d1, int d2)
 
 void _midia5_platform_send_data(MIDIA5_OUTPUT_HANDLE * hp, int data)
 {
-    MIDIA5_ALSA_DATA * cm_data = (MIDIA5_ALSA_DATA *)hp->platform_data;
+	MIDIA5_ALSA_DATA * cm_data = (MIDIA5_ALSA_DATA *)hp->platform_data;
 	snd_seq_event_t ev;
 
 	switch(cm_data->command_step)
@@ -303,7 +303,7 @@ void _midia5_platform_reset_output_device(MIDIA5_OUTPUT_HANDLE * hp)
 
 bool _midia5_platform_set_output_gain(MIDIA5_OUTPUT_HANDLE * hp, float gain)
 {
-    MIDIA5_ALSA_DATA * cm_data = (MIDIA5_ALSA_DATA *)hp->platform_data;
+	MIDIA5_ALSA_DATA * cm_data = (MIDIA5_ALSA_DATA *)hp->platform_data;
 
 	return false;
 }
