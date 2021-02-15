@@ -20,13 +20,161 @@
 #include "allegro/platform/ainta5.h"
 #include "allegro/platform/ala5.h"
 
+void allegro_render_screen(void);
+
 #define ALLEGRO_LEGACY_PIXEL_FORMAT_8888  0
 #define ALLEGRO_LEGACY_PIXEL_FORMAT_OTHER 1
 
+static ALLEGRO_THREAD * _a5_screen_thread = NULL;
 static ALLEGRO_BITMAP * _a5_screen = NULL;
 static ALLEGRO_COLOR _a5_screen_palette[256];
 static uint32_t _a5_screen_palette_a5[256];
 static int _a5_screen_format = ALLEGRO_LEGACY_PIXEL_FORMAT_OTHER;
+
+/* display thread data */
+static bool _a5_disable_threaded_display = false;
+static int _a5_display_width = 0;
+static int _a5_display_height = 0;
+static volatile int _a5_display_creation_done = 0;
+static ALLEGRO_EVENT_QUEUE * _a5_display_thread_event_queue = NULL;
+static ALLEGRO_TIMER * _a5_display_thread_timer = NULL;
+static ALLEGRO_EVENT_SOURCE _a5_display_thread_event_source;
+static ALLEGRO_EVENT_QUEUE * _a5_display_vsync_event_queue = NULL;
+
+static bool _a5_setup_screen(int w, int h)
+{
+  ALLEGRO_STATE old_state;
+  int pixel_format;
+  _a5_display = al_create_display(w, h);
+  if(!_a5_display)
+  {
+    goto fail;
+  }
+  al_store_state(&old_state, ALLEGRO_STATE_NEW_BITMAP_PARAMETERS);
+  al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+
+  _a5_screen = al_create_bitmap(w, h);
+  al_restore_state(&old_state);
+  if(!_a5_screen)
+  {
+    goto fail;
+  }
+
+  _a5_display_vsync_event_queue = al_create_event_queue();
+  if(!_a5_display_vsync_event_queue)
+  {
+    goto fail;
+  }
+  al_init_user_event_source(&_a5_display_thread_event_source);
+  al_register_event_source(_a5_display_vsync_event_queue, &_a5_display_thread_event_source);
+
+  /* see if we need to hide the mouse cursor */
+  if(al_is_mouse_installed() && !(gfx_capabilities & GFX_SYSTEM_CURSOR))
+  {
+      al_hide_mouse_cursor(_a5_display);
+  }
+
+  pixel_format = al_get_bitmap_format(_a5_screen);
+  if(pixel_format == ALLEGRO_PIXEL_FORMAT_ARGB_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_ABGR_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_RGBA_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE)
+  {
+    _a5_screen_format = ALLEGRO_LEGACY_PIXEL_FORMAT_8888;
+  }
+  return true;
+
+  fail:
+  {
+    if(_a5_display_vsync_event_queue)
+    {
+      al_destroy_event_queue(_a5_display_vsync_event_queue);
+      goto fail;
+    }
+    if(_a5_screen)
+    {
+      al_destroy_bitmap(_a5_screen);
+      _a5_screen = NULL;
+    }
+    if(_a5_display)
+    {
+      al_destroy_display(_a5_display);
+      _a5_display = NULL;
+    }
+    return false;
+  }
+}
+
+static void _a5_destroy_screen(void)
+{
+  al_destroy_event_queue(_a5_display_vsync_event_queue);
+  _a5_display_vsync_event_queue = NULL;
+  al_destroy_bitmap(_a5_screen);
+  _a5_screen = NULL;
+  al_destroy_display(_a5_display);
+  _a5_display = NULL;
+}
+
+static void * _a5_display_thread(ALLEGRO_THREAD * thread, void * data)
+{
+  ALLEGRO_EVENT event;
+  float refresh_rate = 60.0;
+
+  if(!_a5_setup_screen(_a5_display_width, _a5_display_height))
+  {
+    return NULL;
+  }
+  if(_refresh_rate_request > 0)
+  {
+    refresh_rate = _refresh_rate_request;
+  }
+  _a5_display_thread_timer = al_create_timer(1.0 / refresh_rate);
+  if(!_a5_display_thread_timer)
+  {
+    goto fail;
+  }
+  _a5_display_thread_event_queue = al_create_event_queue();
+  if(!_a5_display_thread_event_queue)
+  {
+    goto fail;
+  }
+  al_register_event_source(_a5_display_thread_event_queue, al_get_timer_event_source(_a5_display_thread_timer));
+  al_start_timer(_a5_display_thread_timer);
+  _a5_display_creation_done = 1;
+  while(!al_get_thread_should_stop(_a5_screen_thread))
+  {
+    al_wait_for_event(_a5_display_thread_event_queue, &event);
+    if(al_event_queue_is_empty(_a5_display_thread_event_queue))
+    {
+      allegro_render_screen();
+      event.user.type = ALLEGRO_GET_EVENT_TYPE('V','S','N','C');
+      al_emit_user_event(&_a5_display_thread_event_source, &event, NULL);
+    }
+  }
+  if(_a5_display_thread_timer)
+  {
+    al_destroy_timer(_a5_display_thread_timer);
+    _a5_display_thread_timer = NULL;
+  }
+  if(_a5_display_thread_event_queue)
+  {
+    al_destroy_event_queue(_a5_display_thread_event_queue);
+    _a5_display_thread_event_queue = NULL;
+  }
+  _a5_destroy_screen();
+  return NULL;
+
+  fail:
+  {
+    if(_a5_display_thread_timer)
+    {
+      al_destroy_timer(_a5_display_thread_timer);
+    }
+    if(_a5_display_thread_event_queue)
+    {
+      al_destroy_event_queue(_a5_display_thread_event_queue);
+    }
+    _a5_destroy_screen();
+    return NULL;
+  }
+}
 
 static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
 {
@@ -37,48 +185,51 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
     bp = create_bitmap(w, h);
     if(bp)
     {
-        _a5_display = al_create_display(w, h);
-        if(_a5_display)
+      if(!_a5_disable_threaded_display)
+      {
+        _a5_display_width = w;
+        _a5_display_height = h;
+        _a5_screen_thread = al_create_thread(_a5_display_thread, NULL);
+        al_start_thread(_a5_screen_thread);
+        while(!_a5_display_creation_done);
+      }
+      else
+      {
+        if(!_a5_setup_screen(w, h))
         {
-            /* see if we need to hide the mouse cursor */
-            if(al_is_mouse_installed() && !(gfx_capabilities & GFX_SYSTEM_CURSOR))
-            {
-                al_hide_mouse_cursor(_a5_display);
-            }
-
-            al_store_state(&old_state, ALLEGRO_STATE_NEW_BITMAP_PARAMETERS);
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            _a5_screen = al_create_bitmap(w, h);
-            al_restore_state(&old_state);
-            if(_a5_screen)
-            {
-                pixel_format = al_get_bitmap_format(_a5_screen);
-                if(pixel_format == ALLEGRO_PIXEL_FORMAT_ARGB_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_ABGR_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_RGBA_8888 || pixel_format == ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE)
-                {
-                    _a5_screen_format = ALLEGRO_LEGACY_PIXEL_FORMAT_8888;
-                }
-                display_allegro_5.w = w;
-                display_allegro_5.h = h;
-                return bp;
-            }
+          return NULL;
         }
-        al_destroy_display(_a5_display);
-        _a5_display = NULL;
+      }
+      return bp;
     }
     return NULL;
 }
 
 static void a5_display_exit(BITMAP * bp)
 {
-    al_destroy_bitmap(_a5_screen);
-    _a5_screen = NULL;
-    al_destroy_display(_a5_display);
-    _a5_display = NULL;
+  if(_a5_screen_thread)
+  {
+    al_destroy_thread(_a5_screen_thread);
+    _a5_screen_thread = NULL;
+  }
+  else
+  {
+    _a5_destroy_screen();
+  }
 }
 
 static void a5_display_vsync(void)
 {
+  ALLEGRO_EVENT event;
+
+  if(!_a5_disable_threaded_display)
+  {
+    al_wait_for_event(_a5_display_vsync_event_queue, &event);
+  }
+  else
+  {
     al_wait_for_vsync();
+  }
 }
 
 static void a5_palette_from_a4_palette(const PALETTE a4_palette, ALLEGRO_COLOR * a5_palette, int from, int to)
@@ -336,6 +487,11 @@ void allegro_render_screen(void)
     allegro_render_a5_bitmap(screen, _a5_screen);
     al_draw_bitmap(_a5_screen, 0, 0, 0);
     al_flip_display();
+}
+
+void allegro_disable_threaded_display(void)
+{
+  _a5_disable_threaded_display = true;
 }
 
 GFX_DRIVER display_allegro_5 = {
