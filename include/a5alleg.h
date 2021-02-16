@@ -21,10 +21,10 @@
 #ifndef A5_ALLEGRO_LEGACY_H
 #define A5_ALLEGRO_LEGACY_H
 
-AL_LEGACY_VAR(ALLEGRO_DISPLAY *, _a5_display);
-AL_LEGACY_FUNC(ALLEGRO_BITMAP *, allegro_get_a5_bitmap, (BITMAP * bp));
-AL_LEGACY_FUNC(void, allegro_render_a5_bitmap, (BITMAP * bp, ALLEGRO_BITMAP * a5bp));
-AL_LEGACY_FUNC(void, allegro_render_screen, (void));
-AL_LEGACY_FUNC(void, allegro_disable_threaded_display, (void));
+AL_LEGACY_FUNC(ALLEGRO_DISPLAY *, all_get_display, (void));
+AL_LEGACY_FUNC(ALLEGRO_BITMAP *, all_get_a5_bitmap, (BITMAP * bp));
+AL_LEGACY_FUNC(void, all_render_a5_bitmap, (BITMAP * bp, ALLEGRO_BITMAP * a5bp));
+AL_LEGACY_FUNC(void, all_render_screen, (void));
+AL_LEGACY_FUNC(void, all_disable_threaded_display, (void));
 
 #endif /* ifndef A5_ALLEGRO_LEGACY_H */

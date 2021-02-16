@@ -1036,10 +1036,10 @@ static void check_for_redraw(DIALOG_PLAYER *player)
 	 MESSAGE(c, MSG_DRAW, 0);
       }
    }
-   if(!gui_screen || gui_screen == screen)
-   {
-       allegro_render_screen();
-   }
+//   if(!gui_screen || gui_screen == screen)
+//   {
+//       allegro_render_screen();
+//   }
 }
 
 
@@ -2027,10 +2027,10 @@ int update_menu(MENU_PLAYER *player)
       if (scare)
 	 unscare_mouse();
    }
-   if(!gui_screen || gui_screen == screen)
-   {
-       allegro_render_screen();
-   }
+//   if(!gui_screen || gui_screen == screen)
+//   {
+//       allegro_render_screen();
+//   }
 
    if (player->auto_open && (gui_menu_opening_delay >= 0)) {  /* menu auto-opening on? */
       if (!mouse_in_single_menu(player)) {

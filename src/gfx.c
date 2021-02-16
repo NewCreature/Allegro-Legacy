@@ -463,12 +463,12 @@ void fade_from_range(AL_CONST PALETTE source, AL_CONST PALETTE dest, int speed, 
         {
             fade_interpolate(source, dest, temp, c, from, to);
             set_palette_range(temp, from, to, TRUE);
-            allegro_render_screen();
+//            allegro_render_screen();
             last = c;
         }
     }
     set_palette_range(dest, from, to, TRUE);
-    allegro_render_screen();
+//    allegro_render_screen();
 }
 
 

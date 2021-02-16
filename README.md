@@ -28,10 +28,7 @@ it in the terminal. Then you type:
     make install
 
 Once you have Allegro Legacy installed, you can build your Allegro 4 program as
-you normally would. However, you will need to make some slight alterations to
-your project's code to get anything to appear on the screen. The simplest way
-to do this is to add a call to `allegro_render_screen()` immediately after you
-have finished rendering your graphics to `screen`.
+you normally would.
 
 ## API
 
@@ -42,15 +39,15 @@ variables and functions that Allegro Legacy exposes:
 * `ALLEGRO_LEGACY`
   Defined so you can detect from your code whether or not it is being built
   with Allegro Legacy.
-* `ALLEGRO_DISPLAY * _a5_display`
-  A pointer to the Allegro 5 display that is being used by Allegro Legacy. This
-  variable is initialized during a call to `set_gfx_mode()`.
-* `ALLEGRO_BITMAP * allegro_get_a5_bitmap(BITMAP * bp)`
+* `ALLEGRO_DISPLAY * all_get_display(void)`
+  Get a pointer to the Allegro 5 display that is being used by Allegro Legacy.
+  This variable is initialized during a call to `set_gfx_mode()`.
+* `ALLEGRO_BITMAP * all_get_a5_bitmap(BITMAP * bp)`
   Get an Allegro 5 `ALLEGRO_BITMAP * ` from an Allegro 4 `BITMAP *`.
-* `void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)`
+* `void all_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)`
   Render the Allegro 4 `BITMAP *` to the Allegro 5 `ALLEGRO_BITMAP *`.
-* `void allegro_render_screen(void)`
-  Render the contents of `screen` to `_a5_display`.
+* `void all_render_screen(void)`
+  Render the contents of `screen` to the display.
 
 ## Advanced Usage
 
@@ -66,8 +63,8 @@ needs.
 You can optimize your rendering if you are using a separate buffer instead of
 rendering directly to `screen` using the following code:
 
-    a5_backbuffer = al_get_backbuffer(_a5_display);
-	allegro_render_a5_bitmap(a4_buffer, a5_backbuffer);
+  a5_backbuffer = al_get_backbuffer(all_get_display());
+	all_render_a5_bitmap(a4_buffer, a5_backbuffer);
 	al_flip_display();
 
 ## License

@@ -20,7 +20,7 @@
 #include "allegro/platform/ainta5.h"
 #include "allegro/platform/ala5.h"
 
-void allegro_render_screen(void);
+void all_render_screen(void);
 
 #define ALLEGRO_LEGACY_PIXEL_FORMAT_8888  0
 #define ALLEGRO_LEGACY_PIXEL_FORMAT_OTHER 1
@@ -143,7 +143,7 @@ static void * _a5_display_thread(ALLEGRO_THREAD * thread, void * data)
     al_wait_for_event(_a5_display_thread_event_queue, &event);
     if(al_event_queue_is_empty(_a5_display_thread_event_queue))
     {
-      allegro_render_screen();
+      all_render_screen();
       event.user.type = ALLEGRO_GET_EVENT_TYPE('V','S','N','C');
       al_emit_user_event(&_a5_display_thread_event_source, &event, NULL);
     }
@@ -459,7 +459,12 @@ static void render_other(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
     al_restore_state(&old_state);
 }
 
-void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
+ALLEGRO_DISPLAY * all_get_display(void)
+{
+  return _a5_display;
+}
+
+void all_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
 {
     int depth;
 
@@ -474,27 +479,27 @@ void allegro_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)
     }
 }
 
-ALLEGRO_BITMAP * allegro_get_a5_bitmap(BITMAP * bp)
+ALLEGRO_BITMAP * all_get_a5_bitmap(BITMAP * bp)
 {
     ALLEGRO_BITMAP * bitmap;
 
     bitmap = al_create_bitmap(bp->w, bp->h);
     if(bitmap)
     {
-        allegro_render_a5_bitmap(bp, bitmap);
+        all_render_a5_bitmap(bp, bitmap);
         return bitmap;
     }
     return NULL;
 }
 
-void allegro_render_screen(void)
+void all_render_screen(void)
 {
-    allegro_render_a5_bitmap(screen, _a5_screen);
+    all_render_a5_bitmap(screen, _a5_screen);
     al_draw_bitmap(_a5_screen, 0, 0, 0);
     al_flip_display();
 }
 
-void allegro_disable_threaded_display(void)
+void all_disable_threaded_display(void)
 {
   _a5_disable_threaded_display = true;
 }
