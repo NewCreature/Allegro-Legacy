@@ -1275,6 +1275,9 @@ BITMAP *create_video_bitmap(int width, int height)
    BITMAP *bmp;
    int x = 0, y = 0;
 
+   /* Allegro Legacy can't support video bitmaps, so we just return NULL. */
+   return NULL;
+
    ASSERT(width >= 0);
    ASSERT(height > 0);
 
