@@ -25,7 +25,7 @@
 #define ALLEGRO_LEGACY_NO_STRUPR
 
 /* Override default definitions for this platform */
-#define AL_LEGACY_RAND()    ((rand() >> 16) & 0x7fff)
+#define AL_RAND()    ((rand() >> 16) & 0x7fff)
 
 /* A static auto config */
 #define ALLEGRO_LEGACY_HAVE_LIBPTHREAD 1

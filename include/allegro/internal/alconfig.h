@@ -423,8 +423,8 @@
 
 
 /* default random function definition */
-#ifndef AL_LEGACY_RAND
-   #define AL_LEGACY_RAND()       (rand())
+#ifndef AL_RAND
+   #define AL_RAND()       (rand())
 #endif
 
 #ifdef __cplusplus

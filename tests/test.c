@@ -1,6 +1,6 @@
 /*         ______   ___    ___
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -262,7 +262,7 @@ void getpix_demo(void)
    scare_mouse();
    acquire_screen();
 
-   clear_to_color(screen, palette_color[0]); 
+   clear_to_color(screen, palette_color[0]);
    message("getpixel test");
 
    for (c=0; c<16; c++)
@@ -325,7 +325,7 @@ void vline_test(int xpos, int ypos)
    int c;
 
    for (c=0; c<16; c++)
-      vline(screen, xpos+c*4, ypos+36-c*3, ypos+36+c*3, palette_color[c]); 
+      vline(screen, xpos+c*4, ypos+36-c*3, ypos+36+c*3, palette_color[c]);
 }
 
 
@@ -584,12 +584,12 @@ void putpix_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 255) + 32;
-      y = (AL_LEGACY_RAND() & 127) + 40;
+      x = (AL_RAND() & 255) + 32;
+      y = (AL_RAND() & 127) + 40;
       putpixel(screen, xoff+x, yoff+y, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -612,13 +612,13 @@ void hline_demo(void)
 
    while (!next()) {
 
-      x1 = (AL_LEGACY_RAND() & 255) + 32;
-      x2 = (AL_LEGACY_RAND() & 255) + 32;
-      y = (AL_LEGACY_RAND() & 127) + 40;
+      x1 = (AL_RAND() & 255) + 32;
+      x2 = (AL_RAND() & 255) + 32;
+      y = (AL_RAND() & 127) + 40;
       hline(screen, xoff+x1, yoff+y, xoff+x2, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -641,13 +641,13 @@ void vline_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 255) + 32;
-      y1 = (AL_LEGACY_RAND() & 127) + 40;
-      y2 = (AL_LEGACY_RAND() & 127) + 40;
+      x = (AL_RAND() & 255) + 32;
+      y1 = (AL_RAND() & 127) + 40;
+      y2 = (AL_RAND() & 127) + 40;
       vline(screen, xoff+x, yoff+y1, yoff+y2, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -670,14 +670,14 @@ void line_demo(void)
 
    while (!next()) {
 
-      x1 = (AL_LEGACY_RAND() & 255) + 32;
-      x2 = (AL_LEGACY_RAND() & 255) + 32;
-      y1 = (AL_LEGACY_RAND() & 127) + 40;
-      y2 = (AL_LEGACY_RAND() & 127) + 40;
+      x1 = (AL_RAND() & 255) + 32;
+      x2 = (AL_RAND() & 255) + 32;
+      y1 = (AL_RAND() & 127) + 40;
+      y2 = (AL_RAND() & 127) + 40;
       line(screen, xoff+x1, yoff+y1, xoff+x2, yoff+y2, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -700,14 +700,14 @@ void rectfill_demo(void)
 
    while (!next()) {
 
-      x1 = (AL_LEGACY_RAND() & 255) + 32;
-      y1 = (AL_LEGACY_RAND() & 127) + 40;
-      x2 = (AL_LEGACY_RAND() & 255) + 32;
-      y2 = (AL_LEGACY_RAND() & 127) + 40;
+      x1 = (AL_RAND() & 255) + 32;
+      y1 = (AL_RAND() & 127) + 40;
+      x2 = (AL_RAND() & 255) + 32;
+      y2 = (AL_RAND() & 127) + 40;
       rectfill(screen, xoff+x1, yoff+y1, xoff+x2, yoff+y2, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -730,16 +730,16 @@ void triangle_demo(void)
 
    while (!next()) {
 
-      x1 = (AL_LEGACY_RAND() & 255) + 32;
-      x2 = (AL_LEGACY_RAND() & 255) + 32;
-      x3 = (AL_LEGACY_RAND() & 255) + 32;
-      y1 = (AL_LEGACY_RAND() & 127) + 40;
-      y2 = (AL_LEGACY_RAND() & 127) + 40;
-      y3 = (AL_LEGACY_RAND() & 127) + 40;
+      x1 = (AL_RAND() & 255) + 32;
+      x2 = (AL_RAND() & 255) + 32;
+      x3 = (AL_RAND() & 255) + 32;
+      y1 = (AL_RAND() & 127) + 40;
+      y2 = (AL_RAND() & 127) + 40;
+      y3 = (AL_RAND() & 127) + 40;
       triangle(screen, xoff+x1, yoff+y1, xoff+x2, yoff+y2, xoff+x3, yoff+y3, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -758,8 +758,8 @@ void triangle3d_demo(void)
    int x0 = xoff+32;
    int y0 = yoff+40;
 
-   v1.u = 0; 
-   v1.v = 0; 
+   v1.u = 0;
+   v1.v = 0;
 
    v2.u = itofix(32);
    v2.v = 0;
@@ -771,29 +771,29 @@ void triangle3d_demo(void)
    ct = 0;
 
    while (!next()) {
-      v1.x = itofix((AL_LEGACY_RAND() & 255) + x0);
-      v2.x = itofix((AL_LEGACY_RAND() & 255) + x0);
-      v3.x = itofix((AL_LEGACY_RAND() & 255) + x0);
-      v1.y = itofix((AL_LEGACY_RAND() & 127) + y0);
-      v2.y = itofix((AL_LEGACY_RAND() & 127) + y0);
-      v3.y = itofix((AL_LEGACY_RAND() & 127) + y0);
-      v1.z = itofix((AL_LEGACY_RAND() & 127) + 400);
-      v2.z = itofix((AL_LEGACY_RAND() & 127) + 400);
-      v3.z = itofix((AL_LEGACY_RAND() & 127) + 400);
+      v1.x = itofix((AL_RAND() & 255) + x0);
+      v2.x = itofix((AL_RAND() & 255) + x0);
+      v3.x = itofix((AL_RAND() & 255) + x0);
+      v1.y = itofix((AL_RAND() & 127) + y0);
+      v2.y = itofix((AL_RAND() & 127) + y0);
+      v3.y = itofix((AL_RAND() & 127) + y0);
+      v1.z = itofix((AL_RAND() & 127) + 400);
+      v2.z = itofix((AL_RAND() & 127) + 400);
+      v3.z = itofix((AL_RAND() & 127) + 400);
 
       if ((type3d == POLYTYPE_ATEX_LIT) || (type3d == POLYTYPE_PTEX_LIT) ||
 	  (type3d == POLYTYPE_ATEX_MASK_LIT) || (type3d == POLYTYPE_PTEX_MASK_LIT)) {
-	 v1.c = AL_LEGACY_RAND() & 255;
-	 v2.c = AL_LEGACY_RAND() & 255;
-	 v3.c = AL_LEGACY_RAND() & 255;
-      } 
+	 v1.c = AL_RAND() & 255;
+	 v2.c = AL_RAND() & 255;
+	 v3.c = AL_RAND() & 255;
+      }
       else {
-	 v1.c = palette_color[AL_LEGACY_RAND() & 255];
-	 v2.c = palette_color[AL_LEGACY_RAND() & 255];
-	 v3.c = palette_color[AL_LEGACY_RAND() & 255];
+	 v1.c = palette_color[AL_RAND() & 255];
+	 v2.c = palette_color[AL_RAND() & 255];
+	 v3.c = palette_color[AL_RAND() & 255];
       }
 
-      triangle3d(screen, type3d, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], &v1, &v2, &v3);
+      triangle3d(screen, type3d, pattern[AL_RAND()%NUM_PATTERNS], &v1, &v2, &v3);
 
       SHOW_TIME_MACRO();
    }
@@ -813,13 +813,13 @@ void circle_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 127) + 92;
-      y = (AL_LEGACY_RAND() & 63) + 76;
-      r = (AL_LEGACY_RAND() & 31) + 16;
+      x = (AL_RAND() & 127) + 92;
+      y = (AL_RAND() & 63) + 76;
+      r = (AL_RAND() & 31) + 16;
       circle(screen, xoff+x, yoff+y, r, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -842,13 +842,13 @@ void circlefill_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 127) + 92;
-      y = (AL_LEGACY_RAND() & 63) + 76;
-      r = (AL_LEGACY_RAND() & 31) + 16;
+      x = (AL_RAND() & 127) + 92;
+      y = (AL_RAND() & 63) + 76;
+      r = (AL_RAND() & 31) + 16;
       circlefill(screen, xoff+x, yoff+y, r, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -871,14 +871,14 @@ void ellipse_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 127) + 92;
-      y = (AL_LEGACY_RAND() & 63) + 76;
-      rx = (AL_LEGACY_RAND() & 31) + 16;
-      ry = (AL_LEGACY_RAND() & 31) + 16;
+      x = (AL_RAND() & 127) + 92;
+      y = (AL_RAND() & 63) + 76;
+      rx = (AL_RAND() & 31) + 16;
+      ry = (AL_RAND() & 31) + 16;
       ellipse(screen, xoff+x, yoff+y, rx, ry, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -901,14 +901,14 @@ void ellipsefill_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 127) + 92;
-      y = (AL_LEGACY_RAND() & 63) + 76;
-      rx = (AL_LEGACY_RAND() & 31) + 16;
-      ry = (AL_LEGACY_RAND() & 31) + 16;
+      x = (AL_RAND() & 127) + 92;
+      y = (AL_RAND() & 63) + 76;
+      rx = (AL_RAND() & 31) + 16;
+      ry = (AL_RAND() & 31) + 16;
       ellipsefill(screen, xoff+x, yoff+y, rx, ry, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -932,15 +932,15 @@ void arc_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 127) + 92;
-      y = (AL_LEGACY_RAND() & 63) + 76;
-      r = (AL_LEGACY_RAND() & 31) + 16;
-      a1 = (AL_LEGACY_RAND() & 0xFF) << 16;
-      a2 = (AL_LEGACY_RAND() & 0xFF) << 16;
+      x = (AL_RAND() & 127) + 92;
+      y = (AL_RAND() & 63) + 76;
+      r = (AL_RAND() & 31) + 16;
+      a1 = (AL_RAND() & 0xFF) << 16;
+      a2 = (AL_RAND() & 0xFF) << 16;
       arc(screen, xoff+x, yoff+y, a1, a2, r, palette_color[c]);
 
       if (mode >= DRAW_MODE_COPY_PATTERN)
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
       if (++c >= 16)
 	 c = 0;
@@ -963,8 +963,8 @@ void textout_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 127) + 40;
-      y = (AL_LEGACY_RAND() & 127) + 40;
+      x = (AL_RAND() & 127) + 40;
+      y = (AL_RAND() & 127) + 40;
       textout_ex(screen, font, "textout test", xoff+x, yoff+y, palette_color[c], palette_color[0]);
 
       if (++c >= 16)
@@ -989,8 +989,8 @@ void sprite_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & xand) + xadd;
-      y = (AL_LEGACY_RAND() & 127) + 30;
+      x = (AL_RAND() & xand) + xadd;
+      y = (AL_RAND() & 127) + 30;
       draw_sprite(screen, global_sprite, xoff+x, yoff+y);
 
       SHOW_TIME_MACRO();
@@ -1012,11 +1012,11 @@ void xlu_sprite_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & xand) + xadd;
-      y = (AL_LEGACY_RAND() & 127) + 30;
+      x = (AL_RAND() & xand) + xadd;
+      y = (AL_RAND() & 127) + 30;
 
       if (bitmap_color_depth(screen) > 8)
-	 set_trans_blender(0, 0, 0, AL_LEGACY_RAND()&0x7F);
+	 set_trans_blender(0, 0, 0, AL_RAND()&0x7F);
 
       draw_trans_sprite(screen, global_sprite, xoff+x, yoff+y);
 
@@ -1040,11 +1040,11 @@ void lit_sprite_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & xand) + xadd;
-      y = (AL_LEGACY_RAND() & 127) + 30;
+      x = (AL_RAND() & xand) + xadd;
+      y = (AL_RAND() & 127) + 30;
 
       if (bitmap_color_depth(screen) > 8)
-	 set_trans_blender(AL_LEGACY_RAND()&0xFF, AL_LEGACY_RAND()&0xFF, AL_LEGACY_RAND()&0xFF, 0);
+	 set_trans_blender(AL_RAND()&0xFF, AL_RAND()&0xFF, AL_RAND()&0xFF, 0);
 
       draw_lit_sprite(screen, global_sprite, xoff+x, yoff+y, c);
 
@@ -1069,11 +1069,11 @@ void rle_xlu_sprite_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & xand) + xadd;
-      y = (AL_LEGACY_RAND() & 127) + 30;
+      x = (AL_RAND() & xand) + xadd;
+      y = (AL_RAND() & 127) + 30;
 
       if (bitmap_color_depth(screen) > 8)
-	 set_trans_blender(0, 0, 0, AL_LEGACY_RAND()&0x7F);
+	 set_trans_blender(0, 0, 0, AL_RAND()&0x7F);
 
       draw_trans_rle_sprite(screen, global_rle_sprite, xoff+x, yoff+y);
 
@@ -1097,11 +1097,11 @@ void rle_lit_sprite_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & xand) + xadd;
-      y = (AL_LEGACY_RAND() & 127) + 30;
+      x = (AL_RAND() & xand) + xadd;
+      y = (AL_RAND() & 127) + 30;
 
       if (bitmap_color_depth(screen) > 8)
-	 set_trans_blender(AL_LEGACY_RAND()&0xFF, AL_LEGACY_RAND()&0xFF, AL_LEGACY_RAND()&0xFF, 0);
+	 set_trans_blender(AL_RAND()&0xFF, AL_RAND()&0xFF, AL_RAND()&0xFF, 0);
 
       draw_lit_rle_sprite(screen, global_rle_sprite, xoff+x, yoff+y, c);
 
@@ -1126,8 +1126,8 @@ void rle_sprite_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & xand) + xadd;
-      y = (AL_LEGACY_RAND() & 127) + 30;
+      x = (AL_RAND() & xand) + xadd;
+      y = (AL_RAND() & 127) + 30;
       draw_rle_sprite(screen, global_rle_sprite, xoff+x, yoff+y);
 
       SHOW_TIME_MACRO();
@@ -1149,8 +1149,8 @@ void compiled_sprite_demo(void)
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & xand) + xadd;
-      y = (AL_LEGACY_RAND() & 127) + 30;
+      x = (AL_RAND() & xand) + xadd;
+      y = (AL_RAND() & 127) + 30;
       draw_compiled_sprite(screen, global_compiled_sprite, xoff+x, yoff+y);
 
       SHOW_TIME_MACRO();
@@ -1199,13 +1199,13 @@ void blit_demo(void)
    sx = ((SCREEN_W-64) / 2) & 0xFFFC;
    sy = yoff + 32;
 
-   if (blit_from_screen) 
+   if (blit_from_screen)
       blit(b, screen, 0, 0, sx, sy, 64, 32);
 
    while (!next()) {
 
-      x = (AL_LEGACY_RAND() & 127) + 60;
-      y = (AL_LEGACY_RAND() & 63) + 50;
+      x = (AL_RAND() & 127) + 60;
+      y = (AL_RAND() & 63) + 50;
 
       if (blit_align)
 	 x &= 0xFFFC;
@@ -1648,7 +1648,7 @@ int mouse_proc(void)
       else
          strcat(buf,"      ");
       if (mouse_b & 2)
-         strcat(buf,"right"); 
+         strcat(buf,"right");
       else
          strcat(buf,"     ");
       textout_centre_ex(screen, font, buf, SCREEN_W/2, SCREEN_H/2 + 30, palette_color[15], palette_color[0]);
@@ -1965,17 +1965,17 @@ void hscroll_test(void)
 
 
 void test_it(char *msg, void (*func)(int, int))
-{ 
+{
    int x = 0;
    int y = 0;
    int c = 0;
-   int pat = AL_LEGACY_RAND()%NUM_PATTERNS;
+   int pat = AL_RAND()%NUM_PATTERNS;
 
-   do { 
+   do {
       acquire_screen();
 
       set_clip_rect(screen, 0, 0, SCREEN_W-1, SCREEN_H-1);
-      clear_to_color(screen, palette_color[0]); 
+      clear_to_color(screen, palette_color[0]);
       message(msg);
 
       textout_centre_ex(screen, font, "(arrow keys to slide)", SCREEN_W/2, 28, palette_color[15], palette_color[0]);
@@ -2036,7 +2036,7 @@ void test_it(char *msg, void (*func)(int, int))
 
 
 void do_it(char *msg, int clip_flag, void (*func)(void))
-{ 
+{
    int x1, y1, x2, y2;
 
    set_clip_rect(screen, 0, 0, SCREEN_W-1, SCREEN_H-1);
@@ -2045,19 +2045,19 @@ void do_it(char *msg, int clip_flag, void (*func)(void))
 
    if (clip_flag) {
       do {
-	 x1 = (AL_LEGACY_RAND() & 255) + 32;
-	 x2 = (AL_LEGACY_RAND() & 255) + 32;
+	 x1 = (AL_RAND() & 255) + 32;
+	 x2 = (AL_RAND() & 255) + 32;
       } while (x2-x1 < 30);
       do {
-	 y1 = (AL_LEGACY_RAND() & 127) + 40;
-	 y2 = (AL_LEGACY_RAND() & 127) + 40;
+	 y1 = (AL_RAND() & 127) + 40;
+	 y2 = (AL_RAND() & 127) + 40;
       } while (y2-y1 < 20);
       set_clip_rect(screen, xoff+x1, yoff+y1, xoff+x2, yoff+y2);
    }
    else
       set_clip_state(screen, FALSE);
 
-   drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+   drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 
    (*func)();
 
@@ -2117,20 +2117,20 @@ int floodfill_proc(void)
 	 }
 	 ox = nx;
 	 oy = ny;
-      } 
-      else 
+      }
+      else
 	 ox = oy = -1;
 
       if (keypressed()) {
 	 c = readkey() & 0xff;
 	 if ((c >= '0') && (c <= '9')) {
 	    scare_mouse();
-	    drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	    drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 	    floodfill(screen, mouse_x, mouse_y, palette_color[c-'0']);
 	    solid_mode();
 	    unscare_mouse();
 	 }
-      } 
+      }
 
       rest(1);
    } while (c != 27);
@@ -2156,7 +2156,7 @@ void draw_spline(int points[8])
    spline(screen, points, c1);
 
    for (i=0; i<4; i++)
-      rect(screen, points[i*2]-6, points[i*2+1]-6, 
+      rect(screen, points[i*2]-6, points[i*2+1]-6,
 		   points[i*2]+5, points[i*2+1]+5, c2);
 }
 
@@ -2189,7 +2189,7 @@ int spline_proc(void)
    oy = mouse_x;
    sel = -1;
 
-   draw_spline(points); 
+   draw_spline(points);
 
    release_screen();
    unscare_mouse();
@@ -2214,12 +2214,12 @@ int spline_proc(void)
 	 if ((sel >= 0) && ((ox != nx) || (oy != ny) || (os != sel))) {
 	    scare_mouse();
 	    acquire_screen();
-	    draw_spline(points); 
+	    draw_spline(points);
 
 	    points[sel*2] = nx;
 	    points[sel*2+1] = ny;
 
-	    draw_spline(points); 
+	    draw_spline(points);
 	    release_screen();
 	    unscare_mouse();
 	 }
@@ -2281,7 +2281,7 @@ int polygon_proc(void)
 	 scare_mouse();
 
 	 if (num_points > 0)
-	    line(screen, points[(num_points-1)*2], points[(num_points-1)*2+1], 
+	    line(screen, points[(num_points-1)*2], points[(num_points-1)*2+1],
 			 points[num_points*2], points[num_points*2+1], palette_color[255]);
 
 	 circlefill(screen, points[num_points*2], points[num_points*2+1], 2, palette_color[255]);
@@ -2297,9 +2297,9 @@ int polygon_proc(void)
       if ((mouse_b & 2) && (num_points > 2)) {
 	 scare_mouse();
 
-	 line(screen, points[(num_points-1)*2], points[(num_points-1)*2+1], 
+	 line(screen, points[(num_points-1)*2], points[(num_points-1)*2+1],
 						   points[0], points[1], palette_color[255]);
-	 drawing_mode(mode, pattern[AL_LEGACY_RAND()%NUM_PATTERNS], 0, 0);
+	 drawing_mode(mode, pattern[AL_RAND()%NUM_PATTERNS], 0, 0);
 	 polygon(screen, num_points, points, palette_color[1]);
 	 solid_mode();
 
@@ -2866,7 +2866,7 @@ int polygon3d_proc(void)
    } POINT;
 
    /* four vertices plus a normal make up a quad */
-   typedef struct QUAD 
+   typedef struct QUAD
    {
       int v1, v2, v3, v4;
       int normal;
@@ -2910,7 +2910,7 @@ int polygon3d_proc(void)
    };
 
    /* six faces makes up a cube */
-   QUAD face[NUM_FACES] = 
+   QUAD face[NUM_FACES] =
    {
      /* v1 v2 v3 v4 nrm v */
       { 0, 3, 2, 1, 8,  0 },
@@ -2922,7 +2922,7 @@ int polygon3d_proc(void)
    };
 
    /* descriptions of the render modes */
-   static char *mode_desc[NUM_MODES] = 
+   static char *mode_desc[NUM_MODES] =
    {
       "POLYTYPE_FLAT",
       "POLYTYPE_GCOL",
@@ -2980,7 +2980,7 @@ int polygon3d_proc(void)
    /* set projection parameters */
    set_projection_viewport(0, 0, BUFFER_SIZE, BUFFER_SIZE);
 
-   get_camera_matrix_f(&camera, 
+   get_camera_matrix_f(&camera,
 		     0, 0, 0,             /* eye position */
 		     0, 0, 1,             /* front vector */
 		     0, -1, 0,            /* up vector */
@@ -3035,14 +3035,14 @@ int polygon3d_proc(void)
       }
 
       /* if mask mode, draw backfaces that may be seen through holes */
-      if ((mode == POLYTYPE_ATEX_MASK) || (mode == POLYTYPE_PTEX_MASK) || 
+      if ((mode == POLYTYPE_ATEX_MASK) || (mode == POLYTYPE_PTEX_MASK) ||
 	  (mode == POLYTYPE_ATEX_MASK_LIT) || (mode == POLYTYPE_PTEX_MASK_LIT) ||
 	  (mode == POLYTYPE_ATEX_MASK_TRANS) || (mode == POLYTYPE_PTEX_MASK_TRANS) ||
 	  (mode == POLYTYPE_ATEX_TRANS) || (mode == POLYTYPE_PTEX_TRANS)) {
 	 for (c=0; c<NUM_FACES; c++) {
 	    if (!face[c].visible) {
-	       quad3d_f(buffer, mode, texture, 
-			&vtx[face[c].v1], &vtx[face[c].v2], 
+	       quad3d_f(buffer, mode, texture,
+			&vtx[face[c].v1], &vtx[face[c].v2],
 			&vtx[face[c].v3], &vtx[face[c].v4]);
 	    }
 	 }
@@ -3051,16 +3051,16 @@ int polygon3d_proc(void)
       /* draw the cube */
       for (c=0; c<NUM_FACES; c++) {
 	 if (face[c].visible) {
-	    quad3d_f(buffer, mode, texture, 
-		     &vtx[face[c].v1], &vtx[face[c].v2], 
+	    quad3d_f(buffer, mode, texture,
+		     &vtx[face[c].v1], &vtx[face[c].v2],
 		     &vtx[face[c].v3], &vtx[face[c].v4]);
 	 }
       }
 
       /* blit to the screen */
       vsync();
-      blit(buffer, screen, 0, 0, 
-	   (SCREEN_W-BUFFER_SIZE)/2, 
+      blit(buffer, screen, 0, 0,
+	   (SCREEN_W-BUFFER_SIZE)/2,
 	   (SCREEN_H-BUFFER_SIZE)/2, BUFFER_SIZE, BUFFER_SIZE);
 
       /* handle user input */
@@ -3508,79 +3508,79 @@ int do_p3d_profile(int tims[])
 
    type3d = POLYTYPE_FLAT;
    do_it("profiling triangle 3D [flat]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
    else
       tims[0] = ct;
 
    type3d = POLYTYPE_GCOL;
    do_it("profiling triangle 3D [gcol]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[1] = ct;
 
    type3d = POLYTYPE_GRGB;
    do_it("profiling triangle 3D [grgb]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[2] = ct;
 
    type3d = POLYTYPE_ATEX;
    do_it("profiling triangle 3D [atex]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[3] = ct;
 
    type3d = POLYTYPE_PTEX;
    do_it("profiling triangle 3D [ptex]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[4] = ct;
 
    type3d = POLYTYPE_ATEX_MASK;
    do_it("profiling triangle 3D [atex mask]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[5] = ct;
 
    type3d = POLYTYPE_PTEX_MASK;
    do_it("profiling triangle 3D [ptex mask]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[6] = ct;
 
    type3d = POLYTYPE_ATEX_LIT;
    do_it("profiling triangle 3D [atex lit]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[7] = ct;
 
    type3d = POLYTYPE_PTEX_LIT;
    do_it("profiling triangle 3D [ptex lit]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[8] = ct;
 
    type3d = POLYTYPE_ATEX_MASK_LIT;
    do_it("profiling triangle 3D [atex mask lit]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[9] = ct;
 
    type3d = POLYTYPE_PTEX_MASK_LIT;
    do_it("profiling triangle 3D [ptex mask lit]", FALSE, triangle3d_demo);
-   if (ct < 0) 
+   if (ct < 0)
       goto abort;
-   else 
+   else
       tims[10] = ct;
 
    profile = FALSE;
@@ -3610,12 +3610,12 @@ int p3d_profile_proc(void)
 
    cpu_capabilities &= ~CPU_MMX;
 
-   if (do_p3d_profile(scr_0_tims)) 
+   if (do_p3d_profile(scr_0_tims))
       goto abort;
 
    if (old_cpu_capabilities & CPU_MMX) {
       cpu_capabilities |= CPU_MMX;
-      if (do_p3d_profile(scr_1_tims)) 
+      if (do_p3d_profile(scr_1_tims))
 	 goto abort;
    }
 
@@ -3625,12 +3625,12 @@ int p3d_profile_proc(void)
 
    screen = buffer;
    cpu_capabilities &= ~CPU_MMX;
-   if (do_p3d_profile(mem_0_tims)) 
+   if (do_p3d_profile(mem_0_tims))
       goto abort;
 
    if (old_cpu_capabilities & CPU_MMX) {
       cpu_capabilities |= CPU_MMX;
-      if (do_p3d_profile(mem_1_tims)) 
+      if (do_p3d_profile(mem_1_tims))
 	 goto abort;
    }
 
@@ -3665,7 +3665,7 @@ int p3d_profile_proc(void)
 		  break;
 
 	       case 1:
-		  if (!(old_cpu_capabilities & CPU_MMX)) 
+		  if (!(old_cpu_capabilities & CPU_MMX))
 		     continue;
 		  tims = scr_1_tims;
 		  fprintf(f, "Screen profile results, using MMX:\n\n");
@@ -3677,7 +3677,7 @@ int p3d_profile_proc(void)
 		  break;
 
 	       case 3:
-		  if (!(old_cpu_capabilities & CPU_MMX)) 
+		  if (!(old_cpu_capabilities & CPU_MMX))
 		     continue;
 		  tims = mem_1_tims;
 		  fprintf(f, "Memory profile results, using MMX:\n\n");
@@ -3705,7 +3705,7 @@ int p3d_profile_proc(void)
    abort:
    screen = old_screen;
    destroy_bitmap(buffer);
-   
+
    cpu_capabilities = old_cpu_capabilities;
    show_mouse(screen);
    return D_REDRAW;
@@ -4295,7 +4295,7 @@ void change_mode(void)
    xoff = (SCREEN_W - 320) / 2;
    yoff = (SCREEN_H - 200) / 2;
 
-   sprintf(gfx_specs, "%dx%d (%dx%d), %ldk vram", 
+   sprintf(gfx_specs, "%dx%d (%dx%d), %ldk vram",
 	   SCREEN_W, SCREEN_H, VIRTUAL_W, VIRTUAL_H, gfx_driver->vid_mem/1024);
 
    if (!gfx_driver->linear)
@@ -4513,7 +4513,7 @@ int main(void)
    LOCK_VARIABLE(tm);
    LOCK_VARIABLE(_tm);
    LOCK_VARIABLE(realscreen);
-   
+
    if (allegro_init() != 0)
       return 1;
 
@@ -4571,8 +4571,8 @@ int main(void)
 
    #else
       #if defined ALLEGRO_MACOSX
-         sprintf(cpu_specs, "CPU family: %s (%s)", 
-                 cpu_family==CPU_FAMILY_POWERPC ? "PowerPC" : "Other", 
+         sprintf(cpu_specs, "CPU family: %s (%s)",
+                 cpu_family==CPU_FAMILY_POWERPC ? "PowerPC" : "Other",
                  cpu_vendor);
       #else
          strcpy(cpu_specs, "Non-x86 CPU (very cool)");

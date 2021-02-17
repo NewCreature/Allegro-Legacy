@@ -1,6 +1,6 @@
 /*         ______   ___    ___
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -147,8 +147,8 @@ static int worms(void)
 
       if ((tx < 0) || (ty < 0)) {
 	 do {
-	    tx = 16+AL_LEGACY_RAND()%(SCREEN_W-32);
-	    ty = 16+AL_LEGACY_RAND()%(SCREEN_H-32);
+	    tx = 16+AL_RAND()%(SCREEN_W-32);
+	    ty = 16+AL_RAND()%(SCREEN_H-32);
 	 } while ((ABS(x-tx)+ABS(y-ty)) < 64);
 
 	 circle(screen, tx, ty, 8, c2);
@@ -241,4 +241,3 @@ DATEDIT_MENU_INFO datworms_menu =
    0,
    NULL
 };
-
