@@ -200,6 +200,8 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
           return NULL;
         }
       }
+      gfx_driver->w = bp->w;
+      gfx_driver->h = bp->h;
       return bp;
     }
     return NULL;
