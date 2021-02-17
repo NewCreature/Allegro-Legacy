@@ -282,6 +282,27 @@ static void a5_display_set_palette(const struct RGB * palette, int from, int to,
     a5_palette_from_a4_palette(palette, _a5_screen_palette, from, to);
 }
 
+static void a5_display_move_mouse(int x, int y)
+{
+  al_set_mouse_xy(_a5_display, x, y);
+}
+
+static int a5_display_show_mouse(BITMAP * bp, int x, int y)
+{
+  if(bp)
+  {
+    return -1;
+  }
+  al_show_mouse_cursor(_a5_display);
+  a5_display_move_mouse(x, y);
+  return 0;
+}
+
+static void a5_display_hide_mouse(void)
+{
+  al_hide_mouse_cursor(_a5_display);
+}
+
 static ALLEGRO_COLOR a5_get_color(int depth, int color)
 {
     int r, g, b, a;
@@ -531,9 +552,9 @@ GFX_DRIVER display_allegro_5 = {
    NULL,                              // AL_LEGACY_METHOD(struct BITMAP *, create_system_bitmap, (int width, int height));
    NULL,                              // AL_LEGACY_METHOD(void, destroy_system_bitmap, (struct BITMAP *bitmap));
    NULL,                              // AL_LEGACY_METHOD(int, set_mouse_sprite, (struct BITMAP *sprite, int xfocus, int yfocus));
-   NULL,                              // AL_LEGACY_METHOD(int, show_mouse, (struct BITMAP *bmp, int x, int y));
-   NULL,                              // AL_LEGACY_METHOD(void, hide_mouse, (void));
-   NULL,                              // AL_LEGACY_METHOD(void, move_mouse, (int x, int y));
+   a5_display_show_mouse,                              // AL_LEGACY_METHOD(int, show_mouse, (struct BITMAP *bmp, int x, int y));
+   a5_display_hide_mouse,                              // AL_LEGACY_METHOD(void, hide_mouse, (void));
+   a5_display_move_mouse,                              // AL_LEGACY_METHOD(void, move_mouse, (int x, int y));
    NULL,                              // AL_LEGACY_METHOD(void, drawing_mode, (void));
    NULL,                              // AL_LEGACY_METHOD(void, save_state, (void));
    NULL,                              // AL_LEGACY_METHOD(void, restore_state, (void));

@@ -153,42 +153,31 @@ static int a5_mouse_select_system_cursor(const int cursor)
         case MOUSE_CURSOR_ALLEGRO:
         case MOUSE_CURSOR_ARROW:
         {
+          al_show_mouse_cursor(_a5_display);
             al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
-            if(mouse_hidden)
-            {
-                a5_mouse_enable_hardware_cursor(1);
-                mouse_hidden = false;
-            }
+            mouse_hidden = false;
             break;
         }
         case MOUSE_CURSOR_BUSY:
         {
+          al_show_mouse_cursor(_a5_display);
             al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_BUSY);
-            if(mouse_hidden)
-            {
-                a5_mouse_enable_hardware_cursor(1);
-                mouse_hidden = false;
-            }
+            mouse_hidden = false;
             break;
         }
         case MOUSE_CURSOR_EDIT:
         {
+          al_show_mouse_cursor(_a5_display);
+          al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
             al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_EDIT);
-            if(mouse_hidden)
-            {
-                a5_mouse_enable_hardware_cursor(1);
-                mouse_hidden = false;
-            }
+            mouse_hidden = false;
             break;
         }
         case MOUSE_CURSOR_QUESTION:
         {
+            al_show_mouse_cursor(_a5_display);
             al_set_system_mouse_cursor(_a5_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_QUESTION);
-            if(mouse_hidden)
-            {
-                a5_mouse_enable_hardware_cursor(1);
-                mouse_hidden = false;
-            }
+            mouse_hidden = false;
             break;
         }
     }
