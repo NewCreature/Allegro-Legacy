@@ -187,6 +187,7 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
     {
       if(!_a5_disable_threaded_display)
       {
+        _a5_display_creation_done = 0;
         _a5_display_width = w;
         _a5_display_height = h;
         _a5_screen_thread = al_create_thread(_a5_display_thread, NULL);
