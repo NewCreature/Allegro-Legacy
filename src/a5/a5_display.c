@@ -275,6 +275,10 @@ static void a5_palette_from_a4_palette(const PALETTE a4_palette, ALLEGRO_COLOR *
 
 static void a5_display_set_palette(const struct RGB * palette, int from, int to, int vsync)
 {
+    if(vsync)
+    {
+      a5_display_vsync();
+    }
     a5_palette_from_a4_palette(palette, _a5_screen_palette, from, to);
 }
 
