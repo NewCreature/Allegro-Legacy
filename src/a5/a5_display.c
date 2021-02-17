@@ -228,7 +228,7 @@ static void a5_display_vsync(void)
   if(!_a5_disable_threaded_display)
   {
     /* chew up already queued up events so we get only the next vsync */
-    while(!al_event_queue_is_empty(_a5_display_thread_event_queue))
+    while(!al_event_queue_is_empty(_a5_display_vsync_event_queue))
     {
       al_wait_for_event(_a5_display_vsync_event_queue, &event);
     }
