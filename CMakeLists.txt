@@ -1,22 +1,3 @@
-# XXX build chm files
-# XXX build devhelp files
-# XXX resources (keyboard/language) - pretty useless except on DOS
-# XXX install grabber.txt?
-# XXX png plugin for grabber
-# XXX what is fixbundle?
-# XXX applehelp bundle?
-# XXX projectbuilder application template?
-# XXX allegro.m4?
-
-# Ports that used to work which aren't supported yet:
-#   Haiku/BeOS port
-#   djgpp port
-#   QNX port
-#   BCC32
-#   Watcom
-#   DMC
-#   PSP port?
-
 #-----------------------------------------------------------------------------#
 #
 # CMake setup
@@ -44,26 +25,6 @@ set(CMAKE_CONFIGURATION_TYPES "${CMAKE_BUILD_TYPE}" CACHE INTERNAL "internal")
 
 # Set the project name.
 project(ALLEGRO_LEGACY C CXX)
-
-if(WIN32)
-    if(MINGW)
-        # As of CMake 2.6.2, support for building .rc files with mingw seems to
-        # be broken (uses wrong command line syntax) so we have to set this
-        # variable manually.
-        set(CMAKE_RC_COMPILE_OBJECT
-            "<CMAKE_RC_COMPILER> <FLAGS> -O coff -o <OBJECT> -i <SOURCE>")
-        if(NOT CMAKE_RC_COMPILER OR "${CMAKE_RC_COMPILER}" STREQUAL "")
-            string(REGEX REPLACE "gcc(.exe)?$" "windres"
-                GUESS_RC_COMPILER ${CMAKE_C_COMPILER})
-            find_program(CMAKE_RC_COMPILER ${GUESS_RC_COMPILER})
-        endif()
-    endif(MINGW)
-    enable_language(RC OPTIONAL)
-    message(STATUS "CMAKE_RC_COMPILER: ${CMAKE_RC_COMPILER}")
-    if(NOT CMAKE_RC_COMPILER)
-        message(FATAL_ERROR "Please set CMAKE_RC_COMPILER manually, e.g. *-windres.")
-    endif()
-endif(WIN32)
 
 set(ALLEGRO_LEGACY_VERSION 4.4.2)
 string(REGEX MATCH "^[0-9]+[.][0-9]+" ALLEGRO_LEGACY_SOVERSION ${ALLEGRO_LEGACY_VERSION})
@@ -384,6 +345,10 @@ set(ALLEGRO_LEGACY_NO_ASM 1)
 # ALLEGRO_LEGACY_MMX left undefined
 # ALLEGRO_LEGACY_SSE left undefined
 
+find_library(ALLEGRO_5_LIBRARY NAMES allegro allegro-static)
+find_library(ALLEGRO_5_AUDIO_LIBRARY NAMES allegro_audio allegro_audio-static)
+find_library(ALLEGRO_5_MAIN_LIBRARY NAMES allegro_main allegro_main-static)
+
 #-----------------------------------------------------------------------------#
 #
 # Unix modules
@@ -437,6 +402,11 @@ endif(ALLEGRO_LEGACY_UNIX)
 if(ALLEGRO_LEGACY_WINDOWS)
     list(APPEND PLATFORM_SOURCES ${ALLEGRO_LEGACY_SRC_MIDIA5_WINDOWS_FILES})
 endif(ALLEGRO_LEGACY_WINDOWS)
+list(APPEND PLATFORM_LIBS ${ALLEGRO_5_LIBRARY} ${ALLEGRO_5_AUDIO_LIBRARY})
+if(APPLE)
+	list(APPEND PLATFORM_LIBS ${ALLEGRO_5_MAIN_LIBRARY})
+	list(APPEND PLATFORM_LIBS "-framework OpenGL -framework OpenAL -framework AudioToolbox -framework Cocoa -framework IOKit -framework CoreVideo")
+endif()
 
 #-----------------------------------------------------------------------------#
 #
@@ -586,19 +556,6 @@ install_our_library(allegro)
 if(NOT WANT_FRAMEWORKS)
     install_our_headers(${ALLEGRO_LEGACY_PUBLIC_HEADERS})
 endif(NOT WANT_FRAMEWORKS)
-
-if(APPLE AND SHARED OR WANT_FRAMEWORKS)
-    add_our_library(alleg-main STATIC
-	src/macosx/main.m
-	)
-    set_target_properties(alleg-main
-	PROPERTIES
-	OUTPUT_NAME alleg-main${BUILD_TYPE_SUFFIX}
-	COMPILE_FLAGS -DALLEGRO_LEGACY_SRC
-	)
-    target_link_libraries(allegro alleg-main)
-    install_our_library(alleg-main)
-endif(APPLE AND SHARED OR WANT_FRAMEWORKS)
 
 if(PSP)
     add_our_library(alleg-main STATIC
