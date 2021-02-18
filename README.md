@@ -63,9 +63,9 @@ needs.
 You can optimize your rendering if you are using a separate buffer instead of
 rendering directly to `screen` using the following code:
 
-  a5_backbuffer = al_get_backbuffer(all_get_display());
-  all_render_a5_bitmap(a4_buffer, a5_backbuffer);
-  al_flip_display();
+    a5_backbuffer = al_get_backbuffer(all_get_display());
+    all_render_a5_bitmap(a4_buffer, a5_backbuffer);
+    al_flip_display();
 
 ## License
 
