@@ -405,7 +405,7 @@ endif(ALLEGRO_LEGACY_WINDOWS)
 list(APPEND PLATFORM_LIBS ${ALLEGRO_5_LIBRARY} ${ALLEGRO_5_AUDIO_LIBRARY})
 if(APPLE)
 	list(APPEND PLATFORM_LIBS ${ALLEGRO_5_MAIN_LIBRARY})
-	list(APPEND PLATFORM_LIBS "-framework OpenGL -framework OpenAL -framework AudioToolbox -framework Cocoa -framework IOKit -framework CoreVideo")
+	list(APPEND PLATFORM_LIBS " -framework OpenGL -framework OpenAL -framework AudioToolbox -framework Cocoa -framework IOKit -framework CoreVideo")
 endif()
 
 #-----------------------------------------------------------------------------#
@@ -585,11 +585,7 @@ if(UNIX) # including MACOSX
         set(LINK_WITH_STATIC_LIBS yes)
     endif()
     set(LIB_TO_LINK alleg${BUILD_TYPE_SUFFIX})
-    if(APPLE)
-	set(LDFLAGS ${PLATFORM_LIBS})
-    else(APPLE)
-	set(LDFLAGS "")
-    endif(APPLE)
+    set(LDFLAGS "")
     sanitize_cmake_link_flags(LIBS
         ${PLATFORM_LIBS}
         ${PLATFORM_LIBS_NON_MODULES}
@@ -599,11 +595,7 @@ if(UNIX) # including MACOSX
     if(APPLE)
         # XXX untested
         set(ACCEPT_FRAMEWORKS yes)
-        if(BUILD_SHARED_LIBS)
-            set(FRAMEWORKS "-framework Cocoa -framework Allegro -lalleg-main${BUILD_TYPE_SUFFIX}")
-        else(BUILD_SHARED_LIBS)
-            set(FRAMEWORKS "-framework Cocoa -framework Allegro -lalleg-main${BUILD_TYPE_SUFFIX} -framework Carbon -framework IOKit -framework System -framework CoreAudio -framework AudioUnit -framework AudioToolbox -framework QuickTime")
-        endif(BUILD_SHARED_LIBS)
+        set(FRAMEWORKS "-framework OpenGL -framework OpenAL -framework Cocoa -framework IOKit -framework AudioToolbox -framework CoreVideo")
     else()
         set(ACCEPT_FRAMEWORKS no)
         set(FRAMEWORKS "")
