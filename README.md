@@ -39,6 +39,10 @@ variables and functions that Allegro Legacy exposes:
 * `ALLEGRO_LEGACY`
   Defined so you can detect from your code whether or not it is being built
   with Allegro Legacy.
+* `void all_disable_threaded_display(void)`
+  Disable the emulated display. Must be called before `set_gfx_mode()`. If you
+  do this, you will need to add your own code to get graphics to render to the
+  display.
 * `ALLEGRO_DISPLAY * all_get_display(void)`
   Get a pointer to the Allegro 5 display that is being used by Allegro Legacy.
   This variable is initialized during a call to `set_gfx_mode()`.
