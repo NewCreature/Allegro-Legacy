@@ -586,7 +586,7 @@ if(UNIX) # including MACOSX
     endif()
     set(LIB_TO_LINK alleg${BUILD_TYPE_SUFFIX})
     if(APPLE)
-	set(LDFLAGS "`pkg-config --static --libs allegro-static-5` `pkg-config --static --libs allegro_audio-static-5` -lalleg -framework OpenGL -framework OpenAL -framework AudioToolbox -framework Cocoa -framework IOKit -framework CoreVideo -lallegro_main-static")
+	set(LDFLAGS ${PLATFORM_LIBS})
     else(APPLE)
 	set(LDFLAGS "")
     endif(APPLE)
