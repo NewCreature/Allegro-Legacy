@@ -405,7 +405,7 @@ endif(ALLEGRO_LEGACY_WINDOWS)
 list(APPEND PLATFORM_LIBS ${ALLEGRO_5_LIBRARY} ${ALLEGRO_5_AUDIO_LIBRARY})
 if(APPLE)
 	list(APPEND PLATFORM_LIBS ${ALLEGRO_5_MAIN_LIBRARY})
-	list(APPEND PLATFORM_LIBS " -framework OpenGL -framework OpenAL -framework AudioToolbox -framework Cocoa -framework IOKit -framework CoreVideo")
+	list(APPEND PLATFORM_LIBS "-framework OpenGL -framework OpenAL -framework AudioToolbox -framework Cocoa -framework IOKit -framework CoreVideo")
 endif()
 
 #-----------------------------------------------------------------------------#
