@@ -9,10 +9,10 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
-      "Choose the type of build, options are:
+    set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
+        "Choose the type of build, options are:
         None Debug Release RelWithDebInfo MinSizeRel Profile."
-      FORCE)
+        FORCE)
 endif()
 # Restrict configuration types to the selected build type.
 # Note: This needs to be done before the project command
@@ -102,9 +102,11 @@ if(UNIX)
     check_include_files(linux/input.h ALLEGRO_LEGACY_HAVE_LINUX_INPUT_H)
     # On some systems including linux/joystick.h without sys/types.h results
     # in conflicting definitions of fd_set.
-    check_include_files("sys/types.h;linux/joystick.h" ALLEGRO_LEGACY_HAVE_LINUX_JOYSTICK_H)
+    check_include_files("sys/types.h;linux/joystick.h"
+    ALLEGRO_LEGACY_HAVE_LINUX_JOYSTICK_H)
     check_include_files(linux/soundcard.h ALLEGRO_LEGACY_HAVE_LINUX_SOUNDCARD_H)
-    check_include_files(machine/soundcard.h ALLEGRO_LEGACY_HAVE_MACHINE_SOUNDCARD_H)
+    check_include_files(machine/soundcard.h
+    ALLEGRO_LEGACY_HAVE_MACHINE_SOUNDCARD_H)
     check_include_files(soundcard.h ALLEGRO_LEGACY_HAVE_SOUNDCARD_H)
     check_include_files(stdint.h ALLEGRO_LEGACY_HAVE_STDINT_H)
     check_include_files(sys/io.h ALLEGRO_LEGACY_HAVE_SYS_IO_H)
@@ -247,8 +249,8 @@ if(APPLE)
     # NSQuickDrawView.h when compiling in 64-bit mode, and 64-bit mode is the
     # default when compiling on Snow Leopard.
     if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL i386)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -arch i386")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -arch i386")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -arch i386")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -arch i386")
     endif()
 
     # The Mac port simply uses too many deprecated things.
@@ -318,14 +320,14 @@ if(COMPILER_MSVC)
     if(STATIC_RUNTIME)
         set(CompilerFlags
             CMAKE_CXX_FLAGS
-	        CMAKE_CXX_FLAGS_DEBUG
-	        CMAKE_CXX_FLAGS_RELEASE
+            CMAKE_CXX_FLAGS_DEBUG
+            CMAKE_CXX_FLAGS_RELEASE
             CMAKE_CXX_FLAGS_RELWITHDEBINFO
-        	CMAKE_C_FLAGS
-	        CMAKE_C_FLAGS_DEBUG
-        	CMAKE_C_FLAGS_RELEASE
+            CMAKE_C_FLAGS
+            CMAKE_C_FLAGS_DEBUG
+            CMAKE_C_FLAGS_RELEASE
             CMAKE_C_FLAGS_RELWITHDEBINFO
-        	)
+            )
         foreach(CompilerFlag ${CompilerFlags})
             string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
             string(REPLACE "/MDd" "/MTd" ${CompilerFlag} "${${CompilerFlag}}")
@@ -361,8 +363,8 @@ if(WANT_MODULES AND ALLEGRO_LEGACY_UNIX)
     set(ALLEGRO_LEGACY_MODULES_PATH
         ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/allegro/${ALLEGRO_LEGACY_VERSION})
     install(FILES ${CMAKE_SOURCE_DIR}/modules.lst
-            DESTINATION "${ALLEGRO_LEGACY_MODULES_PATH}"
-            )
+        DESTINATION "${ALLEGRO_LEGACY_MODULES_PATH}"
+        )
 endif(WANT_MODULES AND ALLEGRO_LEGACY_UNIX)
 
 function(add_our_module nm files)
@@ -375,8 +377,8 @@ function(add_our_module nm files)
             )
         target_link_libraries(${nm} ${ARGN})
         install(TARGETS ${nm}
-                DESTINATION "${ALLEGRO_LEGACY_MODULES_PATH}"
-                )
+            DESTINATION "${ALLEGRO_LEGACY_MODULES_PATH}"
+            )
     endif(ALLEGRO_LEGACY_WITH_MODULES)
 endfunction(add_our_module)
 
@@ -404,8 +406,8 @@ if(ALLEGRO_LEGACY_WINDOWS)
 endif(ALLEGRO_LEGACY_WINDOWS)
 list(APPEND PLATFORM_LIBS ${ALLEGRO_5_LIBRARY} ${ALLEGRO_5_AUDIO_LIBRARY})
 if(APPLE)
-	list(APPEND PLATFORM_LIBS ${ALLEGRO_5_MAIN_LIBRARY})
-	list(APPEND PLATFORM_LIBS "-framework OpenGL -framework OpenAL -framework AudioToolbox -framework Cocoa -framework IOKit -framework CoreVideo")
+    list(APPEND PLATFORM_LIBS ${ALLEGRO_5_MAIN_LIBRARY})
+    list(APPEND PLATFORM_LIBS "-framework OpenGL -framework OpenAL -framework AudioToolbox -framework Cocoa -framework IOKit -framework CoreVideo")
 endif()
 
 #-----------------------------------------------------------------------------#
@@ -419,9 +421,9 @@ macro(add_headers location)
     list(APPEND ALLEGRO_LEGACY_PUBLIC_HEADERS ${ARGN})
     # We reuse MACOSX_PACKAGE_LOCATION on non-Mac platforms as well.
     set_source_files_properties(${ARGN}
-	PROPERTIES
-	MACOSX_PACKAGE_LOCATION Headers/${location}
-	)
+        PROPERTIES
+        MACOSX_PACKAGE_LOCATION Headers/${location}
+    )
 endmacro(add_headers)
 
 configure_file(
@@ -440,7 +442,7 @@ if(UNIX)
         )
     add_headers(allegro/platform
         ${CMAKE_BINARY_DIR}/include/allegro/platform/alunixac.h
-	)
+        )
 endif(UNIX)
 
 add_headers(""               include/allegro.h)
@@ -489,9 +491,9 @@ endif(ALLEGRO_LEGACY_MODULES_PATH)
 if(APPLE)
     # CMake 2.6.2 onwards passes these flags automatically.
     if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} STREQUAL 2.6 AND
-	    ${CMAKE_PATCH_VERSION} LESS 2)
-	set(ALLEGRO_LEGACY_LINK_FLAGS
-	    "-compatibility_version ${COMPAT_VERSION} -current_version ${ALLEGRO_LEGACY_VERSION}")
+        ${CMAKE_PATCH_VERSION} LESS 2)
+        set(ALLEGRO_LEGACY_LINK_FLAGS
+            "-compatibility_version ${COMPAT_VERSION} -current_version ${ALLEGRO_LEGACY_VERSION}")
     endif()
 endif(APPLE)
 
@@ -559,13 +561,13 @@ endif(NOT WANT_FRAMEWORKS)
 
 if(PSP)
     add_our_library(alleg-main STATIC
-	src/psp/pmain.c
-	)
+        src/psp/pmain.c
+        )
     set_target_properties(alleg-main
-	PROPERTIES
-	OUTPUT_NAME alleg-main${BUILD_TYPE_SUFFIX}
-	COMPILE_FLAGS -DALLEGRO_LEGACY_SRC
-	)
+        PROPERTIES
+        OUTPUT_NAME alleg-main${BUILD_TYPE_SUFFIX}
+        COMPILE_FLAGS -DALLEGRO_LEGACY_SRC
+    )
     target_link_libraries(alleg-main pspuser pspkernel)
     target_link_libraries(allegro alleg-main)
     install_our_library(alleg-main)
@@ -608,8 +610,8 @@ if(UNIX) # including MACOSX
         )
 
     install(PROGRAMS ${CMAKE_BINARY_DIR}/allegro-config
-            DESTINATION bin
-            )
+        DESTINATION bin
+        )
 endif(UNIX)
 
 #-----------------------------------------------------------------------------#
