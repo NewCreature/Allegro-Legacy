@@ -275,13 +275,6 @@ if(UNIX AND NOT APPLE AND NOT BEOS)
     set(ALLEGRO_LEGACY_UNIX 1)
 endif()
 
-if(PSP)
-    set(ALLEGRO_LEGACY_PSP 1)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -G0")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -G0 -fno-exceptions -fno-rtti")
-    set(CMAKE_INSTALL_PREFIX ${PSP_PREFIX})
-endif(PSP)
-
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WFLAGS} ${WFLAGS_C_ONLY}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WFLAGS} ${WFLAGS_CXX_ONLY}")
 
@@ -559,20 +552,6 @@ install_our_library(allegro)
 if(NOT WANT_FRAMEWORKS)
     install_our_headers(${ALLEGRO_LEGACY_PUBLIC_HEADERS})
 endif(NOT WANT_FRAMEWORKS)
-
-if(PSP)
-    add_our_library(alleg-main STATIC
-        src/psp/pmain.c
-        )
-    set_target_properties(alleg-main
-        PROPERTIES
-        OUTPUT_NAME alleg-main${BUILD_TYPE_SUFFIX}
-        COMPILE_FLAGS -DALLEGRO_LEGACY_SRC
-    )
-    target_link_libraries(alleg-main pspuser pspkernel)
-    target_link_libraries(allegro alleg-main)
-    install_our_library(alleg-main)
-endif(PSP)
 
 #-----------------------------------------------------------------------------#
 #
