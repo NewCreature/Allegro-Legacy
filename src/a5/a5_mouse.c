@@ -48,6 +48,7 @@ static void * a5_mouse_thread_proc(ALLEGRO_THREAD * thread, void * data)
                 {
                     _mouse_x = event.mouse.x;
                     _mouse_y = event.mouse.y;
+                    _mouse_w = event.mouse.w;
                     _mouse_z = event.mouse.z;
                     break;
                 }
