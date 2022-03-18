@@ -828,6 +828,7 @@ void position_mouse_z(int z)
       return;
 
    _mouse_z = z;
+   al_set_mouse_z(z);
    update_mouse();
 }
 
