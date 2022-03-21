@@ -36,23 +36,23 @@ Allegro Legacy exposes the entire Allegro 4 API and adds a few functions to
 make it easier to upgrade your old projects. Below are all the additional
 variables and functions that Allegro Legacy exposes:
 
-* `ALLEGRO_LEGACY`
+* `ALLEGRO_LEGACY`  
   Defined so you can detect from your code whether or not it is being built
   with Allegro Legacy.
-* `void all_disable_threaded_display(void)`
+* `void all_disable_threaded_display(void)`  
   Disable the emulated display. Must be called before `set_gfx_mode()`. If you
   do this, you will need to add your own code to get graphics to render to the
   display.
-* `ALLEGRO_DISPLAY * all_get_display(void)`
+* `ALLEGRO_DISPLAY * all_get_display(void)`  
   Get a pointer to the Allegro 5 display that is being used by Allegro Legacy.
   This variable is initialized during a call to `set_gfx_mode()`.
-* `ALLEGRO_BITMAP * all_get_a5_bitmap(BITMAP * bp)`
+* `ALLEGRO_BITMAP * all_get_a5_bitmap(BITMAP * bp)`  
   Get an Allegro 5 `ALLEGRO_BITMAP * ` from an Allegro 4 `BITMAP *`.
-* `void all_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)`
+* `void all_render_a5_bitmap(BITMAP * bp, ALLEGRO_BITMAP * a5bp)`  
   Render the Allegro 4 `BITMAP *` to the Allegro 5 `ALLEGRO_BITMAP *`.
-* `void all_render_screen(void)`
+* `void all_render_screen(void)`  
   Render the contents of `screen` to the display.
-* `void all_set_display_transform(ALLEGRO_TRANSFORM * transform)`
+* `void all_set_display_transform(ALLEGRO_TRANSFORM * transform)`  
   Apply the transformation `transform` when rendering `screen` to the internal
   Allegro 5 display. Must be called after `set_gfx_mode()` for it to take
   effect. If you set the `ALLEGRO_FULLSCREEN_WINDOW` flag before setting the
