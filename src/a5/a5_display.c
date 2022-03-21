@@ -35,6 +35,9 @@ static int _a5_screen_format = ALLEGRO_LEGACY_PIXEL_FORMAT_OTHER;
 static bool _a5_disable_threaded_display = false;
 static int _a5_display_width = 0;
 static int _a5_display_height = 0;
+static int _a5_new_display_flags = 0;
+static int _a5_new_bitmap_flags = 0;
+static ALLEGRO_TRANSFORM _a5_transform;
 static volatile int _a5_display_creation_done = 0;
 static ALLEGRO_EVENT_QUEUE * _a5_display_thread_event_queue = NULL;
 static ALLEGRO_TIMER * _a5_display_thread_timer = NULL;
@@ -45,13 +48,14 @@ static bool _a5_setup_screen(int w, int h)
 {
   ALLEGRO_STATE old_state;
   int pixel_format;
+  al_set_new_display_flags(_a5_new_display_flags);
   _a5_display = al_create_display(w, h);
   if(!_a5_display)
   {
     goto fail;
   }
   al_store_state(&old_state, ALLEGRO_STATE_NEW_BITMAP_PARAMETERS);
-  al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+  al_set_new_bitmap_flags(_a5_new_bitmap_flags | ALLEGRO_NO_PRESERVE_TEXTURE);
 
   _a5_screen = al_create_bitmap(w, h);
   al_restore_state(&old_state);
@@ -195,6 +199,9 @@ static BITMAP * a5_display_init(int w, int h, int vw, int vh, int color_depth)
     ALLEGRO_STATE old_state;
     int pixel_format;
 
+    _a5_new_display_flags = al_get_new_display_flags();
+    _a5_new_bitmap_flags = al_get_new_bitmap_flags();
+    al_identity_transform(&_a5_transform);
     bp = create_bitmap(w, h);
     if(bp)
     {
@@ -536,6 +543,7 @@ ALLEGRO_BITMAP * all_get_a5_bitmap(BITMAP * bp)
 void all_render_screen(void)
 {
     all_render_a5_bitmap(screen, _a5_screen);
+    al_use_transform(&_a5_transform);
     al_draw_bitmap(_a5_screen, 0, 0, 0);
     al_flip_display();
 }
@@ -543,6 +551,11 @@ void all_render_screen(void)
 void all_disable_threaded_display(void)
 {
   _a5_disable_threaded_display = true;
+}
+
+void all_set_display_transform(ALLEGRO_TRANSFORM * transform)
+{
+  al_copy_transform(&_a5_transform, transform);
 }
 
 GFX_DRIVER display_allegro_5 = {

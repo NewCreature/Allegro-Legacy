@@ -52,6 +52,14 @@ variables and functions that Allegro Legacy exposes:
   Render the Allegro 4 `BITMAP *` to the Allegro 5 `ALLEGRO_BITMAP *`.
 * `void all_render_screen(void)`
   Render the contents of `screen` to the display.
+* `void all_set_display_transform(ALLEGRO_TRANSFORM * transform)`
+  Apply the transformation `transform` when rendering `screen` to the internal
+  Allegro 5 display. Must be called after `set_gfx_mode()` for it to take
+  effect. If you set the `ALLEGRO_FULLSCREEN_WINDOW` flag before setting the
+  graphics mode, you can use this to inform Allegro Legacy how you want to scale
+  `screen` to fill the display. Set the `ALLEGRO_MIN_LINEAR` and/or
+  `ALLEGRO_MAG_LINEAR` new bitmap flags before calling `set_gfx_mode()` to
+  enable bilinear filtering.
 
 ## Advanced Usage
 
