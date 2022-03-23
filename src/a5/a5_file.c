@@ -66,7 +66,7 @@ static char *ff_get_filename(const char * path)
 {
     char * p = (char *)path + strlen(path);
 
-    while((p > path) && (*(p - 1) != '/'))
+    while((p > path) && (*(p - 1) != '/') && (*(p - 1) != OTHER_PATH_SEPARATOR))
     {
         p--;
     }
@@ -84,9 +84,9 @@ static void ff_put_backslash(char * filename, int size)
 {
     int len = strlen(filename);
 
-    if((len > 0) && (len < (size - 1)) && (filename[len - 1] != '/'))
+    if((len > 0) && (len < (size - 1)) && (filename[len - 1] != '/') && (filename[len - 1] != OTHER_PATH_SEPARATOR))
     {
-        filename[len] = '/';
+        filename[len] = OTHER_PATH_SEPARATOR;
         filename[len + 1] = 0;
     }
 }
