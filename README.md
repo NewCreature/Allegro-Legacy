@@ -79,6 +79,14 @@ rendering directly to `screen` using the following code:
     all_render_a5_bitmap(a4_buffer, a5_backbuffer);
     al_flip_display();
 
+## Compatibility Notes
+
+Allegro Legacy does not support hacked graphics modes such as that used by the
+ex12bit example. After looking into ex12bit not working, I decided the hacked
+mode it uses is not officially part of the Allegro 4 API. The additional code to
+support that specific mode could be added, but there may be other possible
+hacked modes. There's no clean way to add support for these types of hacks.
+
 ## License
 
 Allegro Legacy is licensed under the gift-ware license (see a4_readme.txt for
