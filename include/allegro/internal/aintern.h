@@ -464,7 +464,7 @@ AL_LEGACY_VAR(int, _blender_alpha);
 
 AL_LEGACY_FUNC(unsigned long, _blender_black, (unsigned long x, unsigned long y, unsigned long n));
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 
 AL_LEGACY_FUNC(unsigned long, _blender_trans15, (unsigned long x, unsigned long y, unsigned long n));
 AL_LEGACY_FUNC(unsigned long, _blender_add15, (unsigned long x, unsigned long y, unsigned long n));
@@ -496,7 +496,7 @@ AL_LEGACY_FUNC(unsigned long, _blender_screen16, (unsigned long x, unsigned long
 
 #endif
 
-#if (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
+#if (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
 
 AL_LEGACY_FUNC(unsigned long, _blender_trans24, (unsigned long x, unsigned long y, unsigned long n));
 AL_LEGACY_FUNC(unsigned long, _blender_add24, (unsigned long x, unsigned long y, unsigned long n));
@@ -527,7 +527,7 @@ AL_LEGACY_FUNC(void, _normal_line, (BITMAP *bmp, int x1, int y_1, int x2, int y2
 AL_LEGACY_FUNC(void, _fast_line, (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color));
 AL_LEGACY_FUNC(void, _normal_rectfill, (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color));
 
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 
 AL_LEGACY_FUNC(int,  _linear_getpixel8, (BITMAP *bmp, int x, int y));
 AL_LEGACY_FUNC(void, _linear_putpixel8, (BITMAP *bmp, int x, int y, int color));
@@ -552,7 +552,7 @@ AL_LEGACY_FUNC(void, _linear_clear_to_color8, (BITMAP *bitmap, int color));
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 
 AL_LEGACY_FUNC(void, _linear_putpixel15, (BITMAP *bmp, int x, int y, int color));
 AL_LEGACY_FUNC(void, _linear_vline15, (BITMAP *bmp, int x, int y_1, int y2, int color));
@@ -591,7 +591,7 @@ AL_LEGACY_FUNC(void, _linear_clear_to_color16, (BITMAP *bitmap, int color));
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 
 AL_LEGACY_FUNC(int,  _linear_getpixel24, (BITMAP *bmp, int x, int y));
 AL_LEGACY_FUNC(void, _linear_putpixel24, (BITMAP *bmp, int x, int y, int color));
@@ -619,7 +619,7 @@ AL_LEGACY_FUNC(void, _linear_clear_to_color24, (BITMAP *bitmap, int color));
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 
 AL_LEGACY_FUNC(int,  _linear_getpixel32, (BITMAP *bmp, int x, int y));
 AL_LEGACY_FUNC(void, _linear_putpixel32, (BITMAP *bmp, int x, int y, int color));
@@ -688,7 +688,7 @@ AL_LEGACY_FUNC(void, _release_colorconv_blitter, (COLORCONV_BLITTER_FUNC *blitte
 AL_LEGACY_FUNC(void, _set_colorconv_palette, (AL_CONST struct RGB *p, int from, int to));
 AL_LEGACY_FUNC(unsigned char *, _get_colorconv_map, (void));
 
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 
 AL_LEGACY_FUNC(void, _colorconv_blit_8_to_8, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_LEGACY_FUNC(void, _colorconv_blit_8_to_15, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
@@ -698,7 +698,7 @@ AL_LEGACY_FUNC(void, _colorconv_blit_8_to_32, (GRAPHICS_RECT *src_rect, GRAPHICS
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 
 AL_LEGACY_FUNC(void, _colorconv_blit_15_to_8, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_LEGACY_FUNC(void, _colorconv_blit_15_to_16, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
@@ -712,7 +712,7 @@ AL_LEGACY_FUNC(void, _colorconv_blit_16_to_32, (GRAPHICS_RECT *src_rect, GRAPHIC
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 
 AL_LEGACY_FUNC(void, _colorconv_blit_24_to_8, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_LEGACY_FUNC(void, _colorconv_blit_24_to_15, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
@@ -721,7 +721,7 @@ AL_LEGACY_FUNC(void, _colorconv_blit_24_to_32, (GRAPHICS_RECT *src_rect, GRAPHIC
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 
 AL_LEGACY_FUNC(void, _colorconv_blit_32_to_8, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_LEGACY_FUNC(void, _colorconv_blit_32_to_15, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
@@ -734,16 +734,16 @@ AL_LEGACY_FUNC(void, _colorconv_blit_32_to_24, (GRAPHICS_RECT *src_rect, GRAPHIC
 /* color copy routines */
 #ifndef ALLEGRO_LEGACY_NO_COLORCOPY
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 AL_LEGACY_FUNC(void, _colorcopy_blit_15_to_15, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 AL_LEGACY_FUNC(void, _colorcopy_blit_16_to_16, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 AL_LEGACY_FUNC(void, _colorcopy_blit_24_to_24, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 AL_LEGACY_FUNC(void, _colorcopy_blit_32_to_32, (GRAPHICS_RECT *src_rect, GRAPHICS_RECT *dest_rect));
 #endif
 
@@ -860,7 +860,7 @@ AL_LEGACY_FUNC(void, _clip_polygon_segment_f, (POLYGON_SEGMENT *info, int gap, i
 /* polygon scanline filler functions */
 AL_LEGACY_FUNC(void, _poly_scanline_dummy, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 
 AL_LEGACY_FUNC(void, _poly_scanline_gcol8, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 AL_LEGACY_FUNC(void, _poly_scanline_grgb8, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
@@ -899,7 +899,7 @@ AL_LEGACY_FUNC(void, _poly_zbuf_ptex_mask_trans8, (uintptr_t addr, int w, POLYGO
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 
 AL_LEGACY_FUNC(void, _poly_scanline_grgb15, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 AL_LEGACY_FUNC(void, _poly_scanline_atex_mask15, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
@@ -978,7 +978,7 @@ AL_LEGACY_FUNC(void, _poly_zbuf_ptex_mask_trans16, (uintptr_t addr, int w, POLYG
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 
 AL_LEGACY_FUNC(void, _poly_scanline_grgb24, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 AL_LEGACY_FUNC(void, _poly_scanline_atex24, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
@@ -1022,7 +1022,7 @@ AL_LEGACY_FUNC(void, _poly_zbuf_ptex_mask_trans24, (uintptr_t addr, int w, POLYG
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 
 AL_LEGACY_FUNC(void, _poly_scanline_grgb32, (uintptr_t addr, int w, POLYGON_SEGMENT *info));
 AL_LEGACY_FUNC(void, _poly_scanline_atex32, (uintptr_t addr, int w, POLYGON_SEGMENT *info));

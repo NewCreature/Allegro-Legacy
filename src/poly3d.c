@@ -369,7 +369,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
       INTERP_Z | INTERP_FLOAT_UV | OPT_FLOAT_UV_TO_FIX
    };
 
-   #ifdef ALLEGRO_LEGACY_COLOR8
+   #ifdef ALLEGRO_COLOR8
    static POLYTYPE_INFO polytype_info8[] =
    {
       {  _poly_scanline_dummy,            NULL },
@@ -430,7 +430,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    #endif
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR16
+   #ifdef ALLEGRO_COLOR16
    static POLYTYPE_INFO polytype_info15[] =
    {
       {  _poly_scanline_dummy,             NULL },
@@ -550,7 +550,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    #endif
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR24
+   #ifdef ALLEGRO_COLOR24
    static POLYTYPE_INFO polytype_info24[] =
    {
       {  _poly_scanline_dummy,             NULL },
@@ -611,7 +611,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    #endif
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR32
+   #ifdef ALLEGRO_COLOR32
    static POLYTYPE_INFO polytype_info32[] =
    {
       {  _poly_scanline_dummy,             NULL },
@@ -672,7 +672,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    #endif
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR8
+   #ifdef ALLEGRO_COLOR8
    static POLYTYPE_INFO polytype_info8z[] =
    {
       {  _poly_zbuf_flat8,            NULL },
@@ -693,7 +693,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    };
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR16
+   #ifdef ALLEGRO_COLOR16
    static POLYTYPE_INFO polytype_info15z[] =
    {
       {  _poly_zbuf_flat16,            NULL },
@@ -733,7 +733,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    };
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR24
+   #ifdef ALLEGRO_COLOR24
    static POLYTYPE_INFO polytype_info24z[] =
    {
       {  _poly_zbuf_flat24,            NULL },
@@ -754,7 +754,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
    };
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR32
+   #ifdef ALLEGRO_COLOR32
    static POLYTYPE_INFO polytype_info32z[] =
    {
       {  _poly_zbuf_flat32,            NULL },
@@ -786,7 +786,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
 
    switch (bitmap_color_depth(bmp)) {
 
-      #ifdef ALLEGRO_LEGACY_COLOR8
+      #ifdef ALLEGRO_COLOR8
 
 	 case 8:
 	    interpinfo = polytype_interp_pal;
@@ -800,7 +800,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
 
       #endif
 
-      #ifdef ALLEGRO_LEGACY_COLOR16
+      #ifdef ALLEGRO_COLOR16
 
 	 case 15:
 	    interpinfo = polytype_interp_tc;
@@ -824,7 +824,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
 
       #endif
 
-      #ifdef ALLEGRO_LEGACY_COLOR24
+      #ifdef ALLEGRO_COLOR24
 
 	 case 24:
 	    interpinfo = polytype_interp_tc;
@@ -838,7 +838,7 @@ SCANLINE_FILLER _get_scanline_filler(int type, int *flags, POLYGON_SEGMENT *info
 
       #endif
 
-      #ifdef ALLEGRO_LEGACY_COLOR32
+      #ifdef ALLEGRO_COLOR32
 
 	 case 32:
 	    interpinfo = polytype_interp_tc;

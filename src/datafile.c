@@ -1830,7 +1830,7 @@ void fixup_datafile(DATAFILE *data)
 
 	    switch (bpp) {
 
-	    #ifdef ALLEGRO_LEGACY_COLOR16
+	    #ifdef ALLEGRO_COLOR16
 
 	       case 15:
 		  /* fix up a 15 bit hicolor bitmap */
@@ -1894,7 +1894,7 @@ void fixup_datafile(DATAFILE *data)
 	    #endif
 
 
-	    #ifdef ALLEGRO_LEGACY_COLOR24
+	    #ifdef ALLEGRO_COLOR24
 
 	       case 24:
 		  /* fix up a 24 bit truecolor bitmap */
@@ -1914,7 +1914,7 @@ void fixup_datafile(DATAFILE *data)
 	    #endif
 
 
-	    #ifdef ALLEGRO_LEGACY_COLOR32
+	    #ifdef ALLEGRO_COLOR32
 
 	       case 32:
 		  /* fix up a 32 bit truecolor bitmap */
@@ -1945,7 +1945,7 @@ void fixup_datafile(DATAFILE *data)
 
 	    switch (bpp) {
 
-	    #ifdef ALLEGRO_LEGACY_COLOR16
+	    #ifdef ALLEGRO_COLOR16
 
 	       case 15:
 		  /* fix up a 15 bit hicolor RLE sprite */
@@ -2023,7 +2023,7 @@ void fixup_datafile(DATAFILE *data)
 	    #endif
 
 
-	    #ifdef ALLEGRO_LEGACY_COLOR24
+	    #ifdef ALLEGRO_COLOR24
 
 	       case 24:
 		  /* fix up a 24 bit truecolor RLE sprite */
@@ -2064,7 +2064,7 @@ void fixup_datafile(DATAFILE *data)
 	    #endif
 
 
-	    #ifdef ALLEGRO_LEGACY_COLOR32
+	    #ifdef ALLEGRO_COLOR32
 
 	       case 32:
 		  /* fix up a 32 bit truecolor RLE sprite */

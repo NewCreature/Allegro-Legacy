@@ -240,7 +240,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
 {
    switch (from_depth) {
 
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
       case 8:
          switch (to_depth) {
 
@@ -267,7 +267,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
          break;
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
       case 15:
          switch (to_depth) {
 
@@ -323,7 +323,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
          break;
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
       case 24:
          switch (to_depth) {
 
@@ -350,7 +350,7 @@ COLORCONV_BLITTER_FUNC *_get_colorconv_blitter(int from_depth, int to_depth)
          break;
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
       case 32:
          switch (to_depth) {
 

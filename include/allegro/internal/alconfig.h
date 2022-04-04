@@ -17,10 +17,10 @@
 
 
 /* which color depths to include? */
-#define ALLEGRO_LEGACY_COLOR8
-#define ALLEGRO_LEGACY_COLOR16
-#define ALLEGRO_LEGACY_COLOR24
-#define ALLEGRO_LEGACY_COLOR32
+#define ALLEGRO_COLOR8
+#define ALLEGRO_COLOR16
+#define ALLEGRO_COLOR24
+#define ALLEGRO_COLOR32
 
 
 #ifdef ALLEGRO_LEGACY_A5

@@ -134,7 +134,7 @@
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 
 /* _linear_draw_glyph8:
  *  Draws a glyph onto an 8 bit bitmap.
@@ -148,7 +148,7 @@ void _linear_draw_glyph8(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y, 
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 
 /* _linear_draw_glyph16:
  *  Draws a glyph onto a 16 bit bitmap.
@@ -162,7 +162,7 @@ void _linear_draw_glyph16(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y,
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 
 /* _linear_draw_glyph24:
  *  Draws a glyph onto a 24 bit bitmap.
@@ -176,7 +176,7 @@ void _linear_draw_glyph24(BITMAP *bmp, AL_CONST FONT_GLYPH *glyph, int x, int y,
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 
 /* _linear_draw_glyph32:
  *  Draws a glyph onto a 32 bit bitmap.

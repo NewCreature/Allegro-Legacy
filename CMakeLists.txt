@@ -332,10 +332,10 @@ endif(COMPILER_MSVC)
 #-----------------------------------------------------------------------------#
 
 # Not sure if we want to support disabling these any more.
-set(ALLEGRO_LEGACY_COLOR8 1)
-set(ALLEGRO_LEGACY_COLOR16 1)
-set(ALLEGRO_LEGACY_COLOR24 1)
-set(ALLEGRO_LEGACY_COLOR32 1)
+set(ALLEGRO_COLOR8 1)
+set(ALLEGRO_COLOR16 1)
+set(ALLEGRO_COLOR24 1)
+set(ALLEGRO_COLOR32 1)
 
 set(ALLEGRO_LEGACY_NO_ASM 1)
 # ALLEGRO_LEGACY_MMX left undefined

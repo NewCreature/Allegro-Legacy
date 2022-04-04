@@ -545,7 +545,7 @@ int save_tga_pf(PACKFILE *f, BITMAP *bmp, AL_CONST RGB *pal)
 
    switch (bitmap_color_depth(bmp)) {
 
-      #ifdef ALLEGRO_LEGACY_COLOR8
+      #ifdef ALLEGRO_COLOR8
 
 	 case 8:
 	    for (y=bmp->h; y; y--)
@@ -555,7 +555,7 @@ int save_tga_pf(PACKFILE *f, BITMAP *bmp, AL_CONST RGB *pal)
 
       #endif
 
-      #ifdef ALLEGRO_LEGACY_COLOR16
+      #ifdef ALLEGRO_COLOR16
 
 	 case 15:
 	    for (y=bmp->h; y; y--) {
@@ -585,7 +585,7 @@ int save_tga_pf(PACKFILE *f, BITMAP *bmp, AL_CONST RGB *pal)
 
       #endif
 
-      #ifdef ALLEGRO_LEGACY_COLOR24
+      #ifdef ALLEGRO_COLOR24
 
 	 case 24:
 	    for (y=bmp->h; y; y--) {
@@ -600,7 +600,7 @@ int save_tga_pf(PACKFILE *f, BITMAP *bmp, AL_CONST RGB *pal)
 
       #endif
 
-      #ifdef ALLEGRO_LEGACY_COLOR32
+      #ifdef ALLEGRO_COLOR32
 
 	 case 32:
 	    for (y=bmp->h; y; y--) {

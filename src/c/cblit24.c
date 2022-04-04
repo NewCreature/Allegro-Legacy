@@ -18,10 +18,9 @@
 
 #include "allegro.h"
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 
 #include "cdefs24.h"
 #include "cblit.h"
 
 #endif
-

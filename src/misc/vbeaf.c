@@ -1,6 +1,6 @@
-/*         ______   ___    ___ 
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+/*         ______   ___    ___
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -35,24 +35,24 @@
  *
  *      On the subject of VBE/AF in general:
  *
- *      Kendall Bennett and Tom Ryan of SciTech software deserve 
- *      significant thanks for coming up with such a magnificent API and 
- *      then helping me write this driver, after the VESA people (may they 
- *      be smitten with plagues of locusts and then develop subtle memory 
- *      leaks in their code :-) decided to charge stupid sums of money for 
- *      copies of the /AF specification. Unfortunately, SciTech have 
- *      subsequently abandoned VBE/AF in favour of a closed, proprietary 
- *      system called Nucleus. Ah well, I'm sure that this makes sense 
- *      for them in commercial terms, even if it is something of a 
+ *      Kendall Bennett and Tom Ryan of SciTech software deserve
+ *      significant thanks for coming up with such a magnificent API and
+ *      then helping me write this driver, after the VESA people (may they
+ *      be smitten with plagues of locusts and then develop subtle memory
+ *      leaks in their code :-) decided to charge stupid sums of money for
+ *      copies of the /AF specification. Unfortunately, SciTech have
+ *      subsequently abandoned VBE/AF in favour of a closed, proprietary
+ *      system called Nucleus. Ah well, I'm sure that this makes sense
+ *      for them in commercial terms, even if it is something of a
  *      disappointment for us idealistic hacker types...
  *
  *      The problem with Nucleus is that the spec is only available under
  *      NDA, so I cannot support it directly in Allegro. The plan,
  *      therefore, is to write a Nucleus to VBE/AF wrapper driver.
  *      This requires a few callback routines that stock VBE/AF doesn't
- *      provide, hence the Nucleus-specific extensions in this file. It 
- *      doesn't provide direct Nucleus support, but hopefully will enable 
- *      someone (whether us or SciTech) to add that support in the future 
+ *      provide, hence the Nucleus-specific extensions in this file. It
+ *      doesn't provide direct Nucleus support, but hopefully will enable
+ *      someone (whether us or SciTech) to add that support in the future
  *      via an external driver binary.
  *
  *      By Shawn Hargreaves.
@@ -138,7 +138,7 @@ static char vbeaf_desc[256] = EMPTY_STRING;
 
 
 /* the video driver structure */
-GFX_DRIVER gfx_vbeaf = 
+GFX_DRIVER gfx_vbeaf =
 {
    GFX_VBEAF,
    empty_string,
@@ -689,7 +689,7 @@ END_OF_STATIC_FUNCTION(vbeaf_no_wait);
 
 
 /* load_vbeaf_driver:
- *  Tries to load the specified VBE/AF driver file, returning TRUE on 
+ *  Tries to load the specified VBE/AF driver file, returning TRUE on
  *  success. Allocates memory and reads the driver into it.
  */
 static int load_vbeaf_driver(AL_CONST char *filename)
@@ -798,7 +798,7 @@ static void initialise_freebeaf_extensions(void)
 
 
 /* initialise_vbeaf_driver:
- *  Sets up the DPMI memory mappings required by the VBE/AF driver, 
+ *  Sets up the DPMI memory mappings required by the VBE/AF driver,
  *  returning zero on success.
  */
 static int initialise_vbeaf_driver(void)
@@ -815,7 +815,7 @@ static int initialise_vbeaf_driver(void)
 
    #else
 
-      /* don't use farptr on any other platforms */ 
+      /* don't use farptr on any other platforms */
       faf_farptr = NULL;
 
    #endif
@@ -825,15 +825,15 @@ static int initialise_vbeaf_driver(void)
       if (faf_farptr) {
 	 /* use farptr access */
 	 for (c=0; c<4; c++) {
-	    faf_farptr->IOMemMaps[c].sel = 0; 
-	    faf_farptr->IOMemMaps[c].offset = 0; 
+	    faf_farptr->IOMemMaps[c].sel = 0;
+	    faf_farptr->IOMemMaps[c].offset = 0;
 	 }
 
-	 faf_farptr->BankedMem.sel = 0; 
-	 faf_farptr->BankedMem.offset = 0; 
+	 faf_farptr->BankedMem.sel = 0;
+	 faf_farptr->BankedMem.offset = 0;
 
-	 faf_farptr->LinearMem.sel = 0; 
-	 faf_farptr->LinearMem.offset = 0; 
+	 faf_farptr->LinearMem.sel = 0;
+	 faf_farptr->LinearMem.offset = 0;
 
 	 vbeaf_nearptr = FALSE;
       }
@@ -855,13 +855,13 @@ static int initialise_vbeaf_driver(void)
    /* create mapping for MMIO ports */
    for (c=0; c<4; c++) {
       if (af_driver->IOMemoryBase[c]) {
-	 if (_create_linear_mapping(af_memmap+c, af_driver->IOMemoryBase[c], 
+	 if (_create_linear_mapping(af_memmap+c, af_driver->IOMemoryBase[c],
 				    af_driver->IOMemoryLen[c]) != 0)
 	    return -1;
 
 	 if (faf_farptr) {
 	    /* farptr IO mapping */
-	    if (_create_selector(&faf_farptr->IOMemMaps[c].sel, af_memmap[c], 
+	    if (_create_selector(&faf_farptr->IOMemMaps[c].sel, af_memmap[c],
 				 af_driver->IOMemoryLen[c]) != 0) {
 	       _remove_linear_mapping(af_memmap+c);
 	       return -1;
@@ -1081,7 +1081,7 @@ static int vbeaf_locate_driver(void)
    ustrzcpy(allegro_error, ALLEGRO_LEGACY_ERROR_SIZE, get_config_text("Can't find VBEAF.DRV"));
    ret = FALSE;
 
-   /* got it! */ 
+   /* got it! */
    found_it:
 
    return ret;
@@ -1337,51 +1337,51 @@ static BITMAP *vbeaf_init(int w, int h, int v_w, int v_h, int color_depth)
    gfx_vbeaf.h = b->cb = h;
 
    /* set up the truecolor pixel format */
-   #if (defined ALLEGRO_LEGACY_COLOR16) || (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
+   #if (defined ALLEGRO_COLOR16) || (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
 
       if (gfx_vbeaf.linear) {
-	 rs = mode_info.LinRedFieldPosition; 
+	 rs = mode_info.LinRedFieldPosition;
 	 gs = mode_info.LinGreenFieldPosition;
 	 bs = mode_info.LinBlueFieldPosition;
       }
       else {
-	 rs = mode_info.RedFieldPosition; 
+	 rs = mode_info.RedFieldPosition;
 	 gs = mode_info.GreenFieldPosition;
 	 bs = mode_info.BlueFieldPosition;
       }
 
       switch (color_depth) {
 
-	 #ifdef ALLEGRO_LEGACY_COLOR16
+	 #ifdef ALLEGRO_COLOR16
 
 	    case 15:
-	       _rgb_r_shift_15 = rs; 
+	       _rgb_r_shift_15 = rs;
 	       _rgb_g_shift_15 = gs;
 	       _rgb_b_shift_15 = bs;
 	       break;
 
 	    case 16:
-	       _rgb_r_shift_16 = rs; 
+	       _rgb_r_shift_16 = rs;
 	       _rgb_g_shift_16 = gs;
 	       _rgb_b_shift_16 = bs;
 	       break;
 
 	 #endif
 
-	 #ifdef ALLEGRO_LEGACY_COLOR24
+	 #ifdef ALLEGRO_COLOR24
 
 	    case 24:
-	       _rgb_r_shift_24 = rs; 
+	       _rgb_r_shift_24 = rs;
 	       _rgb_g_shift_24 = gs;
 	       _rgb_b_shift_24 = bs;
 	       break;
 
 	 #endif
 
-	 #ifdef ALLEGRO_LEGACY_COLOR32
+	 #ifdef ALLEGRO_COLOR32
 
 	    case 32:
-	       _rgb_r_shift_32 = rs; 
+	       _rgb_r_shift_32 = rs;
 	       _rgb_g_shift_32 = gs;
 	       _rgb_b_shift_32 = bs;
 	       break;
@@ -1652,12 +1652,12 @@ static GFX_MODE_LIST *vbeaf_fetch_mode_list(void)
    if (!af_driver) {
       if (!vbeaf_locate_driver()) {
          if (mode_info) _AL_FREE(mode_info);
-	 
+
          return NULL;
       }
       if (!vbeaf_lowlevel_init()) {
          if (mode_info) _AL_FREE(mode_info);
-	 
+
          return NULL;
       }
       vbeaf_was_off = TRUE;
@@ -1669,7 +1669,7 @@ static GFX_MODE_LIST *vbeaf_fetch_mode_list(void)
    gfx_mode_list = _AL_MALLOC(sizeof(GFX_MODE_LIST));
    if (!gfx_mode_list) {
       if (mode_info) _AL_FREE(mode_info);
-      
+
       return NULL;
    }
    gfx_mode_list->mode = NULL;
@@ -1681,14 +1681,14 @@ static GFX_MODE_LIST *vbeaf_fetch_mode_list(void)
       if (!gfx_mode_list->mode) {
          if (mode_info) _AL_FREE(mode_info);
          if (gfx_mode_list) _AL_FREE(gfx_mode_list);
-         
+
          return NULL;
       }
       if (af_driver->GetVideoModeInfo(af_driver, *mode, mode_info) != 0) {
          if (mode_info) _AL_FREE(mode_info);
          if (gfx_mode_list->mode) _AL_FREE(gfx_mode_list->mode);
          if (gfx_mode_list) _AL_FREE(gfx_mode_list);
-         
+
          return NULL;
       }
 
@@ -1704,7 +1704,7 @@ static GFX_MODE_LIST *vbeaf_fetch_mode_list(void)
    if (!gfx_mode_list->mode) {
       if (mode_info) _AL_FREE(mode_info);
       if (gfx_mode_list) _AL_FREE(gfx_mode_list);
-      
+
       return NULL;
    }
 
@@ -1724,9 +1724,9 @@ static GFX_MODE_LIST *vbeaf_fetch_mode_list(void)
 
 
 /* vbeaf_vsync:
- *  VBE/AF vsync routine, needed for cards that don't emulate the VGA 
- *  blanking registers. VBE/AF doesn't provide a vsync function, but we 
- *  can emulate it by altering the display start address with the vsync 
+ *  VBE/AF vsync routine, needed for cards that don't emulate the VGA
+ *  blanking registers. VBE/AF doesn't provide a vsync function, but we
+ *  can emulate it by altering the display start address with the vsync
  *  flag set.
  */
 static void vbeaf_vsync(void)
@@ -1910,7 +1910,7 @@ static int vbeaf_set_mouse_sprite(BITMAP *sprite, int xfocus, int yfocus)
       af_driver->SetCursor(af_driver, &cursor);
 
       if ((bpp > 8) && (vbeaf_cur_c1 >= 0)) {
-	 af_driver->SetCursorColor(af_driver, 
+	 af_driver->SetCursorColor(af_driver,
 				   getr_depth(bpp, vbeaf_cur_c1),
 				   getg_depth(bpp, vbeaf_cur_c1),
 				   getb_depth(bpp, vbeaf_cur_c1));
@@ -2096,7 +2096,7 @@ static void prepare_color_pattern(BITMAP *bmp)
 
       switch (bitmap_color_depth(bmp)) {
 
-	 #ifdef ALLEGRO_LEGACY_COLOR8
+	 #ifdef ALLEGRO_COLOR8
 
 	    case 8:
 	       for (y=0; y<8; y++) {
@@ -2110,7 +2110,7 @@ static void prepare_color_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_LEGACY_COLOR16
+	 #ifdef ALLEGRO_COLOR16
 
 	    case 15:
 	    case 16:
@@ -2125,7 +2125,7 @@ static void prepare_color_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_LEGACY_COLOR24
+	 #ifdef ALLEGRO_COLOR24
 
 	    case 24:
 	       for (y=0; y<8; y++) {
@@ -2139,7 +2139,7 @@ static void prepare_color_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_LEGACY_COLOR32
+	 #ifdef ALLEGRO_COLOR32
 
 	    case 32:
 	       for (y=0; y<8; y++) {
@@ -2177,7 +2177,7 @@ static void prepare_mono_pattern(BITMAP *bmp)
 
       switch (bitmap_color_depth(bmp)) {
 
-	 #ifdef ALLEGRO_LEGACY_COLOR16
+	 #ifdef ALLEGRO_COLOR16
 
 	    case 8:
 	       for (y=0; y<8; y++) {
@@ -2193,7 +2193,7 @@ static void prepare_mono_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_LEGACY_COLOR16
+	 #ifdef ALLEGRO_COLOR16
 
 	    case 15:
 	    case 16:
@@ -2210,7 +2210,7 @@ static void prepare_mono_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_LEGACY_COLOR24
+	 #ifdef ALLEGRO_COLOR24
 
 	    case 24:
 	       for (y=0; y<8; y++) {
@@ -2226,7 +2226,7 @@ static void prepare_mono_pattern(BITMAP *bmp)
 
 	 #endif
 
-	 #ifdef ALLEGRO_LEGACY_COLOR32
+	 #ifdef ALLEGRO_COLOR32
 
 	    case 32:
 	       for (y=0; y<8; y++) {
@@ -2300,7 +2300,7 @@ static void vbeaf_hline(BITMAP *bmp, int x1, int y, int x2, int color)
 	 case DRAW_MODE_SOLID:
 	 case DRAW_MODE_XOR:
 	    /* normal scanline fill */
-	    af_driver->DrawScan(af_driver, color, y+bmp->y_ofs, 
+	    af_driver->DrawScan(af_driver, color, y+bmp->y_ofs,
 				x1+bmp->x_ofs, x2+bmp->x_ofs+1);
 	    break;
 
@@ -2308,7 +2308,7 @@ static void vbeaf_hline(BITMAP *bmp, int x1, int y, int x2, int color)
 	    /* colored pattern scanline fill */
 	    prepare_color_pattern(bmp);
 
-	    af_driver->DrawColorPattScan(af_driver, y+bmp->y_ofs, 
+	    af_driver->DrawColorPattScan(af_driver, y+bmp->y_ofs,
 					 x1+bmp->x_ofs, x2+bmp->x_ofs+1);
 	    break;
 
@@ -2317,7 +2317,7 @@ static void vbeaf_hline(BITMAP *bmp, int x1, int y, int x2, int color)
 	    /* mono pattern scanline fill */
 	    prepare_mono_pattern(bmp);
 
-	    af_driver->DrawPattScan(af_driver, color, 0, y+bmp->y_ofs, 
+	    af_driver->DrawPattScan(af_driver, color, 0, y+bmp->y_ofs,
 				    x1+bmp->x_ofs, x2+bmp->x_ofs+1);
 	    break;
       }
@@ -2395,7 +2395,7 @@ static void vbeaf_vline_b(BITMAP *bmp, int x, int y1, int y2, int color)
 	 case DRAW_MODE_SOLID:
 	 case DRAW_MODE_XOR:
 	    /* mono vertical line */
-	    af_driver->DrawRect(af_driver, color, 
+	    af_driver->DrawRect(af_driver, color,
 				x+bmp->x_ofs, y1+bmp->y_ofs, 1, y2-y1+1);
 	    break;
 
@@ -2511,8 +2511,8 @@ static void vbeaf_rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int colo
 	 case DRAW_MODE_SOLID:
 	 case DRAW_MODE_XOR:
 	    /* mono rectangle fill */
-	    af_driver->DrawRect(af_driver, color, 
-				x1+bmp->x_ofs, y1+bmp->y_ofs, 
+	    af_driver->DrawRect(af_driver, color,
+				x1+bmp->x_ofs, y1+bmp->y_ofs,
 				x2-x1+1, y2-y1+1);
 	    break;
 
@@ -2553,7 +2553,7 @@ static void vbeaf_triangle(BITMAP *bmp, int x1, int y1, int x2, int y2, int x3, 
          _soft_triangle(bmp, x1, y1, x2, y2, x3, y3, color);
 	 return;
       }
-      
+
       if ((y1 < bmp->ct) || (y2 < bmp->ct) || (y3 < bmp->ct)) {
          _soft_triangle(bmp, x1, y1, x2, y2, x3, y3, color);
 	 return;
@@ -2786,7 +2786,7 @@ static void vbeaf_draw_sprite(BITMAP *bmp, BITMAP *sprite, int x, int y)
 	 SAFE_CALL(
 	    go_accel();
 
-	    af_driver->SrcTransBltSys(af_driver, 
+	    af_driver->SrcTransBltSys(af_driver,
 				      sprite->line[0], pitch,
 				      sx, sy, w, h,
 				      x+bmp->x_ofs, y+bmp->y_ofs,
@@ -2842,10 +2842,10 @@ static void vbeaf_blit_to_self(BITMAP *source, BITMAP *dest, int source_x, int s
       go_accel();
 
       af_driver->BitBlt(af_driver,
-			source_x+source->x_ofs, 
+			source_x+source->x_ofs,
 			source_y+source->y_ofs,
 			width, height,
-			dest_x+dest->x_ofs, 
+			dest_x+dest->x_ofs,
 			dest_y+dest->y_ofs,
 			0);
    );
@@ -2912,10 +2912,10 @@ static void vbeaf_clear_to_color(BITMAP *bitmap, int color)
       if ((vbeaf_fg_mix != 0) || (vbeaf_bg_mix != 0))
 	 af_driver->SetMix(af_driver, 0, 0);
 
-      af_driver->DrawRect(af_driver, color, 
-			  bitmap->cl+bitmap->x_ofs, 
-			  bitmap->ct+bitmap->y_ofs, 
-			  bitmap->cr-bitmap->cl, 
+      af_driver->DrawRect(af_driver, color,
+			  bitmap->cl+bitmap->x_ofs,
+			  bitmap->ct+bitmap->y_ofs,
+			  bitmap->cr-bitmap->cl,
 			  bitmap->cb-bitmap->ct);
 
       if ((vbeaf_fg_mix != 0) || (vbeaf_bg_mix != 0))

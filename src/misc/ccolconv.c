@@ -1,6 +1,6 @@
-/*         ______   ___    ___ 
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+/*         ______   ___    ___
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -28,7 +28,7 @@ extern unsigned char *_colorconv_rgb_map;  /* for conversion from 8/12-bit to 8-
 
 #ifdef ALLEGRO_LEGACY_NO_ASM
 
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 
 
 void _colorconv_blit_8_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect)
@@ -41,7 +41,7 @@ void _colorconv_blit_8_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT
    int y, x;
    unsigned int src_data;
    unsigned int dest_data;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - width;
    dest_feed = dest_rect->pitch - width;
@@ -97,7 +97,7 @@ void _colorconv_blit_8_to_16(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    int y, x;
    unsigned int src_data;
    unsigned int dest_data;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - width;
    dest_feed = dest_rect->pitch - (width << 1);
@@ -106,10 +106,10 @@ void _colorconv_blit_8_to_16(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
 
 #ifdef ALLEGRO_LEGACY_ARM
 
-   /* ARM requires strict alignment for memory access. So this ARM branch of code 
+   /* ARM requires strict alignment for memory access. So this ARM branch of code
     * takes it into account. Combining data into 32-bit values when writing to
-    * memory really adds about 20% extra performance on Nokia 770. An interesting 
-    * thing is that this branch of code is not only correct, but also actually 
+    * memory really adds about 20% extra performance on Nokia 770. An interesting
+    * thing is that this branch of code is not only correct, but also actually
     * a bit faster than the other one.
     *
     * TODO: Check performance of this code path on other architectures.  If it
@@ -224,7 +224,7 @@ void _colorconv_blit_8_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    int y, x;
    unsigned int src_data;
    unsigned int temp1, temp2, temp3, temp4;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - width;
    dest_feed = dest_rect->pitch - (width * 3);
@@ -290,7 +290,7 @@ void _colorconv_blit_8_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    int y, x;
    unsigned int src_data;
    unsigned int dest_data;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - width;
    dest_feed = dest_rect->pitch - (width << 2);
@@ -351,7 +351,7 @@ void _colorconv_blit_8_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 
 
 void _colorconv_blit_15_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect)
@@ -365,7 +365,7 @@ void _colorconv_blit_15_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    unsigned int src_data;
    unsigned short dest_data;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width << 1);
    dest_feed = dest_rect->pitch - width;
@@ -415,7 +415,7 @@ void _colorconv_blit_15_to_16(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    int y, x;
    unsigned int src_data;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width << 1);
    dest_feed = dest_rect->pitch - (width << 1);
@@ -453,7 +453,7 @@ void _colorconv_blit_15_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    int y, x;
    unsigned int src_data;
    unsigned int temp1, temp2, temp3, temp4;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width << 1);
    dest_feed = dest_rect->pitch - (width * 3);
@@ -522,7 +522,7 @@ void _colorconv_blit_15_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    int y, x;
    unsigned int src_data;
    unsigned int temp1, temp2;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width << 1);
    dest_feed = dest_rect->pitch - (width << 2);
@@ -568,7 +568,7 @@ void _colorconv_blit_16_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_REC
    unsigned int src_data;
    unsigned short dest_data;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width << 1);
    dest_feed = dest_rect->pitch - width;
@@ -620,7 +620,7 @@ void _colorconv_blit_16_to_15(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    int y, x;
    unsigned int src_data;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width << 1);
    dest_feed = dest_rect->pitch - (width << 1);
@@ -663,7 +663,7 @@ void _colorconv_blit_16_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
 
 #endif
 
-#if (defined ALLEGRO_LEGACY_COLOR24 || defined ALLEGRO_LEGACY_COLOR32)
+#if (defined ALLEGRO_COLOR24 || defined ALLEGRO_COLOR32)
 
 
 static void colorconv_blit_true_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect, int bpp)
@@ -675,7 +675,7 @@ static void colorconv_blit_true_to_8(struct GRAPHICS_RECT *src_rect, struct GRAP
    int dest_feed;
    int y, x;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width * bpp);
    dest_feed = dest_rect->pitch - width;
@@ -703,7 +703,7 @@ static void colorconv_blit_true_to_15(struct GRAPHICS_RECT *src_rect, struct GRA
    int dest_feed;
    int y, x;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width * bpp);
    dest_feed = dest_rect->pitch - (width << 1);
@@ -762,7 +762,7 @@ static void colorconv_blit_true_to_16(struct GRAPHICS_RECT *src_rect, struct GRA
    int dest_feed;
    int y, x;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width * bpp);
    dest_feed = dest_rect->pitch - (width << 1);
@@ -813,7 +813,7 @@ static void colorconv_blit_true_to_16(struct GRAPHICS_RECT *src_rect, struct GRA
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 
 
 void _colorconv_blit_24_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect)
@@ -846,7 +846,7 @@ void _colorconv_blit_24_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    int dest_feed;
    int y, x;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width * 3);
    dest_feed = dest_rect->pitch - (width << 2);
@@ -871,7 +871,7 @@ void _colorconv_blit_24_to_32(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
 
 #endif
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 
 
 void _colorconv_blit_32_to_8(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest_rect)
@@ -904,7 +904,7 @@ void _colorconv_blit_32_to_24(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RE
    int dest_feed;
    int y, x;
    unsigned int temp;
-   
+
    width = src_rect->width;
    src_feed = src_rect->pitch - (width << 2);
    dest_feed = dest_rect->pitch - (width * 3);
@@ -944,7 +944,7 @@ static void colorcopy(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest
    int src_feed;
    int dest_feed;
    int y, x;
-   
+
    width = src_rect->width * bpp;
    src_feed = src_rect->pitch - width;
    dest_feed = dest_rect->pitch - width;
@@ -969,7 +969,7 @@ static void colorcopy(struct GRAPHICS_RECT *src_rect, struct GRAPHICS_RECT *dest
       src += src_feed;
       dest += dest_feed;
    }
-   
+
 }
 
 

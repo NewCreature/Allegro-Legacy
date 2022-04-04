@@ -1,6 +1,6 @@
-/*         ______   ___    ___ 
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+/*         ______   ___    ___
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -39,11 +39,11 @@ unsigned long _blender_black(unsigned long x, unsigned long y, unsigned long n)
 
 
 
-#if (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
+#if (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
 
 
 
-#if (defined ALLEGRO_LEGACY_NO_ASM) || (!defined ALLEGRO_LEGACY_I386) 
+#if (defined ALLEGRO_LEGACY_NO_ASM) || (!defined ALLEGRO_LEGACY_I386)
 				    /* i386 asm version is in imisc.s */
 
 
@@ -298,8 +298,8 @@ unsigned long _blender_luminance24(unsigned long x, unsigned long y, unsigned lo
  */
 unsigned long _blender_multiply24(unsigned long x, unsigned long y, unsigned long n)
 {
-   return BLEND(24, getr24(x) * getr24(y) / 256, 
-		    getg24(x) * getg24(y) / 256, 
+   return BLEND(24, getr24(x) * getr24(y) / 256,
+		    getg24(x) * getg24(y) / 256,
 		    getb24(x) * getb24(y) / 256);
 }
 
@@ -341,7 +341,7 @@ unsigned long _blender_screen24(unsigned long x, unsigned long y, unsigned long 
 #endif      /* end of 24/32 bit routines */
 
 
-#if (defined ALLEGRO_LEGACY_COLOR15) || (defined ALLEGRO_LEGACY_COLOR16)
+#if (defined ALLEGRO_COLOR15) || (defined ALLEGRO_COLOR16)
 
 
 
@@ -585,8 +585,8 @@ unsigned long _blender_luminance16(unsigned long x, unsigned long y, unsigned lo
  */
 unsigned long _blender_multiply16(unsigned long x, unsigned long y, unsigned long n)
 {
-   return BLEND(16, getr16(x) * getr16(y) / 256, 
-		    getg16(x) * getg16(y) / 256, 
+   return BLEND(16, getr16(x) * getr16(y) / 256,
+		    getg16(x) * getg16(y) / 256,
 		    getb16(x) * getb16(y) / 256);
 }
 
@@ -865,8 +865,8 @@ unsigned long _blender_luminance15(unsigned long x, unsigned long y, unsigned lo
  */
 unsigned long _blender_multiply15(unsigned long x, unsigned long y, unsigned long n)
 {
-   return BLEND(15, getr15(x) * getr15(y) / 256, 
-		    getg15(x) * getg15(y) / 256, 
+   return BLEND(15, getr15(x) * getr15(y) / 256,
+		    getg15(x) * getg15(y) / 256,
 		    getb15(x) * getb15(y) / 256);
 }
 
@@ -909,14 +909,14 @@ unsigned long _blender_screen15(unsigned long x, unsigned long y, unsigned long 
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
    #define BF16(name)   name
 #else
    #define BF16(name)   _blender_black
 #endif
 
 
-#if (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
+#if (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
    #define BF24(name)   name
 #else
    #define BF24(name)   _blender_black
@@ -973,7 +973,7 @@ void set_alpha_blender(void)
    else
       r = b = 0;
 
-   #ifdef ALLEGRO_LEGACY_COLOR16
+   #ifdef ALLEGRO_COLOR16
 
       /* decide which 15 bit blender to use */
       if ((_rgb_r_shift_15 == r*10) && (_rgb_g_shift_15 == 5) && (_rgb_b_shift_15 == b*10))
@@ -999,7 +999,7 @@ void set_alpha_blender(void)
 
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR24
+   #ifdef ALLEGRO_COLOR24
 
       /* decide which 24 bit blender to use */
       if ((_rgb_r_shift_24 == r*16) && (_rgb_g_shift_24 == 8) && (_rgb_b_shift_24 == b*16))
@@ -1016,7 +1016,7 @@ void set_alpha_blender(void)
 
    #endif
 
-   #ifdef ALLEGRO_LEGACY_COLOR32
+   #ifdef ALLEGRO_COLOR32
       f32 = _blender_alpha32;
    #else
       f32 = _blender_black;
@@ -1028,7 +1028,7 @@ void set_alpha_blender(void)
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 
 /* _blender_write_alpha:
  *  Overlays an alpha channel onto an existing 32 bit RGBA bitmap.
@@ -1049,15 +1049,14 @@ void set_write_alpha_blender(void)
 {
    BLENDER_FUNC f32;
 
-   #ifdef ALLEGRO_LEGACY_COLOR32
+   #ifdef ALLEGRO_COLOR32
       f32 = _blender_write_alpha;
    #else
       f32 = _blender_black;
    #endif
 
    set_blender_mode_ex(_blender_black, _blender_black, _blender_black,
-		       f32, 
+		       f32,
 		       _blender_black, _blender_black, _blender_black,
 		       0, 0, 0, 0);
 }
-

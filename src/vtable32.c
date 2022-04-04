@@ -21,7 +21,7 @@
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 
 
 void _linear_draw_sprite32_end(void);

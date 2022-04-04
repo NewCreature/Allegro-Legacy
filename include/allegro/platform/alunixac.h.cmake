@@ -5,10 +5,10 @@
  */
 
 /* Define if you want support for n bpp modes. */
-#cmakedefine ALLEGRO_LEGACY_COLOR8
-#cmakedefine ALLEGRO_LEGACY_COLOR16
-#cmakedefine ALLEGRO_LEGACY_COLOR24
-#cmakedefine ALLEGRO_LEGACY_COLOR32
+#cmakedefine ALLEGRO_COLOR8
+#cmakedefine ALLEGRO_COLOR16
+#cmakedefine ALLEGRO_COLOR24
+#cmakedefine ALLEGRO_COLOR32
 
 /*---------------------------------------------------------------------------*/
 

@@ -18,10 +18,9 @@
 
 #include "allegro.h"
 
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 
 #include "cdefs8.h"
 #include "cblit.h"
 
 #endif
-

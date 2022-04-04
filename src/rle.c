@@ -1,6 +1,6 @@
-/*         ______   ___    ___ 
- *        /\  _  \ /\_ \  /\_ \ 
- *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___ 
+/*         ______   ___    ___
+ *        /\  _  \ /\_ \  /\_ \
+ *        \ \ \L\ \\//\ \ \//\ \      __     __   _ __   ___
  *         \ \  __ \ \ \ \  \ \ \   /'__`\ /'_ `\/\`'__\/ __`\
  *          \ \ \/\ \ \_\ \_ \_\ \_/\  __//\ \L\ \ \ \//\ \L\ \
  *           \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
@@ -34,7 +34,7 @@
  *  the end of a line (since zero can't occur anywhere else in the data,
  *  this can be used to find the start of a specified line when clipping).
  *  For truecolor RLE sprites, the data and command bytes are both in the
- *  same format (16 or 32 bits, 24 bpp data is padded to 32 bit aligment), 
+ *  same format (16 or 32 bits, 24 bpp data is padded to 32 bit aligment),
  *  and the mask color (bright pink) is used as the EOL marker.
  */
 RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
@@ -46,7 +46,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
    int pix;
    int c;
    ASSERT(bitmap);
-   
+
    depth = bitmap_color_depth(bitmap);
 
    #define WRITE_TO_SPRITE8(x) {                                             \
@@ -103,7 +103,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
 
    switch (depth) {
 
-      #ifdef ALLEGRO_LEGACY_COLOR8
+      #ifdef ALLEGRO_COLOR8
 
 	 case 8:
 	    {
@@ -114,7 +114,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
 
       #endif
 
-      #ifdef ALLEGRO_LEGACY_COLOR16
+      #ifdef ALLEGRO_COLOR16
 
 	 case 15:
 	 case 16:
@@ -127,7 +127,7 @@ RLE_SPRITE *get_rle_sprite(BITMAP *bitmap)
 
       #endif
 
-      #if (defined ALLEGRO_LEGACY_COLOR24) || (defined ALLEGRO_LEGACY_COLOR32)
+      #if (defined ALLEGRO_COLOR24) || (defined ALLEGRO_COLOR32)
 
 	 case 24:
 	 case 32:
@@ -164,5 +164,3 @@ void destroy_rle_sprite(RLE_SPRITE *sprite)
    if (sprite)
       _AL_FREE(sprite);
 }
-
-

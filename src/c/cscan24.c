@@ -18,7 +18,7 @@
 
 #include "allegro.h"
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 
 #undef _bma_scan_gcol
 
@@ -27,4 +27,3 @@
 #include "cscan.h"
 
 #endif
-

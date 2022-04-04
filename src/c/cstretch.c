@@ -167,7 +167,7 @@ static void stretch_masked_linex(uintptr_t dptr, unsigned char *sptr)
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 static void stretch_line8(uintptr_t dptr, unsigned char *sptr)
 {
    DECLARE_STRETCHER(unsigned char, 1, bmp_write8, *);
@@ -181,7 +181,7 @@ static void stretch_masked_line8(uintptr_t dptr, unsigned char *sptr)
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 static void stretch_line15(uintptr_t dptr, unsigned char* sptr)
 {
    DECLARE_STRETCHER(unsigned short, 2, bmp_write15, *);
@@ -205,7 +205,7 @@ static void stretch_masked_line16(uintptr_t dptr, unsigned char* sptr)
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 static void stretch_line24(uintptr_t dptr, unsigned char* sptr)
 {
    DECLARE_STRETCHER(unsigned char, 3, bmp_write24, READ3BYTES);
@@ -219,7 +219,7 @@ static void stretch_masked_line24(uintptr_t dptr, unsigned char* sptr)
 
 
 
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 static void stretch_line32(uintptr_t dptr, unsigned char* sptr)
 {
    DECLARE_STRETCHER(uint32_t, 4, bmp_write32, *);
@@ -268,7 +268,7 @@ static void _al_stretch_blit(BITMAP *src, BITMAP *dst,
    /* Find out which stretcher should be used */
    if (masked) {
       switch (bitmap_color_depth(dst)) {
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 	 case 8:
 	    if (is_linear_bitmap(dst))
 	       stretch_line = stretch_masked_line8;
@@ -279,7 +279,7 @@ static void _al_stretch_blit(BITMAP *src, BITMAP *dst,
 	    size = 1;
 	    break;
 #endif
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 	 case 15:
 	    stretch_line = stretch_masked_line15;
 	    size = 2;
@@ -289,13 +289,13 @@ static void _al_stretch_blit(BITMAP *src, BITMAP *dst,
 	    size = 2;
 	    break;
 #endif
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 	 case 24:
 	    stretch_line = stretch_masked_line24;
 	    size = 3;
 	    break;
 #endif
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 	 case 32:
 	    stretch_line = stretch_masked_line32;
 	    size = 4;
@@ -305,7 +305,7 @@ static void _al_stretch_blit(BITMAP *src, BITMAP *dst,
    }
    else {
       switch (bitmap_color_depth(dst)) {
-#ifdef ALLEGRO_LEGACY_COLOR8
+#ifdef ALLEGRO_COLOR8
 	 case 8:
 	    if (is_linear_bitmap(dst))
 	       stretch_line = stretch_line8;
@@ -316,7 +316,7 @@ static void _al_stretch_blit(BITMAP *src, BITMAP *dst,
 	    size = 1;
 	    break;
 #endif
-#ifdef ALLEGRO_LEGACY_COLOR16
+#ifdef ALLEGRO_COLOR16
 	 case 15:
 	    stretch_line = stretch_line15;
 	    size = 2;
@@ -326,13 +326,13 @@ static void _al_stretch_blit(BITMAP *src, BITMAP *dst,
 	    size = 2;
 	    break;
 #endif
-#ifdef ALLEGRO_LEGACY_COLOR24
+#ifdef ALLEGRO_COLOR24
 	 case 24:
 	    stretch_line = stretch_line24;
 	    size = 3;
 	    break;
 #endif
-#ifdef ALLEGRO_LEGACY_COLOR32
+#ifdef ALLEGRO_COLOR32
 	 case 32:
 	    stretch_line = stretch_line32;
 	    size = 4;

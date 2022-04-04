@@ -5,10 +5,10 @@
  */
 
 /* Define if you want support for n bpp modes. */
-#undef ALLEGRO_LEGACY_COLOR8
-#undef ALLEGRO_LEGACY_COLOR16
-#undef ALLEGRO_LEGACY_COLOR24
-#undef ALLEGRO_LEGACY_COLOR32
+#undef ALLEGRO_COLOR8
+#undef ALLEGRO_COLOR16
+#undef ALLEGRO_COLOR24
+#undef ALLEGRO_COLOR32
 
 /*---------------------------------------------------------------------------*/
 
