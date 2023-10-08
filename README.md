@@ -60,7 +60,7 @@ variables and functions that Allegro Legacy exposes:
   `screen` to fill the display. Set the `ALLEGRO_MIN_LINEAR` and/or
   `ALLEGRO_MAG_LINEAR` new bitmap flags before calling `set_gfx_mode()` to
   enable bilinear filtering.
-* `bool all_adjust_int(void * proc, double speed)`
+* `bool all_adjust_int(void * proc, double speed)`  
   Adjust the speed of the underlying timer associated with `proc`. This makes
   it possible to take advantage of Allegro 5's more precise timer routines
   without requiring you to write a whole new timing loop. For example:
@@ -70,7 +70,7 @@ variables and functions that Allegro Legacy exposes:
         all_adjust_int(increment_tick, 1.0 / 60.0);
       #endif
 
-* `bool all_wait_for_int(void * proc)`
+* `bool all_wait_for_int(void * proc)`  
   Idle until the underlying timer associated with `proc` ticks. This makes it
   much easier to reduce CPU usage for Allegro 4 style timing loops since we can
   just add a call to this function to the top of the loop. For example:
