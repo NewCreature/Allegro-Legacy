@@ -24,6 +24,8 @@
 typedef struct
 {
 
+    ALLEGRO_EVENT_SOURCE wait_event_source;
+    ALLEGRO_EVENT_QUEUE * wait_queue;
     ALLEGRO_THREAD * thread;
     ALLEGRO_TIMER * timer;
     void (*timer_proc)(void);
@@ -115,6 +117,7 @@ static void * a5_timer_proc(ALLEGRO_THREAD * thread, void * data)
                 timer_data->timer_proc();
             }
             al_unlock_mutex(timers_mutex);
+            al_emit_user_event(&timer_data->wait_event_source, &event, NULL);
             _handle_timer_tick(MSEC_TO_TIMER(diff_time * 1000.0));
         }
     }
@@ -159,10 +162,13 @@ static int _a5_timer_install_int(void (*proc)(void), long speed)
 
     _A5_TIMER_DATA* timer_data = a5_get_free_timer_data();
     if (!timer_data) return -1;
+    if (!timer_data->wait_queue) timer_data->wait_queue = al_create_event_queue();
+    al_init_user_event_source(&timer_data->wait_event_source);
+    al_register_event_source(timer_data->wait_queue, &timer_data->wait_event_source);
     if (!timer_data->thread) timer_data->thread = al_create_thread(a5_timer_proc, timer_data);
     if (!timer_data->timer) timer_data->timer = al_create_timer(a5_get_timer_speed(speed));
     else al_set_timer_speed(timer_data->timer, a5_get_timer_speed(speed));
-    if (!timer_data->thread || !timer_data->timer) return -1;
+    if (!timer_data->wait_queue || !timer_data->thread || !timer_data->timer) return -1;
 
     timer_data->timer_proc = proc;
     al_start_thread(timer_data->thread);
@@ -269,6 +275,52 @@ static void a5_timer_rest(unsigned int time, void (*callback)(void))
     {
         al_rest((double)time / 1000.0);
     }
+}
+
+bool all_adjust_int_speed(void * function_pointer, double speed)
+{
+    int i;
+
+    for(i = 0; i < 32; i++)
+    {
+        if(a5_timer_data[i]->timer_proc == function_pointer || a5_timer_data[i]->param_timer_proc == function_pointer)
+        {
+            break;
+        }
+    }
+    if(i < 32)
+    {
+        al_set_timer_speed(a5_timer_data[i]->timer, speed);
+        return true;
+    }
+    return false;
+}
+
+bool all_wait_for_int(void * function_pointer)
+{
+    ALLEGRO_EVENT event;
+    int i;
+
+    for(i = 0; i < 32; i++)
+    {
+        if(a5_timer_data[i]->timer_proc == function_pointer || a5_timer_data[i]->param_timer_proc == function_pointer)
+        {
+            break;
+        }
+    }
+    if(i < 32)
+    {
+        if(!al_get_timer_started(a5_timer_data[i]->timer))
+        {
+            return false;
+        }
+        while(!al_is_event_queue_empty(a5_timer_data[i]->wait_queue))
+        {
+            al_wait_for_event(a5_timer_data[i]->wait_queue, &event);
+        }
+        return true;
+    }
+    return false;
 }
 
 TIMER_DRIVER timer_allegro5 = {

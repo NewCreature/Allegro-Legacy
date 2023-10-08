@@ -31,6 +31,8 @@ AL_LEGACY_FUNC(void, all_render_a5_bitmap, (BITMAP * bp, ALLEGRO_BITMAP * a5bp))
 AL_LEGACY_FUNC(void, all_render_screen, (void));
 AL_LEGACY_FUNC(void, all_disable_threaded_display, (void));
 AL_LEGACY_FUNC(void, all_set_display_transform, (ALLEGRO_TRANSFORM * transform));
+AL_LEGACY_FUNC(bool, all_adjust_int_speed, (void * function_pointer, double speed));
+AL_LEGACY_FUNC(bool, all_wait_for_int, (void * function_pointer));
 
 #ifdef __cplusplus
 }
