@@ -70,7 +70,7 @@ variables and functions that Allegro Legacy exposes:
         all_adjust_int(increment_tick, 1.0 / 60.0);
       #endif
 
-* `bool`` all_wait_for_int(void * proc)`
+* `bool all_wait_for_int(void * proc)`
   Idle until the underlying timer associated with `proc` ticks. This makes it
   much easier to reduce CPU usage for Allegro 4 style timing loops since we can
   just add a call to this function to the top of the loop. For example:
