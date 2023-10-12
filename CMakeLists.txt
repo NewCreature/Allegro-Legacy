@@ -36,15 +36,15 @@ set(COMPAT_VERSION 4.4.0)
 set(ALLEGRO_LEGACY_DLL_SHORTVER 44)
 
 # Search in the `cmake' directory for additional CMake modules.
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Search for C header files in these directories.
-include_directories(${CMAKE_SOURCE_DIR}/include)
-include_directories(${CMAKE_BINARY_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 include_directories(/usr/local/include)
 
 # Put libraries into `lib'.
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/lib)
 
 # Lists of all the source files.
 include(FileList)
@@ -356,7 +356,7 @@ if(WANT_MODULES AND ALLEGRO_LEGACY_UNIX)
     set(ALLEGRO_LEGACY_WITH_MODULES 1)
     set(ALLEGRO_LEGACY_MODULES_PATH
         ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/allegro/${ALLEGRO_LEGACY_VERSION})
-    install(FILES ${CMAKE_SOURCE_DIR}/modules.lst
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/modules.lst
         DESTINATION "${ALLEGRO_LEGACY_MODULES_PATH}"
         )
 endif(WANT_MODULES AND ALLEGRO_LEGACY_UNIX)
@@ -421,21 +421,21 @@ macro(add_headers location)
 endmacro(add_headers)
 
 configure_file(
-    ${CMAKE_SOURCE_DIR}/include/allegro/platform/alplatf.h.cmake
-    ${CMAKE_BINARY_DIR}/include/allegro/platform/alplatf.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/allegro/platform/alplatf.h.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/include/allegro/platform/alplatf.h
     @ONLY
     )
 add_headers(allegro/platform
-    ${CMAKE_BINARY_DIR}/include/allegro/platform/alplatf.h
+    ${CMAKE_CURRENT_BINARY_DIR}/include/allegro/platform/alplatf.h
     )
 
 if(UNIX)
     configure_file(
-        ${CMAKE_SOURCE_DIR}/include/allegro/platform/alunixac.h.cmake
-        ${CMAKE_BINARY_DIR}/include/allegro/platform/alunixac.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/allegro/platform/alunixac.h.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/include/allegro/platform/alunixac.h
         )
     add_headers(allegro/platform
-        ${CMAKE_BINARY_DIR}/include/allegro/platform/alunixac.h
+        ${CMAKE_CURRENT_BINARY_DIR}/include/allegro/platform/alunixac.h
         )
 endif(UNIX)
 
@@ -584,12 +584,12 @@ if(UNIX) # including MACOSX
     endif()
 
     configure_file(
-        ${CMAKE_SOURCE_DIR}/misc/allegro-config.in
-        ${CMAKE_BINARY_DIR}/allegro-config
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc/allegro-config.in
+        ${CMAKE_CURRENT_BINARY_DIR}/allegro-config
         @ONLY
         )
 
-    install(PROGRAMS ${CMAKE_BINARY_DIR}/allegro-config
+    install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/allegro-config
         DESTINATION bin
         )
 endif(UNIX)
