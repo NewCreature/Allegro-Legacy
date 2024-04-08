@@ -26,6 +26,11 @@ MIDIA5_OUTPUT_HANDLE * midia5_create_output_handle(int device)
 	if(hp)
 	{
 		hp->platform_data = _midia5_init_output_platform_data(hp, device);
+		if(!hp->platform_data)
+		{
+			free(hp);
+			return NULL;
+		}
 		return hp;
 	}
 	return NULL;
