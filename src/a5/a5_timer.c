@@ -73,6 +73,10 @@ static _A5_TIMER_DATA * a5_get_free_timer_data(void)
 
 static void a5_destroy_timer_data(_A5_TIMER_DATA * timer_data)
 {
+    if (timer_data->wait_queue)
+    {
+        al_destroy_event_queue(timer_data->wait_queue);
+    }
     if(timer_data->thread)
     {
         al_destroy_thread(timer_data->thread);

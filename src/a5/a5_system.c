@@ -47,6 +47,9 @@ static void a5_sys_get_executable_name(char *output, int size)
     if(!already_initialized)
     {
         al_init();
+        #ifdef ALLEGRO_WINDOWS
+            al_rest(0.1);
+        #endif
     }
     path = al_get_standard_path(ALLEGRO_EXENAME_PATH);
     if(path)
