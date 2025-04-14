@@ -81,4 +81,6 @@
 #endif
 #include "allegro/platform/ala5.h"
 
+#define _al_strdup _all_strdup
+
 #endif          /* ifndef ALLEGRO_LEGACY_H */
