@@ -82,7 +82,8 @@ static int a5_mouse_init(void)
     }
     a5_mouse_thread = al_create_thread(a5_mouse_thread_proc, NULL);
     al_start_thread(a5_mouse_thread);
-    return 0;
+    // Return number of mouse buttons (Allegro 5 typically reports 3)
+    return al_get_mouse_num_buttons();
 }
 
 static void a5_mouse_exit(void)
